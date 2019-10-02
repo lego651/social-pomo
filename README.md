@@ -32,5 +32,5 @@ if readyCount == 2: 开始count;
 1个page, 2个Components
 
 ### V0.1.0 - a private room for two users to share the same pomodoro
-- [x] Init react project
-- [ ] Add redux reducers
+- [x] 1.Init react project
+- [x] 2.Add redux reducers
