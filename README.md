@@ -1,68 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Why
+1.首先这个很重要，是我每天都会用到的东东
+2.通过这个能管理老婆
+3.利用这个可以和老婆一起学习 booster 解决
+4.带领老婆build future together
 
-## Available Scripts
+What
+v0.1.0
+1.输入 Name + Passowrd 就能进入房间 -> what do you want to focus on?-> Join Room
+2.Chat Room 显示:  Jason Joined the room, I will focus on:
+3.Raise your hand if you are ready. Ready, => 然后此时变成Pomorodo
+4.Jason is ready to start 25 mins journey with you.
+5.Cathy is ready...
+6.两边同时开始计时
 
-In the project directory, you can run:
+Tech Stack:
+Front: React Redux
+Back: Firebase or NodeJS???
 
-### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Do
+>:一定需要添加Firebase的，不然chat messages无法做到同步
+?: Pomodoro时间怎么同步? 肯定需要在Firebase做一个 timestamp
+?: Github 这次需要做到教学水平，怎么去安排?
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+[I am ready] ->
+[I am ready] -> readyCount
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+if readyCount == 2: 开始count;
 
-### `npm run build`
+1个page, 2个Components
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### V0.1.0 - a private room for two users to share the same pomodoro
+- [x] Init react project
+- [ ] Add redux reducers
