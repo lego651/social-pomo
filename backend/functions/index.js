@@ -5,17 +5,29 @@ admin.initializeApp();
 const express = require('express');
 const app = express();
 
+var cors = require('cors')
+app.use(cors());
+
 app.get('/messages', (req, res) => {
-  admin.firestore().collection('messages').get()
+  admin
+    .firestore()
+    .collection('messages')
+    .orderBy('createdAt', 'desc')
+    .onSnapShot()
     .then(snap => {
       let messages = [];
       snap.forEach(doc => {
-        messages.push(doc.data());
+        messages.push({
+            messageId: doc.id,
+            content: doc.data().content,
+            userHandle: doc.data().userHandle,
+            createdAt: doc.data().createdAt
+        });
       })
       return res.json(messages);
     })
     .catch(err => console.error(err));
-})
+});
 
 app.post('/message', (req, res) => {
   const newMessage = {
@@ -32,7 +44,7 @@ app.post('/message', (req, res) => {
       res.status(500).json({ error: 'something went wrong.' });
       console.error(err);
     })
-})
+});
 
 // https://baseurl.com/api/
 exports.api = functions.https.onRequest(app);

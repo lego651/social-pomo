@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-
+// Components
 import Pomodoro from '../../components/Pomodoro';
 import Chatroom from '../../components/Chatroom';
+// Actions
+import { getMessages } from '../../actions';
 import './style.css';
 
 class Room extends Component {
+  componentDidMount() {
+    this.props.getMessages();
+  }
   render(){
     return(
       <div className="room-container">
@@ -15,7 +20,7 @@ class Room extends Component {
             <Pomodoro />
           </Grid>
           <Grid item xs={6}>
-            <Chatroom />
+            <Chatroom messages={this.props.messages}/>
           </Grid>
         </Grid>
       </div>
@@ -23,4 +28,13 @@ class Room extends Component {
   }
 }
 
-export default Room
+const mapStateToProps = (state) => ({
+  messages: state.room.messages,
+});
+const mapDispatchToProps = (dispatch) => ({
+  getMessages: () => dispatch(getMessages()),
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Room);

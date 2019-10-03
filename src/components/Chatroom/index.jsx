@@ -7,7 +7,11 @@ class Chatroom extends Component {
   render(){
     return(
       <div className="chatroom-container">
-        Chatroom
+        {
+          this.props.messages.map(m =>
+            <div key={m.messageId}> {m.content} </div>
+          )
+        }
       </div>
     )
   }
