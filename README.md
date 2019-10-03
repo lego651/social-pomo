@@ -34,3 +34,4 @@ if readyCount == 2: 开始count;
 ### V0.1.0 - a private room for two users to share the same pomodoro
 - [x] 1.Init react project
 - [x] 2.Add redux reducers
+- [ ] 3.Type username and what to focus to join room
