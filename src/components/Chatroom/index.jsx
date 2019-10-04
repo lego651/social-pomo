@@ -26,7 +26,7 @@ class Chatroom extends Component {
     });
   }
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapShot(this.onUpdateMessages);
+    this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
   }
   render(){
     return(
