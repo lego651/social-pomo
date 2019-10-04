@@ -8,26 +8,26 @@ const app = express();
 var cors = require('cors')
 app.use(cors());
 
-app.get('/messages', (req, res) => {
-  admin
-    .firestore()
-    .collection('messages')
-    .orderBy('createdAt', 'desc')
-    .onSnapShot()
-    .then(snap => {
-      let messages = [];
-      snap.forEach(doc => {
-        messages.push({
-            messageId: doc.id,
-            content: doc.data().content,
-            userHandle: doc.data().userHandle,
-            createdAt: doc.data().createdAt
-        });
-      })
-      return res.json(messages);
-    })
-    .catch(err => console.error(err));
-});
+// app.get('/messages', (req, res) => {
+//   admin
+//     .firestore()
+//     .collection('messages')
+//     .orderBy('createdAt', 'desc')
+//     .get()
+//     .then(snap => {
+//       let messages = [];
+//       snap.forEach(doc => {
+//         messages.push({
+//             messageId: doc.id,
+//             content: doc.data().content,
+//             userHandle: doc.data().userHandle,
+//             createdAt: doc.data().createdAt
+//         });
+//       })
+//       return res.json(messages);
+//     })
+//     .catch(err => console.error(err));
+// });
 
 app.post('/message', (req, res) => {
   const newMessage = {
