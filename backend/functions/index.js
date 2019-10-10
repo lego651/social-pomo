@@ -8,26 +8,26 @@ const app = express();
 var cors = require('cors')
 app.use(cors());
 
-// app.get('/messages', (req, res) => {
-//   admin
-//     .firestore()
-//     .collection('messages')
-//     .orderBy('createdAt', 'desc')
-//     .get()
-//     .then(snap => {
-//       let messages = [];
-//       snap.forEach(doc => {
-//         messages.push({
-//             messageId: doc.id,
-//             content: doc.data().content,
-//             userHandle: doc.data().userHandle,
-//             createdAt: doc.data().createdAt
-//         });
-//       })
-//       return res.json(messages);
-//     })
-//     .catch(err => console.error(err));
-// });
+app.get('/messages', (req, res) => {
+  admin
+    .firestore()
+    .collection('messages')
+    .orderBy('createdAt', 'desc')
+    .get()
+    .then(snap => {
+      let messages = [];
+      snap.forEach(doc => {
+        messages.push({
+            messageId: doc.id,
+            content: doc.data().content,
+            userHandle: doc.data().userHandle,
+            createdAt: doc.data().createdAt
+        });
+      })
+      return res.json(messages);
+    })
+    .catch(err => console.error(err));
+});
 
 app.post('/message', (req, res) => {
   const newMessage = {
@@ -43,6 +43,43 @@ app.post('/message', (req, res) => {
     .catch((err) => {
       res.status(500).json({ error: 'something went wrong.' });
       console.error(err);
+    })
+});
+
+// GET request to make readyCount increment by one
+app.get('/readyaddone', (req, res) => {
+  admin
+    .firestore()
+    .doc('/meta/us')
+  	.get()
+  	.then((doc) => {
+  		if(!doc.exists) {
+  			return res.status(400).json({ error: 'this room name does not exist' });
+  		}
+      return doc.data().readyCount;
+  	})
+    .then((prevCount) => {
+      const updateCount = {
+        readyCount: prevCount + 1
+      }
+      admin.firestore().doc('/meta/us').set(updateCount)
+      return res.status(200).json(updateCount);
+    })
+  	.catch((err) => {
+  		console.error(err);
+  		return res.status(500).json({ error: 'Someting went wrong, please try again.' });
+  	})
+});
+
+// GET request to fetch readyCount number
+app.get('/ready', (req, res) => {
+  admin.firestore().doc('/meta/us')
+    .get()
+    .then((doc) => {
+      return res.status(200).json(doc.data());
+    })
+    .catch((err) => {
+      console.log(err)
     })
 });
 

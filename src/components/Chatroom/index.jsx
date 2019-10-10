@@ -13,9 +13,9 @@ class Chatroom extends Component {
       messages: []
     }
   }
-  onUpdateMessages = (snap) => {
+  onUpdateMessages = (snapshot) => {
     const messages = [];
-    snap.forEach((doc) => {
+    snapshot.forEach((doc) => {
       messages.push({
         userHandle: doc.data().userHandle,
         content: doc.data().content
