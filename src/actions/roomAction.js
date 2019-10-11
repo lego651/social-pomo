@@ -20,6 +20,28 @@ export const getMessages = () => (dispatch) => {
       })
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
     })
 }
+
+export const addMessage = (newMessage) => (dispatch) => {
+  axios
+    .post('/message', newMessage)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+// export const getReady = () => (dispatch) => {
+//   axios
+//     .get('/readyaddone')
+//     .then((res) => {
+//       console.log(res);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+// }

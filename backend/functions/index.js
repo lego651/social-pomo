@@ -33,7 +33,7 @@ app.post('/message', (req, res) => {
   const newMessage = {
     content: req.body.content,
     userHandle: req.body.userHandle,
-    createdAt: admin.firestore.Timestamp.fromDate(new Date())
+    createdAt: new Date().toISOString(),
   };
 
   admin.firestore().collection('messages').add(newMessage)
@@ -69,6 +69,31 @@ app.get('/readyaddone', (req, res) => {
   		console.error(err);
   		return res.status(500).json({ error: 'Someting went wrong, please try again.' });
   	})
+});
+
+// GET request to make readyCount decrement by one
+app.get('/readyminusone', (req, res) => {
+  admin
+    .firestore()
+    .doc('/meta/us')
+   .get()
+   .then((doc) => {
+     if(!doc.exists) {
+       return res.status(400).json({ error: 'this room name does not exist' });
+     }
+      return doc.data().readyCount;
+   })
+    .then((prevCount) => {
+      const updateCount = {
+        readyCount: prevCount - 1
+      }
+      admin.firestore().doc('/meta/us').set(updateCount)
+      return res.status(200).json(updateCount);
+    })
+   .catch((err) => {
+     console.error(err);
+     return res.status(500).json({ error: 'Someting went wrong, please try again.' });
+   })
 });
 
 // GET request to fetch readyCount number

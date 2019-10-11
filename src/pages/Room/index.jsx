@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import Pomodoro from '../../components/Pomodoro';
 import Chatroom from '../../components/Chatroom';
 // Actions
-// import { getMessages } from '../../actions';
+// import { getReady } from '../../actions';
 import './style.css';
 
 class Room extends Component {
