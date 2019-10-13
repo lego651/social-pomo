@@ -1,4 +1,4 @@
-export * from './authAction';
+export * from './userAction';
 export * from './roomAction';
 
 export const CONSTANTS = {

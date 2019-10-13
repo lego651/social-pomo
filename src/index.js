@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import jwtDecode from 'jwt-decode';
 
 import './index.css';
 import App from './App';
@@ -10,8 +12,25 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import { logoutUser, getUserData } from './actions';
+import { SET_AUTHENTICATED } from './actions/types';
 
 axios.defaults.baseURL = 'https://us-central1-social-pomo-94112.cloudfunctions.net/api';
+
+const token = localStorage.FBIdToken;
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser());
+    window.location.href = '/login';
+  } else {
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
+  }
+}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,6 +38,8 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/profile" component={Profile} />
       </Switch>
     </Router>
   </Provider>,

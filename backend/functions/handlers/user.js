@@ -1,7 +1,7 @@
 const firebase = require('firebase');
 
 const config = require('../utils/config.js');
-const { validateSignupData } = require('../utils/validators.js');
+const { validateSignupData, validateLoginData } = require('../utils/validators.js');
 const { admin, db } = require('../utils/admin');
 
 // Init Firebase to client side
@@ -12,7 +12,7 @@ exports.signup = (req, res) => {
   const newUser = {
     email: req.body.email,
     password: req.body.password,
-    confirmPassword: req.body.password,
+    confirmPassword: req.body.confirmPassword,
     handle: req.body.handle
   };
 
@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
     .get()
     .then((doc) => {
       if(doc.exists) {
-        return res.json(400).json({ handle: 'this user name is already taken.'});
+        return res.status(400).json({ handle: 'this user name is already taken.'});
       } else {
         return firebase
           .auth()
@@ -88,7 +88,7 @@ exports.login = (req, res) => {
       // auth/user-not-user
       return res
         .status(403)
-        .json({ general: 'Wrong credentials, please try again' });
+        .json({ password: 'Wrong credentials, please try again' });
     });
 };
 
@@ -108,13 +108,13 @@ exports.addUserDetails = (req, res) => {
 };
 
 // Get any user's details
-exports.getProfile = (req, res) => {
+exports.getUserData = (req, res) => {
   let userData = {};
   db.doc(`/users/${req.user.handle}`)
     .get()
     .then((doc) => {
       if (doc.exists) {
-        userData.user = doc.data();
+        userData.profile = doc.data();
         return res.status(200).json(userData);
       } else {
         return res.status(404).json({ errror: 'User not found' });
