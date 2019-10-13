@@ -1,12 +1,21 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-admin.initializeApp();
+const { signup, login, addUserDetails, getProfile } = require('./handlers/user.js');
+const FBAuth = require('./utils/fbAuth');
+
+// admin.initializeApp();
 const express = require('express');
 const app = express();
 
 var cors = require('cors')
 app.use(cors());
+
+// User Auth Routes
+app.post('/signup', signup);
+app.post('/login', login);
+app.post('/user', FBAuth, addUserDetails);
+app.get('/profile', FBAuth, getProfile);
 
 app.get('/messages', (req, res) => {
   admin
