@@ -14,8 +14,10 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import Room from './pages/Room';
 import { logoutUser, getUserData } from './actions';
 import { SET_AUTHENTICATED } from './actions/types';
+import requiresAuth from './utils/requiresAuth';
 
 axios.defaults.baseURL = 'https://us-central1-social-pomo-94112.cloudfunctions.net/api';
 
@@ -39,7 +41,8 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/profile" component={requiresAuth(Profile)} />
+        <Route exact path="/room" component={requiresAuth(Room)} />
       </Switch>
     </Router>
   </Provider>,

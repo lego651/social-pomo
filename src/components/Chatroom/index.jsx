@@ -86,7 +86,7 @@ class Chatroom extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  username: state.auth.username
+  username: state.user.profile.handle
 })
 const mapDispatchToProps = (dispatch) => ({
   addMessage: (newMessage) => dispatch(addMessage(newMessage)),

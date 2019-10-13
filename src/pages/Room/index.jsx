@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
-// Components
+import { Container, Row, Col } from 'react-bootstrap';
+
 import Pomodoro from '../../components/Pomodoro';
 import Chatroom from '../../components/Chatroom';
-// Actions
-// import { getReady } from '../../actions';
-import './style.css';
+
+import './style.scss';
 
 class Room extends Component {
   render(){
     return(
       <div className="room-container">
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
+        <Row>
+          <Col md={6} sm={12}>
             <Pomodoro />
-          </Grid>
-          <Grid item xs={6}>
+          </Col>
+          <Col md={6} sm={12}>
             <Chatroom />
-          </Grid>
-        </Grid>
+          </Col>
+        </Row>
       </div>
     )
   }
 }
 
-export default Room
-// const mapStateToProps = (state) => ({
-//   messages: state.room.messages,
-// });
-// const mapDispatchToProps = (dispatch) => ({
-//   getMessages: () => dispatch(getMessages()),
-// });
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Room);
+export default Room;
