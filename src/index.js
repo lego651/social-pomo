@@ -18,6 +18,7 @@ import Room from './pages/Room';
 import { logoutUser, getUserData } from './actions';
 import { SET_AUTHENTICATED } from './actions/types';
 import requiresAuth from './utils/requiresAuth';
+import { history } from './utils/history';
 
 axios.defaults.baseURL = 'https://us-central1-social-pomo-94112.cloudfunctions.net/api';
 
@@ -36,7 +37,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Badge, Button } from 'react-bootstrap';
 
 import { logoutUser } from '../../actions'
+import WhatTodo from '../../components/WhatTodo'
 import './style.scss';
 
 class Profile extends Component {
@@ -10,6 +11,7 @@ class Profile extends Component {
     this.props.logoutUser();
   }
   render(){
+    const _history = this.props.history;
     return(
       <div className="signup-container">
         <Badge pill variant="success"> Profile </Badge>
@@ -19,6 +21,7 @@ class Profile extends Component {
           onClick={() => { this.handleClick() }}>
           log out
         </Button>
+        <WhatTodo history={_history}/>
       </div>
     )
   }

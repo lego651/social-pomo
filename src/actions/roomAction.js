@@ -1,5 +1,10 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
+
 import { CONSTANTS } from '../actions';
+import { history } from '../utils/history';
+
+
 
 export const loginUser = (username) => {
   return dispatch => {
@@ -33,6 +38,12 @@ export const addMessage = (newMessage) => (dispatch) => {
     .catch((err) => {
       console.log(err);
     })
+}
+
+export const joinRoom = (taskObj, history) => (dispatch) => {
+  console.log(taskObj);
+  // dispatch(push('/room'));
+  history.push('/room');
 }
 
 // export const getReady = () => (dispatch) => {
