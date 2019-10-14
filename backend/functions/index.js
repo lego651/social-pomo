@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 const { signup, login, addUserDetails, getUserData } = require('./handlers/user.js');
+const { createRoom } = require('./handlers/room.js');
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -16,6 +17,9 @@ app.post('/signup', signup);
 app.post('/login', login);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getUserData);
+
+// Room Routes
+app.post('/room', FBAuth, createRoom);
 
 app.get('/messages', (req, res) => {
   admin
