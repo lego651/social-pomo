@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 
 import { CONSTANTS } from '../actions';
-import { history } from '../utils/history';
+// import { history } from '../utils/history';
 
 
 
