@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 const { signup, login, addUserDetails, getUserData } = require('./handlers/user.js');
-const { createRoom, addMessage, joinRoom } = require('./handlers/room.js');
+const { createRoom, addMessage, joinRoom, countAddOne } = require('./handlers/room.js');
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -22,6 +22,7 @@ app.get('/user', FBAuth, getUserData);
 app.post('/room', FBAuth, createRoom);
 app.post('/message', FBAuth, addMessage);
 app.post('/joinroom', FBAuth, joinRoom);
+app.post('/countaddone', FBAuth, countAddOne);
 
 app.get('/messages', (req, res) => {
   admin

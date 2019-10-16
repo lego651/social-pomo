@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import Chatroom from '../../components/Chatroom';
+import Pomodoro from '../../components/Pomodoro';
 import './style.scss';
 
 class Room extends Component {
@@ -10,7 +11,16 @@ class Room extends Component {
     const { roomname } = this.props.match.params
     return(
       <div className="room-container">
-        <Chatroom roomname={roomname} />
+        <Container>
+          <Row>
+            <Col>
+              <Pomodoro roomName={roomname} />
+            </Col>
+            <Col>
+              <Chatroom roomname={roomname} />
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }

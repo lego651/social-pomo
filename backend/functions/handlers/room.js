@@ -19,6 +19,7 @@ exports.createRoom = (req, res) => {
   }
   const newRoom = {
     roomName: roomName,
+    count: 0,
     people: [person],
     createdAt: new Date().toISOString()
   }
@@ -92,6 +93,28 @@ exports.joinRoom = (req, res) => {
       return db.collection(`/rooms/${roomName}/messages`).add(newMessage);
     })
     .catch((err) => {
-      return res.status(500).json({ error: err.code})
+      return res.status(500).json({ error: err.code });
+    })
+}
+
+// POST: room count add one
+exports.countAddOne = (req, res) => {
+  db.doc(`/rooms/${req.body.roomName}`)
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(400).json({ error: 'this room name does not exist' });
+      }
+       return doc.data().count;
+    })
+    .then((prevCount) => {
+      const updateCount = {
+        count: prevCount + 1
+      }
+      db.doc(`/rooms/${req.body.roomName}`).update(updateCount);
+      return res.status(200).json(updateCount);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.code });
     })
 }
