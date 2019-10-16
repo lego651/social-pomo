@@ -14,6 +14,7 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import RoomOld from './pages/RoomOld';
 import Room from './pages/Room';
 import { logoutUser, getUserData } from './actions';
 import { SET_AUTHENTICATED } from './actions/types';
@@ -43,7 +44,8 @@ ReactDOM.render(
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/profile" component={requiresAuth(Profile)} />
-        <Route exact path="/room" component={requiresAuth(Room)} />
+        <Route exact path="/roomold" component={requiresAuth(RoomOld)} />
+        <Route exact path="/room/:roomname" component={Room} />
       </Switch>
     </Router>
   </Provider>,

@@ -12,8 +12,8 @@ import { TextField, Button } from '@material-ui/core';
 
 class Chatroom extends Component {
   constructor(props) {
-    super(props);
-    this.ref = firebase.firestore().collection('messages');
+    super(props)
+    this.ref = firebase.firestore().collection('rooms').doc(this.props.roomname).collection('messages');
     this.unsubscribe = null;
     this.state = {
       messages: [],
@@ -23,6 +23,7 @@ class Chatroom extends Component {
   onUpdateMessages = (snapshot) => {
     const messages = [];
     snapshot.forEach((doc) => {
+      console.log(doc.data())
       messages.push({
         userHandle: doc.data().userHandle,
         content: doc.data().content,
@@ -43,7 +44,8 @@ class Chatroom extends Component {
     e.preventDefault();
     const newMessage = {
       userHandle: this.props.username,
-      content: this.state.content
+      content: this.state.content,
+      roomName: this.props.roomname
     }
     this.props.addMessage(newMessage);
     this.setState({
@@ -52,6 +54,7 @@ class Chatroom extends Component {
   }
   componentDidMount() {
     this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
+    // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
   }
   render(){
     return(

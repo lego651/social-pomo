@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Badge, Button } from 'react-bootstrap';
+import { Badge, Button, Container, Row, Col, Jumbotron } from 'react-bootstrap';
 
-import { logoutUser } from '../../actions'
-import WhatTodo from '../../components/WhatTodo'
+import { logoutUser } from '../../actions';
+import CreateRoom from '../../components/CreateRoom';
+import JoinRoom from '../../components/JoinRoom';
 import './style.scss';
 
 class Profile extends Component {
@@ -14,14 +15,27 @@ class Profile extends Component {
     const _history = this.props.history;
     return(
       <div className="signup-container">
-        <Badge pill variant="success"> Profile </Badge>
-        {this.props.user.profile.handle}
-        <Button
-          variant="primary"
-          onClick={() => { this.handleClick() }}>
-          log out
-        </Button>
-        <WhatTodo history={_history}/>
+        <Container>
+          <Row>
+            <Col md={3}>
+              <Badge pill variant="success"> Profile </Badge>
+              {this.props.user.profile.handle}
+              <Button
+                variant="primary"
+                onClick={() => { this.handleClick() }}>
+                log out
+              </Button>
+              </Col>
+            <Col md={9}>
+              <Jumbotron>
+                <CreateRoom history={_history} />
+              </Jumbotron>
+              <Jumbotron>
+                <JoinRoom history={_history} />
+              </Jumbotron>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }

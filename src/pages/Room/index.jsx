@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import Pomodoro from '../../components/Pomodoro';
 import Chatroom from '../../components/Chatroom';
-
 import './style.scss';
 
 class Room extends Component {
   render(){
+    const { roomname } = this.props.match.params
     return(
       <div className="room-container">
-        <Row>
-          <Col md={6} sm={12}>
-            <Pomodoro />
-          </Col>
-          <Col md={6} sm={12}>
-            <Chatroom />
-          </Col>
-        </Row>
+        <Chatroom roomname={roomname} />
       </div>
     )
   }
