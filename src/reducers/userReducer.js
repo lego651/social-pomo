@@ -3,7 +3,9 @@ import { CONSTANTS } from '../actions';
 import {
   SET_USER,
   SET_AUTHENTICATED,
-  SET_UNAUTHENTICATED
+  SET_UNAUTHENTICATED,
+  ADD_PROJECT,
+  DELETE_PROJECT,
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +33,22 @@ const authReducer = (state=initialState, action) => {
         authenticated: true,
         loading: false,
         profile: action.payload.profile
+      }
+    case ADD_PROJECT:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          projects: [...state.profile.projects, action.payload.project]
+        }
+      }
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          projects: state.profile.projects.filter(val => val !== action.payload.project)
+        }
       }
     default:
       return state;

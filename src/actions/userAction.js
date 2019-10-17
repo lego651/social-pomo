@@ -7,7 +7,9 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  MARK_NOTIFICATIONS_READ
+  MARK_NOTIFICATIONS_READ,
+  ADD_PROJECT,
+  DELETE_PROJECT,
 } from './types';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -73,3 +75,33 @@ export const logoutUser = () => (dispatch) => {
   dispatch({ type: SET_UNAUTHENTICATED });
   window.location.href = '/login';
 };
+
+export const addProject = (projectName) => (dispatch) => {
+  const newProject = {
+    project: projectName
+  }
+  axios
+    .post('/project', newProject)
+    .then((res) => {
+      dispatch({
+        type: ADD_PROJECT,
+        payload: newProject
+      })
+    })
+    .catch((err) => console.log(err));
+}
+
+export const deleteProject = (projectName) => (dispatch) => {
+  const projectToDelete = {
+    project: projectName
+  }
+  axios
+    .delete('/project', projectToDelete)
+    .then((res) => {
+      dispatch({
+        type: DELETE_PROJECT,
+        payload: projectToDelete
+      })
+    })
+    .catch((err) => console.log(err));
+}
