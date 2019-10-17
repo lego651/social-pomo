@@ -44,6 +44,10 @@ exports.signup = (req, res) => {
         email: newUser.email,
         createdAt: new Date().toISOString(),
         userId,
+        allowed: true,
+        inRoom: null,
+        projects: [],
+        tags: []
       };
       return db.doc(`/users/${newUser.handle}`).set(userCredentials);
     })
@@ -125,3 +129,43 @@ exports.getUserData = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+// POST: add project name to user's projects
+exports.addProject = (req, res) => {
+  const updatedProjects = {
+    projects: admin.firestore.FieldValue.arrayUnion(req.body.project)
+  }
+  db.doc(`/users/${req.user.handle}`)
+    .update(updatedProjects)
+  return res.status(200).json({success: 'new project added.'});
+}
+
+// DELETE: delete project name from user's projects
+exports.deleteProject = (req, res) => {
+  const updatedProjects = {
+    projects: admin.firestore.FieldValue.arrayRemove(req.body.project)
+  }
+  db.doc(`/users/${req.user.handle}`)
+    .update(updatedProjects)
+  return res.status(200).json({success: 'project deleted.'});
+}
+
+// POST: add new tag name to user's tags
+exports.addTag = (req, res) => {
+  const updatedTags = {
+    tags: admin.firestore.FieldValue.arrayUnion(req.body.tag)
+  }
+  db.doc(`/users/${req.user.handle}`)
+    .update(updatedTags)
+  return res.status(200).json({success: 'new tag name added.'});
+}
+
+// DELETE: delete project name from user's projects
+exports.deleteTag = (req, res) => {
+  const updatedTags = {
+    tags: admin.firestore.FieldValue.arrayRemove(req.body.tag)
+  }
+  db.doc(`/users/${req.user.handle}`)
+    .update(updatedTags)
+  return res.status(200).json({success: 'selected tag name deleted.'});
+}
