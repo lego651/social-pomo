@@ -6,7 +6,9 @@ export const SET_USER = 'SET_USER';
 export const LOADING_USER = 'LOADING_USER';
 export const MARK_NOTIFICATIONS_READ = 'MARK_NOTIFICATIONS_READ';
 export const ADD_PROJECT = 'ADD_PROJECT';
-export const DELETE_PROJECT = 'DELETE_PROJECT';
+export const REMOVE_PROJECT = 'REMOVE_PROJECT';
+export const ADD_TAG = 'ADD_TAG';
+export const REMOVE_TAG = 'REMOVE_TAG';
 
 // UI reducer types
 export const SET_ERRORS = 'SET_ERRORS';

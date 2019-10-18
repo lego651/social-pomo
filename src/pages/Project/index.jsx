@@ -4,7 +4,7 @@ import { Table, Button, Container, Row, Col } from 'react-bootstrap';
 
 import './style.scss';
 import MyModal from '../../components/MyModal';
-import { addProject, deleteProject } from '../../actions';
+import { addProject, removeProject } from '../../actions';
 
 class Project extends Component {
   constructor(props) {
@@ -20,6 +20,10 @@ class Project extends Component {
   }
   addProject = (project) => {
     this.props.addProject(project);
+  }
+  removeProject = (project) => {
+    console.log('data is ', project);
+    this.props.removeProject(project.trim());
   }
   render(){
     console.log(this.props.user.profile.projects);
@@ -52,7 +56,7 @@ class Project extends Component {
                         <td> {project} </td>
                         <td>
                           <Button
-                            onClick={() => { this.props.deleteProject(project)} }
+                            onClick={() => { this.removeProject(project)} }
                             variant="outline-danger">
                             X
                           </Button>
@@ -81,5 +85,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { addProject, deleteProject }
+  { addProject, removeProject }
 )(Project);

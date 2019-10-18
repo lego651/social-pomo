@@ -9,7 +9,9 @@ import {
   LOADING_USER,
   MARK_NOTIFICATIONS_READ,
   ADD_PROJECT,
-  DELETE_PROJECT,
+  REMOVE_PROJECT,
+  ADD_TAG,
+  REMOVE_TAG,
 } from './types';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -91,16 +93,46 @@ export const addProject = (projectName) => (dispatch) => {
     .catch((err) => console.log(err));
 }
 
-export const deleteProject = (projectName) => (dispatch) => {
-  const projectToDelete = {
+export const removeProject = (projectName) => (dispatch) => {
+  const projectToRemove = {
     project: projectName
   }
   axios
-    .delete('/project', projectToDelete)
+    .post('/project/remove', projectToRemove)
     .then((res) => {
       dispatch({
-        type: DELETE_PROJECT,
-        payload: projectToDelete
+        type: REMOVE_PROJECT,
+        payload: projectToRemove
+      })
+    })
+    .catch((err) => console.log(err));
+}
+
+export const addTag = (tagName) => (dispatch) => {
+  const newTag = {
+    tag: tagName
+  }
+  axios
+    .post('/tag', newTag)
+    .then((res) => {
+      dispatch({
+        type: ADD_TAG,
+        payload: newTag
+      })
+    })
+    .catch((err) => console.log(err));
+}
+
+export const removeTag = (tagName) => (dispatch) => {
+  const tagToRemove = {
+    tag: tagName
+  }
+  axios
+    .post('/tag/remove', tagToRemove)
+    .then((res) => {
+      dispatch({
+        type: REMOVE_TAG,
+        payload: tagToRemove
       })
     })
     .catch((err) => console.log(err));

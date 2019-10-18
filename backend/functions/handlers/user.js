@@ -140,14 +140,14 @@ exports.addProject = (req, res) => {
   return res.status(200).json({success: 'new project added.'});
 }
 
-// DELETE: delete project name from user's projects
-exports.deleteProject = (req, res) => {
+// POST: remove project name from user's projects
+exports.removeProject = (req, res) => {
   const updatedProjects = {
     projects: admin.firestore.FieldValue.arrayRemove(req.body.project)
   }
   db.doc(`/users/${req.user.handle}`)
     .update(updatedProjects)
-  return res.status(200).json({success: 'project deleted.'});
+  return res.status(200).json({success: 'selected project name removed.'});
 }
 
 // POST: add new tag name to user's tags
@@ -160,12 +160,12 @@ exports.addTag = (req, res) => {
   return res.status(200).json({success: 'new tag name added.'});
 }
 
-// DELETE: delete project name from user's projects
-exports.deleteTag = (req, res) => {
+// POST: remove tag name from user's tags
+exports.removeTag = (req, res) => {
   const updatedTags = {
     tags: admin.firestore.FieldValue.arrayRemove(req.body.tag)
   }
   db.doc(`/users/${req.user.handle}`)
     .update(updatedTags)
-  return res.status(200).json({success: 'selected tag name deleted.'});
+  return res.status(200).json({success: 'selected tag name removed.'});
 }

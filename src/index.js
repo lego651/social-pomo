@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import RoomOld from './pages/RoomOld';
 import Room from './pages/Room';
 import Project from './pages/Project';
+import Tag from './pages/Tag';
 import { logoutUser, getUserData } from './actions';
 import { SET_AUTHENTICATED } from './actions/types';
 import requiresAuth from './utils/requiresAuth';
@@ -48,6 +49,7 @@ ReactDOM.render(
         <Route exact path="/roomold" component={requiresAuth(RoomOld)} />
         <Route exact path="/room/:roomname" component={Room} />
         <Route exact path="/project" component={requiresAuth(Project)} />
+        <Route exact path="/tag" component={requiresAuth(Tag)} />
       </Switch>
     </Router>
   </Provider>,

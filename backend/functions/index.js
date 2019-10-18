@@ -6,9 +6,9 @@ const { signup,
         addUserDetails,
         getUserData,
         addProject,
-        deleteProject,
+        removeProject,
         addTag,
-        deleteTag } = require('./handlers/user.js');
+        removeTag } = require('./handlers/user.js');
 const { createRoom,
         addMessage,
         joinRoom,
@@ -28,9 +28,9 @@ app.post('/login', login);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getUserData);
 app.post('/project', FBAuth, addProject);
-app.delete('/project', FBAuth, deleteProject);
+app.post('/project/remove', FBAuth, removeProject);
 app.post('/tag', FBAuth, addTag);
-app.delete('/tag', FBAuth, deleteTag);
+app.post('/tag/remove', FBAuth, removeTag);
 
 // Room Routes
 app.post('/room', FBAuth, createRoom);

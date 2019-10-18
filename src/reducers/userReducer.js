@@ -5,7 +5,9 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   ADD_PROJECT,
-  DELETE_PROJECT,
+  REMOVE_PROJECT,
+  ADD_TAG,
+  REMOVE_TAG,
 } from '../actions/types';
 
 const initialState = {
@@ -42,12 +44,28 @@ const authReducer = (state=initialState, action) => {
           projects: [...state.profile.projects, action.payload.project]
         }
       }
-    case DELETE_PROJECT:
+    case REMOVE_PROJECT:
       return {
         ...state,
         profile: {
           ...state.profile,
           projects: state.profile.projects.filter(val => val !== action.payload.project)
+        }
+      }
+    case ADD_TAG:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          tags: [...state.profile.tags, action.payload.tag]
+        }
+      }
+    case REMOVE_TAG:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          projects: state.profile.tags.filter(val => val !== action.payload.tag)
         }
       }
     default:
