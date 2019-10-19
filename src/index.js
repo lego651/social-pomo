@@ -49,7 +49,6 @@ ReactDOM.render(
         <Route exact path="/roomold" component={requiresAuth(RoomOld)} />
         <Route exact path="/room/:roomname" component={Room} />
         <Route exact path="/project" component={requiresAuth(Project)} />
-        <Route exact path="/tag" component={requiresAuth(Tag)} />
       </Switch>
     </Router>
   </Provider>,
