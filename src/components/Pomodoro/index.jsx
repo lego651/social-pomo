@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 
+import './style.scss';
 import { parseTime } from '../../utils/util.js';
 import firebase from '../../utils/firebase.js';
-import './style.scss';
+import ModalPomo from '../ModalPomo';
+import alertAudio from '../../assets/alert.mp3';
 
 class Pomodoro extends Component {
   constructor(props) {
@@ -13,21 +15,25 @@ class Pomodoro extends Component {
     const roomName = this.props.roomName;
     this.ref = firebase.firestore().collection('rooms').doc(roomName);
     this.unsubsrcibe = null;
+    this.audio = new Audio(alertAudio);
     this.state = {
       sec: 10,
-      on: false
+      on: false,
+      modalShow: false,
     }
   }
   count = () => {
     if(this.state.on) {
       if(this.state.sec > 0) {
         this.setState(prevState => ({ sec: prevState.sec - 1 }))
+      } else {
+        this.audio.play();
+        this.setState({
+          on: false,
+          modalShow: true,
+          sec: 10,
+        });
       }
-    } else {
-      this.setState({
-        sec: 0,
-        on: false
-      })
     }
   }
   start = () => {
@@ -85,12 +91,18 @@ class Pomodoro extends Component {
       this.reset();
     }
   }
+  setModalShow = (bool) => {
+    this.setState({
+      modalShow: bool
+    })
+  }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
   render() {
     return (
-      <div>
+      <div className="pomodoro-container">
+        <Container>
         Pomodoro
         <h2> {parseTime(this.state.sec)} </h2>
         {
@@ -110,6 +122,11 @@ class Pomodoro extends Component {
                 Start
               </Button>
         }
+        </Container>
+        <ModalPomo
+          show={this.state.modalShow}
+          onHide={() => this.setModalShow(false)}
+        />
       </div>
     )
   }

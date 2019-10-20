@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import Chatroom from '../../components/Chatroom';
 import Pomodoro from '../../components/Pomodoro';
+import WhatTodo from '../../components/WhatTodo';
 import './style.scss';
 
 class Room extends Component {
@@ -15,6 +16,7 @@ class Room extends Component {
           <Row>
             <Col>
               <Pomodoro roomName={roomname} />
+              <WhatTodo />
             </Col>
             <Col>
               <Chatroom roomname={roomname} />
