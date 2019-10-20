@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Badge, Button, Container, Row, Col, Jumbotron } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { logoutUser } from '../../actions';
 import CreateRoom from '../../components/CreateRoom';
@@ -24,6 +25,10 @@ class Profile extends Component {
                 variant="primary"
                 onClick={() => { this.handleClick() }}>
                 log out
+              </Button>
+              <Button
+                variant="primary" >
+                <Link to="/project"> Project </Link>
               </Button>
               </Col>
             <Col md={9}>
