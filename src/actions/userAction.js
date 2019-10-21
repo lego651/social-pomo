@@ -12,6 +12,7 @@ import {
   REMOVE_PROJECT,
   ADD_TAG,
   REMOVE_TAG,
+  SET_TODO,
 } from './types';
 
 export const loginUser = (userData, history) => (dispatch) => {
@@ -133,6 +134,23 @@ export const removeTag = (tagName) => (dispatch) => {
       dispatch({
         type: REMOVE_TAG,
         payload: tagToRemove
+      })
+    })
+    .catch((err) => console.log(err));
+}
+
+export const addTodo = (todo, roomName, handle) => (dispatch) => {
+  const newMessage = {
+    content: `${handle} commit to work on: ${todo}.`,
+    roomName: roomName,
+    userHandle: handle
+  }
+  axios
+    .post('/message', newMessage)
+    .then((res) => {
+      dispatch({
+        type: SET_TODO,
+        payload: todo
       })
     })
     .catch((err) => console.log(err));

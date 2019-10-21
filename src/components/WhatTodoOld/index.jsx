@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
 import './style.scss';
-import { addTodo } from '../../actions';
+import { joinRoom } from '../../actions';
 // import { addMessage } from '../../actions';
 
 class WhatTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      messages: [],
       content: ''
     }
   }
@@ -20,10 +21,10 @@ class WhatTodo extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addTodo(this.state.content, this.props.roomName, this.props.user.profile.handle);
-    this.setState({
-      content: ''
-    })
+    const taskObj = {
+      task: 'finish'
+    };
+    this.props.joinRoom(taskObj, this.props.history);
   }
   render(){
     return(
@@ -34,14 +35,31 @@ class WhatTodo extends Component {
             <Form.Control
               type="text"
               placeholder="Enter your task"
-              name="content"
-              onChange={(e) => {this.handleChange(e)}}
-              value={this.state.content}
             />
           </Form.Group>
 
+          <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label> select project </Form.Label>
+            <Form.Control as="select">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="exampleForm.ControlSelect2">
+            <Form.Label> Add Tag </Form.Label>
+            <Form.Control as="select">
+              <option>a</option>
+              <option>b</option>
+              <option>c</option>
+            </Form.Control>
+          </Form.Group>
+
           <Button variant="primary" type="submit">
-            Send to chat.
+            Join Room
           </Button>
         </Form>
       </div>
@@ -56,5 +74,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { addTodo }
+  { joinRoom }
 )(WhatTodo);

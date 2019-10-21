@@ -16,7 +16,7 @@ class Room extends Component {
           <Row>
             <Col>
               <Pomodoro roomName={roomname} />
-              <WhatTodo />
+              <WhatTodo roomName={roomname} />
             </Col>
             <Col>
               <Chatroom roomname={roomname} />

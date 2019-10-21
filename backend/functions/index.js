@@ -13,6 +13,7 @@ const { createRoom,
         addMessage,
         joinRoom,
         countAddOne } = require('./handlers/room.js');
+const { createPomo } = require('./handlers/pomo.js');
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -38,6 +39,8 @@ app.post('/message', FBAuth, addMessage);
 app.post('/joinroom', FBAuth, joinRoom);
 app.post('/countaddone', FBAuth, countAddOne);
 
+// Pomo Routes
+app.post('/pomo', FBAuth, createPomo);
 
 app.get('/messages', (req, res) => {
   admin

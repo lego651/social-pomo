@@ -8,11 +8,13 @@ import {
   REMOVE_PROJECT,
   ADD_TAG,
   REMOVE_TAG,
+  SET_TODO,
 } from '../actions/types';
 
 const initialState = {
   authenticated: false,
   loading: false,
+  todo: '',
   profile: {}
 }
 
@@ -67,6 +69,11 @@ const authReducer = (state=initialState, action) => {
           ...state.profile,
           projects: state.profile.tags.filter(val => val !== action.payload.tag)
         }
+      }
+    case SET_TODO:
+      return {
+        ...state,
+        todo: action.payload
       }
     default:
       return state;
