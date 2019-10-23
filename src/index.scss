@@ -1,0 +1,21 @@
+
+$primary-color: rgba(254,112,95,.75);
+$bg-color-light: rgba(247,249,252,.9);
+
+
+body,
+html,
+div#root,
+h1
+{
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  // color: red;
+}
+
+body {
+  background-color: $bg-color-light;
+}

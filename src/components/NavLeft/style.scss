@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600&display=swap');
+@import "../../index.scss";
+
+.navleft-container {
+  background-color: white;
+  box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+  padding: 30px 20px;
+
+  .navleft-user {
+    text-align: center;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+    }
+    p {
+      margin-top: 10px;
+      color: #323a46;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+  }
+  ul.navs {
+    list-style-type: none;
+    padding: 5px 0px;
+    color: #6c757d;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    // font-size: .9rem;
+    li {
+      cursor: pointer;
+      span {
+        display: inline-block;
+        width: 50px;
+        text-align: center;
+      }
+      margin: 18px 0px;
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a.active {
+        color: $primary-color;
+      }
+    }
+    li:hover {
+      color: $primary-color;
+    }
+  }
+}

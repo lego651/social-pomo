@@ -12,7 +12,7 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
-import Profile from './pages/Profile';
+import Overview from './pages/Overview';
 import Login from './pages/Login';
 import RoomOld from './pages/RoomOld';
 import Room from './pages/Room';
@@ -45,7 +45,7 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/profile" component={requiresAuth(Profile)} />
+        <Route exact path="/overview" component={requiresAuth(Overview)} />
         <Route exact path="/roomold" component={requiresAuth(RoomOld)} />
         <Route exact path="/room/:roomname" component={Room} />
         <Route exact path="/project" component={requiresAuth(Project)} />

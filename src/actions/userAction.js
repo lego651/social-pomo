@@ -23,7 +23,7 @@ export const loginUser = (userData, history) => (dispatch) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
-      history.push('/profile');
+      history.push('/overview');
     })
     .catch((err) => {
       console.log(err);
@@ -43,7 +43,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
-      history.push('/profile');
+      history.push('/overview');
     })
     .catch((err) => {
       dispatch({
