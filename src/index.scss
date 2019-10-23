@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap');
 
 $primary-color: rgba(254,112,95,.75);
+$primary-green: rgb(0,196,112);
+$primary-blue: rgb(73,111,234);
 $bg-color-light: rgba(247,249,252,.9);
-
+$bg-color-green: rgba(16,196,105,.25);
+$bg-color-blue: rgba(83,109,230,.25);
 
 body,
 html,
@@ -12,8 +16,23 @@ h1
   padding: 0;
 }
 
-h1 {
-  // color: red;
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6c757d;
+  font-family: 'Nunito', sans-serif;
+}
+h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #6c757d;
+  font-family: 'Nunito', sans-serif;
+}
+h5 {
+  font-size: 15px;
+  color: #98a6ad;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
 }
 
 body {

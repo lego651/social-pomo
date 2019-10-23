@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { Container, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import { faFileAlt, faTags, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faTags, faTachometerAlt, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import Icon from '@mdi/react';
 import { mdiTagOutline } from '@mdi/js';
 
@@ -33,6 +33,13 @@ class NavLeft extends Component {
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
               Overview
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/room"}
+                     activeClassName="active">
+              <span><FontAwesomeIcon icon={faDoorOpen} /></span>
+              Room
             </NavLink>
           </li>
           <li>
