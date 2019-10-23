@@ -51,6 +51,7 @@ class Login extends Component {
                       placeholder="Enter email"
                       name="email"
                       onChange={(e) => {this.handleChange(e)}}
+                      value={this.state.email}
                       isInvalid={!!errors.email}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -67,6 +68,7 @@ class Login extends Component {
                       placeholder="Password"
                       name="password"
                       onChange={(e) => {this.handleChange(e)}}
+                      value={this.state.password}
                       isInvalid={!!errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
