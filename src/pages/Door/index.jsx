@@ -10,6 +10,7 @@ import CreateRoom from '../../components/CreateRoom';
 import JoinRoom from '../../components/JoinRoom';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import InRoom from './components/InRoom';
 import './style.scss';
 
 class Door extends Component {
@@ -30,6 +31,17 @@ class Door extends Component {
               <div className="door-header">
                 <h3> Room </h3>
               </div>
+              <Row>
+                <Col>
+                  <InRoom />
+                </Col>
+                <Col>
+                  Join Room
+                </Col>
+                <Col>
+                  Create Room
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>
