@@ -2,18 +2,19 @@
 
 .inroom-container {
   width: 100%;
+  height: 300px;
   text-align: center;
   background-color: white;
-  padding: 30px;
+  padding: 15px;
   box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
   img {
-    width: 80%;
+    width: 75%;
     z-index: 1001;
     margin: 25px auto;
   }
   button {
     color: white;
-    background: $primary-green;
+    background: $primary-color;
     border: none;
     border-radius: 40px;
     padding: 7px 40px;
@@ -23,6 +24,6 @@
     }
   }
   button:hover {
-    background: $primary-green;
+    background: $primary-color;
   }
 }

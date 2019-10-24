@@ -19,7 +19,7 @@ class InRoom extends Component {
         <img src={coWorking} />
         <Button>
           <Link to="/overview">
-            Join In
+            Enter
           </Link>
         </Button>
       </div>

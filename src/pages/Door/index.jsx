@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-svg-icons';
 
 import { logoutUser } from '../../actions';
-import CreateRoom from '../../components/CreateRoom';
-import JoinRoom from '../../components/JoinRoom';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import InRoom from './components/InRoom';
+import JoinRoom from './components/JoinRoom';
+import CreateRoom from './components/CreateRoom';
 import './style.scss';
 
 class Door extends Component {
@@ -36,10 +36,10 @@ class Door extends Component {
                   <InRoom />
                 </Col>
                 <Col>
-                  Join Room
+                  <JoinRoom />
                 </Col>
                 <Col>
-                  Create Room
+                  <CreateRoom />
                 </Col>
               </Row>
             </Col>
