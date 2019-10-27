@@ -11,8 +11,20 @@ class JoinRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      roomName: ''
     }
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const existingRoom = {
+      roomName: this.state.roomName
+    }
+    this.props.onJoinRoom(existingRoom, this.props.history);
   }
   render(){
     return(
@@ -21,8 +33,10 @@ class JoinRoom extends Component {
         <img src={joinRoom} />
         <div className="joinroom-form">
           <input type="text"
-                 placeholder="Enter room name" />
-          <span>
+                 placeholder="Enter room name"
+                 name="roomName"
+                 onChange={(e) => {this.handleChange(e)}} />
+          <span onClick={(e) => {this.handleSubmit(e)}}>
             <FontAwesomeIcon icon={faArrowAltCircleRight} />
           </span>
         </div>
