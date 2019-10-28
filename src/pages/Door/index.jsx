@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-svg-icons';
 
-import { logoutUser } from '../../actions';
+import { joinRoom } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import InRoom from './components/InRoom';
@@ -14,8 +14,10 @@ import CreateRoom from './components/CreateRoom';
 import './style.scss';
 
 class Door extends Component {
-  handleClick = (e) => {
-    this.props.logoutUser();
+  _onJoinRoom = (roomObj, history) => {
+    if(roomObj !== null) {
+      this.props.joinRoom(roomObj, history);
+    }
   }
   render(){
     const _history = this.props.history;
@@ -36,7 +38,10 @@ class Door extends Component {
                   <InRoom />
                 </Col>
                 <Col>
-                  <JoinRoom />
+                  <JoinRoom
+                    onJoinRoom={(roomObj, history) => { this._onJoinRoom(roomObj, history) }}
+                    history={_history}
+                  />
                 </Col>
                 <Col>
                   <CreateRoom />
@@ -56,5 +61,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { joinRoom }
 )(Door);

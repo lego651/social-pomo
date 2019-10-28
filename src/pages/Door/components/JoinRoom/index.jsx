@@ -24,6 +24,7 @@ class JoinRoom extends Component {
     const existingRoom = {
       roomName: this.state.roomName
     }
+    console.log(existingRoom);
     this.props.onJoinRoom(existingRoom, this.props.history);
   }
   render(){

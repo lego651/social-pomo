@@ -130,6 +130,34 @@ exports.getUserData = (req, res) => {
     });
 };
 
+// POST: add user inRoom
+exports.addInRoom = (req, res) => {
+  db.doc(`/users/${req.user.handle}`)
+    .set({
+      inRoom: req.body.inRoom
+    })
+    .then((res) => {
+      return res.status(200).json({success: 'inroom updated!'});
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err.code});
+    })
+};
+
+// POST: update user inRoom to null
+exports.removeInRoom = (req, res) => {
+  db.doc(`/users/${req.user.handle}`)
+    .set({
+      inRoom: null
+    })
+    .then((res) => {
+      return res.status(200).json({success: 'inroom removed!'});
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err.code});
+    })
+};
+
 // POST: add project name to user's projects
 exports.addProject = (req, res) => {
   const updatedProjects = {
@@ -138,7 +166,7 @@ exports.addProject = (req, res) => {
   db.doc(`/users/${req.user.handle}`)
     .update(updatedProjects)
   return res.status(200).json({success: 'new project added.'});
-}
+};
 
 // POST: remove project name from user's projects
 exports.removeProject = (req, res) => {
@@ -148,7 +176,7 @@ exports.removeProject = (req, res) => {
   db.doc(`/users/${req.user.handle}`)
     .update(updatedProjects)
   return res.status(200).json({success: 'selected project name removed.'});
-}
+};
 
 // POST: add new tag name to user's tags
 exports.addTag = (req, res) => {
@@ -158,7 +186,7 @@ exports.addTag = (req, res) => {
   db.doc(`/users/${req.user.handle}`)
     .update(updatedTags)
   return res.status(200).json({success: 'new tag name added.'});
-}
+};
 
 // POST: remove tag name from user's tags
 exports.removeTag = (req, res) => {
@@ -168,4 +196,4 @@ exports.removeTag = (req, res) => {
   db.doc(`/users/${req.user.handle}`)
     .update(updatedTags)
   return res.status(200).json({success: 'selected tag name removed.'});
-}
+};

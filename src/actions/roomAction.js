@@ -65,7 +65,7 @@ export const createRoom = (newRoom, history) => (dispatch) => {
 }
 
 export const joinRoom = (existingRoom, history) => (dispatch) => {
-  console.log(existingRoom)
+  console.log('data in actions is', existingRoom)
   axios
     .post('/joinroom', existingRoom)
     .then((res) => {

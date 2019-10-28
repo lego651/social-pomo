@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import { signupUser } from '../../actions';
 import './style.scss'
+import loginPic from '../../assets/img/signup.jpeg';
 
 class SignUp extends Component {
   constructor(props) {
@@ -40,85 +44,95 @@ class SignUp extends Component {
     const { errors } = this.state;
     return(
       <div className="signup-container">
-        <Container>
           <Row>
-            <Col> </Col>
-            <Col md={6} xs={12}>
-              <div className="signup-form">
-                <Form onSubmit={(e) => {this.handleSubmit(e)}}>
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>
-                      Email address
-                    </Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="Enter email"
-                      name="email"
-                      onChange={(e) => {this.handleChange(e)}}
-                      isInvalid={!!errors.email}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.email}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+            <Col lg={5} md={5} xs={12} >
+              <div className="login-left">
+                <h3>Free Sign Up</h3>
+                <h5>Don't have an account? Create your account, it takes less than a minute.</h5>
+                <div className="signup-form">
+                  <Form onSubmit={(e) => {this.handleSubmit(e)}}>
+                    <Form.Group controlId="formBasicEmail">
+                      <Form.Label>
+                        <h5><b>Email address</b></h5>
+                      </Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        name="email"
+                        onChange={(e) => {this.handleChange(e)}}
+                        isInvalid={!!errors.email}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.email}
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>
-                      Password
-                    </Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                      onChange={(e) => {this.handleChange(e)}}
-                      isInvalid={!!errors.password}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.password}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                      <Form.Label>
+                        <h5><b>Password</b></h5>
+                      </Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        onChange={(e) => {this.handleChange(e)}}
+                        isInvalid={!!errors.password}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.password}
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>
-                      Confirm Password
-                    </Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Confirm Password"
-                      name="confirmPassword"
-                      onChange={(e) => {this.handleChange(e)}}
-                      isInvalid={!!errors.confirmPassword}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.confirmPassword}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                      <Form.Label>
+                        <h5><b>Confirm Password</b></h5>
+                      </Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        onChange={(e) => {this.handleChange(e)}}
+                        isInvalid={!!errors.confirmPassword}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.confirmPassword}
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>
-                      Username
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Username"
-                      name="handle"
-                      onChange={(e) => {this.handleChange(e)}}
-                      isInvalid={!!errors.handle}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.handle}
-                    </Form.Control.Feedback>
-                  </Form.Group>
+                    <Form.Group controlId="formBasicEmail">
+                      <Form.Label>
+                        <h5><b>Username</b></h5>
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Username"
+                        name="handle"
+                        onChange={(e) => {this.handleChange(e)}}
+                        isInvalid={!!errors.handle}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.handle}
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                  <Button variant="primary" type="submit">
-                    Sign Up
-                  </Button>
-                </Form>
+                    <Button variant="primary" type="submit">
+                      <FontAwesomeIcon className="icon" icon={faUserPlus} />
+                      Sign Up
+                    </Button>
+                    <div className="link-to-login">
+                      <h5>Already have account? <b><Link to="/login"> Log In </Link></b></h5>
+                    </div>
+                  </Form>
+                </div>
               </div>
             </Col>
-            <Col> </Col>
+            <Col lg={7} md={7} xs={12}>
+              <div className="login-right">
+                <img src={loginPic} alt="loginPic" />
+                <h2>I love it!</h2>
+              </div>
+            </Col>
           </Row>
-        </Container>
       </div>
     )
   }

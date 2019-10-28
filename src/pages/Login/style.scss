@@ -1,0 +1,42 @@
+@import "../../index.scss";
+
+.login-container {
+  height: 100vh;
+  .col-lg-5.col-md-5.col-12 {
+    padding: 0 !important;
+    .login-left{
+      position: relative;
+      background-color: white;
+      height: 100vh;
+      padding: 40% 15% 10% 15%;
+      Form {
+        padding-top: 10%;
+      }
+      button {
+        width:100%;
+        background-color: $primary-blue;
+        .icon {
+          padding-right:3px;
+        }
+      }
+      .link-to-signup{
+        padding: 10% 15% 10% 20%;
+      }
+    }
+  }
+  .col-lg-7.col-md-7.col-12{
+    padding: 0 !important;
+    .login-right{
+        img {
+              width: 100%;
+              height: 100vh;
+              object-fit: cover;
+            }
+        h2 {
+          position: absolute;
+          top: 90%;
+          left: 40%;
+        }
+    }
+  }
+}
