@@ -5,11 +5,25 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import './style.scss';
 import Chatroom from '../../components/Chatroom';
 import Pomodoro from '../../components/Pomodoro';
-import WhatTodo from '../../components/WhatTodo';
-import { leaveRoom } from '../../actions';
+import RoomModal from './RoomModal';
+import { leaveRoom, addTodo } from '../../actions';
 
 class Room extends Component {
-  handleClick = () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalShow: true
+    }
+  }
+  setModalShow = (bool) => {
+    this.setState({
+      modalShow: bool
+    })
+  }
+  addTodo = (content, roomName, handle) => {
+    this.props.addTodo(content, roomName, handle);
+  }
+  onLeave = () => {
     this.props.leaveRoom(this.props.history);
   }
   render(){
@@ -20,14 +34,20 @@ class Room extends Component {
           <Row>
             <Col>
               <Pomodoro roomName={roomname} />
-              <WhatTodo roomName={roomname} />
-              <button onClick={() => {this.handleClick()}}> Leave Room </button>
+              <button onClick={() => {this.onLeave()}}> Leave Room </button>
             </Col>
             <Col>
               <Chatroom roomname={roomname} />
             </Col>
           </Row>
         </Container>
+        <RoomModal
+          show={this.state.modalShow}
+          onSend={(content, roomName, handle) => this.addTodo(content, roomName, handle)}
+          onHide={() => this.setModalShow(false)}
+          roomName={roomname}
+          handle={this.props.user.profile.handle}
+        />
       </div>
     )
   }
@@ -39,5 +59,5 @@ const mapStateToProps = (state) => ({
 })
 export default connect(
   mapStateToProps,
-  { leaveRoom }
+  { leaveRoom, addTodo }
 )(Room);
