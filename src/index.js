@@ -14,7 +14,6 @@ import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import Overview from './pages/Overview';
 import Login from './pages/Login';
-import RoomOld from './pages/RoomOld';
 import Room from './pages/Room';
 import Project from './pages/Project';
 import Tag from './pages/Tag';
@@ -48,7 +47,6 @@ ReactDOM.render(
         <Route exact path="/login" component={Login} />
         <Route exact path="/overview" component={requiresAuth(Overview)} />
         <Route exact path="/room" component={requiresAuth(Door)} />
-        <Route exact path="/roomold" component={requiresAuth(RoomOld)} />
         <Route exact path="/room/:roomname" component={Room} />
         <Route exact path="/project" component={requiresAuth(Project)} />
       </Switch>

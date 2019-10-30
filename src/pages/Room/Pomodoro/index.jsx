@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Button, Container, Form, ButtonToolbar } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { parseTime } from '../../../utils/util.js';
@@ -145,11 +147,20 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-        Pomodoro
-        <h2> {parseTime(this.state.time * 60)} </h2>
-
-        { this.props.isOwner && forOwner }
-
+          <ButtonToolbar>
+            <Button
+              id="leave"
+              onClick={() => this.props.onLeave()}>
+              <span><FontAwesomeIcon icon={faSignOutAlt}/></span>Leave Room
+            </Button>
+            <Button
+              id="commit"
+              onClick={() => this.props.onOpenModal()}>
+              <span><FontAwesomeIcon icon={faPencilAlt}/></span>Commit Task
+            </Button>
+          </ButtonToolbar>
+          <div id="count"> {parseTime(this.state.time * 60)} </div>
+          { this.props.isOwner && forOwner }
         </Container>
         <PomoModal
           show={this.state.modalShow}

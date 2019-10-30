@@ -37,12 +37,13 @@ class Room extends Component {
         <NavbarTop />
         <Container>
           <Row>
-            <Col>
+            <Col md={4}>
               <Pomodoro roomName={roomname}
-                        isOwner={isOwner} />
-              <button onClick={() => {this.onLeave()}}> Leave Room </button>
+                        isOwner={isOwner}
+                        onLeave={() => this.onLeave()}
+                        onOpenModal={() => this.setModalShow(true)} />
             </Col>
-            <Col>
+            <Col md={8}>
               <Chatroom roomname={roomname} />
             </Col>
           </Row>

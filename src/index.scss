@@ -42,4 +42,12 @@ h5 {
 
 body {
   background-color: $bg-color-light;
+  font-family: 'Nunito', sans-serif;
+}
+
+.btn-secondary {
+  background-color: $primary-blue;
+}
+.btn-success {
+  background-color: $primary-green;
 }
