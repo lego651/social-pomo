@@ -13,12 +13,13 @@ class InRoom extends Component {
     }
   }
   render(){
+    const { roomName } = this.props;
     return(
       <div className="inroom-container">
-        <h3> Room: 651 </h3>
+        <h3> Room: { roomName } </h3>
         <img src={coWorking} />
         <Button>
-          <Link to="/overview">
+          <Link to={`/room/${roomName}`}>
             Enter
           </Link>
         </Button>

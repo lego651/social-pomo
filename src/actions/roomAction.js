@@ -4,7 +4,9 @@ import axios from 'axios';
 import { CONSTANTS } from '../actions';
 // import { history } from '../utils/history';
 import {
-  SET_ERRORS
+  SET_ERRORS,
+  ADD_INROOM,
+  REMOVE_INROOM,
 } from './types';
 
 
@@ -57,6 +59,8 @@ export const createRoom = (newRoom, history) => (dispatch) => {
       history.push(`/room/${newRoom.roomName}`)
     })
     .catch((err) => {
+      console.log(err);
+      console.log(err.response);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data
@@ -71,6 +75,10 @@ export const joinRoom = (existingRoom, history) => (dispatch) => {
     .then((res) => {
       console.log(res);
       if(res.data.success !== null) {
+        dispatch({
+          type: ADD_INROOM,
+          payload: existingRoom.roomName
+        })
         history.push(`/room/${existingRoom.roomName}`)
       }
     })
@@ -79,6 +87,22 @@ export const joinRoom = (existingRoom, history) => (dispatch) => {
         type: SET_ERRORS,
         payload: err.response.data
       })
+    })
+}
+
+export const leaveRoom = (history) => (dispatch) => {
+  axios
+    .get('/inroom/remove')
+    .then((res) => {
+      if(res.data.success !== null) {
+        dispatch({
+          type: REMOVE_INROOM
+        })
+        history.push(`/room`)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     })
 }
 

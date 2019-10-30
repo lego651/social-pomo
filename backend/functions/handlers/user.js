@@ -132,25 +132,27 @@ exports.getUserData = (req, res) => {
 
 // POST: add user inRoom
 exports.addInRoom = (req, res) => {
-  db.doc(`/users/${req.user.handle}`)
-    .set({
-      inRoom: req.body.inRoom
-    })
-    .then((res) => {
+  const inRoom = req.body.inRoom;
+  const toUpdate = {
+    inRoom: inRoom
+  }
+  db.doc(`/users/${req.user.handle}`).update(toUpdate)
+    .then((data) => {
       return res.status(200).json({success: 'inroom updated!'});
     })
     .catch((err) => {
+      console.log(err);
       return res.status(500).json({error: err.code});
     })
 };
 
 // POST: update user inRoom to null
 exports.removeInRoom = (req, res) => {
-  db.doc(`/users/${req.user.handle}`)
-    .set({
-      inRoom: null
-    })
-    .then((res) => {
+  const toUpdate = {
+    inRoom: null
+  }
+  db.doc(`/users/${req.user.handle}`).update(toUpdate)
+    .then((data) => {
       return res.status(200).json({success: 'inroom removed!'});
     })
     .catch((err) => {

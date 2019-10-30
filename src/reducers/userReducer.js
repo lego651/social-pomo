@@ -9,6 +9,8 @@ import {
   ADD_TAG,
   REMOVE_TAG,
   SET_TODO,
+  ADD_INROOM,
+  REMOVE_INROOM
 } from '../actions/types';
 
 const initialState = {
@@ -68,6 +70,22 @@ const authReducer = (state=initialState, action) => {
         profile: {
           ...state.profile,
           projects: state.profile.tags.filter(val => val !== action.payload.tag)
+        }
+      }
+    case ADD_INROOM:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          inRoom: action.payload
+        }
+      }
+    case REMOVE_INROOM:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          inRoom: null
         }
       }
     case SET_TODO:

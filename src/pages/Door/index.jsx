@@ -21,6 +21,7 @@ class Door extends Component {
   }
   render(){
     const _history = this.props.history;
+    const { inRoom } = this.props.user.profile;
     return(
       <div className="door-container">
         <NavbarTop />
@@ -34,17 +35,20 @@ class Door extends Component {
                 <h3> Room </h3>
               </div>
               <Row>
+                {
+                  inRoom !== null
+                  ?
+                  <Col>
+                    <InRoom roomName={inRoom} />
+                  </Col>
+                  :
+                  <Col>
+                    <JoinRoom history={_history}
+                    />
+                  </Col>
+                }
                 <Col>
-                  <InRoom />
-                </Col>
-                <Col>
-                  <JoinRoom
-                    onJoinRoom={(roomObj, history) => { this._onJoinRoom(roomObj, history) }}
-                    history={_history}
-                  />
-                </Col>
-                <Col>
-                  <CreateRoom />
+                  <CreateRoom history={_history} />
                 </Col>
               </Row>
             </Col>

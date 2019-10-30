@@ -84,6 +84,13 @@ exports.joinRoom = (req, res) => {
       }
       return res.status(200).json({ success: 'join room successfully.'})
     })
+    .then(() => { // upadte 这个 user 的 inRoom
+      const userInRoom = {
+        inRoom: roomName
+      }
+      db.doc(`/users/${req.user.handle}`).update(userInRoom)
+      return res.json({ success: 'create Room successfully.' })
+    })
     .then(() => {
       const newMessage = {
         content: `${handle} joined room...`,
