@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 
 import './style.scss';
-import { parseTime } from '../../utils/util.js';
-import firebase from '../../utils/firebase.js';
-import ModalPomo from '../ModalPomo';
-import alertAudio from '../../assets/alert.mp3';
+import { parseTime } from '../../../utils/util.js';
+import firebase from '../../../utils/firebase.js';
+import PomoModal from '../PomoModal';
+import alertAudio from '../../../assets/alert.mp3';
 
 class Pomodoro extends Component {
   constructor(props) {
@@ -17,9 +17,10 @@ class Pomodoro extends Component {
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
     this.state = {
-      sec: 10,
+      sec: 60,
       on: false,
       modalShow: false,
+      time: 25
     }
   }
   count = () => {
@@ -96,17 +97,21 @@ class Pomodoro extends Component {
       modalShow: bool
     })
   }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
   render() {
-    return (
-      <div className="pomodoro-container">
-        <Container>
-        Pomodoro
-        <h2> {parseTime(this.state.sec)} </h2>
+    console.log(this.props.isOwner);
+    console.log(this.state.time);
+    const forOwner = (
+      <div>
         {
-          this.state.on
+            this.state.on
             ?
               <Button
                 variant="success"
@@ -122,8 +127,31 @@ class Pomodoro extends Component {
                 Start
               </Button>
         }
+        <Form onSubmit={() => {console.log(this.state.time)}}>
+          <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label>Set Time</Form.Label>
+            <Form.Control as="select"
+                          name="time"
+                          value={this.state.time}
+                          onChange={(e)=>{this.handleChange(e)}}>
+              <option> 25 </option>
+              <option> 45 </option>
+              <option> 60 </option>
+            </Form.Control>
+          </Form.Group>
+        </Form>
+      </div>
+    );
+    return (
+      <div className="pomodoro-container">
+        <Container>
+        Pomodoro
+        <h2> {parseTime(this.state.time * 60)} </h2>
+
+        { this.props.isOwner && forOwner }
+
         </Container>
-        <ModalPomo
+        <PomoModal
           show={this.state.modalShow}
           onHide={() => this.setModalShow(false)}
         />

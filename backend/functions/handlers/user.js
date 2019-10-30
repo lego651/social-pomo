@@ -46,6 +46,7 @@ exports.signup = (req, res) => {
         userId,
         allowed: true,
         inRoom: null,
+        ownsRoom: null,
         projects: [],
         tags: []
       };

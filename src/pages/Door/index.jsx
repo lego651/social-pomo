@@ -8,9 +8,9 @@ import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-
 import { joinRoom } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
-import InRoom from './components/InRoom';
-import JoinRoom from './components/JoinRoom';
-import CreateRoom from './components/CreateRoom';
+import InRoom from './InRoom';
+import JoinRoom from './JoinRoom';
+import CreateRoom from './CreateRoom';
 import './style.scss';
 
 class Door extends Component {

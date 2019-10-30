@@ -5,6 +5,7 @@ import { CONSTANTS } from '../actions';
 // import { history } from '../utils/history';
 import {
   SET_ERRORS,
+  ADD_INROOM_OWNSROOM,
   ADD_INROOM,
   REMOVE_INROOM,
 } from './types';
@@ -55,7 +56,11 @@ export const createRoom = (newRoom, history) => (dispatch) => {
   axios
     .post('/room', newRoom)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
+      dispatch({
+        type: ADD_INROOM_OWNSROOM,
+        payload: newRoom.roomName
+      })
       history.push(`/room/${newRoom.roomName}`)
     })
     .catch((err) => {

@@ -1,17 +1,17 @@
-@import "../../../../index.scss";
+@import "../../../index.scss";
 
-.createroom-container {
+.joinroom-container {
   width: 100%;
   text-align: center;
   background-color: white;
   padding: 15px;
   box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
   img {
-    width: 75%;
+    width: 78%;
     z-index: 1001;
     margin: 25px auto;
   }
-  .createroom-form {
+  .joinroom-form {
     color: $primary-font-color;
     background-color: #eef2f7;
     padding: 12px;
@@ -28,11 +28,12 @@
     }
     span {
       margin-left: 10px;
-      background-color: $bg-color-blue;
-      color: $primary-blue;
+      background-color: $bg-color-green;
+      color: $primary-green;
       border-radius: 3px;
       // font-size: 20px;
       padding: 4px 7px;
+      cursor: pointer;
     }
   }
 }

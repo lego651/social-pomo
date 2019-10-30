@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 import './style.scss';
-import { createPomo } from '../../actions';
+import { createPomo } from '../../../actions';
 
-class ModalPomo extends Component {
+class PomoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,4 +114,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { createPomo }
-)(ModalPomo);
+)(PomoModal);

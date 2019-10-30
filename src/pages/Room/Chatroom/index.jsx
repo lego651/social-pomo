@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import firebase from '../../utils/firebase.js';
+import firebase from '../../../utils/firebase.js';
 import './style.css';
-import { addMessage } from '../../actions';
+import { addMessage } from '../../../actions';
 
 // import TextField from '@material-ui/core/TextField';
 // import Button from '@material-ui/core/Button';

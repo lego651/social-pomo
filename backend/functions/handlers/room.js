@@ -19,6 +19,7 @@ exports.createRoom = (req, res) => {
   }
   const newRoom = {
     roomName: roomName,
+    owner: person,
     count: 0,
     people: [person],
     createdAt: new Date().toISOString()
@@ -35,7 +36,8 @@ exports.createRoom = (req, res) => {
     })
     .then(() => { // upadte 这个 user 的 inRoom
       const userInRoom = {
-        inRoom: roomName
+        inRoom: roomName,
+        ownsRoom: roomName
       }
       db.doc(`/users/${req.user.handle}`).update(userInRoom)
       return res.json({ success: 'create Room successfully.' })

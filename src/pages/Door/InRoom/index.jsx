@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './style.scss';
-import coWorking from '../../../../assets/img/co-working.svg';
+import coWorking from '../../../assets/img/co-working.svg';
 
 class InRoom extends Component {
   constructor(props) {

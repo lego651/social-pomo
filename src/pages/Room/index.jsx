@@ -3,16 +3,18 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import './style.scss';
-import Chatroom from '../../components/Chatroom';
-import Pomodoro from '../../components/Pomodoro';
+import Chatroom from './Chatroom';
+import Pomodoro from './Pomodoro';
 import RoomModal from './RoomModal';
+import NavbarTop from '../../components/NavbarTop';
 import { leaveRoom, addTodo } from '../../actions';
 
 class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: true
+      modalShow: true,
+      isOwner: false
     }
   }
   setModalShow = (bool) => {
@@ -27,13 +29,17 @@ class Room extends Component {
     this.props.leaveRoom(this.props.history);
   }
   render(){
-    const { roomname } = this.props.match.params
+    const { roomname } = this.props.match.params;
+    const { inRoom, ownsRoom } = this.props.user.profile;
+    const isOwner = ownsRoom !== null && (inRoom === ownsRoom);
     return(
       <div className="room-container">
+        <NavbarTop />
         <Container>
           <Row>
             <Col>
-              <Pomodoro roomName={roomname} />
+              <Pomodoro roomName={roomname}
+                        isOwner={isOwner} />
               <button onClick={() => {this.onLeave()}}> Leave Room </button>
             </Col>
             <Col>
