@@ -146,18 +146,7 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-          <ButtonToolbar>
-            <Button
-              id="leave"
-              onClick={() => this.props.onLeave()}>
-              <span><FontAwesomeIcon icon={faSignOutAlt}/></span>Leave Room
-            </Button>
-            <Button
-              id="commit"
-              onClick={() => this.props.onOpenModal()}>
-              <span><FontAwesomeIcon icon={faPencilAlt}/></span>Commit Task
-            </Button>
-          </ButtonToolbar>
+          
           <div id="count"> {parseTime(this.state.sec)} </div>
           { this.props.isOwner && forOwner }
         </Container>

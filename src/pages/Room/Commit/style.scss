@@ -1,0 +1,29 @@
+@import "../../../index.scss";
+
+.commit-container {
+  button {
+    margin-top: 15px;
+    border: none;
+    font-size: 14.4px;
+    span {
+      margin-right: 5px;
+    }
+  }
+  #leave {
+    background-color: #FF5B5B;
+    margin-right: 10px;
+  }
+  #commit {
+    background-color: $primary-green;
+  }
+  #count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #6c757d;
+    font-weight: 600;
+    margin-top: 100px;
+    margin-bottom: 400px;
+  }
+}
