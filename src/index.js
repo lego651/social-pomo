@@ -15,6 +15,7 @@ import Home from './pages/Home';
 import Overview from './pages/Overview';
 import Login from './pages/Login';
 import Room from './pages/Room';
+import Test from './pages/Test';
 import Project from './pages/Project';
 import Tag from './pages/Tag';
 import Door from './pages/Door';
@@ -48,6 +49,7 @@ ReactDOM.render(
         <Route exact path="/overview" component={requiresAuth(Overview)} />
         <Route exact path="/room" component={requiresAuth(Door)} />
         <Route exact path="/room/:roomname" component={Room} />
+        <Route exact path="/test/:roomname" component={Test} />
         <Route exact path="/project" component={requiresAuth(Project)} />
       </Switch>
     </Router>

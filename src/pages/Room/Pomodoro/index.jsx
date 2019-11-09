@@ -19,9 +19,9 @@ class Pomodoro extends Component {
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
     this.state = {
+      sec: 25 * 60,
       on: false,
       modalShow: false,
-      sec: 25 * 60
     }
   }
   count = () => {
@@ -33,7 +33,7 @@ class Pomodoro extends Component {
         this.setState({
           on: false,
           modalShow: true,
-          sec: 10,
+          sec: 25 * 60,
         });
       }
     }
@@ -144,18 +144,7 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-          <ButtonToolbar>
-            <Button
-              id="leave"
-              onClick={() => this.props.onLeave()}>
-              <span><FontAwesomeIcon icon={faSignOutAlt}/></span>Leave Room
-            </Button>
-            <Button
-              id="commit"
-              onClick={() => this.props.onOpenModal()}>
-              <span><FontAwesomeIcon icon={faPencilAlt}/></span>Commit Task
-            </Button>
-          </ButtonToolbar>
+
           <div id="count"> {parseTime(this.state.sec)} </div>
           { this.props.isOwner && forOwner }
         </Container>

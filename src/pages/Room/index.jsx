@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 import './style.scss';
+import Commit from './Commit';
 import Chatroom from './Chatroom';
 import Pomodoro from './Pomodoro';
 import RoomModal from './RoomModal';
@@ -38,10 +39,11 @@ class Room extends Component {
         <Container>
           <Row>
             <Col md={4}>
+              <Commit roomName={roomname}
+                      onLeave={() => this.onLeave()}
+                      onOpenModal={() => this.setModalShow(true)} />
               <Pomodoro roomName={roomname}
-                        isOwner={isOwner}
-                        onLeave={() => this.onLeave()}
-                        onOpenModal={() => this.setModalShow(true)} />
+                        isOwner={isOwner} />
             </Col>
             <Col md={8}>
               <Chatroom roomname={roomname} />
