@@ -19,10 +19,9 @@ class Pomodoro extends Component {
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
     this.state = {
-      sec: 60,
       on: false,
       modalShow: false,
-      time: 25
+      sec: 25 * 60
     }
   }
   count = () => {
@@ -47,7 +46,7 @@ class Pomodoro extends Component {
   }
   reset = () => {
     this.setState({
-      sec: 10,
+      sec: 25 * 60,
       on: false
     })
     clearInterval(this.interval);
@@ -108,8 +107,6 @@ class Pomodoro extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
   render() {
-    console.log(this.props.isOwner);
-    console.log(this.state.time);
     const forOwner = (
       <div>
         {
@@ -159,7 +156,7 @@ class Pomodoro extends Component {
               <span><FontAwesomeIcon icon={faPencilAlt}/></span>Commit Task
             </Button>
           </ButtonToolbar>
-          <div id="count"> {parseTime(this.state.time * 60)} </div>
+          <div id="count"> {parseTime(this.state.sec)} </div>
           { this.props.isOwner && forOwner }
         </Container>
         <PomoModal
