@@ -21,13 +21,28 @@ class Pomodoro extends Component {
     this.state = {
       sec: 25 * 60,
       on: false,
+      startTime: null,
       modalShow: false,
     }
   }
-  count = () => {
-    if(this.state.on) {
+  // count = () => {
+  //   if(this.state.on) {
+  //     if(this.state.sec > 0) {
+  //       this.setState(prevState => ({ sec: prevState.sec - 1 }))
+  //     } else {
+  //       this.audio.play();
+  //       this.setState({
+  //         on: false,
+  //         modalShow: true,
+  //         sec: 25 * 60,
+  //       });
+  //     }
+  //   }
+  // }
+  count = (startTime) => {
+    if(this.state.on && this.state.startTime) {
       if(this.state.sec > 0) {
-        this.setState(prevState => ({ sec: prevState.sec - 1 }))
+        this.setState({ sec: 25 * 60 - Math.floor((new Date().getTime() - startTime) / 1000) })
       } else {
         this.audio.play();
         this.setState({
@@ -38,11 +53,8 @@ class Pomodoro extends Component {
       }
     }
   }
-  start = () => {
-    this.setState({
-      on: true
-    })
-    this.interval = setInterval(() => {this.count()}, 1000);
+  start = (startTime) => {
+      this.interval = setInterval((startTime) => {this.count(startTime)}, 1000, startTime);
   }
   reset = () => {
     this.setState({
@@ -57,7 +69,7 @@ class Pomodoro extends Component {
       roomName: this.props.roomName
     }
     axios
-      .post('/countaddone', currentRoom)
+      .post('/startcount', currentRoom)
       .then((res) => {
         console.log(res);
       })
@@ -78,19 +90,44 @@ class Pomodoro extends Component {
       roomName: this.props.roomName,
     }
     axios
-      .post('/countaddone', currentRoom)
+      .post('/resetcount', currentRoom)
       .then((res) => {
-        console.log(res);
+        this.setState({
+          on: false,
+          startTime: null,
+          sec: 25 * 60
+        })
+        clearInterval(this.interval);
       })
       .catch((err) => {
         console.error(err);
       })
   }
+  // subscribeStart = (doc) => {
+  //   if(doc.data().count % 2 === 1) {
+  //     this.start();
+  //   } else {
+  //     this.reset();
+  //   }
+  // }
+  // subscribeStart = (doc) => {
+  //   if(doc.data().on) { // REST请求将此此时设置为on
+  //     this.setState({
+  //       on: true,
+  //       startTime: doc.data().startTime
+  //     })
+  //     this.start(doc.data().startTime);
+  //   } else {
+  //     this.reset();
+  //   }
+  // }
   subscribeStart = (doc) => {
-    if(doc.data().count % 2 === 1) {
-      this.start();
-    } else {
-      this.reset();
+    this.setState({
+      on: doc.data().on,
+      startTime: doc.data().startTime
+    })
+    if(doc.data().startTime) {
+      this.start(doc.data().startTime);
     }
   }
   setModalShow = (bool) => {
@@ -107,8 +144,7 @@ class Pomodoro extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
   render() {
-    console.log(this.props.isOwner);
-    console.log(this.state.time);
+    console.log(this.state);
     const forOwner = (
       <div>
         {
@@ -128,7 +164,7 @@ class Pomodoro extends Component {
                 Start
               </Button>
         }
-        <Form onSubmit={() => {console.log(this.state.time)}}>
+        {/* <Form onSubmit={() => {console.log(this.state.time)}}>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Set Time</Form.Label>
             <Form.Control as="select"
@@ -140,13 +176,13 @@ class Pomodoro extends Component {
               <option> 60 </option>
             </Form.Control>
           </Form.Group>
-        </Form>
+        </Form> */}
       </div>
     );
     return (
       <div className="pomodoro-container">
         <Container>
-          
+
           <div id="count"> {parseTime(this.state.sec)} </div>
           { this.props.isOwner && forOwner }
         </Container>

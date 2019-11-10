@@ -14,7 +14,9 @@ const { signup,
 const { createRoom,
         addMessage,
         joinRoom,
-        countAddOne } = require('./handlers/room.js');
+        countAddOne,
+        startCount,
+        resetCount } = require('./handlers/room.js');
 const { createPomo } = require('./handlers/pomo.js');
 const FBAuth = require('./utils/fbAuth');
 
@@ -42,6 +44,8 @@ app.post('/room', FBAuth, createRoom);
 app.post('/message', FBAuth, addMessage);
 app.post('/joinroom', FBAuth, joinRoom);
 app.post('/countaddone', FBAuth, countAddOne);
+app.post('/startcount', FBAuth, startCount);
+app.post('/resetcount', FBAuth, resetCount);
 
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);

@@ -22,7 +22,9 @@ exports.createRoom = (req, res) => {
     owner: person,
     count: 0,
     people: [person],
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    on: false,
+    startTime: null,
   }
   db.doc(`/rooms/${roomName}`)
     .get()
@@ -122,6 +124,47 @@ exports.countAddOne = (req, res) => {
       }
       db.doc(`/rooms/${req.body.roomName}`).update(updateCount);
       return res.status(200).json(updateCount);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.code });
+    })
+}
+
+// POST: room start count down and set on to true
+exports.startCount = (req, res) => {
+  db.doc(`/rooms/${req.body.roomName}`)
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(400).json({ error: 'this room name does not exist'});
+      }
+      // update start time and set on to true
+      const toUpdate = {
+        on: true,
+        startTime: new Date().getTime()
+      }
+      db.doc(`/rooms/${req.body.roomName}`).update(toUpdate);
+      return res.status(200).json(toUpdate);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.code });
+    })
+}
+
+exports.resetCount = (req, res) => {
+  db.doc(`/rooms/${req.body.roomName}`)
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(400).json({ error: 'this room name does not exist'});
+      }
+      // update start time and set on to true
+      const toUpdate = {
+        on: false,
+        startTime: null
+      }
+      db.doc(`/rooms/${req.body.roomName}`).update(toUpdate);
+      return res.status(200).json(toUpdate);
     })
     .catch((err) => {
       return res.status(500).json({ error: err.code });
