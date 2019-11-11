@@ -95,9 +95,9 @@ export const joinRoom = (existingRoom, history) => (dispatch) => {
     })
 }
 
-export const leaveRoom = (history) => (dispatch) => {
+export const leaveRoom = (history, roomName) => (dispatch) => {
   axios
-    .get('/inroom/remove')
+    .post('/leaveroom', {roomName})
     .then((res) => {
       if(res.data.success !== null) {
         dispatch({

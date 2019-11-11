@@ -8,6 +8,7 @@ import Chatroom from './Chatroom';
 import Pomodoro from './Pomodoro';
 import RoomModal from './RoomModal';
 import NavbarTop from '../../components/NavbarTop';
+import UsersInRoom from './UsersInRoom';
 import { leaveRoom, addTodo } from '../../actions';
 
 class Room extends Component {
@@ -27,7 +28,7 @@ class Room extends Component {
     this.props.addTodo(content, roomName, handle);
   }
   onLeave = () => {
-    this.props.leaveRoom(this.props.history);
+    this.props.leaveRoom(this.props.history, this.props.match.params.roomname);
   }
   render(){
     const { roomname } = this.props.match.params;
@@ -42,6 +43,7 @@ class Room extends Component {
               <Commit roomName={roomname}
                       onLeave={() => this.onLeave()}
                       onOpenModal={() => this.setModalShow(true)} />
+              <UsersInRoom roomName={roomname} />
               <Pomodoro roomName={roomname}
                         isOwner={isOwner} />
             </Col>

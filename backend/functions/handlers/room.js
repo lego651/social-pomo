@@ -86,14 +86,14 @@ exports.joinRoom = (req, res) => {
       if(!doc.exists) { // 如果房间名不存在，告知用户
         return res.status(400).json({ fail: 'this room name does exist yet.' })
       }
-      return res.status(200).json({ success: 'join room successfully.'})
+      return;
     })
     .then(() => { // upadte 这个 user 的 inRoom
       const userInRoom = {
         inRoom: roomName
       }
-      db.doc(`/users/${req.user.handle}`).update(userInRoom)
-      return res.json({ success: 'create Room successfully.' })
+      db.doc(`/users/${req.user.handle}`).update(userInRoom);
+      return;
     })
     .then(() => {
       const newMessage = {
@@ -102,6 +102,14 @@ exports.joinRoom = (req, res) => {
         createdAt: new Date().toISOString()
       }
       return db.collection(`/rooms/${roomName}/messages`).add(newMessage);
+    })
+    .then(() => { // add current user to people in room
+        const updateRoom = {
+          people: admin.firestore.FieldValue.arrayUnion(req.user.handle)
+        }
+        db.doc(`/rooms/${roomName}`)
+          .update(updateRoom)
+        return res.status(200).json({ success: 'add user to room people array' });
     })
     .catch((err) => {
       return res.status(500).json({ error: err.code });
@@ -170,3 +178,23 @@ exports.resetCount = (req, res) => {
       return res.status(500).json({ error: err.code });
     })
 }
+
+// POST: update user inRoom to null, and remove current user from room.people
+exports.leaveRoom = (req, res) => {
+  const roomName = req.body.roomName;
+  const toUpdate = {
+    inRoom: null
+  }
+  db.doc(`/users/${req.user.handle}`).update(toUpdate)
+    .then((data) => {
+      const updateRoom = {
+        people: admin.firestore.FieldValue.arrayRemove(req.user.handle)
+      }
+      db.doc(`/rooms/${roomName}`)
+        .update(updateRoom)
+      return res.status(200).json({ success: 'leave room successfully' });
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err.code});
+    })
+};
