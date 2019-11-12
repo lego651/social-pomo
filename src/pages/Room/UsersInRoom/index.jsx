@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { Container, Row, Col } from 'react-bootstrap';
 import firebase from '../../../utils/firebase.js';
 import './style.scss';
 import { addMessage } from '../../../actions';
@@ -31,11 +31,16 @@ class UsersInRoom extends Component {
     const { users } = this.state;
     return(
       <div className="usersinroom-container">
+        <center className="all-users">
+        <h2>Active Members</h2>
         {
           users && users.map((user) =>
-            <p> { user } </p>
+            <div className= "single-user">
+              <h3> { user } </h3>
+            </div>
           )
         }
+        </center>
       </div>
     )
   }

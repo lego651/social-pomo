@@ -43,12 +43,13 @@ class Room extends Component {
               <Commit roomName={roomname}
                       onLeave={() => this.onLeave()}
                       onOpenModal={() => this.setModalShow(true)} />
-              <UsersInRoom roomName={roomname} />
               <Pomodoro roomName={roomname}
                         isOwner={isOwner} />
             </Col>
             <Col md={8}>
-              <Chatroom roomname={roomname} />
+              <UsersInRoom roomName={roomname} />
+              <Chatroom roomname={roomname}
+                        isOwner={isOwner} />
             </Col>
           </Row>
         </Container>

@@ -35,7 +35,6 @@ export const getMessages = () => (dispatch) => {
 }
 
 export const addMessage = (newMessage) => (dispatch) => {
-  console.log(newMessage)
   axios
     .post('/message', newMessage)
     .then((res) => {
@@ -43,6 +42,17 @@ export const addMessage = (newMessage) => (dispatch) => {
     })
     .catch((err) => {
       // console.log(err);
+    })
+}
+
+export const deleteMessages = (roomName) => (dispatch) => {
+  axios
+    .post('/messages', {roomName})
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+       console.log(err);
     })
 }
 

@@ -7,7 +7,17 @@
   margin-top: -20px;
   margin-bottom: 35%;
   padding-bottom: 10px;
-
+  .clear-message {
+    display: inline-block;
+    button{
+      background-color: rgb(229,87,70);
+      margin: 10px;
+      float:right;
+    }
+    button:hover  {
+        background-color:rgb(178,36,19);
+    }
+  }
   .message-list {
     margin: 20px;
     padding: 20px;
@@ -30,7 +40,5 @@
       margin: 10px;
       float:right;
     }
-
   }
-
 }

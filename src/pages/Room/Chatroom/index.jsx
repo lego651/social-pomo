@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 
 import firebase from '../../../utils/firebase.js';
 import './style.scss';
-import { addMessage } from '../../../actions';
+import { addMessage, deleteMessages } from '../../../actions';
 import Message from '../Message/index.jsx';
 // import TextField from '@material-ui/core/TextField';
 // import Button from '@material-ui/core/Button';
 import { TextField, Button } from '@material-ui/core';
-
-
 
 class Chatroom extends Component {
   constructor(props) {
@@ -21,6 +19,16 @@ class Chatroom extends Component {
       content: ''
     }
   }
+  componentDidMount() {
+    this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
+    // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
   onUpdateMessages = (snapshot) => {
     const messages = [];
     snapshot.forEach((doc) => {
@@ -42,6 +50,7 @@ class Chatroom extends Component {
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit(e) {
     e.preventDefault();
     const newMessage = {
@@ -54,23 +63,35 @@ class Chatroom extends Component {
       content: ''
     })
   }
-  componentDidMount() {
-    this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
-    // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
-    this.scrollToBottom()
-  }
-  componentDidUpdate() {
-    this.scrollToBottom()
-  }
+
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
+  deleteMessages = (roomname) => {
+    console.log('chatroom data is ', roomname);
+    this.props.deleteMessages(roomname);
+  }
+
   render(){
-    const { username } = this.props
-    console.log(this.state.messages);
+    const { username, roomname } = this.props;
     return(
       <div className="chatroom-container">
+        {
+          this.props.isOwner
+          ?
+          <div className= "clear-message">
+              <Button
+                onClick={() => { this.deleteMessages(roomname)} }
+                variant="contained"
+                color="primary"
+              >
+                Clear Messages
+              </Button>
+          </div>
+          :
+          null
+        }
         <div className="message-list">
           {
             this.state.messages.map((m, i) =>
@@ -114,6 +135,7 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   addMessage: (newMessage) => dispatch(addMessage(newMessage)),
+  deleteMessages: (roomname) => dispatch(deleteMessages(roomname)),
 })
 
 export default connect(
