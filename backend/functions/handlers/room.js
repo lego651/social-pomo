@@ -198,3 +198,22 @@ exports.leaveRoom = (req, res) => {
       return res.status(500).json({error: err.code});
     })
 };
+
+// Delete: delete room.messages subcollection
+exports.deleteMessages = (req, res) => {
+  const roomName = req.body.roomName;
+  db.collection(`/rooms/${roomName}/messages`)
+    .get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        doc.ref.delete();
+      })
+      return;
+    })
+    .then(() => {
+      return res.status(200).json({ success: 'delete messages successfully' });
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err.code});
+    })
+};

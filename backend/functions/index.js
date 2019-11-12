@@ -17,7 +17,8 @@ const { createRoom,
         countAddOne,
         startCount,
         resetCount,
-        leaveRoom } = require('./handlers/room.js');
+        leaveRoom,
+        deleteMessages } = require('./handlers/room.js');
 const { createPomo } = require('./handlers/pomo.js');
 const FBAuth = require('./utils/fbAuth');
 
@@ -39,7 +40,6 @@ app.post('/tag', FBAuth, addTag);
 app.post('/tag/remove', FBAuth, removeTag);
 app.post('/inroom', FBAuth, addInRoom);
 app.get('/inroom/remove', FBAuth, removeInRoom); // deprecated
-app.post('/leaveroom', FBAuth, leaveRoom);
 
 // Room Routes
 app.post('/room', FBAuth, createRoom);
@@ -48,6 +48,9 @@ app.post('/joinroom', FBAuth, joinRoom);
 app.post('/countaddone', FBAuth, countAddOne);
 app.post('/startcount', FBAuth, startCount);
 app.post('/resetcount', FBAuth, resetCount);
+app.post('/leaveroom', FBAuth, leaveRoom);
+app.post('/messages', FBAuth, deleteMessages);
+
 
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);

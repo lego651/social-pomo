@@ -24,9 +24,9 @@ module.exports = (req, res, next) => {
         .get();
     })
     .then((data) => {
-      console.log(data);
-      console.log(data.docs[0].data());
-      console.log(data.docs[0].data().handle);
+      // console.log(data);
+      // console.log(data.docs[0].data());
+      // console.log(data.docs[0].data().handle);
       req.user.handle = data.docs[0].data().handle;
       return next();
     })
