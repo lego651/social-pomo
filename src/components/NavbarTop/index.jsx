@@ -4,7 +4,7 @@ import { Container, Navbar } from 'react-bootstrap';
 
 import './style.scss';
 import { addTodo } from '../../actions';
-import avatar from '../../assets/img/default_avatar.jpg';
+// import avatar from '../../assets/img/default_avatar.jpg';
 // import { addMessage } from '../../actions';
 
 class NavbarTop extends Component {
@@ -15,6 +15,7 @@ class NavbarTop extends Component {
     }
   }
   render(){
+    const { avatar } = this.props.user.profile;
     return(
       <div className="navbar-container">
         <Container>

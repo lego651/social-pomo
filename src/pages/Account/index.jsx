@@ -4,10 +4,9 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import './style.scss';
 import MyModal from '../../components/MyModal';
-import { addProject, removeProject } from '../../actions';
+import { uploadImage } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
-import avatar from '../../assets/img/default_avatar.jpg';
 
 class Account extends Component {
   constructor(props) {
@@ -16,8 +15,18 @@ class Account extends Component {
       modalShow: false
     }
   }
+  handleImageChange = (event) => {
+    const image = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    this.props.uploadImage(formData);
+  };
+  handleEditPicture = () => {
+    const fileInput = document.getElementById('imageInput');
+    fileInput.click();
+  };
   render(){
-    const { email, handle } = this.props.user.profile;
+    const { email, handle, avatar } = this.props.user.profile;
     return(
       <div className="account-container">
         <NavbarTop />
@@ -31,7 +40,13 @@ class Account extends Component {
               <div className="account-body">
                 <div className="account-avatar">
                   <img src={avatar} alt="avatar" />
-                  <span> Edit </span>
+                  <input
+                    type="file"
+                    id="imageInput"
+                    hidden="hidden"
+                    onChange={this.handleImageChange}
+                  />
+                  <span onClick={() => this.handleEditPicture()}> Edit </span>
                 </div>
                 <Form>
                   <Form.Group as={Row} controlId="formHorizontalEmail">
@@ -73,5 +88,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { addProject, removeProject }
+  { uploadImage }
 )(Account);

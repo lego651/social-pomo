@@ -10,7 +10,8 @@ const { signup,
         addTag,
         removeTag,
         addInRoom,
-        removeInRoom, } = require('./handlers/user.js');
+        removeInRoom,
+        uploadImage } = require('./handlers/user.js');
 const { createRoom,
         addMessage,
         joinRoom,
@@ -34,6 +35,7 @@ app.post('/signup', signup);
 app.post('/login', login);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getUserData);
+app.post('/user/avatar', FBAuth, uploadImage);
 app.post('/project', FBAuth, addProject);
 app.post('/project/remove', FBAuth, removeProject);
 app.post('/tag', FBAuth, addTag);
