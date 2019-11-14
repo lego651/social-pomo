@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import { Container, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import { faFileAlt, faTags, faTachometerAlt, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-import Icon from '@mdi/react';
-import { mdiTagOutline } from '@mdi/js';
+import { faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { addTodo } from '../../actions';
@@ -52,6 +49,18 @@ class NavLeft extends Component {
             <NavLink to={"/tags"}>
               <span><FontAwesomeIcon icon={faTags} /></span>
               Tags
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/account"}>
+              <span><FontAwesomeIcon icon={faCog} /></span>
+              My Account
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/password"}>
+              <span><FontAwesomeIcon icon={faKey} /></span>
+              Password
             </NavLink>
           </li>
         </ul>

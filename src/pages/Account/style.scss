@@ -1,0 +1,15 @@
+@import "../../index.scss";
+
+.account-container {
+  .account-body {
+    background-color: white;
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+    padding: 30px 20px;
+    .account-avatar {
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}
