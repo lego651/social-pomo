@@ -13,10 +13,10 @@ import {
   ADD_TAG,
   REMOVE_TAG,
   SET_TODO,
-
 } from './types';
 
 export const loginUser = (userData, history) => (dispatch) => {
+  console.log('action data is', userData);
   dispatch({ type: LOADING_UI });
   axios
     .post('/login', userData)

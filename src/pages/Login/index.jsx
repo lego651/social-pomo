@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faUserPlus, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import { loginUser } from '../../actions';
 import './style.scss';
@@ -29,6 +29,7 @@ class Login extends Component {
     });
   }
   handleSubmit = (e) => {
+    console.log('its clicked');
     e.preventDefault();
     const newUserData = {
       email: this.state.email,
@@ -38,6 +39,8 @@ class Login extends Component {
   }
   render(){
     const { errors } = this.state;
+    const { loading } = this.props.UI;
+    console.log(this.state);
     return(
       <div className="login-container">
           <Row>
@@ -82,7 +85,11 @@ class Login extends Component {
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
-                      <FontAwesomeIcon className="icon" icon={faSignInAlt} />Log In
+                      { loading
+                          ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                          : <FontAwesomeIcon className="icon" icon={faSignInAlt} />
+                      }
+                      <span> Log In </span>
                     </Button>
                     <div className="link-to-signup">
                       <h5>Don't have an account? <b><Link to="/signup"> Sign Up </Link></b></h5>
