@@ -9,7 +9,7 @@ class Home extends Component {
   render(){
     return(
       <div className="signup-container">
-        Home Page
+        Home Page Does Work!!!
         <Badge pill variant="success"> Home </Badge>
         <Badge pill variant="success"> <Link to="/room"> Room </Link> </Badge>
         <Badge pill variant="success"> <Link to="/signup"> signup </Link> </Badge>
