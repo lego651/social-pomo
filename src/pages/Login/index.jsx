@@ -44,8 +44,8 @@ class Login extends Component {
     return(
       <div className="login-container">
           <Row>
-            <Col lg={5} md={5} xs={12} >
-            <div className="login-left">
+            <Col md={5} xs={12} className="left-col">
+              <div className="login-left">
                 <h3>Sign In App</h3>
                 <h5>Enter your email address and password to access account.</h5>
                 <div className="signup-form">
@@ -99,7 +99,7 @@ class Login extends Component {
               </div>
               {/* log in left ends */}
             </Col>
-            <Col lg={7} md={7} xs={12}>
+            <Col md={7} xs={12} className="right-col">
               <div className="login-right">
                 <img src={loginPic} alt="loginPic" />
                 <h2>I love it!</h2>

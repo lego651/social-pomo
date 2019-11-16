@@ -1,9 +1,8 @@
 @import "../../index.scss";
 
 .login-container {
-  height: 100vh;
-  width: 100%;
-  .col-lg-5.col-md-5.col-12 {
+  width: calc(100vw - 20px);
+  .left-col {
     padding: 0 !important;
     .login-left{
       position: relative;
@@ -25,9 +24,9 @@
       }
     }
   }
-  .col-lg-7.col-md-7.col-12{
+  .right-col {
     padding: 0 !important;
-    .login-right{
+    .login-right {
         img {
               width: 100%;
               height: 100vh;
