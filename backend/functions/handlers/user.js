@@ -13,10 +13,11 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
-    handle: req.body.handle
+    handle: req.body.handle.trim()
   };
 
   const { valid, errors } = validateSignupData(newUser);
+  console.log(errors);
 
   if(!valid) return res.status(400).json(errors);
 
@@ -26,7 +27,7 @@ exports.signup = (req, res) => {
     .get()
     .then((doc) => {
       if(doc.exists) {
-        return res.status(400).json({ handle: 'this user name is already taken.'});
+        return res.status(400).json({ handle: 'username is already in use.'});
       } else {
         return firebase
           .auth()
@@ -47,6 +48,7 @@ exports.signup = (req, res) => {
         allowed: true,
         inRoom: null,
         ownsRoom: null,
+        nickName: null,
         projects: [],
         tags: [],
         avatar: `https://firebasestorage.googleapis.com/v0/b/${
@@ -59,13 +61,13 @@ exports.signup = (req, res) => {
       return res.status(201).json({ token });
     })
     .catch((err) => {
-      console.error(err);
+      // console.error(err);
       if (err.code === 'auth/email-already-in-use') {
-        return res.status(400).json({ email: 'Email is already is use' });
+        return res.status(400).json({ email: 'Email is already is use.' });
       } else {
         return res
           .status(500)
-          .json({ general: 'Something went wrong, please try again' });
+          .json({ general: 'Something went wrong, please try again.' });
       }
     });
 };
@@ -133,6 +135,22 @@ exports.getUserData = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+// POST: update nickName
+exports.updateNickName = (req, res) => {
+  const nickName = req.body.nickName;
+  const toUpdate = {
+    nickName: nickName
+  }
+  db.doc(`/users/${req.user.handle}`).update(toUpdate)
+    .then((data) => {
+      return res.status(200).json({success: 'nickName updated!'});
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({error: err.code});
+    })
+}
 
 // Upload a profile image for user
 exports.uploadImage = (req, res) => {

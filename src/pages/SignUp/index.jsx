@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faUserPlus, faSync } from '@fortawesome/free-solid-svg-icons';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import { signupUser } from '../../actions';
@@ -42,10 +42,11 @@ class SignUp extends Component {
   }
   render(){
     const { errors } = this.state;
+    const { loading } = this.props.UI;
     return(
       <div className="signup-container">
           <Row>
-            <Col lg={5} md={5} xs={12} >
+            <Col md={5} xs={12} className="left-col">
               <div className="login-left">
                 <h3>Free Sign Up</h3>
                 <h5>Don't have an account? Create your account, it takes less than a minute.</h5>
@@ -116,7 +117,10 @@ class SignUp extends Component {
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
-                      <FontAwesomeIcon className="icon" icon={faUserPlus} />
+                      { loading
+                          ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                          : <FontAwesomeIcon className="icon" icon={faUserPlus} />
+                      }
                       Sign Up
                     </Button>
                     <div className="link-to-login">
@@ -126,7 +130,7 @@ class SignUp extends Component {
                 </div>
               </div>
             </Col>
-            <Col lg={7} md={7} xs={12}>
+            <Col md={7} xs={12} className="right-col">
               <div className="login-right">
                 <img src={loginPic} alt="loginPic" />
                 <h2>I love it!</h2>

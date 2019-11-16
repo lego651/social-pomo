@@ -1,10 +1,13 @@
 @import "../../index.scss";
 
 .signup-container {
-  // background-color: yellow;
-  .col-lg-5.col-md-5.col-12 {
-    padding: 0 !important;
-    .login-left{
+  width: calc(100vw - 20px);
+  // width: 99.2vw;
+  // height: 100vh;
+  background-color: red;
+  .left-col {
+    padding: 0;
+    .login-left {
       background-color: white;
       height: 100vh;
       padding: 20% 15% 10% 15%;
@@ -23,19 +26,22 @@
       }
     }
   }
-  .col-lg-7.col-md-7.col-12{
-    padding: 0 !important;
+  .right-col {
+    padding: 0px;
     .login-right{
-        img {
-              width: 100%;
-              height: 100vh;
-              object-fit: cover;
-            }
-        h2 {
-          position: absolute;
-          top: 90%;
-          left: 40%;
-        }
+      background-color: yellow;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+      }
+      h2 {
+        position: absolute;
+        top: 90%;
+        left: 40%;
+      }
     }
   }
 }

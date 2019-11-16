@@ -40,7 +40,7 @@ class Login extends Component {
   render(){
     const { errors } = this.state;
     const { loading } = this.props.UI;
-    console.log(this.state);
+    // console.log(this.state);
     return(
       <div className="login-container">
           <Row>
