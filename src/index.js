@@ -31,7 +31,7 @@ axios.defaults.baseURL = 'https://us-central1-social-pomo-94112.cloudfunctions.n
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
+  if (decodedToken.exp * 1000 < Date.now() - 1000 * 60 * 60 * 2) {
     store.dispatch(logoutUser());
     window.location.href = '/login';
   } else {

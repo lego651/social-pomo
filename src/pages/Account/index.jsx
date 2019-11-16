@@ -12,8 +12,18 @@ class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: false
+      nickName: '',
     }
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.nickName);
+    // this.props.loginUser(newUserData this.props.history);
   }
   handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -46,24 +56,38 @@ class Account extends Component {
                     hidden="hidden"
                     onChange={this.handleImageChange}
                   />
-                  <span onClick={() => this.handleEditPicture()}> Edit </span>
+                  <span onClick={() => this.handleEditPicture()}>Edit</span>
                 </div>
-                <Form>
+                <Form onSubmit={(e) => {this.handleSubmit(e)}}>
                   <Form.Group as={Row} controlId="formHorizontalEmail">
                     <Form.Label column sm={2}>
                       Email
                     </Form.Label>
                     <Col sm={10}>
-                      <Form.Control type="email" placeholder={email} />
+                      <Form.Control type="email" placeholder={email} disabled />
                     </Col>
                   </Form.Group>
 
                   <Form.Group as={Row} controlId="formHorizontalPassword">
                     <Form.Label column sm={2}>
-                      User Name
+                      Username
                     </Form.Label>
                     <Col sm={10}>
-                      <Form.Control type="text" placeholder={handle} />
+                      <Form.Control type="text" placeholder={handle} disabled />
+                    </Col>
+                  </Form.Group>
+
+                  <Form.Group as={Row} controlId="formHorizontalPassword">
+                    <Form.Label column sm={2}>
+                      Nickname
+                    </Form.Label>
+                    <Col sm={10}>
+                      <Form.Control
+                        type="text"
+                        placeholder={handle}
+                        name="nickName"
+                        onChange={(e) => {this.handleChange(e)}}
+                        value={this.state.nickName} />
                     </Col>
                   </Form.Group>
 
