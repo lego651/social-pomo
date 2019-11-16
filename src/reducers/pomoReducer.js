@@ -1,8 +1,8 @@
 import { CONSTANTS } from '../actions';
 
-import {
-  GET_POMOS,
-} from '../actions/types';
+// import {
+//   GET_POMOS,
+// } from '../actions/types';
 
 const initialState = {
   pomos: []

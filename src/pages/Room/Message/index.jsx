@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { addMessage } from '../../../actions';
 import './style.scss';
-
 import avatar from '../../../assets/img/default_avatar.jpg';
 
 const Message = ({ item, curHandle }) => {

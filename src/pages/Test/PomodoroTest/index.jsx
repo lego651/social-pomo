@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import { Button, Container, Form, ButtonToolbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
@@ -107,8 +106,6 @@ class PomodoroTest extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
   render() {
-    console.log(this.props.isOwner);
-    console.log(this.state.time);
     const forOwner = (
       <div>
         {

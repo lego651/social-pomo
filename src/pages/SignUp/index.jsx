@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus, faSync } from '@fortawesome/free-solid-svg-icons';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { faUserPlus, faSync } from '@fortawesome/free-solid-svg-icons';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 
 import { signupUser } from '../../actions';
 import './style.scss'
@@ -25,6 +25,11 @@ class SignUp extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+  // componentDidUpdate(nextProps) {
+  //   if (nextProps.UI.errors) {
+  //     this.setState({ errors: nextProps.UI.errors });
+  //   }
+  // }
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -52,7 +57,7 @@ class SignUp extends Component {
                 <h5>Don't have an account? Create your account, it takes less than a minute.</h5>
                 <div className="signup-form">
                   <Form onSubmit={(e) => {this.handleSubmit(e)}}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group>
                       <Form.Label>
                         <h5><b>Email address</b></h5>
                       </Form.Label>
@@ -68,7 +73,7 @@ class SignUp extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                       <Form.Label>
                         <h5><b>Password</b></h5>
                       </Form.Label>

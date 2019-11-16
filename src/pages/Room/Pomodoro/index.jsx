@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { Button, Container, Form, ButtonToolbar } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { Button, Container } from 'react-bootstrap';
 
 import './style.scss';
 import { parseTime } from '../../../utils/util.js';

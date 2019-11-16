@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Badge, Button, Container, Row, Col, Jumbotron } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-svg-icons';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import { joinRoom } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';

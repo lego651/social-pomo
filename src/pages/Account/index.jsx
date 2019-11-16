@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import './style.scss';
-import MyModal from '../../components/MyModal';
+// import MyModal from '../../components/MyModal';
 import { uploadImage } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';

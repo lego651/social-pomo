@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import jwtDecode from 'jwt-decode';
 
 import './index.css';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 import SignUp from './pages/SignUp';
@@ -17,7 +17,7 @@ import Login from './pages/Login';
 import Room from './pages/Room';
 import Test from './pages/Test';
 import Project from './pages/Project';
-import Tag from './pages/Tag';
+// import Tag from './pages/Tag';
 import Door from './pages/Door';
 import Account from './pages/Account';
 import Password from './pages/Password';

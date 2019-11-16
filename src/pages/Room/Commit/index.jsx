@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { Button, Container, Form, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 
 class Commit extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { roomName } = this.props;
     return (

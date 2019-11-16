@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import { loginUser } from '../../actions';
 import './style.scss';

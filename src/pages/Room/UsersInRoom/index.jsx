@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
 import firebase from '../../../utils/firebase.js';
 import './style.scss';
 import { addMessage } from '../../../actions';
-import Message from '../Message/index.jsx';
+// import Message from '../Message/index.jsx';
 // import TextField from '@material-ui/core/TextField';
 // import Button from '@material-ui/core/Button';
-import { TextField, Button } from '@material-ui/core';
+// import { TextField, Button } from '@material-ui/core';
 
 class UsersInRoom extends Component {
   constructor(props) {

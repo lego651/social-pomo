@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-import {
-  SET_ERRORS
-} from './types';
-
+// import {
+//   SET_ERRORS
+// } from './types';
 
 export const createPomo = (newPomo) => (dispatch) => {
   console.log('data in action is:', newPomo)

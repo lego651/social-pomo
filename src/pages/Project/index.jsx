@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+import { Table, Button, Container } from 'react-bootstrap';
 
 import './style.scss';
 import MyModal from '../../components/MyModal';

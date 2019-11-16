@@ -38,7 +38,6 @@ class PomoModalTest extends Component {
     this.props.onHide();
   }
   render() {
-    const { errors } = this.state;
     const { projects, tags } = this.props.user.profile;
     return (
       <Modal

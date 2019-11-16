@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Badge, Button, Container, Row, Col, Jumbotron } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-svg-icons';
 
 import { logoutUser } from '../../actions';
-import CreateRoom from '../../components/CreateRoom';
-import JoinRoom from '../../components/JoinRoom';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import './style.scss';
@@ -17,7 +15,6 @@ class Overview extends Component {
     this.props.logoutUser();
   }
   render(){
-    const _history = this.props.history;
     return(
       <div className="overview-container">
         <NavbarTop />
@@ -29,11 +26,9 @@ class Overview extends Component {
             <Col xs="9">
               <div className="overview-header">
                 <h3> Overview </h3>
-                <span>
-                  <Link to="/room">
-                    <FontAwesomeIcon icon={faPlusCircle} /> Start
-                  </Link>
-                </span>
+                <Link to="/room">
+                  <FontAwesomeIcon icon={faPlusCircle} /> Start
+                </Link>
               </div>
               <Row>
                 <Col xs="4">
