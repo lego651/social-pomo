@@ -29,7 +29,6 @@ class Login extends Component {
     });
   }
   handleSubmit = (e) => {
-    console.log('its clicked');
     e.preventDefault();
     const newUserData = {
       email: this.state.email,
