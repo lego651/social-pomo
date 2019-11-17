@@ -3,6 +3,7 @@ import {
   SET_USER,
   SET_NICKNAME,
   SET_ERRORS,
+  SET_SUCCESS,
   CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
@@ -85,18 +86,23 @@ export const updateNickName = (nickName) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const updatePassword = (data) => (dispatch) => {
+export const updatePassword = (data, callback) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('/user/password', data)
     .then((res) => {
-      console.log(res);
+      dispatch({
+        type: SET_SUCCESS,
+        payload: res.data.success
+      });
+      callback();
     })
     .catch((err) => {
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data
       });
+      callback();
     });
 };
 

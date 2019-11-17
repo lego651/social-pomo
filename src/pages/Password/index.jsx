@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 // import MyModal from '../../components/MyModal';
-import { updatePassword } from '../../actions';
+import { updatePassword, clearSuccess } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 
@@ -17,29 +17,49 @@ class Password extends Component {
     this.state = {
       password: '',
       newPassword: '',
-      errors: {}
+      errors: {},
+      show: false,
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
+    if (nextProps.UI.success) {
+      this.setState({
+        success: nextProps.UI.success,
+        show: true
+      });
+    }
+  }
+  closeSuccess = () => {
+    this.setState({
+      show: false,
+      success: null
+    })
+    this.props.clearSuccess();
   }
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+  resetState = () => {
+    this.setState({
+      password: '',
+      newPassword: '',
+    })
+  }
   handleSubmit = (e) => {
     e.preventDefault();
-    if(this.state.password.length == 0) {
+    if(this.state.password.length === 0) {
       const errors = {
         password: 'It must not be empty.'
       }
       this.setState({
         errors
       })
-    } else if(this.state.newPassword.length == 0) {
+    } else if(this.state.newPassword.length === 0) {
       const errors = {
         newPassword: 'It must not be empty.'
       }
@@ -53,21 +73,29 @@ class Password extends Component {
       this.setState({
         errors
       })
-    } else {
+    } else { // all datq validated, call backend
       const data = {
         password: this.state.password,
         newPassword: this.state.newPassword
       }
-      this.props.updatePassword(data);
+      this.props.updatePassword(data, this.resetState);
     }
   }
   render(){
     const { errors } = this.state;
-    const { loading } = this.props.UI;
+    const { loading, success } = this.props.UI;
     return(
       <div className="password-container">
         <NavbarTop />
         <Container>
+          {
+            this.state.show &&
+            <Alert variant="success" onClose={() => this.closeSuccess()} dismissible>
+              <p>
+                { success }
+              </p>
+            </Alert>
+          }
           <Row>
             <Col xs="3">
               <NavLeft />
@@ -87,6 +115,7 @@ class Password extends Component {
                         name="password"
                         onChange={this.handleChange}
                         isInvalid={!!errors.password}
+                        value={this.state.password}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors.password}
@@ -105,6 +134,7 @@ class Password extends Component {
                         name="newPassword"
                         onChange={this.handleChange}
                         isInvalid={!!errors.newPassword}
+                        value={this.state.newPassword}
                       />
                       <Form.Control.Feedback type="invalid">
                         {errors.newPassword}
@@ -139,5 +169,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { updatePassword }
+  { updatePassword, clearSuccess }
 )(Password);
