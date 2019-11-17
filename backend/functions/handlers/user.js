@@ -144,7 +144,7 @@ exports.updateNickName = (req, res) => {
   }
   db.doc(`/users/${req.user.handle}`).update(toUpdate)
     .then((data) => {
-      return res.status(200).json({success: 'nickName updated!'});
+      return res.status(200).json({ success: 'Nickname updated successfully.' });
     })
     .catch((err) => {
       console.log(err);
@@ -164,7 +164,7 @@ exports.updatePassword = (req, res) => {
       return data.user.updatePassword(newPassword);
     })
     .then((data) => {
-      return res.status(200).json({ success: 'New password set.' });
+      return res.status(200).json({ success: 'New password set successfully.' });
     })
     .catch((err) => {
       console.log(err);

@@ -74,13 +74,17 @@ export const getUserData = () => (dispatch) => {
 };
 
 export const updateNickName = (nickName) => (dispatch) => {
-  dispatch({ type: LOADING_USER });
+  dispatch({ type: LOADING_UI });
   axios
     .post('/user/nickname', {nickName})
     .then((res) => {
       dispatch({
         type: SET_NICKNAME,
         payload: nickName
+      });
+      dispatch({
+        type: SET_SUCCESS,
+        payload: res.data.success
       });
     })
     .catch((err) => console.log(err));

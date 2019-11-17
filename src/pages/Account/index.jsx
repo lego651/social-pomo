@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 // import MyModal from '../../components/MyModal';
-import { updateNickName } from '../../actions';
+import { updateNickName, clearSuccess } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 
@@ -13,8 +15,25 @@ class Account extends Component {
     super(props);
     console.log(props)
     this.state = {
-      nickName: props.user.profile.nickName,
+      nickName: props.user.profile.nickName || '',
+      show: false,
+      errors: {},
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.success) {
+      this.setState({
+        success: nextProps.UI.success,
+        show: true
+      });
+    }
+  }
+  closeSuccess = () => {
+    this.setState({
+      show: false,
+      success: null
+    })
+    this.props.clearSuccess();
   }
   handleChange = (e) => {
     this.setState({
@@ -23,9 +42,22 @@ class Account extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.nickName);
-    if(this.state.nickName.length > 0) {
+    // console.log(this.state.nickName);
+    // if(this.state.nickName.length > 0) {
+    //   this.props.updateNickName(this.state.nickName);
+    // }
+    if(this.state.nickName.length === 0) {
+      const errors = {
+        nickName: 'It must not be empty.'
+      }
+      this.setState({
+        errors
+      })
+    } else {
       this.props.updateNickName(this.state.nickName);
+      this.setState({
+        errors: {},
+      })
     }
   }
   handleImageChange = (event) => {
@@ -47,10 +79,20 @@ class Account extends Component {
   // }
   render(){
     const { email, handle, avatar, nickName } = this.props.user.profile;
+    const { loading, success } = this.props.UI;
+    const { errors } = this.state;
     return(
       <div className="account-container">
         <NavbarTop />
         <Container>
+          {
+            this.state.show &&
+            <Alert variant="success" onClose={() => this.closeSuccess()} dismissible>
+              <p>
+                { success }
+              </p>
+            </Alert>
+          }
           <Row>
             <Col xs="3">
               <NavLeft />
@@ -97,13 +139,24 @@ class Account extends Component {
                         name="nickName"
                         onChange={(e) => {this.handleChange(e)}}
                         placeholder={nickName}
-                        value={this.state.nickName || ''} />
+                        isInvalid={!!errors.nickName}
+                        value={this.state.nickName || ''}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.nickName}
+                      </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
                   <Form.Group as={Row}>
                     <Col sm={{ span: 10, offset: 2 }}>
-                      <Button type="submit"> Save </Button>
+                      <Button type="submit">
+                        { loading
+                            ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                            : <FontAwesomeIcon className="icon" icon={faEdit} />
+                        }
+                        <span> Save </span>
+                      </Button>
                     </Col>
                   </Form.Group>
                 </Form>
@@ -122,5 +175,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { updateNickName }
+  { updateNickName, clearSuccess }
 )(Account);
