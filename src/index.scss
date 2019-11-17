@@ -1,21 +1,39 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap');
 
-$primary-color: rgba(254,112,95,.75);
-$primary-green: rgb(0,196,112);
-$primary-blue: rgb(73,111,234);
+// $primary-color: rgba(254,112,95,.75);
+// $primary-green: rgb(0,196,112);
+// $primary-blue: rgb(73,111,234);
+// $primary-yellow: rgb(245, 210, 140);
+// $primary-pink: rgb(250, 160, 177);
+//
+// $bg-color-primary: rgba(242, 133, 137,.15);
+// $bg-color-light: rgba(247,249,252,.9);
+// $bg-color-green: rgba(16,196,105,.25);
+// $bg-color-blue: rgba(83,109,230,.25);
+// $bg-color-yellow: #fef5e4;
+// $bg-color-blue-primary: rgba(83,109,230,.6);
+// $bg-color-grey:rgb(245, 245, 245);
+//
+// $primary-font: 'Nunito', sans-serif;
+// $primary-font-color: #6c757d;
+
+$primary-color: rgb(240, 122, 126);
+$primary-green: rgb(157, 209, 164);
+$primary-blue: rgb(155, 195, 250);
 $primary-yellow: rgb(245, 210, 140);
 $primary-pink: rgb(250, 160, 177);
-
-$bg-color-primary: rgba(242, 133, 137,.15);
 $bg-color-light: rgba(247,249,252,.9);
-$bg-color-green: rgba(16,196,105,.25);
-$bg-color-blue: rgba(83,109,230,.25);
-$bg-color-yellow: #fef5e4;
-$bg-color-blue-primary: rgba(83,109,230,.6);
+$bg-color-green: rgba(157, 209, 164,.25);
+$bg-color-blue: rgba(155, 195, 250,.25);
+$bg-color-yellow: rgba(244, 216, 161,.25);
+$bg-color-primary: rgba(242, 133, 137,.15);
 $bg-color-grey:rgb(245, 245, 245);
-
 $primary-font: 'Nunito', sans-serif;
-$primary-font-color: #6c757d;
+$primary-font-color: rgb(92, 87, 89);
+
+$primary-button-blue:rgb(64, 133, 230);
+$primary-button-red:rgb(240, 122, 126);
+$primary-button-green:rgb(54, 125, 93);
 
 body,
 html,
@@ -48,6 +66,10 @@ h5 {
 body {
   background-color: $bg-color-light;
   font-family: 'Nunito', sans-serif;
+}
+
+button:hover {
+  box-shadow: 0 3px 15px 3px rgba(51, 51, 51, 0.5);
 }
 
 .btn-secondary {

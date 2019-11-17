@@ -1,83 +1,103 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import { Table, Button, Container, Row, Col } from 'react-bootstrap';
-// import { WithContext as ReactTags } from 'react-tag-input';
-//
-// import './style.scss';
-// import { addTag, removeTag } from '../../actions';
-//
-// const KeyCodes = {
-//   comma: 188,
-//   enter: 13,
-// };
-//
-// const delimiters = [KeyCodes.comma, KeyCodes.enter];
-//
-// class Tag extends React.Component {
-//   constructor(props) {
-//       super(props);
-//
-//       this.state = {
-//           tags: [
-//               { id: "Thailand", text: "Thailand" },
-//               { id: "India", text: "India" }
-//            ],
-//           suggestions: [
-//               { id: 'USA', text: 'USA' },
-//               { id: 'Germany', text: 'Germany' },
-//               { id: 'Austria', text: 'Austria' },
-//               { id: 'Costa Rica', text: 'Costa Rica' },
-//               { id: 'Sri Lanka', text: 'Sri Lanka' },
-//               { id: 'Thailand', text: 'Thailand' }
-//            ]
-//       };
-//       this.handleDelete = this.handleDelete.bind(this);
-//       this.handleAddition = this.handleAddition.bind(this);
-//       this.handleDrag = this.handleDrag.bind(this);
-//   }
-//
-//   handleDelete(i) {
-//       const { tags } = this.state;
-//       this.setState({
-//        tags: tags.filter((tag, index) => index !== i),
-//       });
-//   }
-//
-//   handleAddition(tag) {
-//       this.setState(state => ({ tags: [...state.tags, tag] }));
-//   }
-//
-//   handleDrag(tag, currPos, newPos) {
-//       const tags = [...this.state.tags];
-//       const newTags = tags.slice();
-//
-//       newTags.splice(currPos, 1);
-//       newTags.splice(newPos, 0, tag);
-//
-//       // re-render
-//       this.setState({ tags: newTags });
-//   }
-//
-//   render() {
-//       const { tags, suggestions } = this.state;
-//       return (
-//           <div>
-//               <ReactTags tags={tags}
-//                   suggestions={suggestions}
-//                   handleDelete={this.handleDelete}
-//                   handleAddition={this.handleAddition}
-//                   handleDrag={this.handleDrag}
-//                   delimiters={delimiters} />
-//           </div>
-//       )
-//   }
-// };
-//
-// const mapStateToProps = (state) => ({
-//   user: state.user,
-//   UI: state.UI
-// });
-// export default connect(
-//   mapStateToProps,
-//   { addTag, removeTag }
-// )(Tag);
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faTags, faTachometerAlt, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+
+import MyModal from '../../components/MyModal';
+import { addTag, removeTag } from '../../actions';
+import NavbarTop from '../../components/NavbarTop';
+import NavLeft from '../../components/NavLeft';
+import './style.scss';
+
+class Tag extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalShow: false
+    }
+  }
+  setModalShow = (bool) => {
+    this.setState({
+      modalShow: bool
+    })
+  }
+  addTag = (tag) => {
+    this.props.addTag(tag);
+  }
+  removeTag = (tag) => {
+    this.props.removeTag(tag.trim());
+  }
+  render(){
+    const { tags } = this.props.user.profile;
+    return(
+      <div className="tag-container">
+      <NavbarTop />
+      <Container>
+        <Row>
+          <Col xs="3">
+            <NavLeft />
+          </Col>
+          <Col xs="9">
+              <div className="project-header">
+              <h3> Tags </h3>
+              </div>
+              <div>
+              <Button
+                variant="primary"
+                className= "create-button"
+                onClick={() => this.setModalShow(true)}
+              >
+                + Add New Tag
+              </Button>
+            </div>
+            <div className="project-table">
+              <Table>
+                <thead>
+                  <tr>
+                    <th xs="3"> Tag Name </th>
+                    <th xs="4"> Delete </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    tags && tags.map((tag, index) => {
+                      return (
+                        <tr key={index}>
+                          <td> {tag} </td>
+                          <td>
+                            <Button
+                              className="delete-button"
+                              onClick={() => { this.removeTag(tag)} }
+                              >
+                              <span><FontAwesomeIcon icon={faTrashAlt} /></span>
+                            </Button>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </Table>
+            </div>
+            <MyModal
+              show={this.state.modalShow}
+              onHide={() => this.setModalShow(false)}
+              onCreate={(tag) => this.addTag(tag)}
+            />
+          </Col>
+        </Row>
+      </Container>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI
+});
+export default connect(
+  mapStateToProps,
+  { addTag, removeTag }
+)(Tag);

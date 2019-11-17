@@ -46,7 +46,7 @@ class NavLeft extends Component {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/tags"}>
+            <NavLink to={"/tag"}>
               <span><FontAwesomeIcon icon={faTags} /></span>
               Tags
             </NavLink>
