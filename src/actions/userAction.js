@@ -85,6 +85,21 @@ export const updateNickName = (nickName) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const updatePassword = (data) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/user/password', data)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 export const uploadImage = (formData) => (dispatch) => {
   // dispatch({ type: LOADING_USER });
   axios

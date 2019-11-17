@@ -1,20 +1,69 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
-import { addProject, removeProject } from '../../actions';
+// import MyModal from '../../components/MyModal';
+import { updatePassword } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 
 class Password extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
-      modalShow: false
+      password: '',
+      newPassword: '',
+      errors: {}
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if(this.state.password.length == 0) {
+      const errors = {
+        password: 'It must not be empty.'
+      }
+      this.setState({
+        errors
+      })
+    } else if(this.state.newPassword.length == 0) {
+      const errors = {
+        newPassword: 'It must not be empty.'
+      }
+      this.setState({
+        errors
+      })
+    } else if(this.state.newPassword.length < 6) {
+      const errors = {
+        newPassword: 'Must be with at least 6 characters.'
+      }
+      this.setState({
+        errors
+      })
+    } else {
+      const data = {
+        password: this.state.password,
+        newPassword: this.state.newPassword
+      }
+      this.props.updatePassword(data);
     }
   }
   render(){
+    const { errors } = this.state;
+    const { loading } = this.props.UI;
     return(
       <div className="password-container">
         <NavbarTop />
@@ -26,37 +75,52 @@ class Password extends Component {
             <Col xs="9">
               <h3> Password </h3>
               <div className="password-body">
-                <Form>
-                  <Form.Group as={Row} controlId="formHorizontalPassword">
-                    <Form.Label column sm={2}>
+                <Form onSubmit={(e) => {this.handleSubmit(e)}}>
+                  <Form.Group as={Row} controlId="formHorizontalEmail">
+                    <Form.Label column sm={3}>
                       Old Password
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="password" placeholder="Type in your old password" />
+                    <Col sm={9}>
+                      <Form.Control
+                        type="password"
+                        placeholder="Your Old Password"
+                        name="password"
+                        onChange={this.handleChange}
+                        isInvalid={!!errors.password}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.password}
+                      </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
                   <Form.Group as={Row} controlId="formHorizontalPassword">
-                    <Form.Label column sm={2}>
+                    <Form.Label column sm={3}>
                       New Password
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="password" placeholder="Type in your new password" />
-                    </Col>
-                  </Form.Group>
-
-                  <Form.Group as={Row} controlId="formHorizontalPassword">
-                    <Form.Label column sm={2}>
-                      Confirm New Password
-                    </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="password" placeholder="Confirm your new password" />
+                    <Col sm={9}>
+                      <Form.Control
+                        type="password"
+                        placeholder="Your New Password"
+                        name="newPassword"
+                        onChange={this.handleChange}
+                        isInvalid={!!errors.newPassword}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.newPassword}
+                      </Form.Control.Feedback>
                     </Col>
                   </Form.Group>
 
                   <Form.Group as={Row}>
                     <Col sm={{ span: 10, offset: 2 }}>
-                      <Button type="submit"> Submit </Button>
+                      <Button type="submit">
+                        { loading
+                            ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                            : <FontAwesomeIcon className="icon" icon={faEdit} />
+                        }
+                        <span> Save </span>
+                      </Button>
                     </Col>
                   </Form.Group>
                 </Form>
@@ -75,5 +139,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { addProject, removeProject }
+  { updatePassword }
 )(Password);

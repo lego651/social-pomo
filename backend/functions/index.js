@@ -12,7 +12,8 @@ const { signup,
         addInRoom,
         removeInRoom,
         uploadImage,
-        updateNickName } = require('./handlers/user.js');
+        updateNickName,
+        updatePassword } = require('./handlers/user.js');
 const { createRoom,
         addMessage,
         joinRoom,
@@ -38,12 +39,14 @@ app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getUserData);
 app.post('/user/avatar', FBAuth, uploadImage);
 app.post('/user/nickname', FBAuth, updateNickName);
+app.post('/user/password', FBAuth, updatePassword);
 app.post('/project', FBAuth, addProject);
 app.post('/project/remove', FBAuth, removeProject);
 app.post('/tag', FBAuth, addTag);
 app.post('/tag/remove', FBAuth, removeTag);
 app.post('/inroom', FBAuth, addInRoom);
 app.get('/inroom/remove', FBAuth, removeInRoom); // deprecated
+
 
 // Room Routes
 app.post('/room', FBAuth, createRoom);

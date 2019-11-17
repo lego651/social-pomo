@@ -152,6 +152,28 @@ exports.updateNickName = (req, res) => {
     })
 }
 
+// POST: update password
+exports.updatePassword = (req, res) => {
+  const password = req.body.password;
+  const newPassword = req.body.newPassword;
+
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(req.user.email, password)
+    .then((data) => {
+      return data.user.updatePassword(newPassword);
+    })
+    .then((data) => {
+      return res.status(200).json({ success: 'New password set.' });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res
+        .status(403)
+        .json({ password: 'Wrong password, please try again' });
+    })
+}
+
 // Upload a profile image for user
 exports.uploadImage = (req, res) => {
   const BusBoy = require('busboy');
