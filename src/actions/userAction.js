@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   SET_USER,
+  SET_NICKNAME,
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
@@ -66,6 +67,19 @@ export const getUserData = () => (dispatch) => {
       dispatch({
         type: SET_USER,
         payload: res.data
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const updateNickName = (nickName) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/user/nickname', {nickName})
+    .then((res) => {
+      dispatch({
+        type: SET_NICKNAME,
+        payload: nickName
       });
     })
     .catch((err) => console.log(err));

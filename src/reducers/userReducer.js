@@ -12,6 +12,7 @@ import {
   ADD_INROOM,
   REMOVE_INROOM,
   ADD_INROOM_OWNSROOM,
+  SET_NICKNAME,
 } from '../actions/types';
 
 const initialState = {
@@ -40,6 +41,15 @@ const authReducer = (state=initialState, action) => {
         authenticated: true,
         loading: false,
         profile: action.payload.profile
+      }
+    case SET_NICKNAME:
+      return {
+        ...state,
+        loading: false,
+        profile: {
+          ...state.profile,
+          nickName: action.payload
+        }
       }
     case ADD_PROJECT:
       return {

@@ -48,7 +48,7 @@ exports.signup = (req, res) => {
         allowed: true,
         inRoom: null,
         ownsRoom: null,
-        nickName: null,
+        nickName: newUser.handle,
         projects: [],
         tags: [],
         avatar: `https://firebasestorage.googleapis.com/v0/b/${

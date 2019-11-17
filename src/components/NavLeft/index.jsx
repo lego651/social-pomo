@@ -17,12 +17,12 @@ class NavLeft extends Component {
     }
   }
   render(){
-    const { avatar } = this.props.user.profile;
+    const { avatar, nickName, handle } = this.props.user.profile;
     return(
       <div className="navleft-container">
         <div className="navleft-user">
           <img src={avatar} alt="avatar" />
-          <p> Jason Gao </p>
+          <p> { nickName === null ? handle : nickName } </p>
         </div>
         <ul className="navs">
           <li>

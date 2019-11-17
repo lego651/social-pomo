@@ -4,15 +4,16 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 import './style.scss';
 // import MyModal from '../../components/MyModal';
-import { uploadImage } from '../../actions';
+import { updateNickName } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 
 class Account extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
-      nickName: '',
+      nickName: props.user.profile.nickName,
     }
   }
   handleChange = (e) => {
@@ -23,7 +24,9 @@ class Account extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state.nickName);
-    // this.props.loginUser(newUserData this.props.history);
+    if(this.state.nickName.length > 0) {
+      this.props.updateNickName(this.state.nickName);
+    }
   }
   handleImageChange = (event) => {
     const image = event.target.files[0];
@@ -35,8 +38,15 @@ class Account extends Component {
     const fileInput = document.getElementById('imageInput');
     fileInput.click();
   };
+  // componentDidUpdate(nextProps) {
+  //   if(nextProps.user.profile.nickName !== this.state.nickName) {
+  //     this.setState({
+  //       nickName: nextProps.user.profile.nickName
+  //     })
+  //   }
+  // }
   render(){
-    const { email, handle, avatar } = this.props.user.profile;
+    const { email, handle, avatar, nickName } = this.props.user.profile;
     return(
       <div className="account-container">
         <NavbarTop />
@@ -84,10 +94,10 @@ class Account extends Component {
                     <Col sm={10}>
                       <Form.Control
                         type="text"
-                        placeholder={handle}
                         name="nickName"
                         onChange={(e) => {this.handleChange(e)}}
-                        value={this.state.nickName} />
+                        placeholder={nickName}
+                        value={this.state.nickName || ''} />
                     </Col>
                   </Form.Group>
 
@@ -112,5 +122,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { uploadImage }
+  { updateNickName }
 )(Account);
