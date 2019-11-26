@@ -9,6 +9,7 @@ import {
   ADD_TAG,
   REMOVE_TAG,
   SET_TODO,
+  REMOVE_TODO,
   ADD_INROOM,
   REMOVE_INROOM,
   ADD_INROOM_OWNSROOM,
@@ -18,7 +19,7 @@ import {
 const initialState = {
   authenticated: false,
   loading: false,
-  todo: '',
+  todo: null,
   profile: {}
 }
 
@@ -112,6 +113,11 @@ const authReducer = (state=initialState, action) => {
       return {
         ...state,
         todo: action.payload
+      }
+    case REMOVE_TODO:
+      return {
+        ...state,
+        todo: null
       }
     default:
       return state;

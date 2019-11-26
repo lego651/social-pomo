@@ -49,7 +49,7 @@ exports.signup = (req, res) => {
         inRoom: null,
         ownsRoom: null,
         nickName: newUser.handle,
-        projects: [],
+        projects: ['Other'],
         tags: [],
         avatar: `https://firebasestorage.googleapis.com/v0/b/${
           config.storageBucket

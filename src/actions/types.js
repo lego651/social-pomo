@@ -13,6 +13,7 @@ export const REMOVE_TAG = 'REMOVE_TAG';
 export const ADD_INROOM = 'ADD_INROOM';
 export const REMOVE_INROOM = 'REMOVE_INROOM';
 export const ADD_INROOM_OWNSROOM = 'ADD_INROOM_OWNSROOM';
+export const REMOVE_TODO = 'REMOVE_TODO';
 
 // UI reducer types
 export const SET_ERRORS = 'SET_ERRORS';

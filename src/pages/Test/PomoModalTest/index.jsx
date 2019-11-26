@@ -10,7 +10,7 @@ class PomoModalTest extends Component {
     super(props);
     this.state = {
       content: '',
-      project: '',
+      project: 'Other',
       tag: [],
       errors: {}
     }
@@ -27,8 +27,9 @@ class PomoModalTest extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    const newContent = this.state.content.length > 0 ? this.state.content : this.props.user.todo;
     const newPomo = {
-      content: this.state.content,
+      content: newContent,
       project: this.state.project,
       tag: this.state.tag
     }
@@ -39,6 +40,8 @@ class PomoModalTest extends Component {
   }
   render() {
     const { projects, tags } = this.props.user.profile;
+    const content = this.props.user.todo;
+    console.log(this.state);
     return (
       <Modal
         {...this.props}
@@ -58,7 +61,7 @@ class PomoModalTest extends Component {
             <Form.Control
               type="text"
               placeholder="Enter your task"
-              value={this.props.user.todo}
+              defaultValue={content}
               name="content"
               onChange={(e) => {this.handleChange(e)}}
             />

@@ -30,7 +30,6 @@ class Project extends Component {
     this.props.removeProject(project.trim());
   }
   render(){
-    console.log(this.props.user.profile.projects);
     const { projects } = this.props.user.profile;
     return(
       <div className="project-container">
@@ -68,12 +67,16 @@ class Project extends Component {
                         <tr key={index}>
                           <td> {project} </td>
                           <td>
-                            <Button
-                              className="delete-button"
-                              onClick={() => { this.removeProject(project)} }
-                              >
-                              <span><FontAwesomeIcon icon={faTrashAlt} /></span>
-                            </Button>
+                            {
+                              index === 0
+                                ? null
+                                : <Button
+                                    className="delete-button"
+                                    onClick={() => { this.removeProject(project)} }
+                                    >
+                                    <span><FontAwesomeIcon icon={faTrashAlt} /></span>
+                                  </Button>
+                            }
                           </td>
                         </tr>
                       )
