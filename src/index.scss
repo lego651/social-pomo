@@ -22,12 +22,14 @@ $primary-green: rgb(157, 209, 164);
 $primary-blue: rgb(155, 195, 250);
 $primary-yellow: rgb(245, 210, 140);
 $primary-pink: rgb(250, 160, 177);
+
 $bg-color-light: rgba(247,249,252,.9);
 $bg-color-green: rgba(157, 209, 164,.25);
 $bg-color-blue: rgba(155, 195, 250,.25);
 $bg-color-yellow: rgba(244, 216, 161,.25);
 $bg-color-primary: rgba(242, 133, 137,.15);
 $bg-color-grey:rgb(245, 245, 245);
+
 $primary-font: 'Nunito', sans-serif;
 $primary-font-color: rgb(92, 87, 89);
 
@@ -81,4 +83,21 @@ button:hover {
 
 .alert-success {
   padding: 14px 20px 0px 20px;
+}
+
+//modal
+.modal-content{
+  .modal-header {
+    background-color: $primary-color;
+    color: white;
+    font-weight: bold;
+  }
+  button {
+    background-color:  $primary-color;
+    border: none;
+  }
+  #modalButton:hover {
+    box-shadow: 0 3px 15px 3px rgba(51, 51, 51, 0.5);
+    background-color:  $primary-color;
+  }
 }
