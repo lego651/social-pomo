@@ -22,7 +22,8 @@ const { createRoom,
         resetCount,
         leaveRoom,
         deleteMessages } = require('./handlers/room.js');
-const { createPomo } = require('./handlers/pomo.js');
+const { createPomo,
+        fetchAllPomo } = require('./handlers/pomo.js');
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -61,6 +62,7 @@ app.post('/messages', FBAuth, deleteMessages);
 
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);
+app.get('/pomo', FBAuth, fetchAllPomo);
 
 app.get('/messages', (req, res) => {
   admin

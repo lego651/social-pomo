@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   CLEAR_SUCCESS,
 } from './types';

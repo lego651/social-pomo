@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 import './style.scss';
-import { createPomo } from '../../../actions';
+import { createPomo, removeTodo } from '../../../actions';
 
 class PomoModalTest extends Component {
   constructor(props) {
@@ -36,6 +36,7 @@ class PomoModalTest extends Component {
     console.log(newPomo);
     // this.props.onCreate(this.state.project);
     this.props.createPomo(newPomo);
+    this.props.removeTodo();
     this.props.onHide();
   }
   render() {
@@ -115,5 +116,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { createPomo }
+  { createPomo, removeTodo }
 )(PomoModalTest);

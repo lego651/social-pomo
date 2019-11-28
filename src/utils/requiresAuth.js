@@ -18,7 +18,7 @@ export default function (ComposedComponent) {
     }
 
     _checkAndRedirect() {
-      const { authenticated, redirect } = this.props;
+      const { authenticated } = this.props;
       // console.log('1 is called...');
 
       if (!authenticated) {

@@ -4,10 +4,8 @@ import {
   SET_NICKNAME,
   SET_ERRORS,
   SET_SUCCESS,
-  CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
-  LOADING_USER,
   ADD_PROJECT,
   REMOVE_PROJECT,
   ADD_TAG,
@@ -23,9 +21,7 @@ export const loginUser = (userData, history) => (dispatch) => {
     .post('/login', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
-      history.push('/overview');
+      dispatch(getUserDataAndRedirect(history));
     })
     .catch((err) => {
       console.log(err);
@@ -41,11 +37,8 @@ export const signupUser = (newUserData, history) => (dispatch) => {
   axios
     .post('/signup', newUserData)
     .then((res) => {
-      console.log(res);
       setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
-      history.push('/overview');
+      dispatch(getUserDataAndRedirect(history));
     })
     .catch((err) => {
       dispatch({
@@ -62,7 +55,6 @@ const setAuthorizationHeader = (token) => {
 };
 
 export const getUserData = () => (dispatch) => {
-  dispatch({ type: LOADING_USER });
   axios
     .get('/user')
     .then((res) => {
@@ -73,6 +65,19 @@ export const getUserData = () => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getUserDataAndRedirect = (history) => (dispatch) => {
+  axios
+    .get('/user')
+    .then((res) => {
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+      history.push('/overview');
+    })
+    .catch((err) => console.log(err));
+}
 
 export const updateNickName = (nickName) => (dispatch) => {
   dispatch({ type: LOADING_UI });
@@ -203,4 +208,10 @@ export const addTodo = (todo, roomName, handle) => (dispatch) => {
       })
     })
     .catch((err) => console.log(err));
+}
+
+export const removeTodo = () => (dispatch) => {
+  return dispatch({
+    type: REMOVE_TODO
+  })
 }

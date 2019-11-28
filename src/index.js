@@ -34,12 +34,13 @@ if (token) {
   if (decodedToken.exp * 1000 < Date.now() - 1000 * 60 * 60 * 2) {
     store.dispatch(logoutUser());
     window.location.href = '/login';
+    localStorage.removeItem('FBIToken');
   } else {
     store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common['Authorization'] = token;
     store.dispatch(getUserData());
   }
-}
+} 
 
 ReactDOM.render(
   <Provider store={store}>
