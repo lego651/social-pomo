@@ -121,7 +121,7 @@ class SignUp extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="info" type="submit">
                       { loading
                           ? <FontAwesomeIcon className="icon" icon={faSync} spin />
                           : <FontAwesomeIcon className="icon" icon={faUserPlus} />

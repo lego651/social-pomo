@@ -8,7 +8,9 @@
     color: $primary-color;
   }
   .dropdown {
-    cursor: pointer;
+    .dropdown-wrapper {
+      cursor: pointer;
+    }
     .dropdown-content {
       right:0;
       display: none;
@@ -28,7 +30,7 @@
       font-weight: 600;
       font-size: 16px;
     }
-    .dropdown-content a:hover {background-color: #ddd;}
+    .dropdown-content a:hover {background-color: #f8f9fa;}
     .dropdown-content {display: block;}
     img {
       width: 40px;

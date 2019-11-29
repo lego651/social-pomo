@@ -12,6 +12,7 @@ import {
   REMOVE_TODO,
   ADD_INROOM,
   REMOVE_INROOM,
+  REMOVE_INROOM_OWNSROOM,
   ADD_INROOM_OWNSROOM,
   SET_NICKNAME,
 } from '../actions/types';
@@ -106,7 +107,16 @@ const authReducer = (state=initialState, action) => {
         profile: {
           ...state.profile,
           inRoom: action.payload,
-          ownsRoom: action.payload
+          ownsRoom: action.payload,
+        }
+      }
+    case REMOVE_INROOM_OWNSROOM:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          inRoom: null,
+          ownsRoom: null,
         }
       }
     case SET_TODO:

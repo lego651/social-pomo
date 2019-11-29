@@ -6,7 +6,6 @@ import { faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@f
 
 import './style.scss';
 import { addTodo } from '../../actions';
-import default_avatar from '../../assets/img/default_avatar.jpg';
 import default_img from '../../assets/img/avatar.svg';
 // import { addMessage } from '../../actions';
 
@@ -24,7 +23,7 @@ class NavLeft extends Component {
       <div className="navleft-container">
         <div className="navleft-user">
           { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}
-          { shownName ? <p> shownName </p> : <p> &nbsp; </p> }
+          { shownName ? <p> { shownName } </p> : <p> &nbsp; </p> }
         </div>
         <ul className="navs">
           <li>

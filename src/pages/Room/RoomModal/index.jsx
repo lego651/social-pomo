@@ -8,8 +8,7 @@ class RoomModal extends Component {
     super(props);
     this.state = {
       content: '',
-      errors: {},
-
+      errors: {}
     }
   }
   handleChange = (e) => {
@@ -26,7 +25,6 @@ class RoomModal extends Component {
   render() {
     const { errors } = this.state;
     return (
-
       <Modal backdrop="static"
         {...this.props}
         size="lg"
@@ -57,15 +55,15 @@ class RoomModal extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button
-          id="modalButton"
-          onClick={this.handleSubmit}
-          > Send </Button>
-          <Button
-          id="modalButton"
+          id="close"
           variant="secondary"
           onClick={this.handleClose}>
             Close
           </Button>
+          <Button
+          id="modalButton"
+          onClick={this.handleSubmit}
+          > Send </Button>
         </Modal.Footer>
       </Modal>
     );

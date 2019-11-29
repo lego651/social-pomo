@@ -9,13 +9,14 @@ import Pomodoro from './Pomodoro';
 import RoomModal from './RoomModal';
 import NavbarTop from '../../components/NavbarTop';
 import UsersInRoom from './UsersInRoom';
+import LoadingModal from '../../components/LoadingModal';
 import { leaveRoom, addTodo } from '../../actions';
 
 class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: true,
+      modalShow: false,
       isOwner: false
     }
   }
@@ -34,20 +35,31 @@ class Room extends Component {
     const { roomname } = this.props.match.params;
     const { inRoom, ownsRoom } = this.props.user.profile;
     const isOwner = ownsRoom !== null && (inRoom === ownsRoom);
+    const _history = this.props.history;
     return(
       <div className="room-container">
         <NavbarTop />
         <Container>
           <Row>
             <Col md={4}>
-              <Commit roomName={roomname}
-                      onLeave={() => this.onLeave()}
-                      onOpenModal={() => this.setModalShow(true)} />
               <Pomodoro roomName={roomname}
                         isOwner={isOwner} />
             </Col>
-            <Col md={8}>
-              <UsersInRoom roomName={roomname} />
+            <Col md={8} className="roomRight">
+              <div className="roomInfo">
+                <div>
+                  <h2> { roomname } </h2>
+                  <UsersInRoom roomName={roomname} />
+                </div>
+                <div>
+                  <Commit
+                    isOwner={isOwner}
+                    roomName={roomname}
+                    onLeave={() => this.onLeave()}
+                    onOpenModal={() => this.setModalShow(true)}
+                    history={_history} />
+                </div>
+              </div>
               <Chatroom roomname={roomname}
                         isOwner={isOwner} />
             </Col>
@@ -60,6 +72,7 @@ class Room extends Component {
           roomName={roomname}
           handle={this.props.user.profile.handle}
         />
+        <LoadingModal show={this.props.UI.loading} />
       </div>
     )
   }

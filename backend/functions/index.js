@@ -21,6 +21,7 @@ const { createRoom,
         startCount,
         resetCount,
         leaveRoom,
+        deleteRoom,
         deleteMessages } = require('./handlers/room.js');
 const { createPomo,
         fetchAllPomo } = require('./handlers/pomo.js');
@@ -57,6 +58,7 @@ app.post('/startcount', FBAuth, startCount);
 app.post('/resetcount', FBAuth, resetCount);
 app.post('/leaveroom', FBAuth, leaveRoom);
 app.post('/messages', FBAuth, deleteMessages);
+app.post('/room/delete', FBAuth, deleteRoom);
 
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);

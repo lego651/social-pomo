@@ -5,9 +5,9 @@ import firebase from '../../../utils/firebase.js';
 import './style.scss';
 import { addMessage, deleteMessages } from '../../../actions';
 import Message from '../Message/index.jsx';
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-import { TextField, Button } from '@material-ui/core';
+import { Form, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane, faSync } from '@fortawesome/free-solid-svg-icons';
 
 class Chatroom extends Component {
   constructor(props) {
@@ -36,7 +36,8 @@ class Chatroom extends Component {
       messages.push({
         userHandle: doc.data().userHandle,
         content: doc.data().content,
-        createdAt: doc.data().createdAt
+        createdAt: doc.data().createdAt,
+        avatar: doc.data().avatar
       })
     });
     // messages.sort((a,b) => a.createdAt - b.createdAt);
@@ -53,50 +54,32 @@ class Chatroom extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const newMessage = {
-      userHandle: this.props.username,
-      content: this.state.content,
-      roomName: this.props.roomname
+    if(this.state.content.length > 0) {
+      const newMessage = {
+        userHandle: this.props.username,
+        content: this.state.content,
+        roomName: this.props.roomname
+      }
+      this.props.addMessage(newMessage);
+      this.setState({
+        content: ''
+      })
     }
-    this.props.addMessage(newMessage);
-    this.setState({
-      content: ''
-    })
   }
 
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
-
-  deleteMessages = (roomname) => {
-    console.log('chatroom data is ', roomname);
-    this.props.deleteMessages(roomname);
-  }
-
   render(){
     const { username, roomname } = this.props;
+    const { loading } = this.props.UI;
     return(
       <div className="chatroom-container">
-        {
-          this.props.isOwner
-          ?
-          <div className= "clear-message">
-              <Button
-                onClick={() => { this.deleteMessages(roomname)} }
-                variant="contained"
-                color="primary"
-              >
-                Clear Messages
-              </Button>
-          </div>
-          :
-          null
-        }
         <div className="message-list">
           {
-            this.state.messages.map((m, i) =>
+            this.state.messages && this.state.messages.map(m =>
               <Message
-                Key={i}
+                key={`${m.createdAt}-${m.content}`}
                 item={m}
                 curHandle={username} />
             )
@@ -106,24 +89,24 @@ class Chatroom extends Component {
           </div>
         </div>
         <div className="chatroom-input">
-          <form onSubmit={(e) => {this.handleSubmit(e)}}>
-            <TextField
-              className="text"
-              type="text"
-              name="content"
-              label="content"
-              onChange={(e) => {this.handleChange(e)}}
-              value={this.state.content}
-              fullWidth
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-              Submit
+          <Form onSubmit={(e) => {this.handleSubmit(e)}}>
+            <Form.Group controlId="formTextContent">
+              <Form.Control
+                type="text"
+                placeholder="Type a message"
+                name="content"
+                onChange={(e) => {this.handleChange(e)}}
+                value={this.state.content}
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              { loading
+                  ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                  : <FontAwesomeIcon className="icon" icon={faPaperPlane} />
+              }
             </Button>
-          </form>
+          </Form>
         </div>
       </div>
     )
@@ -131,11 +114,11 @@ class Chatroom extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  username: state.user.profile.handle
+  username: state.user.profile.handle,
+  UI: state.UI
 })
 const mapDispatchToProps = (dispatch) => ({
   addMessage: (newMessage) => dispatch(addMessage(newMessage)),
-  deleteMessages: (roomname) => dispatch(deleteMessages(roomname)),
 })
 
 export default connect(

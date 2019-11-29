@@ -5,6 +5,7 @@ import {
   SET_ERRORS,
   SET_SUCCESS,
   LOADING_UI,
+  CLEAR_ERRORS,
   SET_UNAUTHENTICATED,
   ADD_PROJECT,
   REMOVE_PROJECT,
@@ -22,6 +23,9 @@ export const loginUser = (userData, history) => (dispatch) => {
     .then((res) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserDataAndRedirect(history));
+      dispatch({
+        type: CLEAR_ERRORS
+      })
     })
     .catch((err) => {
       console.log(err);

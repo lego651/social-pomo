@@ -53,7 +53,7 @@ ReactDOM.render(
         <Route exact path="/account" component={requiresAuth(Account)} />
         <Route exact path="/password" component={requiresAuth(Password)} />
         <Route exact path="/room" component={requiresAuth(Door)} />
-        <Route exact path="/room/:roomname" component={Room} />
+        <Route exact path="/room/:roomname" component={requiresAuth(Room)} />
         <Route exact path="/test/:roomname" component={Test} />
         <Route exact path="/project" component={requiresAuth(Project)} />
         <Route exact path="/tag" component={requiresAuth(Tag)} />

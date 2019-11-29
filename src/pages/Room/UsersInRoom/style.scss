@@ -1,12 +1,12 @@
 @import "../../../index.scss";
 
 .usersinroom-container {
-  align-content:center;
-  .all-users {
-    .single-user {
-      margin-left: 10px;
-      margin-right: 10px;
-      display: inline-block;
+  .single-user {
+    display: inline-block;
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 26px;
     }
   }
 }

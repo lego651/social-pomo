@@ -24,34 +24,50 @@ exports.createRoom = (req, res) => {
     on: false,
     startTime: null,
   }
-  db.doc(`/rooms/${roomName}`)
+  db.doc(`users/${handle}`)
     .get()
     .then((doc) => {
-      if(doc.exists) {
-        return res.status(400).json({ fail: 'this room name is already taken.' })
-      } else {
-        return db.doc(`/rooms/${newRoom.roomName}`).set(newRoom)
+      if(doc.data().ownsRoom !== null) {
+        return res.status(400).json({ fail: 'Please delete your owned room first to create a new one.' })
       }
+      return;
     })
-    .then(() => { // upadte 这个 user 的 inRoom
-      const userInRoom = {
-        inRoom: roomName,
-        ownsRoom: roomName
-      }
-      db.doc(`/users/${req.user.handle}`).update(userInRoom)
-      return res.json({ success: 'create Room successfully.' })
-    })
-    .then(() => { // 在 /rooms/roomname/messages 这个collection里面添加第一个message
-      const firstMessage = {
-        content: `${person} created room...`,
-        userHandle: handle,
-        createdAt: new Date().toISOString()
-      }
-      return db.collection(`/rooms/${roomName}/messages`).add(firstMessage);
+    .then(() => {
+      db.doc(`/rooms/${roomName}`)
+        .get()
+        .then((doc) => {
+          if(doc.exists) {
+            return res.status(400).json({ fail: 'Room name is already taken.' })
+          } else {
+            return db.doc(`/rooms/${newRoom.roomName}`).set(newRoom)
+          }
+        })
+        .then(() => { // upadte 这个 user 的 inRoom
+          const userInRoom = {
+            inRoom: roomName,
+            ownsRoom: roomName
+          }
+          db.doc(`/users/${req.user.handle}`).update(userInRoom)
+          return res.json({ success: 'create Room successfully.' })
+        })
+        .then(() => { // 在 /rooms/roomname/messages 这个collection里面添加第一个message
+          const firstMessage = {
+            content: `${person} created room...`,
+            userHandle: handle,
+            createdAt: new Date().toISOString()
+          }
+          return db.collection(`/rooms/${roomName}/messages`).add(firstMessage);
+        })
+        .catch((err) => {
+          return res.status(500).json({ error: err.code})
+        })
+      return;
     })
     .catch((err) => {
       return res.status(500).json({ error: err.code})
     })
+
+
 }
 
 // POST message, add a new message in that room
@@ -81,7 +97,7 @@ exports.joinRoom = (req, res) => {
     .get()
     .then((doc) => {
       if(!doc.exists) { // 如果房间名不存在，告知用户
-        return res.status(400).json({ fail: 'this room name does exist yet.' })
+        return res.status(400).json({ fail: 'Room name does exist yet.' })
       }
       return;
     })
@@ -214,3 +230,21 @@ exports.deleteMessages = (req, res) => {
       return res.status(500).json({error: err.code});
     })
 };
+
+// Delete: delete room document
+exports.deleteRoom = (req, res) => {
+  const roomName = req.body.roomName;
+  db.doc(`/rooms/${roomName}`)
+    .delete()
+    .then(() => {
+      const userOwnsRoom = {
+        ownsRoom: null,
+        inRoom: null
+      }
+      db.doc(`/users/${req.user.handle}`).update(userOwnsRoom);
+      return res.status(200).json({ success: 'Room deleted successfully.' });
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err});
+    })
+}

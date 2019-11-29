@@ -42,16 +42,17 @@ class NavbarTop extends Component {
       <div className="navbar-container">
         <Container>
           <Navbar>
-            <Navbar.Brand href="/overview"> Social Pomo </Navbar.Brand>
+            <Navbar.Brand href="/dashboard"> Social Pomo </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text className="dropdown">
-                <img
-                  onClick={this.showMenu}
-                  src={avatar ? avatar : default_img}
-                  alt="avatar"
-                />
-                <span> <FontAwesomeIcon icon={faCaretDown} /></span>
+                <div className="dropdown-wrapper" onClick={this.showMenu}>
+                  <img
+                    src={avatar ? avatar : default_img}
+                    alt="avatar"
+                  />
+                  <span> <FontAwesomeIcon icon={faCaretDown} /></span>
+                </div>
                 {
                   this.state.showMenu
                      ? (

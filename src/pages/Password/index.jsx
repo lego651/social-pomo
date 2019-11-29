@@ -144,7 +144,9 @@ class Password extends Component {
 
                   <Form.Group as={Row}>
                     <Col sm={{ span: 10, offset: 2 }}>
-                      <Button type="submit">
+                      <Button
+                        variant="success"
+                        type="submit">
                         { loading
                             ? <FontAwesomeIcon className="icon" icon={faSync} spin />
                             : <FontAwesomeIcon className="icon" icon={faEdit} />

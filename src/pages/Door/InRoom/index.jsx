@@ -18,11 +18,9 @@ class InRoom extends Component {
       <div className="inroom-container">
         <h3> Room: { roomName } </h3>
         <img src={coWorking} alt="co-working"/>
-        <Button>
           <Link to={`/room/${roomName}`}>
             Enter
           </Link>
-        </Button>
       </div>
     )
   }

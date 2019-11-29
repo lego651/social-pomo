@@ -47,7 +47,7 @@ class Login extends Component {
               <div className="login-left">
                 <h3>Sign In App</h3>
                 <h5>Enter your email address and password to access account.</h5>
-                <div className="signup-form">
+                <div className="login-form">
                   <Form onSubmit={(e) => {this.handleSubmit(e)}}>
                     <Form.Group controlId="formBasicEmail">
                       <Form.Label>
@@ -83,7 +83,7 @@ class Login extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
+                    <Button variant="info" type="submit">
                       { loading
                           ? <FontAwesomeIcon className="icon" icon={faSync} spin />
                           : <FontAwesomeIcon className="icon" icon={faSignInAlt} />

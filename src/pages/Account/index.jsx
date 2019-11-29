@@ -6,7 +6,7 @@ import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 // import MyModal from '../../components/MyModal';
-import { updateNickName, clearSuccess } from '../../actions';
+import { updateNickName, clearSuccess, uploadImage } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 
@@ -150,7 +150,9 @@ class Account extends Component {
 
                   <Form.Group as={Row}>
                     <Col sm={{ span: 10, offset: 2 }}>
-                      <Button type="submit">
+                      <Button
+                        variant="success"
+                        type="submit">
                         { loading
                             ? <FontAwesomeIcon className="icon" icon={faSync} spin />
                             : <FontAwesomeIcon className="icon" icon={faEdit} />
@@ -175,5 +177,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { updateNickName, clearSuccess }
+  { updateNickName, clearSuccess, uploadImage }
 )(Account);

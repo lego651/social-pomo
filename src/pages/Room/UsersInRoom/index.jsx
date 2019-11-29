@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import firebase from '../../../utils/firebase.js';
+
 import './style.scss';
 import { addMessage } from '../../../actions';
+import default_img from '../../../assets/img/avatar.svg';
 // import Message from '../Message/index.jsx';
 // import TextField from '@material-ui/core/TextField';
 // import Button from '@material-ui/core/Button';
@@ -19,27 +21,34 @@ class UsersInRoom extends Component {
     }
   }
   onUpdateUsers = (doc) => {
-    this.setState({
-      users: doc.data().people
-    });
+    if(doc.data()) {
+      this.setState({
+        users: doc.data().people
+      });
+    }
   }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onUpdateUsers);
+  }
+  componentWillUnmount() {
+    this.setState({
+      usres: []
+    })
   }
   render(){
     const { users } = this.state;
     return(
       <div className="usersinroom-container">
-        <center className="all-users">
-        <h2>Active Members</h2>
         {
           users && users.map((user) =>
-            <div className= "single-user">
-              <h3> { user } </h3>
+            <div className= "single-user" key={user}>
+              <img
+                src={user ? user : default_img}
+                alt="avatar"
+              />
             </div>
           )
         }
-        </center>
       </div>
     )
   }

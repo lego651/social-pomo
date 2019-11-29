@@ -119,11 +119,13 @@ class Pomodoro extends Component {
   //   }
   // }
   subscribeStart = (doc) => {
-    this.setState({
-      on: doc.data().on,
-      startTime: doc.data().startTime
-    })
-    if(doc.data().startTime) {
+    if(doc.data()) {
+      this.setState({
+        on: doc.data().on,
+        startTime: doc.data().startTime
+      })
+    }
+    if(doc.data() && doc.data().startTime) {
       this.start(doc.data().startTime);
     }
   }
@@ -139,6 +141,15 @@ class Pomodoro extends Component {
   }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
+  }
+  componentWillUnmount() {
+    this.unsubscribe = null;
+    this.setState({
+      sec: 25 * 60,
+      on: false,
+      startTime: null,
+      modalShow: false,
+    })
   }
   render() {
     console.log(this.state);
