@@ -21,6 +21,7 @@ exports.fetchAllPomo = (req, res) => {
   const handle = req.user.handle;
   db.collection('pomos')
     .where("handle", "==", handle)
+    .orderBy("createdAt")
     .get()
     .then((data) => {
       let pomos = [];
@@ -35,6 +36,6 @@ exports.fetchAllPomo = (req, res) => {
       return res.json(pomos);
     })
     .catch((err) => {
-      return res.status(500).json({ error: err.code });
+      return res.status(500).json({ error: err });
     })
 }

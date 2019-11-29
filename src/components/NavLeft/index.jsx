@@ -6,7 +6,7 @@ import { faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@f
 
 import './style.scss';
 import { addTodo } from '../../actions';
-// import avatar from '../../assets/img/default_avatar.jpg';
+import default_avatar from '../../assets/img/default_avatar.jpg';
 // import { addMessage } from '../../actions';
 
 class NavLeft extends Component {
@@ -18,11 +18,12 @@ class NavLeft extends Component {
   }
   render(){
     const { avatar, nickName, handle } = this.props.user.profile;
+    const shownName = nickName === null ? handle : nickName;
     return(
       <div className="navleft-container">
         <div className="navleft-user">
-          <img src={avatar} alt="avatar" />
-          <p> { nickName === null ? handle : nickName } </p>
+          { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_avatar} alt="avatar" />}
+          { shownName ? <p> shownName </p> : <p> &nbsp; </p> }
         </div>
         <ul className="navs">
           <li>
