@@ -74,7 +74,7 @@ export const getUserDataAndRedirect = (history) => (dispatch) => {
         type: SET_USER,
         payload: res.data
       });
-      history.push('/overview');
+      history.push('/dashboard');
     })
     .catch((err) => console.log(err));
 }

@@ -8,6 +8,7 @@
     color: $primary-color;
   }
   .dropdown {
+    cursor: pointer;
     .dropdown-content {
       right:0;
       display: none;
@@ -16,12 +17,16 @@
       min-width: 160px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
+      border-radius: 5px;
     }
     .dropdown-content a {
-      color: black;
+      color: $primary-font-color;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
     }
     .dropdown-content a:hover {background-color: #ddd;}
     .dropdown-content {display: block;}

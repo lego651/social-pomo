@@ -48,7 +48,6 @@ app.post('/tag/remove', FBAuth, removeTag);
 app.post('/inroom', FBAuth, addInRoom);
 app.get('/inroom/remove', FBAuth, removeInRoom); // deprecated
 
-
 // Room Routes
 app.post('/room', FBAuth, createRoom);
 app.post('/message', FBAuth, addMessage);
@@ -58,7 +57,6 @@ app.post('/startcount', FBAuth, startCount);
 app.post('/resetcount', FBAuth, resetCount);
 app.post('/leaveroom', FBAuth, leaveRoom);
 app.post('/messages', FBAuth, deleteMessages);
-
 
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);

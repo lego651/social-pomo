@@ -10,7 +10,7 @@ import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import './style.scss';
 
-class Overview extends Component {
+class Dashboard extends Component {
   handleClick = (e) => {
     this.props.logoutUser();
   }
@@ -66,4 +66,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(Overview);
+)(Dashboard);

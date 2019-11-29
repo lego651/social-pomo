@@ -12,7 +12,7 @@ import * as serviceWorker from './serviceWorker';
 import store from './store';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
-import Overview from './pages/Overview';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Room from './pages/Room';
 import Test from './pages/Test';
@@ -40,7 +40,7 @@ if (token) {
     axios.defaults.headers.common['Authorization'] = token;
     store.dispatch(getUserData());
   }
-} 
+}
 
 ReactDOM.render(
   <Provider store={store}>
@@ -49,7 +49,7 @@ ReactDOM.render(
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/overview" component={requiresAuth(Overview)} />
+        <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
         <Route exact path="/account" component={requiresAuth(Account)} />
         <Route exact path="/password" component={requiresAuth(Password)} />
         <Route exact path="/room" component={requiresAuth(Door)} />
