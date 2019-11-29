@@ -1,5 +1,3 @@
-
-
 const { admin, db } = require('../utils/admin');
 
 // input: req.body.roomName: String
@@ -8,8 +6,8 @@ const { admin, db } = require('../utils/admin');
 // 3.创建一个collection /rooms/roomname/getMessages
 // 4.往这个里面放一个message
 exports.createRoom = (req, res) => {
-  console.log(req.body);
   const person = req.user.handle;
+  const avatar = req.user.avatar;
   const roomName = req.body.roomName;
   const handle = req.user.handle;
   const message = {
@@ -21,7 +19,7 @@ exports.createRoom = (req, res) => {
     roomName: roomName,
     owner: person,
     count: 0,
-    people: [person],
+    people: [avatar],
     createdAt: new Date().toISOString(),
     on: false,
     startTime: null,
@@ -30,7 +28,6 @@ exports.createRoom = (req, res) => {
     .get()
     .then((doc) => {
       if(doc.exists) {
-        console.log(doc.data());
         return res.status(400).json({ fail: 'this room name is already taken.' })
       } else {
         return db.doc(`/rooms/${newRoom.roomName}`).set(newRoom)
@@ -53,7 +50,6 @@ exports.createRoom = (req, res) => {
       return db.collection(`/rooms/${roomName}/messages`).add(firstMessage);
     })
     .catch((err) => {
-      console.error(err);
       return res.status(500).json({ error: err.code})
     })
 }
@@ -63,6 +59,7 @@ exports.addMessage = (req, res) => {
   const newMessage = {
     content: req.body.content,
     userHandle: req.body.userHandle,
+    avatar: req.user.avatar,
     createdAt: new Date().toISOString()
   }
   const roomname = req.body.roomName
@@ -105,7 +102,7 @@ exports.joinRoom = (req, res) => {
     })
     .then(() => { // add current user to people in room
         const updateRoom = {
-          people: admin.firestore.FieldValue.arrayUnion(req.user.handle)
+          people: admin.firestore.FieldValue.arrayUnion(req.user.avatar)
         }
         db.doc(`/rooms/${roomName}`)
           .update(updateRoom)
