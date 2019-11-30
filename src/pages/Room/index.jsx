@@ -33,7 +33,7 @@ class Room extends Component {
   }
   render(){
     const { roomname } = this.props.match.params;
-    const { inRoom, ownsRoom } = this.props.user.profile;
+    const { inRoom, ownsRoom, handle } = this.props.user.profile;
     const isOwner = ownsRoom !== null && (inRoom === ownsRoom);
     const _history = this.props.history;
     return(
@@ -61,7 +61,8 @@ class Room extends Component {
                 </div>
               </div>
               <Chatroom roomname={roomname}
-                        isOwner={isOwner} />
+                        isOwner={isOwner}
+                        curHandle={handle}/>
             </Col>
           </Row>
         </Container>

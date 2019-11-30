@@ -18,6 +18,10 @@ class Chatroom extends Component {
       messages: [],
       content: ''
     }
+    this.curHandle = props.curHandle;
+    this.showNotification = this.showNotification.bind(this);
+    console.log(props.username)
+    console.log(this.curHandle)
   }
   componentDidMount() {
     this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
@@ -25,11 +29,9 @@ class Chatroom extends Component {
     this.scrollToBottom();
     this.grantNotificationPermission();
   }
-
   componentDidUpdate() {
     this.scrollToBottom()
   }
-
   onUpdateMessages = (snapshot) => {
     const messages = [];
     snapshot.forEach((doc) => {
@@ -96,10 +98,9 @@ class Chatroom extends Component {
     }
   };
   showNotification = (message) => {
-    const curHandle = this.props.username;
     console.log('showNotification is called,', message)
-    console.log('curUsername is', curHandle)
-    if (message.userHandle !== curHandle) {
+    console.log('curUsername is', this.curHandle)
+    if (message.userHandle !== this.curHandle) {
       const title = message.userHandle;
       const body = message.content;
       new Notification(title, { body });
