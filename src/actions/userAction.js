@@ -138,6 +138,9 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const addProject = (projectName) => (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS
+  });
   const newProject = {
     project: projectName
   }
@@ -148,8 +151,18 @@ export const addProject = (projectName) => (dispatch) => {
         type: ADD_PROJECT,
         payload: newProject
       })
+      dispatch({
+        type: SET_SUCCESS,
+        payload: {'project': 'New project created.'}
+      })
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err)
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
 }
 
 export const removeProject = (projectName) => (dispatch) => {
@@ -168,6 +181,9 @@ export const removeProject = (projectName) => (dispatch) => {
 }
 
 export const addTag = (tagName) => (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS
+  });
   const newTag = {
     tag: tagName
   }
@@ -178,8 +194,17 @@ export const addTag = (tagName) => (dispatch) => {
         type: ADD_TAG,
         payload: newTag
       })
+      dispatch({
+        type: SET_SUCCESS,
+        payload: {tag: 'New tag created.'}
+      })
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
 }
 
 export const removeTag = (tagName) => (dispatch) => {

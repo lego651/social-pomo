@@ -49,7 +49,7 @@ class Test extends Component {
           </Row>
         </Container>
         <RoomModalTest
-          show={this.state.modalShow}
+          show={false}
           onSend={(content, roomName, handle) => this.addTodo(content, roomName, handle)}
           onHide={() => this.setModalShow(false)}
           roomName={roomname}

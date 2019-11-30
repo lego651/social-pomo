@@ -1,0 +1,80 @@
+@import "../../../index.scss";
+
+.pomo-modal {
+  .form-label {
+    font-size: 16px;
+    color: #6c757d;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+  .hidden-btn {
+    color: $primary-color;
+    font-size: 13px;
+    border: 1px solid $primary-color;
+    border-radius: 20px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .hidden-btn.cancel {
+    float: right;
+    color: rgba(22,22,22,.3);
+    border-color: rgba(22,22,22,.2);
+  }
+  .invalid-feedback {
+    display: block;
+  }
+  .valid-feedback {
+    display: block;
+  }
+  .add-project-wrapper {
+    margin-top: 10px;
+    input {
+      margin-left: 10px;
+      background-color: rgb(241,241,244);
+      border: none !important;
+      font-size: 14px;
+      outline: none;
+      border-radius: 15px;
+      padding: 5px 60px 5px 20px;
+      &:focus {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      &:active {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+  }
+  .add-project-wrapper.create {
+    margin-top: 13px;
+  }
+  .add-tag-wrapper {
+    margin-top: 10px;
+    input {
+      margin-left: 10px;
+      background-color: rgb(241,241,244);
+      border: none !important;
+      font-size: 14px;
+      outline: none;
+      border-radius: 15px;
+      padding: 5px 60px 5px 20px;
+      &:focus {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      &:active {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+  }
+  .add-tag-wrapper.create {
+    margin-top: 13px;
+  }
+}

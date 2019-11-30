@@ -159,7 +159,7 @@ class PomodoroTest extends Component {
           { this.props.isOwner && forOwner }
         </Container>
         <PomoModalTest
-          show={this.state.modalShow}
+          show={true}
           onHide={() => this.setModalShow(false)}
         />
       </div>

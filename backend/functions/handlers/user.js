@@ -262,12 +262,28 @@ exports.removeInRoom = (req, res) => {
 
 // POST: add project name to user's projects
 exports.addProject = (req, res) => {
-  const updatedProjects = {
-    projects: admin.firestore.FieldValue.arrayUnion(req.body.project)
-  }
   db.doc(`/users/${req.user.handle}`)
-    .update(updatedProjects)
-  return res.status(200).json({success: 'new project added.'});
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(404).json({project: 'User not found.'});
+      }
+      if(doc.data().projects && doc.data().projects.length > 0 && doc.data().projects.includes(req.body.project)) {
+        return res.status(400).json({project: 'Project name exists.'});
+      }
+      return;
+    })
+    .then(() => {
+      const updatedProjects = {
+        projects: admin.firestore.FieldValue.arrayUnion(req.body.project)
+      }
+      db.doc(`/users/${req.user.handle}`)
+        .update(updatedProjects)
+      return res.status(200).json({project: 'new project added.'});
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err});
+    })
 };
 
 // POST: remove project name from user's projects
@@ -282,12 +298,28 @@ exports.removeProject = (req, res) => {
 
 // POST: add new tag name to user's tags
 exports.addTag = (req, res) => {
-  const updatedTags = {
-    tags: admin.firestore.FieldValue.arrayUnion(req.body.tag)
-  }
   db.doc(`/users/${req.user.handle}`)
-    .update(updatedTags)
-  return res.status(200).json({success: 'new tag name added.'});
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(404).json({tag: 'User not found.'});
+      }
+      if(doc.data().tags && doc.data().tags.length > 0 && doc.data().tags.includes(req.body.tag)) {
+        return res.status(400).json({project: 'Project name exists.'});
+      }
+      return;
+    })
+    .then(() => {
+      const updatedTags = {
+        tags: admin.firestore.FieldValue.arrayUnion(req.body.tag)
+      }
+      db.doc(`/users/${req.user.handle}`)
+        .update(updatedTags)
+      return res.status(200).json({tag: 'new tag added.'});
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err});
+    })
 };
 
 // POST: remove tag name from user's tags

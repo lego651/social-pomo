@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 import './style.scss';
-import { createPomo, removeTodo } from '../../../actions';
+import { createPomo, removeTodo, addProject, clearErrors, clearSuccess, addTag } from '../../../actions';
 
 class PomoModalTest extends Component {
   constructor(props) {
@@ -12,15 +12,52 @@ class PomoModalTest extends Component {
       content: '',
       project: 'Other',
       tag: [],
-      errors: {}
+      addProject: false,
+      addTag: false,
+      newProject: '',
+      newTag: ''
+    }
+  }
+  openAddProject = () => {
+    this.setState({
+      addProject: true
+    })
+  }
+  closeAddProject = () => {
+    this.setState({
+      addProject: false
+    })
+  }
+  openAddTag = () => {
+    this.setState({
+      addTag: true
+    })
+  }
+  closeAddTag = () => {
+    this.setState({
+      addTag: false
+    })
+  }
+  addNewProject = () => {
+    if(this.state.newProject.length > 0) {
+      this.props.addProject(this.state.newProject);
+    }
+  }
+  addNewTag = () => {
+    if(this.state.newTag.length > 0) {
+      this.props.addTag(this.state.newTag);
     }
   }
   handleChange = (e) => {
+    this.props.clearSuccess();
+    this.props.clearErrors();
     this.setState({
       [e.target.name]: e.target.value
     });
   }
   handleMultiChange = (e) => {
+    this.props.clearSuccess();
+    this.props.clearErrors();
     this.setState({
       tag: Array.from(e.target.selectedOptions, (item) => item.value)
     });
@@ -42,13 +79,15 @@ class PomoModalTest extends Component {
   render() {
     const { projects, tags } = this.props.user.profile;
     const content = this.props.user.todo;
-    console.log(this.state);
+    const { errors, success } = this.props.UI;
+    // const { errors } = this.state;
     return (
       <Modal
         {...this.props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className="pomo-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -58,7 +97,7 @@ class PomoModalTest extends Component {
         <Modal.Body>
         <Form onSubmit={ (e) => {this.handleSubmit(e)} }>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label> What did you accomplished? </Form.Label>
+            <Form.Label> What did you accomplish? </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter your task"
@@ -69,7 +108,15 @@ class PomoModalTest extends Component {
           </Form.Group>
 
           <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label> select project </Form.Label>
+            <Form.Label>
+              Select project
+            </Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {errors && errors.project}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              {success && success.project}
+            </Form.Control.Feedback>
             <Form.Control as="select"
                           name="project"
                           onChange={(e) => {this.handleChange(e)}}>
@@ -79,10 +126,47 @@ class PomoModalTest extends Component {
                 )
               }
             </Form.Control>
+
+            {
+              this.state.addProject
+              ?
+              <div className="add-project-wrapper">
+                <span
+                  className="hidden-btn"
+                  onClick={() => {this.addNewProject()}}>
+                  + Create project
+                </span>
+                <input type="text"
+                       placeholder="Enter project name"
+                       name="newProject"
+                       onChange={(e) => {this.handleChange(e)}}
+                       />
+                 <span
+                   className="hidden-btn cancel"
+                   onClick={() => this.closeAddProject()}>
+                   Cancel
+                 </span>
+              </div>
+              :
+              <div className="add-project-wrapper create">
+                <span
+                  className="hidden-btn"
+                  onClick={() => this.openAddProject()}>
+                  Create new project
+                </span>
+              </div>
+            }
           </Form.Group>
 
+
           <Form.Group controlId="exampleForm.ControlSelect2">
-            <Form.Label> Add Tag </Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {errors && errors.tag}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              {success && success.tag}
+            </Form.Control.Feedback>
+            <Form.Label> Select tag </Form.Label>
             <Form.Control as="select"
                           multiple
                           name="tag"
@@ -93,6 +177,35 @@ class PomoModalTest extends Component {
               )
             }
             </Form.Control>
+            {
+              this.state.addTag
+              ?
+              <div className="add-tag-wrapper">
+                <span
+                  className="hidden-btn"
+                  onClick={() => {this.addNewTag()}}>
+                  + Create tag
+                </span>
+                <input type="text"
+                       placeholder="Enter tag name"
+                       name="newTag"
+                       onChange={(e) => {this.handleChange(e)}}
+                       />
+                 <span
+                   className="hidden-btn cancel"
+                   onClick={() => this.closeAddTag()}>
+                   Cancel
+                 </span>
+              </div>
+              :
+              <div className="add-tag-wrapper create">
+                <span
+                  className="hidden-btn"
+                  onClick={() => this.openAddTag()}>
+                  Create new tag
+                </span>
+              </div>
+            }
           </Form.Group>
 
           <Button variant="primary" type="submit">
@@ -116,5 +229,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { createPomo, removeTodo }
+  { createPomo, removeTodo, addProject, clearErrors, clearSuccess, addTag }
 )(PomoModalTest);
