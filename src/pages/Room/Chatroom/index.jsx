@@ -22,7 +22,8 @@ class Chatroom extends Component {
   componentDidMount() {
     this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
     // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
-    this.scrollToBottom()
+    this.scrollToBottom();
+    this.grantNotificationPermission();
   }
 
   componentDidUpdate() {
@@ -32,7 +33,6 @@ class Chatroom extends Component {
   onUpdateMessages = (snapshot) => {
     const messages = [];
     snapshot.forEach((doc) => {
-      console.log(doc.data())
       messages.push({
         userHandle: doc.data().userHandle,
         content: doc.data().content,
@@ -43,6 +43,8 @@ class Chatroom extends Component {
     // messages.sort((a,b) => a.createdAt - b.createdAt);
     this.setState({
       messages
+    }, () => {
+      this.showNotification(messages[messages.length - 1])
     });
   }
 
@@ -63,13 +65,46 @@ class Chatroom extends Component {
       this.props.addMessage(newMessage);
       this.setState({
         content: ''
-      })
+      });
     }
   }
-
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
+  grantNotificationPermission = () => {
+    if (!('Notification' in window)) {
+      alert('This browser does not support system notifications');
+      return;
+    }
+
+    if (Notification.permission === 'granted') {
+      new Notification('You are already subscribed to message notifications');
+      return;
+    }
+
+    if (
+      Notification.permission !== 'denied' ||
+      Notification.permission === 'default'
+    ) {
+      Notification.requestPermission().then(result => {
+        if (result === 'granted') {
+          new Notification(
+            'Awesome! You will start receiving notifications shortly'
+          );
+        }
+      });
+    }
+  };
+  showNotification = (message) => {
+    const curHandle = this.props.username;
+    console.log('showNotification is called,', message)
+    console.log('curUsername is', curHandle)
+    if (message.userHandle !== curHandle) {
+      const title = message.userHandle;
+      const body = message.content;
+      new Notification(title, { body });
+    }
+  };
   render(){
     const { username, roomname } = this.props;
     const { loading } = this.props.UI;
