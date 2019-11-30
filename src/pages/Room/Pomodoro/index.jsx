@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button, Container } from 'react-bootstrap';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 import './style.scss';
 import { parseTime } from '../../../utils/util.js';
@@ -152,7 +154,11 @@ class Pomodoro extends Component {
     })
   }
   render() {
-    console.log(this.state);
+    // console.log(this.state);
+    const { sec } = this.state;
+    const percent = sec / (25 * 60);
+    const value = percent * 100;
+    console.log(value);
     const forOwner = (
       <div>
         {
@@ -190,8 +196,17 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-
-          <div id="count"> {parseTime(this.state.sec)} </div>
+          {/* <div id="count"> {parseTime(this.state.sec)} </div> */}
+          <CircularProgressbar
+            value={value}
+            text={parseTime(this.state.sec)}
+            strokeWidth={5}
+            styles={buildStyles({
+              textColor: "red",
+              pathColor: "turquoise",
+              trailColor: "transparent"
+            })}
+          />
           { this.props.isOwner && forOwner }
         </Container>
         <PomoModal
