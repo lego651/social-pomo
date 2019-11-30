@@ -66,6 +66,9 @@ export const getUserData = () => (dispatch) => {
         type: SET_USER,
         payload: res.data
       });
+      dispatch({
+        type: CLEAR_ERRORS
+      });
     })
     .catch((err) => console.log(err));
 };
