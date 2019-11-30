@@ -18,12 +18,11 @@ class Chatroom extends Component {
       messages: [],
       content: ''
     }
-    this.curHandle = props.curHandle;
+    this.curHandle = props.username;
     this.showNotification = this.showNotification.bind(this);
-    console.log(props.username)
-    console.log(this.curHandle)
   }
   componentDidMount() {
+    this.curHandle = this.props.username;
     this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
     // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
     this.scrollToBottom();
@@ -43,6 +42,11 @@ class Chatroom extends Component {
       })
     });
     // messages.sort((a,b) => a.createdAt - b.createdAt);
+    // this.setState({
+    //   messages
+    // }, () => {
+    //   this.showNotification(messages[messages.length - 1])
+    // });
     this.setState({
       messages
     }, () => {
