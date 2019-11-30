@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Button, Container } from 'react-bootstrap';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { parseTime } from '../../../utils/util.js';
@@ -21,7 +23,7 @@ class Pomodoro extends Component {
       sec: 25 * 60,
       on: false,
       startTime: null,
-      modalShow: true,
+      modalShow: false,
     }
   }
   // count = () => {
@@ -164,19 +166,15 @@ class Pomodoro extends Component {
         {
             this.state.on
             ?
-              <Button
-                variant="success"
-                onClick={(e) => { this.handleReset(e) }}
-              >
-                Reset
-              </Button>
+            <div className="control stop"
+                 onClick={(e) => { this.handleReset(e) }} >
+              <FontAwesomeIcon icon={faStop} />
+            </div>
             :
-              <Button
-                variant="primary"
-                onClick={(e) => { this.handleStart(e) }}
-              >
-                Start
-              </Button>
+            <div className="control play"
+                 onClick={(e) => { this.handleStart(e) }} >
+              <FontAwesomeIcon icon={faPlay} />
+            </div>
         }
         {/* <Form onSubmit={() => {console.log(this.state.time)}}>
           <Form.Group controlId="exampleForm.ControlSelect1">
@@ -202,8 +200,8 @@ class Pomodoro extends Component {
             text={parseTime(this.state.sec)}
             strokeWidth={5}
             styles={buildStyles({
-              textColor: "red",
-              pathColor: "turquoise",
+              textColor: "#F07A7E",
+              pathColor: "#F07A7E",
               trailColor: "transparent"
             })}
           />
