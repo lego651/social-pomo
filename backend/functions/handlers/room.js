@@ -19,7 +19,7 @@ exports.createRoom = (req, res) => {
     roomName: roomName,
     owner: person,
     count: 0,
-    people: [avatar],
+    people: [{handle, avatar}],
     createdAt: new Date().toISOString(),
     on: false,
     startTime: null,
@@ -92,6 +92,7 @@ exports.addMessage = (req, res) => {
 exports.joinRoom = (req, res) => {
   const roomName = req.body.roomName;
   const handle = req.user.handle;
+  const avatar = req.user.avatar;
 
   db.doc(`/rooms/${roomName}`)
     .get()
@@ -118,7 +119,7 @@ exports.joinRoom = (req, res) => {
     })
     .then(() => { // add current user to people in room
         const updateRoom = {
-          people: admin.firestore.FieldValue.arrayUnion(req.user.avatar)
+          people: admin.firestore.FieldValue.arrayUnion({ handle, avatar })
         }
         db.doc(`/rooms/${roomName}`)
           .update(updateRoom)

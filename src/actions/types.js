@@ -24,6 +24,8 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const CLEAR_SUCCESS = 'CLEAR_SUCCESS';
 export const LOADING_DATA = 'LOADING_DATA';
 export const STOP_LOADING_UI = 'STOP_LOADING_UI';
+export const LOADING_MESSAGE = 'LOADING_MESSAGE';
+export const STOP_LOADING_MESSAGE = 'STOP_LOADING_MESSAGE';
 
 // ROOM reducer types
 export const SET_TODO = 'SET_TODO';

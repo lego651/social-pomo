@@ -112,7 +112,7 @@ class Chatroom extends Component {
   };
   render(){
     const { username, roomname } = this.props;
-    const { loading } = this.props.UI;
+    const { loadingMessage } = this.props.UI;
     return(
       <div className="chatroom-container">
         <div className="message-list">
@@ -141,7 +141,7 @@ class Chatroom extends Component {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-              { loading
+              { loadingMessage
                   ? <FontAwesomeIcon className="icon" icon={faSync} spin />
                   : <FontAwesomeIcon className="icon" icon={faPaperPlane} />
               }

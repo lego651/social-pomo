@@ -43,7 +43,7 @@ class UsersInRoom extends Component {
           users && users.map((user) =>
             <div className= "single-user" key={user}>
               <img
-                src={user ? user : default_img}
+                src={user.avatar ? user.avatar : default_img}
                 alt="avatar"
               />
             </div>

@@ -11,6 +11,8 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   REMOVE_INROOM_OWNSROOM,
+  LOADING_MESSAGE,
+  STOP_LOADING_MESSAGE
 } from './types';
 
 
@@ -38,12 +40,12 @@ export const getMessages = () => (dispatch) => {
 }
 
 export const addMessage = (newMessage) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+  dispatch({ type: LOADING_MESSAGE });
   axios
     .post('/message', newMessage)
     .then((res) => {
       // console.log(res);
-      dispatch({ type:  CLEAR_ERRORS});
+      dispatch({ type:  STOP_LOADING_MESSAGE });
     })
     .catch((err) => {
       // console.log(err);

@@ -4,13 +4,16 @@ import {
   SET_SUCCESS,
   CLEAR_SUCCESS,
   LOADING_UI,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
+  LOADING_MESSAGE,
+  STOP_LOADING_MESSAGE,
 } from '../actions/types';
 
 const initialState = {
   loading: false,
   errors: null,
   success: null,
+  loadingMessage: false
 };
 
 export default function(state = initialState, action) {
@@ -48,6 +51,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false
+      };
+    case LOADING_MESSAGE:
+      return {
+        ...state,
+        loadingMessage: true
+      };
+    case STOP_LOADING_MESSAGE:
+      return {
+        ...state,
+        loadingMessage: false
       };
     default:
       return state;

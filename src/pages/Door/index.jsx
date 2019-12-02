@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Alert, Table, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { joinRoom, clearErrors } from '../../actions';
+import { joinRoom, clearErrors, deleteRoom } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import InRoom from './InRoom';
@@ -39,9 +41,12 @@ class Door extends Component {
       this.props.joinRoom(roomObj, history);
     }
   }
+  _removeOwnsRoom = (history, roomName) => {
+    this.props.deleteRoom(history, roomName);
+  }
   render(){
     const _history = this.props.history;
-    const { inRoom } = this.props.user.profile;
+    const { inRoom, ownsRoom } = this.props.user.profile;
     const { errors } = this.state;
     return(
       <div className="door-container">
@@ -80,6 +85,32 @@ class Door extends Component {
                   <CreateRoom history={_history} />
                 </Col>
               </Row>
+              {
+                ownsRoom &&
+                <div className="owns-room-table">
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th xs="3"> Your Room </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td> {ownsRoom} </td>
+                        <td>
+                          <Button
+                            className="delete-button"
+                            onClick={(_history, ownsRoom) => { this._removeOwnsRoom(_history, ownsRoom)} }
+                            >
+                            <span><FontAwesomeIcon icon={faTrashAlt} /></span>
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
+              }
+
             </Col>
           </Row>
         </Container>
@@ -95,5 +126,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { joinRoom, clearErrors }
+  { joinRoom, clearErrors, deleteRoom }
 )(Door);
