@@ -65,12 +65,18 @@ class PomoModal extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const newContent = this.state.content.length > 0 ? this.state.content : this.props.user.todo;
+    const dateObj = new Date();
     const newPomo = {
       content: newContent,
       project: this.state.project,
-      tag: this.state.tag
+      tag: this.state.tag,
+      month: dateObj.getMonth(),
+      date: dateObj.getDate(),
+      day: dateObj.getDay(),
+      hour: dateObj.getHours(),
+      minute: dateObj.getMinutes()
     }
-    console.log(newPomo);
+    // console.log(newPomo);
     // this.props.onCreate(this.state.project);
     this.props.createPomo(newPomo);
     this.props.removeTodo();
