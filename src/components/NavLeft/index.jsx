@@ -34,6 +34,13 @@ class NavLeft extends Component {
             </NavLink>
           </li>
           <li>
+            <NavLink to={"/match"}
+                     activeClassName="active">
+              <span><FontAwesomeIcon icon={faDoorOpen} /></span>
+              Match
+            </NavLink>
+          </li>
+          <li>
             <NavLink to={"/room"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faDoorOpen} /></span>

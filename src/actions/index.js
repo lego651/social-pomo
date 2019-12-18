@@ -1,6 +1,7 @@
 export * from './userAction';
 export * from './roomAction';
 export * from './pomoAction';
+export * from './matchAction';
 export * from './uiAction';
 
 export const CONSTANTS = {

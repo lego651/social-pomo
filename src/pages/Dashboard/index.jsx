@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +14,9 @@ class Dashboard extends Component {
   handleClick = (e) => {
     this.props.logoutUser();
   }
+  handleMatch = (e) => {
+    console.log('clicked..');
+  }
   render(){
     return(
       <div className="overview-container">
@@ -26,9 +29,9 @@ class Dashboard extends Component {
             <Col xs="9">
               <div className="overview-header">
                 <h3> Overview </h3>
-                <Link to="/room">
-                  <FontAwesomeIcon icon={faPlusCircle} /> Start
-                </Link>
+                <Button onClick={()=>{this.handleMatch()}}>
+                  <FontAwesomeIcon icon={faPlusCircle} /> Match
+                </Button>
               </div>
               <Row>
                 <Col xs="4">

@@ -21,6 +21,7 @@ import Tag from './pages/Tag';
 import Door from './pages/Door';
 import Account from './pages/Account';
 import Password from './pages/Password';
+import Match from './pages/Match';
 import { logoutUser, getUserData } from './actions';
 import { SET_AUTHENTICATED } from './actions/types';
 import requiresAuth from './utils/requiresAuth';
@@ -56,6 +57,7 @@ ReactDOM.render(
         <Route exact path="/room/:roomname" component={requiresAuth(Room)} />
         <Route exact path="/test/:roomname" component={Test} />
         <Route exact path="/project" component={requiresAuth(Project)} />
+        <Route exact path="/match" component={requiresAuth(Match)} />
         <Route exact path="/tag" component={requiresAuth(Tag)} />
       </Switch>
     </Router>

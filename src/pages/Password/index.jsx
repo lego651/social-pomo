@@ -13,7 +13,6 @@ import NavLeft from '../../components/NavLeft';
 class Password extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = {
       password: '',
       newPassword: '',

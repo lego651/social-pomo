@@ -25,6 +25,8 @@ const { createRoom,
         deleteMessages } = require('./handlers/room.js');
 const { createPomo,
         fetchAllPomo } = require('./handlers/pomo.js');
+const { addToWaiting,
+        joinMatchedRoom } = require('./handlers/match.js');
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -63,6 +65,10 @@ app.post('/room/delete', FBAuth, deleteRoom);
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);
 app.get('/pomo', FBAuth, fetchAllPomo);
+
+// Match Routes
+app.get('/match', FBAuth, addToWaiting);
+app.post('/joinmatch', FBAuth, joinMatchedRoom);
 
 app.get('/messages', (req, res) => {
   admin

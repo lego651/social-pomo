@@ -46,6 +46,7 @@ exports.signup = (req, res) => {
         createdAt: new Date().toISOString(),
         userId,
         allowed: true,
+        matching: false,
         inRoom: null,
         ownsRoom: null,
         nickName: newUser.handle,

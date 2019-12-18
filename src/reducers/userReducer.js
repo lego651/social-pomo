@@ -15,6 +15,7 @@ import {
   REMOVE_INROOM_OWNSROOM,
   ADD_INROOM_OWNSROOM,
   SET_NICKNAME,
+  START_MATCHING,
 } from '../actions/types';
 
 const initialState = {
@@ -128,6 +129,14 @@ const authReducer = (state=initialState, action) => {
       return {
         ...state,
         todo: null
+      }
+    case START_MATCHING:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          matching: true
+        }
       }
     default:
       return state;
