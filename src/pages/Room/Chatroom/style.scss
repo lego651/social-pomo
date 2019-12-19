@@ -1,0 +1,36 @@
+@import "../../../index.scss";
+
+.chatroom-container {
+  background-color: #edf0ef;
+  border-radius: .25rem;
+  box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+  margin-top: -20px;
+  margin-bottom: 35%;
+  padding-bottom: 10px;
+
+  .message-list {
+    margin: 20px;
+    padding: 20px;
+    height: 600px;
+    overflow-y: scroll;
+  }
+  .chatroom-input {
+    margin: 4.5rem!important;
+    margin-bottom: 3rem!important;
+    padding:2.5rem!important;
+    border-radius: .25rem;
+    background-color: white!important;
+    display: block;
+    .text {
+
+      width: 70%;
+    }
+    button {
+      background-color: #517048;
+      margin: 10px;
+      float:right;
+    }
+
+  }
+
+}

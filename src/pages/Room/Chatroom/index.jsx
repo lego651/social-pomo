@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import firebase from '../../../utils/firebase.js';
-import './style.css';
+import './style.scss';
 import { addMessage } from '../../../actions';
-
+import Message from '../Message/index.jsx';
 // import TextField from '@material-ui/core/TextField';
 // import Button from '@material-ui/core/Button';
 import { TextField, Button } from '@material-ui/core';
+
 
 
 class Chatroom extends Component {
@@ -35,6 +36,7 @@ class Chatroom extends Component {
       messages
     });
   }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -55,18 +57,37 @@ class Chatroom extends Component {
   componentDidMount() {
     this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
     // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
+    this.scrollToBottom()
   }
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
   render(){
+    const { username } = this.props
+    console.log(this.state.messages);
     return(
       <div className="chatroom-container">
-        {
-          this.state.messages.map(m =>
-            <div key={m.messageId}> {m.content} </div>
-          )
-        }
+        <div className="message-list">
+          {
+            this.state.messages.map((m, i) =>
+              <Message
+                Key={i}
+                item={m}
+                curHandle={username} />
+            )
+          }
+          <div style={{ float:"left", clear: "both" }}
+            ref={(el) => { this.messagesEnd = el; }}>
+          </div>
+        </div>
         <div className="chatroom-input">
           <form onSubmit={(e) => {this.handleSubmit(e)}}>
             <TextField
+              className="text"
               type="text"
               name="content"
               label="content"
