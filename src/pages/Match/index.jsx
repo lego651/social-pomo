@@ -9,6 +9,7 @@ import './style.scss';
 import { startMatching, joinMatchedRoom } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import LoadingModal from '../../components/LoadingModal';
 import connectingImg from '../../assets/img/connecting.svg';
 
 class Match extends Component {
@@ -109,6 +110,7 @@ class Match extends Component {
           :
           notReady
         }
+        <LoadingModal show={this.props.UI.loading} />
       </div>
     )
   }

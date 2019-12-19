@@ -11,7 +11,7 @@ class LoadingModal extends Component {
       errors: {}
     }
   }
-  handleClose = () => this.props.onHide();
+  // handleClose = () => this.props.onHide();
   render() {
     return (
       <Modal
