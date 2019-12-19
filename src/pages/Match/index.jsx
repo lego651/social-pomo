@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
-// import MyModal from '../../components/MyModal';
 import { startMatching, joinMatchedRoom } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import connectingImg from '../../assets/img/connecting.svg';
 
 class Match extends Component {
   constructor(props) {
@@ -76,7 +76,7 @@ class Match extends Component {
     // console.log(this.state.pairs);
     console.log(this.state.inPairs);
     const notReady = (
-      <div>
+      <div className="not-ready-container">
         {
           matching
           ?
@@ -84,9 +84,18 @@ class Match extends Component {
             waiting...
           </div>
           :
-          <Button onClick={() => this.handleClick()}>
-            Match
-          </Button>
+          <div className="waiting-container">
+            <img src={connectingImg} alt="connecting" />
+            <p>
+              Pomopal will connect you with another user who wants to start a pomodoro at this moment...
+            </p>
+            <div>
+              <Button variant="info"
+                      onClick={() => this.handleClick()}>
+                Match
+              </Button>
+            </div>
+          </div>
         }
       </div>
     )
