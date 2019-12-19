@@ -11,6 +11,7 @@ import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import LoadingModal from '../../components/LoadingModal';
 import connectingImg from '../../assets/img/connecting.svg';
+import waitingImg from '../../assets/img/waiting.svg';
 
 class Match extends Component {
   constructor(props) {
@@ -81,11 +82,17 @@ class Match extends Component {
         {
           matching
           ?
-          <div>
-            waiting...
+          <div className="waiting-container">
+            <img src={waitingImg} alt="waiting" />
+            <p>
+              Pomopal is working hard to connect you with another sould. If you have waited for long time, you can also try to create a new room and invite your friend.
+            </p>
+            <Button variant="info">
+              Matching...
+            </Button>
           </div>
           :
-          <div className="waiting-container">
+          <div className="match-container">
             <img src={connectingImg} alt="connecting" />
             <p>
               Pomopal will connect you with another user who wants to start a pomodoro at this moment...
