@@ -1,0 +1,17 @@
+.loading-modal {
+  .modal-content {
+    width: 200px;
+    height: 200px;
+    margin-left: calc(50% - 100px);
+    margin-top: 200px;
+    .modal-body {
+      padding: 50px;
+      display: flex;
+      // align-items: center;
+      justify-content: center;
+      span {
+        display: block;
+      }
+    }
+  }
+}

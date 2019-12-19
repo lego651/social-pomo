@@ -10,12 +10,23 @@ const { signup,
         addTag,
         removeTag,
         addInRoom,
-        removeInRoom, } = require('./handlers/user.js');
+        removeInRoom,
+        uploadImage,
+        updateNickName,
+        updatePassword } = require('./handlers/user.js');
 const { createRoom,
         addMessage,
         joinRoom,
-        countAddOne } = require('./handlers/room.js');
-const { createPomo } = require('./handlers/pomo.js');
+        countAddOne,
+        startCount,
+        resetCount,
+        leaveRoom,
+        deleteRoom,
+        deleteMessages } = require('./handlers/room.js');
+const { createPomo,
+        fetchAllPomo } = require('./handlers/pomo.js');
+const { addToWaiting,
+        joinMatchedRoom } = require('./handlers/match.js');
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -30,21 +41,34 @@ app.post('/signup', signup);
 app.post('/login', login);
 app.post('/user', FBAuth, addUserDetails);
 app.get('/user', FBAuth, getUserData);
+app.post('/user/avatar', FBAuth, uploadImage);
+app.post('/user/nickname', FBAuth, updateNickName);
+app.post('/user/password', FBAuth, updatePassword);
 app.post('/project', FBAuth, addProject);
 app.post('/project/remove', FBAuth, removeProject);
 app.post('/tag', FBAuth, addTag);
 app.post('/tag/remove', FBAuth, removeTag);
 app.post('/inroom', FBAuth, addInRoom);
-app.get('/inroom/remove', FBAuth, removeInRoom);
+app.get('/inroom/remove', FBAuth, removeInRoom); // deprecated
 
 // Room Routes
 app.post('/room', FBAuth, createRoom);
 app.post('/message', FBAuth, addMessage);
 app.post('/joinroom', FBAuth, joinRoom);
 app.post('/countaddone', FBAuth, countAddOne);
+app.post('/startcount', FBAuth, startCount);
+app.post('/resetcount', FBAuth, resetCount);
+app.post('/leaveroom', FBAuth, leaveRoom);
+app.post('/messages', FBAuth, deleteMessages);
+app.post('/room/delete', FBAuth, deleteRoom);
 
 // Pomo Routes
 app.post('/pomo', FBAuth, createPomo);
+app.get('/pomo', FBAuth, fetchAllPomo);
+
+// Match Routes
+app.get('/match', FBAuth, addToWaiting);
+app.post('/joinmatch', FBAuth, joinMatchedRoom);
 
 app.get('/messages', (req, res) => {
   admin

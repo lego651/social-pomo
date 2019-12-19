@@ -12,21 +12,44 @@ const isEmpty = (string) => {
   return false;
 };
 
+// User name contains letters and nubmer only, no space and other char
+const validateHandle = (string) => {
+  const s = string.trim();
+  for(let i = 0; i < s.length; i++) {
+    let c = s.charAt(i).toUpperCase();
+    if(!validUpperChar(c)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+const validUpperChar = (c) => {
+  if((c >= "A" && c <= "Z") || (c >= "0" && c <= "9")) {
+    return true;
+  }
+  return false;
+}
+
 // Check if sign up newUser data is validate
 exports.validateSignupData = (data) => {
   let errors = {};
 
   if (isEmpty(data.email)) {
-    errors.email = 'Must not be empty';
+    errors.email = 'Must not be empty.';
   }
   // else if (!isEmail(data.email)) {
   //   errors.email = 'Must be a valid email address';
   // }
 
-  if (isEmpty(data.password)) errors.password = 'Must not be empty';
+  if (isEmpty(data.password)) errors.password = 'Must not be empty.';
+  if(data.password.length < 6) {
+    errors.password = 'At least 6 characters.';
+  }
   if (data.password !== data.confirmPassword)
-    errors.confirmPassword = 'Passwords must match';
-  if (isEmpty(data.handle)) errors.handle = 'Must not be empty';
+    errors.confirmPassword = 'Passwords must match.';
+  if (!validateHandle(data.handle)) errors.handle = 'Username must contain letters and number only, no space and special character allowed.';
+
 
   return {
     errors,

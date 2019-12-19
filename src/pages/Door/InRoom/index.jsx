@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './style.scss';
@@ -17,12 +17,10 @@ class InRoom extends Component {
     return(
       <div className="inroom-container">
         <h3> Room: { roomName } </h3>
-        <img src={coWorking} />
-        <Button>
+        <img src={coWorking} alt="co-working"/>
           <Link to={`/room/${roomName}`}>
             Enter
           </Link>
-        </Button>
       </div>
     )
   }

@@ -7,22 +7,30 @@
   padding: 15px;
   box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
   img {
-    width: 76%;
+    width: 74%;
     z-index: 1001;
     margin: 25px auto;
   }
-  button {
+  a {
+    margin: 0 auto;
+    width: 150px;
+    display: block;
+    color: inherit;
+    text-decoration: none;
     color: white;
     background: $primary-color;
     border: none;
     border-radius: 40px;
-    padding: 7px 40px;
-    a {
-      color: inherit;
-      text-decoration: none;
+    padding: 10px 40px;
+    &:hover {
+      background: $primary-color;
     }
-  }
-  button:hover {
-    background: $primary-color;
+    &:active {
+      background-color: rgba(240, 122, 126, 0.5) !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-box-shadow: none !important;
+    }
   }
 }

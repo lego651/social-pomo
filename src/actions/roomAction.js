@@ -8,6 +8,11 @@ import {
   ADD_INROOM_OWNSROOM,
   ADD_INROOM,
   REMOVE_INROOM,
+  CLEAR_ERRORS,
+  LOADING_UI,
+  REMOVE_INROOM_OWNSROOM,
+  LOADING_MESSAGE,
+  STOP_LOADING_MESSAGE
 } from './types';
 
 
@@ -26,7 +31,7 @@ export const getMessages = () => (dispatch) => {
     .then((res) => {
       dispatch({
         type: CONSTANTS.GET_MESSAGES,
-        payload: res.data
+        payloadCLEAR_ERRORS: res.data
       })
     })
     .catch((err) => {
@@ -35,14 +40,28 @@ export const getMessages = () => (dispatch) => {
 }
 
 export const addMessage = (newMessage) => (dispatch) => {
-  console.log(newMessage)
+  dispatch({ type: LOADING_MESSAGE });
   axios
     .post('/message', newMessage)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
+      dispatch({ type:  STOP_LOADING_MESSAGE });
     })
     .catch((err) => {
       // console.log(err);
+    })
+}
+
+export const deleteMessages = (roomName) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/messages', {roomName})
+    .then((res) => {
+      // console.log(res);
+      dispatch({ type:  CLEAR_ERRORS});
+    })
+    .catch((err) => {
+       // console.log(err);
     })
 }
 
@@ -53,19 +72,20 @@ export const addMessage = (newMessage) => (dispatch) => {
 // }
 
 export const createRoom = (newRoom, history) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   axios
     .post('/room', newRoom)
     .then((res) => {
-      // console.log(res);
       dispatch({
         type: ADD_INROOM_OWNSROOM,
         payload: newRoom.roomName
       })
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       history.push(`/room/${newRoom.roomName}`)
     })
     .catch((err) => {
-      console.log(err);
-      console.log(err.response);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data
@@ -74,7 +94,6 @@ export const createRoom = (newRoom, history) => (dispatch) => {
 }
 
 export const joinRoom = (existingRoom, history) => (dispatch) => {
-  console.log('data in actions is', existingRoom)
   axios
     .post('/joinroom', existingRoom)
     .then((res) => {
@@ -95,14 +114,38 @@ export const joinRoom = (existingRoom, history) => (dispatch) => {
     })
 }
 
-export const leaveRoom = (history) => (dispatch) => {
+export const leaveRoom = (history, roomName) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   axios
-    .get('/inroom/remove')
+    .post('/leaveroom', {roomName})
     .then((res) => {
       if(res.data.success !== null) {
         dispatch({
           type: REMOVE_INROOM
         })
+        dispatch({
+          type: CLEAR_ERRORS
+        });
+        history.push(`/room`)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+export const deleteRoom = (history, roomName) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/room/delete', {roomName})
+    .then((res) => {
+      if(res.data.success !== null) {
+        dispatch({
+          type: REMOVE_INROOM_OWNSROOM
+        })
+        dispatch({
+          type: CLEAR_ERRORS
+        });
         history.push(`/room`)
       }
     })

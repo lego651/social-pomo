@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,7 +30,7 @@ class JoinRoom extends Component {
     return(
       <div className="joinroom-container">
         <h3> Join Room </h3>
-        <img src={joinRoomImg} />
+        <img src={joinRoomImg} alt="join-room" />
         <div className="joinroom-form">
           <input type="text"
                  placeholder="Enter room name"

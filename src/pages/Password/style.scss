@@ -1,0 +1,47 @@
+@import "../../index.scss";
+
+.password-container {
+  .password-body {
+    background-color: white;
+    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+    padding: 30px 30px;
+    .account-avatar {
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+      }
+      span {
+        margin-left: 30px;
+        color: $primary-green;
+        border: 1px $primary-green solid;
+        padding: 6px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        font-family: 'Nunito', sans-serif;
+      }
+    }
+    form {
+      margin-top: 30px;
+      .form-group {
+        margin-top: 20px;
+        .form-label {
+          font-size: 16px;
+          font-weight: 700;
+          font-family: 'Nunito', sans-serif;
+          color: #6c757d;
+        }
+      }
+      button {
+        margin-top: 20px;
+        float: right;
+        background-color: $primary-green;
+        border: none;
+        border-radius: 20px;
+        padding: 6px 20px;
+      }
+    }
+  }
+}

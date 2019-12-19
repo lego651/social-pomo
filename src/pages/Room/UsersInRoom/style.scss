@@ -1,0 +1,12 @@
+@import "../../../index.scss";
+
+.usersinroom-container {
+  .single-user {
+    display: inline-block;
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 26px;
+    }
+  }
+}

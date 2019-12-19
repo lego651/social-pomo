@@ -18,11 +18,11 @@ export default function (ComposedComponent) {
     }
 
     _checkAndRedirect() {
-      const { authenticated, redirect } = this.props;
-      console.log('1 is called...');
+      const { authenticated } = this.props;
+      // console.log('1 is called...');
 
       if (!authenticated) {
-        console.log('2 is called...');
+        // console.log('2 is called...');
         this.props.redirect();
       }
     }

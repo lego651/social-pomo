@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
-import { Container, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faFileAlt } from '@fortawesome/free-regular-svg-icons';
-import { faFileAlt, faTags, faTachometerAlt, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-import Icon from '@mdi/react';
-import { mdiTagOutline } from '@mdi/js';
+import { faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { addTodo } from '../../actions';
-import avatar from '../../assets/img/default_avatar.jpg';
+import default_img from '../../assets/img/avatar.svg';
 // import { addMessage } from '../../actions';
 
 class NavLeft extends Component {
@@ -21,18 +17,27 @@ class NavLeft extends Component {
     }
   }
   render(){
+    const { avatar, nickName, handle } = this.props.user.profile;
+    const shownName = nickName === null ? handle : nickName;
     return(
       <div className="navleft-container">
         <div className="navleft-user">
-          <img src={avatar} alt="avatar" />
-          <p> Jason Gao </p>
+          { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}
+          { shownName ? <p> { shownName } </p> : <p> &nbsp; </p> }
         </div>
         <ul className="navs">
           <li>
-            <NavLink to={"/overview"}
+            <NavLink to={"/dashboard"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
-              Overview
+              Dashboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/match"}
+                     activeClassName="active">
+              <span><FontAwesomeIcon icon={faDoorOpen} /></span>
+              Match
             </NavLink>
           </li>
           <li>
@@ -49,9 +54,22 @@ class NavLeft extends Component {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/tags"}>
+            <NavLink to={"/tag"}>
               <span><FontAwesomeIcon icon={faTags} /></span>
               Tags
+            </NavLink>
+          </li>
+          <hr />
+          <li>
+            <NavLink to={"/account"}>
+              <span><FontAwesomeIcon icon={faCog} /></span>
+              My Account
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/password"}>
+              <span><FontAwesomeIcon icon={faKey} /></span>
+              Password
             </NavLink>
           </li>
         </ul>

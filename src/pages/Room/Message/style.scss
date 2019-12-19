@@ -1,34 +1,91 @@
 @import "../../../index.scss";
 
-.userImg {
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-  float:left;
-}
-.userImg.isOwner {
-  float:right;
-}
 .message-container {
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 30px;
-  position: relative;
-  width: 350px;
-  color: #A47D46;
-  border-radius: 5px;
-  padding: 1px;
-  line-height: 18px;
-
+  clear: both;
+  img {
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    float: left;
+  }
   .message-sender {
-    margin: 3px;
+    margin-top: 10px;
+    float: left;
+    margin-left: 10px;
+    width: calc(100% - 50px);
+    font-size: 12px;
+    color: rgb(183,185,187);
   }
   .message-content {
-    margin: 5px;
+    // clear: left;
+    max-width: 450px;
+    float: left;
+    margin-left: 10px;
+    display: inline-block;
+    margin-top: 4px;
+    background-color: rgb(242,246,249);
+    padding: 14px 12px;
+    border-radius: 0px 10px 10px 10px;
+    p {
+      line-height: 22px;
+      margin-bottom: 0;
+    }
   }
 }
+// .message-container {
+//   margin-left: 50px;
+//   margin-right: 50px;
+//   margin-top: 30px;
+//   position: relative;
+//   // max-width: 400px;
+//   color: #A47D46;
+//   background-color: rgb(242,246,249);
+//   border-radius: 5px;
+//   padding: 1px;
+//   line-height: 18px;
+//
+//   .message-sender {
+//     margin: 3px;
+//   }
+//   .message-content {
+//     padding: 10px;
+//     p {
+//       display: inline-block;
+//     }
+//   }
+// }
+// .message-container.isOwner {
+//   .message-sender.isOwner {
+//     display: none;
+//   }
+//   margin-left: auto;
+//   color: #517048;
+//   background-color: rgb(220,244,252);
+// }
+
 .message-container.isOwner {
-  text-align: right;
-  margin-left: auto;
-  color: #517048;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    float: right;
+  }
+  .message-sender {
+    display: none;
+  }
+  .message-content {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: rgb(220,244,252);
+    padding: 14px 12px;
+    border-radius: 10px 0px 10px 10px;
+    p {
+      line-height: 22px;
+      margin-bottom: 0;
+    }
+  }
+
 }

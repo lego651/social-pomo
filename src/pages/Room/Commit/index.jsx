@@ -1,36 +1,116 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { Button, Container, Form, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSignOutAlt, faPencilAlt, faTrashAlt, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
+import { deleteMessages, deleteRoom } from '../../../actions';
 
 class Commit extends Component {
-  constructor(props) {
-    super(props);
+  deleteMessages = (roomname) => {
+    this.props.deleteMessages(roomname);
+  }
+  deleteRoom = (history, roomname) => {
+    this.props.deleteRoom(history, roomname);
   }
   render() {
-    const { roomName } = this.props;
+    const { roomName, isOwner, history } = this.props;
+    const { loading } = this.props.UI;
     return (
       <div className="commit-container">
-        <h2>{ roomName }</h2>
         <ButtonToolbar>
-          <Button
-            id="leave"
-            onClick={() => this.props.onLeave()}>
-            <span><FontAwesomeIcon icon={faSignOutAlt}/></span>Leave Room
-          </Button>
-          <Button
-            id="commit"
-            onClick={() => this.props.onOpenModal()}>
-            <span><FontAwesomeIcon icon={faPencilAlt}/></span>Commit Task
-          </Button>
+          {
+            isOwner
+            ?
+            <OverlayTrigger
+              key="delete"
+              placement="top"
+              overlay={
+                <Tooltip id="delete">
+                  Delete Room
+                </Tooltip>
+              }
+            >
+              <Button
+                id="clear"
+                variant="secondary"
+                onClick={() => this.deleteRoom(history, roomName)}>
+                <FontAwesomeIcon className="icon" icon={faTimes} />
+              </Button>
+            </OverlayTrigger>
+            :
+            null
+          }
+          {
+            isOwner
+            ?
+            <OverlayTrigger
+              key="clear"
+              placement="top"
+              overlay={
+                <Tooltip id="clear">
+                  Clear Messages
+                </Tooltip>
+              }
+            >
+              <Button
+                id="clear"
+                variant="secondary"
+                onClick={() => this.deleteMessages(roomName)}>
+                <FontAwesomeIcon className="icon" icon={faTrashAlt} />
+              </Button>
+            </OverlayTrigger>
+            :
+            null
+          }
+          <OverlayTrigger
+            key="leave"
+            placement="top"
+            overlay={
+              <Tooltip id="leave">
+                Leave Room
+              </Tooltip>
+            }
+          >
+            <Button
+              id="leave"
+              variant="secondary"
+              onClick={() => this.props.onLeave()}>
+                <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
+            </Button>
+          </OverlayTrigger>
+          <OverlayTrigger
+            key="commit"
+            placement="top"
+            overlay={
+              <Tooltip id="commit">
+                New Commit
+              </Tooltip>
+            }
+          >
+            <Button
+              id="commit"
+              variant="secondary"
+              onClick={() => this.props.onOpenModal()}>
+                <FontAwesomeIcon className="icon" icon={faPencilAlt} />
+            </Button>
+          </OverlayTrigger>
         </ButtonToolbar>
       </div>
     )
   }
 }
 
-export default Commit;
+const mapStateToProps = (state) => ({
+  username: state.user.profile.handle,
+  UI: state.UI
+})
+const mapDispatchToProps = (dispatch) => ({
+  deleteMessages: (roomname) => dispatch(deleteMessages(roomname)),
+  deleteRoom: (history, roomname) => dispatch(deleteRoom(history, roomname)),
+})
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Commit);

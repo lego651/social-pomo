@@ -25,4 +25,16 @@
     margin-top: 100px;
     margin-bottom: 400px;
   }
+  .CircularProgressbar {
+    width: 200px;
+    height: 200px;
+  }
+  .control {
+    color: $primary-color;
+    font-size: 30px;
+    position: relative;
+    top: -75px;
+    left: 90px;
+    cursor: pointer;
+  }
 }

@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-import {
-  SET_ERRORS
-} from './types';
+// import {
+//   SET_ERRORS
+// } from './types';
 
-
-export const createPomo = (newPomo) => (dispatch) => {
-  console.log('data in action is:', newPomo)
+export const createPomo = (newPomoObj) => (dispatch) => {
+  // console.log('data in action is:', newPomoObj)
   axios
-    .post('/pomo', newPomo)
+    .post('/pomo', newPomoObj)
     .then((res) => {
       console.log(res);
     })

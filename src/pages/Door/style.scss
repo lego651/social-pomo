@@ -3,4 +3,27 @@
     margin-top: 10px;
     margin-bottom: 30px;
   }
+  .owns-room-table {
+    background-color: white;
+    margin-top: 50px;
+    padding: 20px 20px 2px 20px;
+    font-size: 15px;
+    color: #98a6ad;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    th {
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      color: #6c757d;
+      font-family: 'Nunito', sans-serif;
+    }
+    td {
+      color: #6c757d;
+      button {
+        background-color: #98a6ad;
+        border: none;
+      }
+    }
+  }
 }

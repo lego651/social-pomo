@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 
 import firebase from '../../../utils/firebase.js';
 import './style.scss';
-import { addMessage } from '../../../actions';
+import { addMessage, deleteMessages } from '../../../actions';
 import Message from '../Message/index.jsx';
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-import { TextField, Button } from '@material-ui/core';
-
-
+import { Form, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane, faSync } from '@fortawesome/free-solid-svg-icons';
 
 class Chatroom extends Component {
   constructor(props) {
@@ -20,20 +18,39 @@ class Chatroom extends Component {
       messages: [],
       content: ''
     }
+    this.curHandle = props.username;
+    this.showNotification = this.showNotification.bind(this);
+  }
+  componentDidMount() {
+    this.curHandle = this.props.username;
+    this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
+    // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
+    this.scrollToBottom();
+    this.grantNotificationPermission();
+  }
+  componentDidUpdate() {
+    this.scrollToBottom()
   }
   onUpdateMessages = (snapshot) => {
     const messages = [];
     snapshot.forEach((doc) => {
-      console.log(doc.data())
       messages.push({
         userHandle: doc.data().userHandle,
         content: doc.data().content,
-        createdAt: doc.data().createdAt
+        createdAt: doc.data().createdAt,
+        avatar: doc.data().avatar
       })
     });
     // messages.sort((a,b) => a.createdAt - b.createdAt);
+    // this.setState({
+    //   messages
+    // }, () => {
+    //   this.showNotification(messages[messages.length - 1])
+    // });
     this.setState({
       messages
+    }, () => {
+      this.showNotification(messages[messages.length - 1])
     });
   }
 
@@ -42,40 +59,67 @@ class Chatroom extends Component {
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit(e) {
     e.preventDefault();
-    const newMessage = {
-      userHandle: this.props.username,
-      content: this.state.content,
-      roomName: this.props.roomname
+    if(this.state.content.length > 0) {
+      const newMessage = {
+        userHandle: this.props.username,
+        content: this.state.content,
+        roomName: this.props.roomname
+      }
+      this.props.addMessage(newMessage);
+      this.setState({
+        content: ''
+      });
     }
-    this.props.addMessage(newMessage);
-    this.setState({
-      content: ''
-    })
-  }
-  componentDidMount() {
-    this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
-    // this.unsubscribe = this.ref.onSnapshot(this.onUpdateMessages);
-    this.scrollToBottom()
-  }
-  componentDidUpdate() {
-    this.scrollToBottom()
   }
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
+  grantNotificationPermission = () => {
+    if (!('Notification' in window)) {
+      alert('This browser does not support system notifications');
+      return;
+    }
 
+    if (Notification.permission === 'granted') {
+      new Notification('You are already subscribed to message notifications');
+      return;
+    }
+
+    if (
+      Notification.permission !== 'denied' ||
+      Notification.permission === 'default'
+    ) {
+      Notification.requestPermission().then(result => {
+        if (result === 'granted') {
+          new Notification(
+            'Awesome! You will start receiving notifications shortly'
+          );
+        }
+      });
+    }
+  };
+  showNotification = (message) => {
+    console.log('showNotification is called,', message)
+    console.log('curUsername is', this.curHandle)
+    if (message.userHandle !== this.curHandle) {
+      const title = message.userHandle;
+      const body = message.content;
+      new Notification(title, { body });
+    }
+  };
   render(){
-    const { username } = this.props
-    console.log(this.state.messages);
+    const { username, roomname } = this.props;
+    const { loadingMessage } = this.props.UI;
     return(
       <div className="chatroom-container">
         <div className="message-list">
           {
-            this.state.messages.map((m, i) =>
+            this.state.messages && this.state.messages.map(m =>
               <Message
-                Key={i}
+                key={`${m.createdAt}-${m.content}`}
                 item={m}
                 curHandle={username} />
             )
@@ -85,24 +129,24 @@ class Chatroom extends Component {
           </div>
         </div>
         <div className="chatroom-input">
-          <form onSubmit={(e) => {this.handleSubmit(e)}}>
-            <TextField
-              className="text"
-              type="text"
-              name="content"
-              label="content"
-              onChange={(e) => {this.handleChange(e)}}
-              value={this.state.content}
-              fullWidth
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-              Submit
+          <Form onSubmit={(e) => {this.handleSubmit(e)}}>
+            <Form.Group controlId="formTextContent">
+              <Form.Control
+                type="text"
+                placeholder="Type a message"
+                name="content"
+                onChange={(e) => {this.handleChange(e)}}
+                value={this.state.content}
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              { loadingMessage
+                  ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                  : <FontAwesomeIcon className="icon" icon={faPaperPlane} />
+              }
             </Button>
-          </form>
+          </Form>
         </div>
       </div>
     )
@@ -110,7 +154,8 @@ class Chatroom extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  username: state.user.profile.handle
+  username: state.user.profile.handle,
+  UI: state.UI
 })
 const mapDispatchToProps = (dispatch) => ({
   addMessage: (newMessage) => dispatch(addMessage(newMessage)),

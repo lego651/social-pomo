@@ -13,10 +13,11 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: req.body.password,
     confirmPassword: req.body.confirmPassword,
-    handle: req.body.handle
+    handle: req.body.handle.trim()
   };
 
   const { valid, errors } = validateSignupData(newUser);
+  console.log(errors);
 
   if(!valid) return res.status(400).json(errors);
 
@@ -26,7 +27,7 @@ exports.signup = (req, res) => {
     .get()
     .then((doc) => {
       if(doc.exists) {
-        return res.status(400).json({ handle: 'this user name is already taken.'});
+        return res.status(400).json({ handle: 'username is already in use.'});
       } else {
         return firebase
           .auth()
@@ -45,10 +46,15 @@ exports.signup = (req, res) => {
         createdAt: new Date().toISOString(),
         userId,
         allowed: true,
+        matching: false,
         inRoom: null,
         ownsRoom: null,
-        projects: [],
-        tags: []
+        nickName: newUser.handle,
+        projects: ['Other'],
+        tags: [],
+        avatar: `https://firebasestorage.googleapis.com/v0/b/${
+          config.storageBucket
+        }/o/defaultAvatar.jpg?alt=media`
       };
       return db.doc(`/users/${newUser.handle}`).set(userCredentials);
     })
@@ -56,13 +62,13 @@ exports.signup = (req, res) => {
       return res.status(201).json({ token });
     })
     .catch((err) => {
-      console.error(err);
+      // console.error(err);
       if (err.code === 'auth/email-already-in-use') {
-        return res.status(400).json({ email: 'Email is already is use' });
+        return res.status(400).json({ email: 'Email is already is use.' });
       } else {
         return res
           .status(500)
-          .json({ general: 'Something went wrong, please try again' });
+          .json({ general: 'Something went wrong, please try again.' });
       }
     });
 };
@@ -131,6 +137,100 @@ exports.getUserData = (req, res) => {
     });
 };
 
+// POST: update nickName
+exports.updateNickName = (req, res) => {
+  const nickName = req.body.nickName;
+  const toUpdate = {
+    nickName: nickName
+  }
+  db.doc(`/users/${req.user.handle}`).update(toUpdate)
+    .then((data) => {
+      return res.status(200).json({ success: 'Nickname updated successfully.' });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({error: err.code});
+    })
+}
+
+// POST: update password
+exports.updatePassword = (req, res) => {
+  const password = req.body.password;
+  const newPassword = req.body.newPassword;
+
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(req.user.email, password)
+    .then((data) => {
+      return data.user.updatePassword(newPassword);
+    })
+    .then((data) => {
+      return res.status(200).json({ success: 'New password set successfully.' });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res
+        .status(403)
+        .json({ password: 'Wrong password, please try again' });
+    })
+}
+
+// Upload a profile image for user
+exports.uploadImage = (req, res) => {
+  const BusBoy = require('busboy');
+  const path = require('path');
+  const os = require('os');
+  const fs = require('fs');
+
+  const busboy = new BusBoy({ headers: req.headers });
+
+  let imageToBeUploaded = {};
+  let imageFileName;
+
+  busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+    console.log(fieldname, file, filename, encoding, mimetype);
+    if (mimetype !== 'image/jpeg' && mimetype !== 'image/png') {
+      return res.status(400).json({ fail: 'Wrong file type submitted' });
+    }
+    // my.image.png => ['my', 'image', 'png']
+    const imageExtension = filename.split('.')[filename.split('.').length - 1];
+    // 32756238461724837.png
+    imageFileName = `${Math.round(
+      Math.random() * 1000000000000
+    ).toString()}.${imageExtension}`;
+    const filepath = path.join(os.tmpdir(), imageFileName);
+    imageToBeUploaded = { filepath, mimetype };
+    file.pipe(fs.createWriteStream(filepath));
+  });
+  busboy.on('finish', () => {
+    admin
+      .storage()
+      .bucket()
+      .upload(imageToBeUploaded.filepath, {
+        resumable: false,
+        metadata: {
+          metadata: {
+            contentType: imageToBeUploaded.mimetype
+          }
+        }
+      })
+      .then(() => {
+        const avatar = `https://firebasestorage.googleapis.com/v0/b/${
+          config.storageBucket
+        }/o/${imageFileName}?alt=media`;
+        return db.doc(`/users/${req.user.handle}`).update({ avatar });
+      })
+      .then(() => {
+        return res.json({ message: 'image uploaded successfully' });
+      })
+      .catch((err) => {
+        console.error(err);
+        return res.status(500).json({ error: 'something went wrong' });
+      });
+  });
+  busboy.end(req.rawBody);
+};
+
 // POST: add user inRoom
 exports.addInRoom = (req, res) => {
   const inRoom = req.body.inRoom;
@@ -163,12 +263,28 @@ exports.removeInRoom = (req, res) => {
 
 // POST: add project name to user's projects
 exports.addProject = (req, res) => {
-  const updatedProjects = {
-    projects: admin.firestore.FieldValue.arrayUnion(req.body.project)
-  }
   db.doc(`/users/${req.user.handle}`)
-    .update(updatedProjects)
-  return res.status(200).json({success: 'new project added.'});
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(404).json({project: 'User not found.'});
+      }
+      if(doc.data().projects && doc.data().projects.length > 0 && doc.data().projects.includes(req.body.project)) {
+        return res.status(400).json({project: 'Project name exists.'});
+      }
+      return;
+    })
+    .then(() => {
+      const updatedProjects = {
+        projects: admin.firestore.FieldValue.arrayUnion(req.body.project)
+      }
+      db.doc(`/users/${req.user.handle}`)
+        .update(updatedProjects)
+      return res.status(200).json({project: 'new project added.'});
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err});
+    })
 };
 
 // POST: remove project name from user's projects
@@ -183,12 +299,28 @@ exports.removeProject = (req, res) => {
 
 // POST: add new tag name to user's tags
 exports.addTag = (req, res) => {
-  const updatedTags = {
-    tags: admin.firestore.FieldValue.arrayUnion(req.body.tag)
-  }
   db.doc(`/users/${req.user.handle}`)
-    .update(updatedTags)
-  return res.status(200).json({success: 'new tag name added.'});
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(404).json({tag: 'User not found.'});
+      }
+      if(doc.data().tags && doc.data().tags.length > 0 && doc.data().tags.includes(req.body.tag)) {
+        return res.status(400).json({project: 'Project name exists.'});
+      }
+      return;
+    })
+    .then(() => {
+      const updatedTags = {
+        tags: admin.firestore.FieldValue.arrayUnion(req.body.tag)
+      }
+      db.doc(`/users/${req.user.handle}`)
+        .update(updatedTags)
+      return res.status(200).json({tag: 'new tag added.'});
+    })
+    .catch((err) => {
+      return res.status(500).json({error: err});
+    })
 };
 
 // POST: remove tag name from user's tags

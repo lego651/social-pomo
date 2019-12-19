@@ -1,30 +1,31 @@
 import axios from 'axios';
 import {
-  LOG_IN,
   SET_USER,
+  SET_NICKNAME,
   SET_ERRORS,
-  CLEAR_ERRORS,
+  SET_SUCCESS,
   LOADING_UI,
+  CLEAR_ERRORS,
   SET_UNAUTHENTICATED,
-  LOADING_USER,
-  MARK_NOTIFICATIONS_READ,
   ADD_PROJECT,
   REMOVE_PROJECT,
   ADD_TAG,
   REMOVE_TAG,
   SET_TODO,
-  
+  REMOVE_TODO,
 } from './types';
 
 export const loginUser = (userData, history) => (dispatch) => {
+  console.log('action data is', userData);
   dispatch({ type: LOADING_UI });
   axios
     .post('/login', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
-      history.push('/overview');
+      dispatch(getUserDataAndRedirect(history));
+      dispatch({
+        type: CLEAR_ERRORS
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -40,11 +41,11 @@ export const signupUser = (newUserData, history) => (dispatch) => {
   axios
     .post('/signup', newUserData)
     .then((res) => {
-      console.log(res);
       setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
-      history.push('/overview');
+      dispatch(getUserDataAndRedirect(history));
+      dispatch({
+        type: CLEAR_ERRORS
+      })
     })
     .catch((err) => {
       dispatch({
@@ -61,7 +62,6 @@ const setAuthorizationHeader = (token) => {
 };
 
 export const getUserData = () => (dispatch) => {
-  dispatch({ type: LOADING_USER });
   axios
     .get('/user')
     .then((res) => {
@@ -69,6 +69,69 @@ export const getUserData = () => (dispatch) => {
         type: SET_USER,
         payload: res.data
       });
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getUserDataAndRedirect = (history) => (dispatch) => {
+  axios
+    .get('/user')
+    .then((res) => {
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+      history.push('/dashboard');
+    })
+    .catch((err) => console.log(err));
+}
+
+export const updateNickName = (nickName) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/user/nickname', {nickName})
+    .then((res) => {
+      dispatch({
+        type: SET_NICKNAME,
+        payload: nickName
+      });
+      dispatch({
+        type: SET_SUCCESS,
+        payload: res.data.success
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const updatePassword = (data, callback) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/user/password', data)
+    .then((res) => {
+      dispatch({
+        type: SET_SUCCESS,
+        payload: res.data.success
+      });
+      callback();
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+      callback();
+    });
+};
+
+export const uploadImage = (formData) => (dispatch) => {
+  // dispatch({ type: LOADING_USER });
+  axios
+    .post('/user/avatar', formData)
+    .then(() => {
+      dispatch(getUserData());
     })
     .catch((err) => console.log(err));
 };
@@ -81,6 +144,9 @@ export const logoutUser = () => (dispatch) => {
 };
 
 export const addProject = (projectName) => (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS
+  });
   const newProject = {
     project: projectName
   }
@@ -91,8 +157,18 @@ export const addProject = (projectName) => (dispatch) => {
         type: ADD_PROJECT,
         payload: newProject
       })
+      dispatch({
+        type: SET_SUCCESS,
+        payload: {'project': 'New project created.'}
+      })
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err)
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
 }
 
 export const removeProject = (projectName) => (dispatch) => {
@@ -111,6 +187,9 @@ export const removeProject = (projectName) => (dispatch) => {
 }
 
 export const addTag = (tagName) => (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS
+  });
   const newTag = {
     tag: tagName
   }
@@ -121,8 +200,17 @@ export const addTag = (tagName) => (dispatch) => {
         type: ADD_TAG,
         payload: newTag
       })
+      dispatch({
+        type: SET_SUCCESS,
+        payload: {tag: 'New tag created.'}
+      })
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
 }
 
 export const removeTag = (tagName) => (dispatch) => {
@@ -155,4 +243,10 @@ export const addTodo = (todo, roomName, handle) => (dispatch) => {
       })
     })
     .catch((err) => console.log(err));
+}
+
+export const removeTodo = () => (dispatch) => {
+  return dispatch({
+    type: REMOVE_TODO
+  })
 }

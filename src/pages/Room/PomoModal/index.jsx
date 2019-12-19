@@ -3,49 +3,97 @@ import { connect } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 import './style.scss';
-import { createPomo } from '../../../actions';
+import { createPomo, removeTodo, addProject, clearErrors, clearSuccess, addTag } from '../../../actions';
 
 class PomoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       content: '',
-      project: '',
+      project: 'Other',
       tag: [],
-      errors: {}
+      addProject: false,
+      addTag: false,
+      newProject: '',
+      newTag: ''
+    }
+  }
+  openAddProject = () => {
+    this.setState({
+      addProject: true
+    })
+  }
+  closeAddProject = () => {
+    this.setState({
+      addProject: false
+    })
+  }
+  openAddTag = () => {
+    this.setState({
+      addTag: true
+    })
+  }
+  closeAddTag = () => {
+    this.setState({
+      addTag: false
+    })
+  }
+  addNewProject = () => {
+    if(this.state.newProject.length > 0) {
+      this.props.addProject(this.state.newProject);
+    }
+  }
+  addNewTag = () => {
+    if(this.state.newTag.length > 0) {
+      this.props.addTag(this.state.newTag);
     }
   }
   handleChange = (e) => {
+    this.props.clearSuccess();
+    this.props.clearErrors();
     this.setState({
       [e.target.name]: e.target.value
     });
   }
   handleMultiChange = (e) => {
+    this.props.clearSuccess();
+    this.props.clearErrors();
     this.setState({
       tag: Array.from(e.target.selectedOptions, (item) => item.value)
     });
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    const newContent = this.state.content.length > 0 ? this.state.content : this.props.user.todo;
+    const dateObj = new Date();
     const newPomo = {
-      content: this.state.content,
+      content: newContent,
       project: this.state.project,
-      tag: this.state.tag
+      tag: this.state.tag,
+      month: dateObj.getMonth(),
+      date: dateObj.getDate(),
+      day: dateObj.getDay(),
+      hour: dateObj.getHours(),
+      minute: dateObj.getMinutes()
     }
-    console.log(newPomo);
+    // console.log(newPomo);
     // this.props.onCreate(this.state.project);
     this.props.createPomo(newPomo);
+    this.props.removeTodo();
     this.props.onHide();
   }
   render() {
-    const { errors } = this.state;
     const { projects, tags } = this.props.user.profile;
+    const content = this.props.user.todo;
+    const { errors, success } = this.props.UI;
+    // const { errors } = this.state;
     return (
       <Modal
         {...this.props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className="pomo-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -55,18 +103,26 @@ class PomoModal extends Component {
         <Modal.Body>
         <Form onSubmit={ (e) => {this.handleSubmit(e)} }>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label> What did you accomplished? </Form.Label>
+            <Form.Label> What did you accomplish? </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter your task"
-              value={this.props.user.todo}
+              defaultValue={content}
               name="content"
               onChange={(e) => {this.handleChange(e)}}
             />
           </Form.Group>
 
           <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label> select project </Form.Label>
+            <Form.Label>
+              Select project
+            </Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {errors && errors.project}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              {success && success.project}
+            </Form.Control.Feedback>
             <Form.Control as="select"
                           name="project"
                           onChange={(e) => {this.handleChange(e)}}>
@@ -76,10 +132,47 @@ class PomoModal extends Component {
                 )
               }
             </Form.Control>
+
+            {
+              this.state.addProject
+              ?
+              <div className="add-project-wrapper">
+                <span
+                  className="hidden-btn"
+                  onClick={() => {this.addNewProject()}}>
+                  + Create project
+                </span>
+                <input type="text"
+                       placeholder="Enter project name"
+                       name="newProject"
+                       onChange={(e) => {this.handleChange(e)}}
+                       />
+                 <span
+                   className="hidden-btn cancel"
+                   onClick={() => this.closeAddProject()}>
+                   Cancel
+                 </span>
+              </div>
+              :
+              <div className="add-project-wrapper create">
+                <span
+                  className="hidden-btn"
+                  onClick={() => this.openAddProject()}>
+                  Create new project
+                </span>
+              </div>
+            }
           </Form.Group>
 
+
           <Form.Group controlId="exampleForm.ControlSelect2">
-            <Form.Label> Add Tag </Form.Label>
+            <Form.Control.Feedback type="invalid">
+              {errors && errors.tag}
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              {success && success.tag}
+            </Form.Control.Feedback>
+            <Form.Label> Select tag </Form.Label>
             <Form.Control as="select"
                           multiple
                           name="tag"
@@ -90,6 +183,35 @@ class PomoModal extends Component {
               )
             }
             </Form.Control>
+            {
+              this.state.addTag
+              ?
+              <div className="add-tag-wrapper">
+                <span
+                  className="hidden-btn"
+                  onClick={() => {this.addNewTag()}}>
+                  + Create tag
+                </span>
+                <input type="text"
+                       placeholder="Enter tag name"
+                       name="newTag"
+                       onChange={(e) => {this.handleChange(e)}}
+                       />
+                 <span
+                   className="hidden-btn cancel"
+                   onClick={() => this.closeAddTag()}>
+                   Cancel
+                 </span>
+              </div>
+              :
+              <div className="add-tag-wrapper create">
+                <span
+                  className="hidden-btn"
+                  onClick={() => this.openAddTag()}>
+                  Create new tag
+                </span>
+              </div>
+            }
           </Form.Group>
 
           <Button variant="primary" type="submit">
@@ -113,5 +235,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { createPomo }
+  { createPomo, removeTodo, addProject, clearErrors, clearSuccess, addTag }
 )(PomoModal);

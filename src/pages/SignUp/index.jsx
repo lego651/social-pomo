@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { faUserPlus, faSync } from '@fortawesome/free-solid-svg-icons';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 
 import { signupUser } from '../../actions';
 import './style.scss'
@@ -25,6 +25,11 @@ class SignUp extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+  // componentDidUpdate(nextProps) {
+  //   if (nextProps.UI.errors) {
+  //     this.setState({ errors: nextProps.UI.errors });
+  //   }
+  // }
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -42,16 +47,17 @@ class SignUp extends Component {
   }
   render(){
     const { errors } = this.state;
+    const { loading } = this.props.UI;
     return(
       <div className="signup-container">
           <Row>
-            <Col lg={5} md={5} xs={12} >
+            <Col md={5} xs={12} className="left-col">
               <div className="login-left">
                 <h3>Free Sign Up</h3>
                 <h5>Don't have an account? Create your account, it takes less than a minute.</h5>
                 <div className="signup-form">
                   <Form onSubmit={(e) => {this.handleSubmit(e)}}>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group>
                       <Form.Label>
                         <h5><b>Email address</b></h5>
                       </Form.Label>
@@ -67,7 +73,7 @@ class SignUp extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                       <Form.Label>
                         <h5><b>Password</b></h5>
                       </Form.Label>
@@ -115,8 +121,11 @@ class SignUp extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                      <FontAwesomeIcon className="icon" icon={faUserPlus} />
+                    <Button variant="info" type="submit">
+                      { loading
+                          ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                          : <FontAwesomeIcon className="icon" icon={faUserPlus} />
+                      }
                       Sign Up
                     </Button>
                     <div className="link-to-login">
@@ -126,7 +135,7 @@ class SignUp extends Component {
                 </div>
               </div>
             </Col>
-            <Col lg={7} md={7} xs={12}>
+            <Col md={7} xs={12} className="right-col">
               <div className="login-right">
                 <img src={loginPic} alt="loginPic" />
                 <h2>I love it!</h2>

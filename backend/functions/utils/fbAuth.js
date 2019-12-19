@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
   ) {
     idToken = req.headers.authorization.split('Bearer ')[1];
   } else {
-    console.error('No token found');
+    // console.error('No token found');
     return res.status(403).json({ error: 'Unauthorized' });
   }
 
@@ -24,14 +24,12 @@ module.exports = (req, res, next) => {
         .get();
     })
     .then((data) => {
-      console.log(data);
-      console.log(data.docs[0].data());
-      console.log(data.docs[0].data().handle);
       req.user.handle = data.docs[0].data().handle;
+      req.user.avatar = data.docs[0].data().avatar;
       return next();
     })
     .catch((err) => {
-      console.error('Error while verifying token ', err);
+      // console.error('Error while verifying token ', err);
       return res.status(403).json(err);
     });
 };

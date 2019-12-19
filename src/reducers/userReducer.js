@@ -9,15 +9,19 @@ import {
   ADD_TAG,
   REMOVE_TAG,
   SET_TODO,
+  REMOVE_TODO,
   ADD_INROOM,
   REMOVE_INROOM,
+  REMOVE_INROOM_OWNSROOM,
   ADD_INROOM_OWNSROOM,
+  SET_NICKNAME,
+  START_MATCHING,
 } from '../actions/types';
 
 const initialState = {
   authenticated: false,
   loading: false,
-  todo: '',
+  todo: null,
   profile: {}
 }
 
@@ -40,6 +44,15 @@ const authReducer = (state=initialState, action) => {
         authenticated: true,
         loading: false,
         profile: action.payload.profile
+      }
+    case SET_NICKNAME:
+      return {
+        ...state,
+        loading: false,
+        profile: {
+          ...state.profile,
+          nickName: action.payload
+        }
       }
     case ADD_PROJECT:
       return {
@@ -95,13 +108,35 @@ const authReducer = (state=initialState, action) => {
         profile: {
           ...state.profile,
           inRoom: action.payload,
-          ownsRoom: action.payload
+          ownsRoom: action.payload,
+        }
+      }
+    case REMOVE_INROOM_OWNSROOM:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          inRoom: null,
+          ownsRoom: null,
         }
       }
     case SET_TODO:
       return {
         ...state,
         todo: action.payload
+      }
+    case REMOVE_TODO:
+      return {
+        ...state,
+        todo: null
+      }
+    case START_MATCHING:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          matching: true
+        }
       }
     default:
       return state;

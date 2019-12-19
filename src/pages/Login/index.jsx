@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt, faUserPlus} from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import { loginUser } from '../../actions';
 import './style.scss';
@@ -38,14 +38,16 @@ class Login extends Component {
   }
   render(){
     const { errors } = this.state;
+    const { loading } = this.props.UI;
+    // console.log(this.state);
     return(
       <div className="login-container">
           <Row>
-            <Col lg={5} md={5} xs={12} >
-            <div className="login-left">
+            <Col md={5} xs={12} className="left-col">
+              <div className="login-left">
                 <h3>Sign In App</h3>
                 <h5>Enter your email address and password to access account.</h5>
-                <div className="signup-form">
+                <div className="login-form">
                   <Form onSubmit={(e) => {this.handleSubmit(e)}}>
                     <Form.Group controlId="formBasicEmail">
                       <Form.Label>
@@ -81,8 +83,12 @@ class Login extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                      <FontAwesomeIcon className="icon" icon={faSignInAlt} />Log In
+                    <Button variant="info" type="submit">
+                      { loading
+                          ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                          : <FontAwesomeIcon className="icon" icon={faSignInAlt} />
+                      }
+                      <span> Log In </span>
                     </Button>
                     <div className="link-to-signup">
                       <h5>Don't have an account? <b><Link to="/signup"> Sign Up </Link></b></h5>
@@ -92,7 +98,7 @@ class Login extends Component {
               </div>
               {/* log in left ends */}
             </Col>
-            <Col lg={7} md={7} xs={12}>
+            <Col md={7} xs={12} className="right-col">
               <div className="login-right">
                 <img src={loginPic} alt="loginPic" />
                 <h2>I love it!</h2>
