@@ -156,14 +156,13 @@ class Pomodoro extends Component {
     })
   }
   render() {
-<<<<<<< HEAD
-=======
+
     // console.log(this.state);
     const { sec } = this.state;
     const percent = sec / (25 * 60);
     const value = percent * 100;
     console.log(value);
->>>>>>> 09e3d3fd71eaeb4db61f7f78a3cfc627fdcd41a9
+
     const forOwner = (
       <div>
         {
@@ -197,10 +196,8 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-<<<<<<< HEAD
 
           <div id="count"> {parseTime(this.state.sec)} </div>
-=======
           {/* <div id="count"> {parseTime(this.state.sec)} </div> */}
           <CircularProgressbar
             value={value}
@@ -212,7 +209,6 @@ class Pomodoro extends Component {
               trailColor: "transparent"
             })}
           />
->>>>>>> 09e3d3fd71eaeb4db61f7f78a3cfc627fdcd41a9
           { this.props.isOwner && forOwner }
         </Container>
         <PomoModal
