@@ -63,6 +63,9 @@ class NavbarTop extends Component {
                        >
                        <div className="dropdown-content">
                            <a href="/dashboard"> Dashboard </a>
+                           <a href="/room"> Room </a>
+                           <a href="/match"> Match </a>
+                           <a href="/account"> Account </a>
                            <a onClick={this.handleLogout}>Sign out</a>
                          </div>
                        </div>
