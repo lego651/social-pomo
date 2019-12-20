@@ -187,3 +187,17 @@ export const deleteRoomNoRedirect = (roomName) => (dispatch) => {
 //       console.log(err);
 //     })
 // }
+
+export const startCount = (roomName) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/startcount', { roomName })
+    .then((res) => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}

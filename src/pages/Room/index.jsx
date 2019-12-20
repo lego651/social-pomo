@@ -10,7 +10,7 @@ import RoomModal from './RoomModal';
 import NavbarTop from '../../components/NavbarTop';
 import UsersInRoom from './UsersInRoom';
 import LoadingModal from '../../components/LoadingModal';
-import { leaveRoom, addTodo } from '../../actions';
+import { leaveRoom, addTodo, startCount } from '../../actions';
 
 class Room extends Component {
   constructor(props) {
@@ -31,6 +31,9 @@ class Room extends Component {
   onLeave = () => {
     this.props.leaveRoom(this.props.history, this.props.match.params.roomname);
   }
+  _startCount = (roomName) => {
+    this.props.startCount(roomName);
+  }
   render(){
     const { roomname } = this.props.match.params;
     const { inRoom, ownsRoom, handle } = this.props.user.profile;
@@ -43,7 +46,8 @@ class Room extends Component {
           <Row>
             <Col md={4}>
               <Pomodoro roomName={roomname}
-                        isOwner={isOwner} />
+                        isOwner={isOwner}
+                        startCount={(roomName) => this._startCount(roomName)} />
             </Col>
             <Col md={8} className="roomRight">
               <div className="roomInfo">
@@ -85,5 +89,5 @@ const mapStateToProps = (state) => ({
 })
 export default connect(
   mapStateToProps,
-  { leaveRoom, addTodo }
+  { leaveRoom, addTodo, startCount }
 )(Room);

@@ -66,17 +66,18 @@ class Pomodoro extends Component {
   }
   handleStart = (e) => {
     e.preventDefault();
-    const currentRoom = {
-      roomName: this.props.roomName
-    }
-    axios
-      .post('/startcount', currentRoom)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
+    // const currentRoom = {
+    //   roomName: this.props.roomName
+    // }
+    // axios
+    //   .post('/startcount', currentRoom)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   })
+    this.props.startCount(this.props.roomName);
   }
 
   // handlePause = () => {
