@@ -158,6 +158,25 @@ export const deleteRoom = (history, roomName) => (dispatch) => {
     })
 }
 
+export const deleteRoomNoRedirect = (roomName) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/room/delete', {roomName})
+    .then((res) => {
+      if(res.data.success !== null) {
+        dispatch({
+          type: REMOVE_INROOM_OWNSROOM
+        })
+        dispatch({
+          type: CLEAR_ERRORS
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
 // export const getReady = () => (dispatch) => {
 //   axios
 //     .get('/readyaddone')

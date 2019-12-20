@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
-import { startMatching, joinMatchedRoom } from '../../actions';
+import { startMatching, joinMatchedRoom, deleteRoomNoRedirect } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import LoadingModal from '../../components/LoadingModal';
+import MatchModal from './MatchModal';
 import connectingImg from '../../assets/img/connecting.svg';
 import waitingImg from '../../assets/img/waiting.svg';
 import joiningImg from '../../assets/img/joining.svg';
@@ -23,7 +24,8 @@ class Match extends Component {
       errors: {},
       pairs: [],
       inPairs: false,
-      roomName: ''
+      roomName: '',
+      modalShow: true,
     }
     this.curHandle = props.username;
     this.onUpdatePairs = this.onUpdatePairs.bind(this);
@@ -56,6 +58,14 @@ class Match extends Component {
     // console.log(this.state.roomName);
     this.props.joinMatchedRoom(this.state.roomName, this.props.history);
   }
+  setModalShow = (bool) => {
+    this.setState({
+      modalShow: bool
+    })
+  }
+  deleteOwnsRoom = (roomName) => {
+    this.props.deleteRoomNoRedirect(roomName);
+  }
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onUpdatePairs);
   }
@@ -74,7 +84,8 @@ class Match extends Component {
   render(){
     const { errors, inPairs } = this.state;
     const { loading, success } = this.props.UI;
-    const { matching } = this.props;
+    const { matching, ownsRoom } = this.props;
+    const showModal = ownsRoom && ownsRoom.length > 0;
     // console.log(this.curHandle);
     // console.log(this.state.pairs);
     console.log(this.state.inPairs);
@@ -129,6 +140,11 @@ class Match extends Component {
           :
           notReady
         }
+        <MatchModal
+          show={showModal}
+          ownsRoom={ownsRoom}
+          onSure={(roomName) => this.deleteOwnsRoom(roomName)}
+        />
         <LoadingModal show={this.props.UI.loading} />
       </div>
     )
@@ -139,9 +155,10 @@ const mapStateToProps = (state) => ({
   user: state.user,
   username: state.user.profile.handle,
   matching: state.user.profile.matching,
+  ownsRoom: state.user.profile.ownsRoom,
   UI: state.UI
 });
 export default connect(
   mapStateToProps,
-  { startMatching, joinMatchedRoom }
+  { startMatching, joinMatchedRoom, deleteRoomNoRedirect }
 )(Match);
