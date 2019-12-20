@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faSignOutAlt, faPencilAlt, faTrashAlt, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faBroom, faTimes, faSignOutAlt, faPencilAlt, faTrashAlt, faSync } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { deleteMessages, deleteRoom } from '../../../actions';
@@ -36,7 +36,7 @@ class Commit extends Component {
                 id="clear"
                 variant="secondary"
                 onClick={() => this.deleteRoom(history, roomName)}>
-                <FontAwesomeIcon className="icon" icon={faTimes} />
+                <FontAwesomeIcon className="icon" icon={faTrashAlt} />
               </Button>
             </OverlayTrigger>
             :
@@ -58,7 +58,7 @@ class Commit extends Component {
                 id="clear"
                 variant="secondary"
                 onClick={() => this.deleteMessages(roomName)}>
-                <FontAwesomeIcon className="icon" icon={faTrashAlt} />
+                <FontAwesomeIcon className="icon" icon={faBroom} />
               </Button>
             </OverlayTrigger>
             :

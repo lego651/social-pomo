@@ -196,8 +196,6 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-
-          <div id="count"> {parseTime(this.state.sec)} </div>
           {/* <div id="count"> {parseTime(this.state.sec)} </div> */}
           <CircularProgressbar
             value={value}
