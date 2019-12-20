@@ -27,15 +27,16 @@ export const startMatching = () => (dispatch) => {
 }
 
 export const joinMatchedRoom = (roomName, history) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   axios
     .post('/joinmatch', { roomName })
     .then((res) => {
-      console.log('action called, why no redirect???');
-      console.log(roomName);
+      dispatch({
+        type: CLEAR_ERRORS
+      });
       history.push(`/room/${roomName}`);
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data

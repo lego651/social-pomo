@@ -1,6 +1,5 @@
 
 .match-container {
-
   .not-ready-container {
      .waiting-container {
        margin: 200px auto;
@@ -20,7 +19,7 @@
          border-radius: 40px;
        }
      }
-     .match-container {
+    .matching-container {
       margin: 200px auto;
       width: 400px;
       text-align: center;
@@ -37,6 +36,24 @@
         padding: 12px 60px;
         border-radius: 40px;
       }
+    }
+  }
+  .joining-container {
+    margin: 200px auto;
+    width: 400px;
+    text-align: center;
+    img {
+      width: 200px;
+    }
+    p {
+      margin-top: 20px;
+      color: #6c757d;
+      font-size: 18px;
+    }
+    button {
+      margin-top: 40px;
+      padding: 12px 60px;
+      border-radius: 40px;
     }
   }
 }

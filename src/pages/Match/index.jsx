@@ -12,6 +12,7 @@ import NavLeft from '../../components/NavLeft';
 import LoadingModal from '../../components/LoadingModal';
 import connectingImg from '../../assets/img/connecting.svg';
 import waitingImg from '../../assets/img/waiting.svg';
+import joiningImg from '../../assets/img/joining.svg';
 
 class Match extends Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class Match extends Component {
             </Button>
           </div>
           :
-          <div className="match-container">
+          <div className="matching-container">
             <img src={connectingImg} alt="connecting" />
             <p>
               Pomopal will connect you with another user who wants to start a pomodoro at this moment...
@@ -113,7 +114,18 @@ class Match extends Component {
         {
           inPairs
           ?
-          <div onClick={() => this.handleJoinRoom()}> Click to Join room... </div>
+          <div className="joining-container">
+            <img src={joiningImg} alt="joining" />
+            <p>
+              We found a good pal for you, click button to join room.
+            </p>
+            <div>
+              <Button variant="info"
+                      onClick={() => this.handleJoinRoom()}>
+                Join Room
+              </Button>
+            </div>
+          </div>
           :
           notReady
         }
