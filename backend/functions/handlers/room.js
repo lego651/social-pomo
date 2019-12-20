@@ -196,16 +196,30 @@ exports.resetCount = (req, res) => {
 // POST: update user inRoom to null, and remove current user from room.people
 exports.leaveRoom = (req, res) => {
   const roomName = req.body.roomName;
+  const handle = req.user.handle;
+  const avatar = req.user.avatar;
   const toUpdate = {
     inRoom: null
   }
-  db.doc(`/users/${req.user.handle}`).update(toUpdate)
+  db.doc(`/users/${req.user.handle}`)
+    .update(toUpdate)
     .then((data) => {
       const updateRoom = {
-        people: admin.firestore.FieldValue.arrayRemove(req.user.handle)
+        people: admin.firestore.FieldValue.arrayRemove({avatar, handle})
       }
       db.doc(`/rooms/${roomName}`)
         .update(updateRoom)
+        .then(() => {
+          const leaveMessage = {
+            content: `${handle} left room...`,
+            userHandle: handle,
+            createdAt: new Date().toISOString()
+          }
+          return db.collection(`/rooms/${roomName}/messages`).add(leaveMessage);
+        })
+        .catch((err) => {
+          return res.status(500).json({error: err.code});
+        })
       return res.status(200).json({ success: 'leave room successfully' });
     })
     .catch((err) => {

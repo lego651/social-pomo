@@ -94,6 +94,7 @@ export const createRoom = (newRoom, history) => (dispatch) => {
 }
 
 export const joinRoom = (existingRoom, history) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   axios
     .post('/joinroom', existingRoom)
     .then((res) => {
@@ -103,6 +104,9 @@ export const joinRoom = (existingRoom, history) => (dispatch) => {
           type: ADD_INROOM,
           payload: existingRoom.roomName
         })
+        dispatch({
+          type: CLEAR_ERRORS
+        });
         history.push(`/room/${existingRoom.roomName}`)
       }
     })

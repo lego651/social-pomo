@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import firebase from '../../../utils/firebase.js';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 import './style.scss';
 import { addMessage } from '../../../actions';
@@ -42,10 +43,21 @@ class UsersInRoom extends Component {
         {
           users && users.map((user) =>
             <div className= "single-user" key={user}>
-              <img
-                src={user.avatar ? user.avatar : default_img}
-                alt="avatar"
-              />
+              <OverlayTrigger
+                key="delete"
+                placement="bottom"
+                overlay={
+                  <Tooltip id="username">
+                    { user.handle }
+                  </Tooltip>
+                }
+              >
+                <img
+                  src={user.avatar ? user.avatar : default_img}
+                  alt="avatar"
+                />
+              </OverlayTrigger>
+
             </div>
           )
         }
