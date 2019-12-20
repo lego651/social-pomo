@@ -181,7 +181,11 @@ exports.joinMatchedRoom = (req, res) => {
               inRoom: room.inRoom
             })
           }
-          return res.json({ success: 'create Room successfully.' })
+          return res.json({
+            success: 'create Room successfully.',
+            ownsRoom: room.ownsRoom,
+            inRoom: room.inRoom
+          })
         })
         .then(() => {
           const firstMessage = {

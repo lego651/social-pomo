@@ -16,6 +16,7 @@ import {
   ADD_INROOM_OWNSROOM,
   SET_NICKNAME,
   START_MATCHING,
+  MATCH_THEN_JOIN_ROOM
 } from '../actions/types';
 
 const initialState = {
@@ -136,6 +137,16 @@ const authReducer = (state=initialState, action) => {
         profile: {
           ...state.profile,
           matching: true
+        }
+      }
+    case MATCH_THEN_JOIN_ROOM:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          matching: false,
+          ownsRoom: action.payload.ownsRoom,
+          inRoom: action.payload.inRoom
         }
       }
     default:

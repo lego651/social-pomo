@@ -5,6 +5,7 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
+  MATCH_THEN_JOIN_ROOM
 } from './types';
 
 // add user to waiting queue, and update redux profile.matching to true
@@ -13,7 +14,6 @@ export const startMatching = () => (dispatch) => {
   axios
     .get('/match')
     .then((res) => {
-      console.log(res);
       dispatch({
         type: START_MATCHING
       })
@@ -31,6 +31,14 @@ export const joinMatchedRoom = (roomName, history) => (dispatch) => {
   axios
     .post('/joinmatch', { roomName })
     .then((res) => {
+      // console.log(res.data)
+      dispatch({
+        type: MATCH_THEN_JOIN_ROOM,
+        payload: {
+          ownsRoom: res.data.ownsRoom,
+          inRoom: res.data.inRoom
+        }
+      })
       dispatch({
         type: CLEAR_ERRORS
       });

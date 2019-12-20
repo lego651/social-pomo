@@ -35,3 +35,4 @@ export const GET_POMOS = 'GET_POMOS';
 
 // MATCH reducer types
 export const START_MATCHING = 'START_MATCHING';
+export const MATCH_THEN_JOIN_ROOM = 'MATCH_THEN_JOIN_ROOM';
