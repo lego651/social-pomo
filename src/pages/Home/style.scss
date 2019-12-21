@@ -2,161 +2,112 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap');
 
 .home-container {
-  .navbar {
-    padding: 40px 40px 10px 40px;
-    background-color: white;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
-    border: none;
-    .navbar-brand {
-      color: $primary-color;
+  .home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    height: 60px;
+    border-bottom: 1px solid #e9eced;
+    padding: 20px;
+    .header-left {
+      font-size: 22px;
+      font-weight: 800;
     }
-    .nav-link {
-      color: $primary-font-color;
-      font-weight: bold;
-      #signup {
+    .header-right {
+      a {
+        text-decoration: none;
+        color: #676d73;
+        padding: 20px;
+        &:hover, &:active {
+          box-shadow: inset 0 -3px 0 #d3d4d5;
+          color: #2f3033;
+        }
       }
     }
   }
-  .intro-container{
-    background-color: $primary-color;
-    padding: 90px;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-top: -20px;
-    text-align: center;
-    h1,h3 {
-      color: white;
-      margin-top: 20px;
-      max-width: 700px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+
+  .home-section1 {
+    display: flex;
+    flex-direction: row;
+    color: #2f3033;
+    background-color: white;
+    height: 600px;
+    .left {
+      width: 50%;
+      padding-top: 80px;
+      padding-left: 10%;
+      .slogan {
+        margin-top: 15%;
+        font-size: 35px;
+        font-weight: 700;
+        .x0 {
+          color: $primary-color;
+        }
+      }
+      .sub-slogan {
+        margin-top: 10px;
+        color: #6c757d;
+        font-size: 18px;
+      }
+      Button {
+        margin-top: 40px;
+        padding: 15px 30px;
+        border-radius: 50px;
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+    }
+    .right {
+      width: 50%;
+      padding-top: 95px;
+      padding-right: 10%;
+      .doneImg {
+        img {
+          width: 90%;
+          height: 100%;
+          max-height: 400px;
+        }
+      }
+    }
+  }
+
+  .home-section2 {
+    // background-color: yellow;
+    padding: 50px 10%;
+    .part {
+      // background-color: blue;
+      align-items: center;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
       text-align: center;
-    }
-    Button {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 30px;
-      background-color: white;
-      color: $primary-color;
-      font-weight: bold;
-      border: none;
-    }
-  }
-  .highlights{
-    background-color: $bg-color-grey;
-    padding: 40px;
-    .highlights-1, .highlights-3 {
-      background-color: $primary-yellow;
-      margin: 40px;
-      margin-bottom: 80px;
-      height: 25.5rem;
-      border-radius: 4px;
-      img {
-        margin-left: 20.2rem;
-        margin-top: 3.2rem;
-        width: 300px;
-        height: 300px;
-        border-radius: 4px;
-      }
-      .content-left {
-        position:relative;
-        border-radius: 4px;
-        pointer-events: none;
-        margin-left: 160px;
-        margin-top: -40px;
-        margin-bottom: 10.2rem;
-        padding: 3.6rem 3rem 3.45rem 3rem;
-        width: 25.5rem;
+      .icon {
+        width: 100px;
+        border-radius: 100px;
+        color: $primary-color;
         background-color: white;
-        h2 {
-          margin-bottom: 20px;
+        padding: 30px;
+        font-size: 25px;
+        span {
+          width: 20px;
+          height: 20px;
         }
-        button {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 30px;
-          font-weight: bold;
-          background: $primary-yellow;
-          border: none;
-          border-radius: 40px;
-          padding: 7px 40px;
-          a {
-            color: white;
-          }
-        }
+      }
+      .title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #6c757d;
+        margin-top: 25px;
+        margin-bottom: 5px;
+      }
+      .desc {
+        font-size: 16px;
+        color: #98a6ad;
+        align-items: center;
       }
     }
-    .highlights-2, .highlights-4{
-      background-color: $primary-green;
-      margin: 40px;
-      margin-bottom: 80px;
-      height: 25.5rem;
-      border-radius: 4px;
-      img {
-        margin-left: 10.2rem;
-        margin-top: 3.2rem;
-        width: 300px;
-        height: 300px;
-        border-radius: 4px;
-      }
-      .content-right {
-        position:relative;
-        border-radius: 4px;
-        pointer-events: none;
-        margin-left: 20px;
-        margin-top: -40px;
-        margin-bottom: 10.2rem;
-        padding: 3.6rem 3rem 3.45rem 3rem;
-        width: 25.5rem;
-        background-color: white;
-        h2 {
-          margin-bottom: 20px;
-        }
-        button {
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 30px;
-          font-weight: bold;
-          background: $primary-green;
-          border: none;
-          border-radius: 40px;
-          padding: 7px 40px;
-          a {
-            color: white;
-          }
-        }
-      }
-    }
-    .highlights-3 {
-      background-color: $primary-blue;
-      .content-left {
-        button {
-          background: $primary-blue;
-        }
-      }
-    }
-    .highlights-4 {
-      background-color: $primary-pink;
-      .content-right {
-        button {
-          background: $primary-pink;
-        }
-      }
-    }
-  }
-  .features {
-    margin: 20px;
-    margin-left: 160px;
-    margin-right: 160px;
-    text-align: center;
-  }
-  .footer{
-    background-color: white;
-    padding: 40px;
-    padding-bottom: 8.5rem;
   }
 }

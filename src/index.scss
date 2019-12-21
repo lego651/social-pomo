@@ -79,6 +79,7 @@ button:hover {
 
 .btn-primary {
   background-color: $primary-color;
+  border-color: $primary-color;
   &:focus {
     border-color: inherit;
     border: none !important;
@@ -86,10 +87,10 @@ button:hover {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
   }
-  &:active {
-    background-color: rgba(240, 122, 126, 0.5) !important;
-    border: none !important;
-    outline: none !important;
+  &:active, &:hover {
+    background-color: rgba(240, 122, 126, 0.9) !important;
+    border-color: inherit;
+    // outline: none !important;
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
   }
