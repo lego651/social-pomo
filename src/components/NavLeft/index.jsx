@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faHandsHelping, faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { addTodo } from '../../actions';
@@ -36,7 +36,7 @@ class NavLeft extends Component {
           <li>
             <NavLink to={"/match"}
                      activeClassName="active">
-              <span><FontAwesomeIcon icon={faDoorOpen} /></span>
+              <span><FontAwesomeIcon icon={faHandsHelping} /></span>
               Match
             </NavLink>
           </li>
