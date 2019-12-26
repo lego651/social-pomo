@@ -162,38 +162,26 @@ class Pomodoro extends Component {
     const { sec } = this.state;
     const percent = sec / (25 * 60);
     const value = percent * 100;
-    console.log(value);
+    // console.log(value);
 
-    const forOwner = (
-      <div>
-        {
-            this.state.on
-            ?
-            <div className="control stop"
-                 onClick={(e) => { this.handleReset(e) }} >
-              <FontAwesomeIcon icon={faStop} />
-            </div>
-            :
-            <div className="control play"
-                 onClick={(e) => { this.handleStart(e) }} >
-              <FontAwesomeIcon icon={faPlay} />
-            </div>
-        }
-        {/* <Form onSubmit={() => {console.log(this.state.time)}}>
-          <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Set Time</Form.Label>
-            <Form.Control as="select"
-                          name="time"
-                          value={this.state.time}
-                          onChange={(e)=>{this.handleChange(e)}}>
-              <option> 25 </option>
-              <option> 45 </option>
-              <option> 60 </option>
-            </Form.Control>
-          </Form.Group>
-        </Form> */}
-      </div>
-    );
+    // Deprecated -> both party can start timer now
+    // const forOwner = (
+    //   <div>
+    //     {
+    //         this.state.on
+    //         ?
+    //         <div className="control stop"
+    //              onClick={(e) => { this.handleReset(e) }} >
+    //           <FontAwesomeIcon icon={faStop} />
+    //         </div>
+    //         :
+    //         <div className="control play"
+    //              onClick={(e) => { this.handleStart(e) }} >
+    //           <FontAwesomeIcon icon={faPlay} />
+    //         </div>
+    //     }
+    //   </div>
+    // );
     return (
       <div className="pomodoro-container">
         <Container>
@@ -208,7 +196,17 @@ class Pomodoro extends Component {
               trailColor: "transparent"
             })}
           />
-          { this.props.isOwner && forOwner }
+          {/* { this.props.isOwner && forOwner } */}
+          {
+              this.state.on
+              ?
+              null
+              :
+              <div className="control play"
+                   onClick={(e) => { this.handleStart(e) }} >
+                <FontAwesomeIcon icon={faPlay} />
+              </div>
+          }
         </Container>
         <PomoModal
           show={this.state.modalShow}

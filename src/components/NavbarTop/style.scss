@@ -5,7 +5,14 @@
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
   margin-bottom: 50px;
   .navbar-brand {
-    color: $primary-color;
+    color: black;
+    font-size: 22px;
+    font-weight: 800;
+  }
+  .username {
+    color: #6c757d;
+    font-weight: 600;
+    margin-right: 10px;
   }
   .dropdown {
     .dropdown-wrapper {

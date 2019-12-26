@@ -16,7 +16,7 @@ class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: false,
+      modalShow: true,
       isOwner: false
     }
   }
@@ -52,7 +52,7 @@ class Room extends Component {
             <Col md={8} className="roomRight">
               <div className="roomInfo">
                 <div>
-                  <h2> { roomname } </h2>
+                  <h2> { roomname.length === 20 ? 'Pomo Room' : roomname } </h2>
                   <UsersInRoom roomName={roomname} />
                 </div>
                 <div>

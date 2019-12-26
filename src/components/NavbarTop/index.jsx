@@ -37,14 +37,17 @@ class NavbarTop extends Component {
   }
 
   render(){
-    const { avatar } = this.props.user.profile;
+    const { avatar, nickName } = this.props.user.profile;
     return(
       <div className="navbar-container">
         <Container>
           <Navbar>
-            <Navbar.Brand href="/dashboard"> Social Pomo </Navbar.Brand>
+            <Navbar.Brand href="/dashboard"> Pomopal </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text className="username">
+                { nickName }
+              </Navbar.Text>
               <Navbar.Text className="dropdown">
                 <div className="dropdown-wrapper" onClick={this.showMenu}>
                   <img

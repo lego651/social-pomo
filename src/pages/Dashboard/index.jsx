@@ -29,9 +29,9 @@ class Dashboard extends Component {
             <Col xs="9">
               <div className="overview-header">
                 <h3> Overview </h3>
-                <Button onClick={()=>{this.handleMatch()}}>
+                <Link to="/match">
                   <FontAwesomeIcon icon={faPlusCircle} /> Match
-                </Button>
+                </Link>
               </div>
               <Row>
                 <Col xs="4">
