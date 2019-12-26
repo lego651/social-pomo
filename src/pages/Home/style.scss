@@ -36,7 +36,7 @@
     .left {
       width: 50%;
       padding-top: 80px;
-      padding-left: 10%;
+      padding-left: 15%;
       .slogan {
         margin-top: 15%;
         font-size: 35px;
@@ -44,6 +44,11 @@
         .x0 {
           color: $primary-color;
         }
+      }
+      .changing {
+        font-size: 35px;
+        font-weight: 700;
+        color: $primary-color;
       }
       .sub-slogan {
         margin-top: 10px;
@@ -63,7 +68,7 @@
     .right {
       width: 50%;
       padding-top: 95px;
-      padding-right: 10%;
+      padding-right: 12%;
       .doneImg {
         img {
           width: 90%;

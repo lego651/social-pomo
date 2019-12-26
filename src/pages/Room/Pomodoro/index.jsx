@@ -23,7 +23,7 @@ class Pomodoro extends Component {
       sec: 25 * 60,
       on: false,
       startTime: null,
-      modalShow: false,
+      modalShow: true,
     }
   }
   // count = () => {

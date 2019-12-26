@@ -7,6 +7,7 @@ import TextLoop from "react-text-loop";
 
 import './style.scss';
 import workImg from '../../assets/img/work3.svg';
+import testImg from '../../assets/img/test.png';
 
 class Home extends Component {
   render(){
@@ -25,6 +26,8 @@ class Home extends Component {
           <div className="left">
             <div className="slogan">
               A new way to{" "}
+            </div>
+            <div className="changing">
               <TextLoop>
                 <span> Beat Procrastination </span>
                 <span> Stay Focused </span>
