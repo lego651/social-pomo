@@ -36,7 +36,7 @@ exports.addToWaiting = (req, res) => {
         return { newPair: false }
       } else { // 否则当前waiting不是空，查看是否有handle2的空位的
         for(let i = 0, len = pairs.length; i < len; i++) {
-          if(pairs[i].handle2.length === 0) { // update 当前pair
+          if(pairs[i].handle2.length === 0 && pairs[i].handle1 !== req.user.handle) { // update 当前pair
             db.doc(`/waiting/${pairs[i].id}`).update({
               handle2: req.user.handle,
               avatar2: req.user.avatar,
