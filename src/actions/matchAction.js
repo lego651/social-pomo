@@ -26,23 +26,49 @@ export const startMatching = () => (dispatch) => {
     })
 }
 
+// Deprecated V1.0
+// ready的用户pair, 谁先点击JoinRoom, 按照谁的name create Name;
+// export const joinMatchedRoom = (roomName, history) => (dispatch) => {
+//   dispatch({ type: LOADING_UI });
+//   axios
+//     .post('/joinmatch', { roomName })
+//     .then((res) => {
+//       // console.log(res.data)
+//       dispatch({
+//         type: MATCH_THEN_JOIN_ROOM,
+//         payload: {
+//           ownsRoom: res.data.ownsRoom,
+//           inRoom: res.data.inRoom
+//         }
+//       })
+//       dispatch({
+//         type: CLEAR_ERRORS
+//       });
+//       history.push(`/room/${roomName}`);
+//     })
+//     .catch((err) => {
+//       dispatch({
+//         type: SET_ERRORS,
+//         payload: err.response.data
+//       })
+//     })
+// }
+
+// V2.0 当Match到paired用户的时候，已经为他们创建好了room
+// 此时只用帮忙redirect过去就好了
 export const joinMatchedRoom = (roomName, history) => (dispatch) => {
+
   dispatch({ type: LOADING_UI });
   axios
     .post('/joinmatch', { roomName })
     .then((res) => {
-      // console.log(res.data)
-      dispatch({
-        type: MATCH_THEN_JOIN_ROOM,
-        payload: {
-          ownsRoom: res.data.ownsRoom,
-          inRoom: res.data.inRoom
-        }
-      })
-      dispatch({
-        type: CLEAR_ERRORS
-      });
-      history.push(`/room/${roomName}`);
+      console.log(res.data)
+      if(res.data.success !== null) {
+        dispatch({
+          type: CLEAR_ERRORS
+        });
+        history.push(`/room/${roomName}`);
+      }
     })
     .catch((err) => {
       dispatch({

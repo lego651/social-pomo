@@ -102,9 +102,9 @@ class Chatroom extends Component {
     }
   };
   showNotification = (message) => {
-    console.log('showNotification is called,', message)
-    console.log('curUsername is', this.curHandle)
-    if (message.userHandle !== this.curHandle) {
+    // console.log('showNotification is called,', message)
+    // console.log('curUsername is', this.curHandle)
+    if (message && message.userHandle && message.userHandle !== this.curHandle) {
       const title = message.userHandle;
       const body = message.content;
       new Notification(title, { body });
