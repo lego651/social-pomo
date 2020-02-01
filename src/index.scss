@@ -17,9 +17,12 @@
 // $primary-font: 'Nunito', sans-serif;
 // $primary-font-color: #6c757d;
 
-$primary-color: rgb(240, 122, 126);
-$primary-green: rgb(157, 209, 164);
-$primary-blue: rgb(155, 195, 250);
+// $primary-color: rgb(240, 122, 126);
+$primary-color: rgb(251, 114, 153);
+// $primary-green: rgb(157, 209, 164);
+$primary-green: rgb(66,210,157);
+// $primary-blue: rgb(155, 195, 250);
+$primary-blue: rgb(0,161,214);
 $primary-yellow: rgb(245, 210, 140);
 $primary-pink: rgb(250, 160, 177);
 
@@ -146,8 +149,8 @@ button:hover {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
   }
-  &:active {
-    background-color: rgba(157,209,164,.9) !important;
+  &:active, &:hover {
+    background-color: #2ec08a !important;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;

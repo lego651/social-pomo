@@ -1,105 +1,155 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Navbar, Nav, ButtonToolbar, Row, Col } from 'react-bootstrap';
+import { Button, Navbar, Nav, ButtonToolbar, Row, Col, Container, Tab } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faSearch, faUserFriends, faLaptopCode } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faArrowRight, faLink, faUserFriends, faLaptopCode, faHistory } from '@fortawesome/free-solid-svg-icons';
 import TextLoop from "react-text-loop";
 
 import './style.scss';
-import workImg from '../../assets/img/work3.svg';
-import testImg from '../../assets/img/test.png';
+import startupImg from '../../assets/img/startup.svg';
+import tab1Img from '../../assets/img/tab1.jpg';
+import tab2Img from '../../assets/img/tab2.jpg';
+import tab3Img from '../../assets/img/tab3.jpg';
+import tab4Img from '../../assets/img/tab4.jpg';
 
 class Home extends Component {
   render(){
     return(
       <div className="home-container">
-        <div className="home-header">
-          <div className='header-left'>
-            Pomopal
-          </div>
-          <div className="header-right">
-            <a href="signup"> Sign up </a>
-            <a href="login"> Log in </a>
-          </div>
+          <div className="nav-section">
+            <Container>
+              <Row>
+                <Col md={2} xs={4} className="logo">
+                  POMOPAL
+                </Col>
+                <Col md={8} xs={4} className="navs">
+                  Features 
+                </Col>
+                <Col md={2} xs={4} className="login">
+                  <span><FontAwesomeIcon icon={faSignInAlt} /></span> Log in 
+                </Col>
+              </Row>
+            </Container>
         </div>
-        <div className="home-section1">
-          <div className="left">
-            <div className="slogan">
-              A new way to{" "}
-            </div>
-            <div className="changing">
-              <TextLoop>
-                <span> Beat Procrastination </span>
-                <span> Stay Focused </span>
-                <span> Get Things Done </span>
-                <span> Boost Productivity </span>
-                <span> Make Friends </span>
-              </TextLoop>
-            </div>
-            <div className="sub-slogan">
-              Stay in the zone with an accountable pal or your friend.
-            </div>
-            <Button variant="primary">
-              <Link to="/login">
-                Get Started
-              </Link>
-            </Button>
-          </div>
-          <div className="right">
-            <div className="doneImg">
-              <img src={workImg} alt="work" />
-            </div>
-          </div>
-        </div>
-        <div className="home-section2">
-          <Row>
-            <Col md={3} xs={6} className="part">
-              <div className="icon">
-                <span><FontAwesomeIcon icon={faSearch}/></span>
-              </div>
-              <div className="title">
-                Match Pomo Pal
-              </div>
-              <div className="desc">
-                We will pair you with another pomopal who wants to focus at the moment
-              </div>
-            </Col>
-            <Col md={3} xs={6} className="part">
-              <div className="icon">
-                <span><FontAwesomeIcon icon={faUserFriends}/></span>
-              </div>
-              <div className="title">
-                Invite Friend
-              </div>
-              <div className="desc">
-                We will pair you with another pomopal who wants to focus at the moment
-              </div>
-            </Col>
-            <Col md={3} xs={6} className="part">
-              <div className="icon">
-                <span><FontAwesomeIcon icon={faSearch}/></span>
-              </div>
-              <div className="title">
-                Stay Focused
-              </div>
-              <div className="desc">
-                We will pair you with another pomopal who wants to focus at the moment
-              </div>
-            </Col>
-            <Col md={3} xs={6} className="part">
-              <div className="icon">
-                <span><FontAwesomeIcon icon={faSearch}/></span>
-              </div>
-              <div className="title">
-                History Records
-              </div>
-              <div className="desc">
-                We will pair you with another pomopal who wants to focus at the moment
-              </div>
-            </Col>
-          </Row>
+        <div className="hero-section">
+          <Container>
+            <Row>
+              <Col md={6} xs={12}>
+                <Container>
+                  <div className="slogan">
+                    A new way to{" "}
+                  </div>
+                  <div className="changing">
+                    <TextLoop interval={5000}>
+                      <span> Beat Procrastination </span>
+                      <span> Stay Focused </span>
+                      <span> Get Things Done </span>
+                      <span> Boost Productivity </span>
+                      <span> Make Friends </span>
+                    </TextLoop>
+                  </div>
+                  <div className="sub-slogan">
+                    Stay in the zone with an accountable pal or your friend.
+                  </div>
+                  <Button variant="success">
+                    <Link to="/login">
+                      Get Started <span><FontAwesomeIcon icon={faArrowRight} /></span>
+                    </Link>
+                  </Button>
+                </Container>
+              </Col>
+              <Col md={6} xs={12}>
+                <Container>
+                  <div className="img-wrapper">
+                    <img src={startupImg} alt="startup"/>
+                  </div>
+                </Container>
+              </Col>
+            </Row>
+          </Container>
         </div>
 
+        <div className="how-it-works-section">
+          <Container>
+            <div className="title">
+              How people use Pomopal
+            </div>
+            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+              <Row>
+                <Col xs={12} sm={4} >
+                  <Nav variant="pills" className="flex-column">
+                    <Nav.Item>
+                      <Nav.Link eventKey="first"> 
+                        <span><FontAwesomeIcon icon={faLink}/></span> 
+                        Match Pomo Pal 
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="second"> 
+                        <span><FontAwesomeIcon icon={faUserFriends}/></span>
+                        Invite Friends 
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="third"> 
+                        <span><FontAwesomeIcon icon={faLaptopCode}/></span>
+                        Stay Focused 
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="forth"> 
+                        <span><FontAwesomeIcon icon={faHistory}/></span>
+                        History Records 
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Col>
+                <Col xs={12} sm={8}>
+                  <Tab.Content>
+                    <Tab.Pane eventKey="first">
+                      <div className="img-wrapper">
+                        <img src={tab1Img} alt="tab1"/>
+                      </div>
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="second">
+                      <div className="img-wrapper">
+                        <img src={tab2Img} alt="tab2"/>
+                      </div>
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="third">
+                      <div className="img-wrapper">
+                        <img src={tab3Img} alt="tab3"/>
+                      </div>
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="forth">
+                      <div className="img-wrapper">
+                        <img src={tab4Img} alt="tab4"/>
+                      </div>
+                    </Tab.Pane>
+                  </Tab.Content>
+                </Col>
+              </Row>
+            </Tab.Container>
+          </Container>
+        </div>
+
+        <div className="call-to-action-section">
+          <Container>
+              Try Pomopal Today?
+              <Link>
+                Get Started
+              </Link>
+          </Container>
+        </div>
+
+        <div className="footer">
+          <div className="logo">
+            Pomopal 
+          </div>
+          <div className="rights">
+            @ Pomopal.2020. All rights reserved.
+          </div>
+        </div>
       </div>
     )
   }
