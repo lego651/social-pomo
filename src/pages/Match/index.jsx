@@ -12,7 +12,7 @@ import NavLeft from '../../components/NavLeft';
 import LoadingModal from '../../components/LoadingModal';
 import MatchModal from './MatchModal';
 import connectingImg from '../../assets/img/connecting.svg';
-import waitingImg from '../../assets/img/waiting.svg';
+import loadingImg from '../../assets/img/loading.gif';
 import joiningImg from '../../assets/img/joining.svg';
 
 class Match extends Component {
@@ -70,9 +70,9 @@ class Match extends Component {
     this.unsubscribe = this.ref.onSnapshot(this.onUpdatePairs);
   }
   componentDidUpdate(prevProps, prevState) {
-    if(!prevState.inPairs && this.props.username) {
-      for(let i = 0, len = this.state.pairs.length; i < len; i++) {
-        if(this.state.pairs[i].handle === this.props.username) {
+    if (!prevState.inPairs && this.props.username) {
+      for (let i = 0, len = this.state.pairs.length; i < len; i++) {
+        if (this.state.pairs[i].handle === this.props.username) {
           this.setState({
             inPairs: true,
             roomName: this.state.pairs[i].room
@@ -81,7 +81,7 @@ class Match extends Component {
       }
     }
   }
-  render(){
+  render() {
     const { errors, inPairs } = this.state;
     const { loading, success } = this.props.UI;
     const { matching, ownsRoom } = this.props;
@@ -93,52 +93,52 @@ class Match extends Component {
       <div className="not-ready-container">
         {
           matching
-          ?
-          <div className="waiting-container">
-            <img src={waitingImg} alt="waiting" />
-            <p>
-              Pomopal is working hard to connect you with another sould. If you have waited for long time, you can also try to create a new room and invite your friend.
+            ?
+            <div className="waiting-container">
+              <img src={loadingImg} alt="loading" />
+              <p>
+                Pomopal is working hard to connect you with another sould. If you have waited for long time, you can also try to create a new room and invite your friend.
             </p>
-            <Button variant="info">
-              Matching...
+              <Button variant="info">
+                Matching...
             </Button>
-          </div>
-          :
-          <div className="matching-container">
-            <img src={connectingImg} alt="connecting" />
-            <p>
-              Pomopal will connect you with another user who wants to start a pomodoro at this moment...
-            </p>
-            <div>
-              <Button variant="info"
-                      onClick={() => this.handleClick()}>
-                Match
-              </Button>
             </div>
-          </div>
+            :
+            <div className="matching-container">
+              <img src={connectingImg} alt="connecting" />
+              <p>
+                Pomopal will connect you with another user who wants to start a pomodoro at this moment...
+            </p>
+              <div>
+                <Button variant="info"
+                  onClick={() => this.handleClick()}>
+                  Match
+              </Button>
+              </div>
+            </div>
         }
       </div>
     )
-    return(
+    return (
       <div className="match-container">
         <NavbarTop />
         {
           inPairs
-          ?
-          <div className="joining-container">
-            <img src={joiningImg} alt="joining" />
-            <p>
-              We found a good pal for you, click button to join room.
+            ?
+            <div className="joining-container">
+              <img src={joiningImg} alt="joining" />
+              <p>
+                We found a good pal for you, click button to join room.
             </p>
-            <div>
-              <Button variant="info"
-                      onClick={() => this.handleJoinRoom()}>
-                Join Room
+              <div>
+                <Button variant="info"
+                  onClick={() => this.handleJoinRoom()}>
+                  Join Room
               </Button>
+              </div>
             </div>
-          </div>
-          :
-          notReady
+            :
+            notReady
         }
         <MatchModal
           show={showModal}
