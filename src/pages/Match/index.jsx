@@ -12,7 +12,7 @@ import NavLeft from '../../components/NavLeft';
 import LoadingModal from '../../components/LoadingModal';
 import MatchModal from './MatchModal';
 import connectingImg from '../../assets/img/connecting.svg';
-import waitingImg from '../../assets/img/waiting.svg';
+import loadingImg from '../../assets/img/loading.gif';
 import joiningImg from '../../assets/img/joining.svg';
 
 class Match extends Component {
@@ -95,7 +95,7 @@ class Match extends Component {
           matching
           ?
           <div className="waiting-container">
-            <img src={waitingImg} alt="waiting" />
+            <img src={loadingImg} alt="loading" />
             <p>
               Pomopal is working hard to connect you with another sould. If you have waited for long time, you can also try to create a new room and invite your friend.
             </p>
