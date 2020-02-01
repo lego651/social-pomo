@@ -14,13 +14,16 @@
       }
       button {
         width: 100%;
-        // background-color: $primary-button-blue;
+        margin-top: 15px;
         .icon {
           margin-right: 5px;
         }
       }
       .link-to-signup{
         padding: 10% 15% 10% 20%;
+        a {
+          color: rgb(0,161,214);
+        }
       }
     }
   }
@@ -36,6 +39,7 @@
           position: absolute;
           top: 90%;
           left: 40%;
+          color: white;
         }
     }
   }

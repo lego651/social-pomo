@@ -13,12 +13,16 @@
       }
       button {
         width:100%;
+        margin-top: 15px;
         .icon {
           padding-right:4px;
         }
       }
       .link-to-login{
         padding: 10% 15% 10% 20%;
+        a {
+          color: rgb(0,161,214);
+        }
       }
     }
   }
@@ -37,6 +41,7 @@
         position: absolute;
         top: 90%;
         left: 40%;
+        color: white;
       }
     }
   }

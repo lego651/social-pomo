@@ -39,13 +39,12 @@ class Login extends Component {
   render(){
     const { errors } = this.state;
     const { loading } = this.props.UI;
-    // console.log(this.state);
     return(
       <div className="login-container">
           <Row>
             <Col md={5} xs={12} className="left-col">
               <div className="login-left">
-                <h3>Sign In App</h3>
+                <h3>Sign In</h3>
                 <h5>Enter your email address and password to access account.</h5>
                 <div className="login-form">
                   <Form onSubmit={(e) => {this.handleSubmit(e)}}>
@@ -83,7 +82,7 @@ class Login extends Component {
                       </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button variant="info" type="submit">
+                    <Button variant="info" type="submit" disabled={loading}>
                       { loading
                           ? <FontAwesomeIcon className="icon" icon={faSync} spin />
                           : <FontAwesomeIcon className="icon" icon={faSignInAlt} />

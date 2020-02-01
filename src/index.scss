@@ -121,7 +121,7 @@ button:hover {
 
 .btn-info {
   // background-color: $primary-blue;
-  background-color: rgb(88, 182, 200);
+  background-color: rgba(0,161,214, .8);
   border: none;
   &:focus {
     border-color: inherit;
@@ -131,7 +131,7 @@ button:hover {
     -webkit-box-shadow: none !important;
   }
   &:active, &:hover {
-    background-color: rgba(88, 182, 200, .8) !important;
+    background-color: rgb(0,161,214) !important;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
