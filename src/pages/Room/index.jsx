@@ -16,7 +16,7 @@ class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: true,
+      modalShow: false,
       isOwner: false
     }
   }

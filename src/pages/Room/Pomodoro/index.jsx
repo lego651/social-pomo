@@ -19,8 +19,9 @@ class Pomodoro extends Component {
     this.ref = firebase.firestore().collection('rooms').doc(roomName);
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
+    this.DEFAULT_TIME = 25 * 60;
     this.state = {
-      sec: 25 * 60,
+      sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
       modalShow: false,
@@ -43,14 +44,14 @@ class Pomodoro extends Component {
   count = (startTime) => {
     if(this.state.on && this.state.startTime) {
       if(this.state.sec > 0) {
-        this.setState({ sec: 25 * 60 - Math.floor((new Date().getTime() - startTime) / 1000) })
+        this.setState({ sec: this.DEFAULT_TIME - Math.floor((new Date().getTime() - startTime) / 1000) })
       } else {
         this.audio.play();
         this.setState({
           on: false,
           modalShow: true,
-          sec: 25 * 60,
-        });
+          sec: this.DEFAULT_TIME,
+        }, this.handleReset());
       }
     }
   }
@@ -59,7 +60,7 @@ class Pomodoro extends Component {
   }
   reset = () => {
     this.setState({
-      sec: 25 * 60,
+      sec: this.DEFAULT_TIME,
       on: false
     })
     clearInterval(this.interval);
@@ -86,8 +87,8 @@ class Pomodoro extends Component {
   //   })
   //   clearInterval(this.interval);
   // }
-  handleReset = (e) => {
-    e.preventDefault();
+  handleReset = () => {
+    // e.preventDefault();
     const currentRoom = {
       roomName: this.props.roomName,
     }
@@ -97,7 +98,7 @@ class Pomodoro extends Component {
         this.setState({
           on: false,
           startTime: null,
-          sec: 25 * 60
+          sec: this.DEFAULT_TIME
         })
         clearInterval(this.interval);
       })
@@ -128,8 +129,8 @@ class Pomodoro extends Component {
       this.setState({
         on: doc.data().on,
         startTime: doc.data().startTime
-      })
-    }
+      });
+    } 
     if(doc.data() && doc.data().startTime) {
       this.start(doc.data().startTime);
     }
@@ -150,17 +151,16 @@ class Pomodoro extends Component {
   componentWillUnmount() {
     this.unsubscribe = null;
     this.setState({
-      sec: 25 * 60,
+      sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
       modalShow: false,
     })
   }
   render() {
-
-    // console.log(this.state);
+    console.log(this.state);
     const { sec } = this.state;
-    const percent = sec / (25 * 60);
+    const percent = sec / (this.DEFAULT_TIME);
     const value = percent * 100;
     // console.log(value);
 
@@ -191,8 +191,8 @@ class Pomodoro extends Component {
             text={parseTime(this.state.sec)}
             strokeWidth={5}
             styles={buildStyles({
-              textColor: "#F07A7E",
-              pathColor: "#F07A7E",
+              textColor: "#FB7299",
+              pathColor: "#FB7299",
               trailColor: "transparent"
             })}
           />
