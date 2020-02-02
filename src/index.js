@@ -1,44 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import jwtDecode from 'jwt-decode';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { Redirect, Router, Route, Switch } from "react-router-dom";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import jwtDecode from "jwt-decode";
 
-import './index.css';
+import "./index.css";
 // import App from './App';
-import * as serviceWorker from './serviceWorker';
-import store from './store';
-import SignUp from './pages/SignUp';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Room from './pages/Room';
-import Test from './pages/Test';
-import Project from './pages/Project';
-import Tag from './pages/Tag';
-import Door from './pages/Door';
-import Account from './pages/Account';
-import Password from './pages/Password';
-import Match from './pages/Match';
-import { logoutUser, getUserData } from './actions';
-import { SET_AUTHENTICATED } from './actions/types';
-import requiresAuth from './utils/requiresAuth';
-import { history } from './utils/history';
+import * as serviceWorker from "./serviceWorker";
+import store from "./store";
+import SignUp from "./pages/SignUp";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Room from "./pages/Room";
+import Test from "./pages/Test";
+import Project from "./pages/Project";
+import Tag from "./pages/Tag";
+import Door from "./pages/Door";
+import Account from "./pages/Account";
+import Password from "./pages/Password";
+import Match from "./pages/Match";
+import NotFound from "./pages/NotFound";
+import { logoutUser, getUserData } from "./actions";
+import { SET_AUTHENTICATED } from "./actions/types";
+import requiresAuth from "./utils/requiresAuth";
+import { history } from "./utils/history";
 
-axios.defaults.baseURL = 'https://us-central1-social-pomo-94112.cloudfunctions.net/api';
+axios.defaults.baseURL =
+  "https://us-central1-social-pomo-94112.cloudfunctions.net/api";
 
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now() - 1000 * 60 * 60 * 2) {
     store.dispatch(logoutUser());
-    window.location.href = '/login';
-    localStorage.removeItem('FBIToken');
+    window.location.href = "/login";
+    localStorage.removeItem("FBIToken");
   } else {
     store.dispatch({ type: SET_AUTHENTICATED });
-    axios.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.common["Authorization"] = token;
     store.dispatch(getUserData());
   }
 }
@@ -59,10 +61,12 @@ ReactDOM.render(
         <Route exact path="/project" component={requiresAuth(Project)} />
         <Route exact path="/match" component={requiresAuth(Match)} />
         <Route exact path="/tag" component={requiresAuth(Tag)} />
+        <Route path="/404" component={NotFound} />
+        <Redirect to="/404" />
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
