@@ -63,6 +63,7 @@ class PomoModal extends Component {
     });
   }
   handleSubmit = (e) => {
+    const { createPomo, removeTodo, onHide } = this.props;
     e.preventDefault();
     const newContent = this.state.content.length > 0 ? this.state.content : this.props.user.todo;
     const dateObj = new Date();
@@ -78,9 +79,12 @@ class PomoModal extends Component {
     }
     // console.log(newPomo);
     // this.props.onCreate(this.state.project);
-    this.props.createPomo(newPomo);
-    this.props.removeTodo();
-    this.props.onHide();
+    // this.props.createPomo(newPomo);
+    // this.props.removeTodo();
+    // this.props.onHide();
+    createPomo(newPomo);
+    removeTodo();
+    onHide();
   }
   render() {
     const { projects, tags } = this.props.user.profile;
