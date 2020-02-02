@@ -26,7 +26,9 @@ class Home extends Component {
                   Features 
                 </Col>
                 <Col md={2} xs={4} className="login">
-                  <span><FontAwesomeIcon icon={faSignInAlt} /></span> Log in 
+                  <Link to="/login">
+                    <span><FontAwesomeIcon icon={faSignInAlt} /></span> Log in 
+                  </Link>
                 </Col>
               </Row>
             </Container>

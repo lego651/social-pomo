@@ -21,16 +21,20 @@
     }
     .login {
       text-align: center;
-      background-color: #EEF2F7;
-      color: #474D56;
-      border: 1px solid transparent;
-      border-radius: 20px;
-      padding: 2px;
-      span {
-        margin-right: 4px;
-      }
-      &:hover {
-        cursor: pointer;
+      width: 100%;
+      a {
+        background-color: #EEF2F7;
+        width: 100%;
+        color: #474D56;
+        border: 1px solid transparent;
+        border-radius: 20px;
+        padding: 5px 20px;
+        span {
+          margin-right: 4px;
+        }
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
