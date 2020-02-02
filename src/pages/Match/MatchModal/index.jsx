@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
 import './style.scss';
@@ -17,7 +17,6 @@ class MatchModal extends Component {
   }
   handleClose = () => this.props.onHide();
   render() {
-    const { errors } = this.state;
     return (
       <Modal backdrop="static"
         {...this.props}

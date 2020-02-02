@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Navbar, Nav, ButtonToolbar, Row, Col, Container, Tab } from 'react-bootstrap';
+import { Button, Nav, Row, Col, Container, Tab } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faArrowRight, faLink, faUserFriends, faLaptopCode, faHistory } from '@fortawesome/free-solid-svg-icons';
 import TextLoop from "react-text-loop";

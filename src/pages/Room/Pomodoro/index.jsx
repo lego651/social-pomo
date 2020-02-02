@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { parseTime } from '../../../utils/util.js';

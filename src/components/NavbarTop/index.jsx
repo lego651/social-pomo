@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Navbar, Dropdown, DropdownButton, Row } from 'react-bootstrap';
-import { DropdownMenu, MenuItem } from 'react-bootstrap-dropdown-menu';
+import { Container, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -69,7 +68,7 @@ class NavbarTop extends Component {
                            <a href="/room"> Room </a>
                            <a href="/match"> Match </a>
                            <a href="/account"> Account </a>
-                           <a onClick={this.handleLogout}>Sign out</a>
+                           <a href="/" onClick={this.handleLogout}> Sign out </a>
                          </div>
                        </div>
                      )

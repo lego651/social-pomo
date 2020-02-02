@@ -5,7 +5,6 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
-  MATCH_THEN_JOIN_ROOM
 } from './types';
 
 // add user to waiting queue, and update redux profile.matching to true

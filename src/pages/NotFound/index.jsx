@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Alert, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 import "./style.scss";
 
@@ -19,7 +19,7 @@ class NotFoundPage extends React.Component {
             </button>
           </Col>
           <Col lg="6">
-            <img className="notfound-img" src={PageNotFound} />
+            <img className="notfound-img" src={PageNotFound} alt="notFound" />
           </Col>
         </Row>
       </div>

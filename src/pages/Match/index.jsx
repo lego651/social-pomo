@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import firebase from '../../utils/firebase.js';
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'react-bootstrap';
 
 import './style.scss';
 import { startMatching, joinMatchedRoom, deleteRoomNoRedirect } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
-import NavLeft from '../../components/NavLeft';
 import LoadingModal from '../../components/LoadingModal';
 import MatchModal from './MatchModal';
 import connectingImg from '../../assets/img/connecting.svg';
@@ -41,10 +38,7 @@ class Match extends Component {
     });
     this.setState({
       pairs
-    }, (() => {
-      // console.log(this.curHandle);
-
-    }).bind(this));
+    });
   }
   handleClick = () => {
     // console.log('button clicked')
@@ -82,8 +76,7 @@ class Match extends Component {
     }
   }
   render() {
-    const { errors, inPairs } = this.state;
-    const { loading, success } = this.props.UI;
+    const { inPairs } = this.state;
     const { matching, ownsRoom } = this.props;
     const showModal = ownsRoom && ownsRoom.length > 0;
     // console.log(this.curHandle);

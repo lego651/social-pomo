@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form, Spinner } from 'react-bootstrap';
+import { Modal, Spinner } from 'react-bootstrap';
 
 import './style.scss';
 

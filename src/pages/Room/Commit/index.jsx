@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBroom, faTimes, faSignOutAlt, faPencilAlt, faTrashAlt, faSync } from '@fortawesome/free-solid-svg-icons';
+import { faBroom, faSignOutAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { deleteMessages, deleteRoom } from '../../../actions';
@@ -16,7 +16,6 @@ class Commit extends Component {
   }
   render() {
     const { roomName, isOwner, history } = this.props;
-    const { loading } = this.props.UI;
     return (
       <div className="commit-container">
         <ButtonToolbar>

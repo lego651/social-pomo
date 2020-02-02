@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import firebase from '../../../utils/firebase.js';
 import './style.scss';
-import { addMessage, deleteMessages } from '../../../actions';
+import { addMessage } from '../../../actions';
 import Message from '../Message/index.jsx';
 import { Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -111,7 +111,7 @@ class Chatroom extends Component {
     }
   };
   render(){
-    const { username, roomname } = this.props;
+    const { username } = this.props;
     const { loadingMessage } = this.props.UI;
     return(
       <div className="chatroom-container">
