@@ -27,22 +27,32 @@ class CreateRoom extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    const newRoom = {
-      roomName: this.state.roomName
+    if (this.state.roomName.length === 0) {
+      const errors = {
+        roomName: 'It must not be empty.'
+      }
+      this.setState({
+        errors
+      })
+    } else {
+      const newRoom = {
+        roomName: this.state.roomName
+      }
+      this.props.createRoom(newRoom, this.props.history);
     }
-    this.props.createRoom(newRoom, this.props.history);
   }
-  render(){
-    return(
+  render() {
+    const { errors } = this.state;
+    return (
       <div className="createroom-container">
         <h3> Create Room </h3>
         <img src={createRoomImg} alt="create-room" />
         <div className="createroom-form">
           <input type="text"
-                 placeholder="Enter room name"
-                 name="roomName"
-                 onChange={(e) => {this.handleChange(e)}}/>
-          <span onClick={(e) => {this.handleSubmit(e)}}>
+            placeholder="Enter room name"
+            name="roomName"
+            onChange={(e) => { this.handleChange(e) }} />
+          <span onClick={(e) => { this.handleSubmit(e) }}>
             <FontAwesomeIcon icon={faPlusCircle} />
           </span>
         </div>
