@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Components
 import { Modal, Button, Form } from 'react-bootstrap';
 
+// css
 import './style.scss';
-import { createPomo, removeTodo, addProject, clearErrors, clearSuccess, addTag } from '../../../actions';
+
+// actions
+import { createPomo, 
+         removeTodo, 
+         addProject, 
+         clearErrors, 
+         clearSuccess, 
+         addTag } from '../../../actions';
+
+// utils 
+import { convertDateToSeq } from '../../../utils/util.js';
 
 class PomoModal extends Component {
   constructor(props) {
@@ -67,21 +80,21 @@ class PomoModal extends Component {
     e.preventDefault();
     const newContent = this.state.content.length > 0 ? this.state.content : this.props.user.todo;
     const dateObj = new Date();
+    const y = dateObj.getFullYear();
+    const m = dateObj.getMonth();
+    const d = dateObj.getDate();
+    const s = convertDateToSeq(y, m + 1, d);
     const newPomo = {
       content: newContent,
       project: this.state.project,
       tag: this.state.tag,
-      month: dateObj.getMonth(),
-      date: dateObj.getDate(),
+      month: m + 1,
+      date: d,
       day: dateObj.getDay(),
       hour: dateObj.getHours(),
-      minute: dateObj.getMinutes()
+      minute: dateObj.getMinutes(),
+      seq: s,
     }
-    // console.log(newPomo);
-    // this.props.onCreate(this.state.project);
-    // this.props.createPomo(newPomo);
-    // this.props.removeTodo();
-    // this.props.onHide();
     createPomo(newPomo);
     removeTodo();
     onHide();

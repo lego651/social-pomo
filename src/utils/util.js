@@ -16,7 +16,7 @@ export const convertDateToSeq = (y, m, d) => {
     res += year % 4 === 0 ? 366 : 365;
     year++;
   }
-  while (month < m) {
+  while (month < m - 1) {
     if (y % 4 === 0 && month === 1) {
       res += months[month] + 1;
     } else {

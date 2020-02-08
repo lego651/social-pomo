@@ -1,3 +1,4 @@
+const { convertDateToSeq } = require('../utils/date');
 const { admin, db } = require('../utils/admin');
 
 exports.createPomo = (req, res) => {
@@ -19,6 +20,7 @@ exports.createPomo = (req, res) => {
     day: req.body.day,
     hour: req.body.hour,
     minute: req.body.minute,
+    seq: req.body.seq,
   }
   db.collection("pomos").add(newPomo)
     .then((doc) => {
@@ -47,6 +49,28 @@ exports.fetchAllPomo = (req, res) => {
         })
       });
       return res.json(pomos);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err });
+    })
+}
+
+// Today Pomos
+exports.getTodayPomoCount = (req, res) => {
+  const handle = req.user.handle;
+  const dateObj = new Date();
+  const y = dateObj.getFullYear();
+  const m = dateObj.getMonth();
+  const d = dateObj.getDate();
+  const s = convertDateToSeq(y, m + 1, d);
+  
+  db.collection('pomos')
+    .where("seq", "==", s)
+    .where("handle", "==", handle)
+    .get()
+    .then((data) => {
+      console.log(data);
+      return res.json({ count: data.size })
     })
     .catch((err) => {
       return res.status(500).json({ error: err });
