@@ -61,7 +61,7 @@ class RoomModal extends Component {
             Close
           </Button>
           <Button
-          id="modalButton"
+          variant="primary"
           onClick={this.handleSubmit}
           > Send </Button>
         </Modal.Footer>
