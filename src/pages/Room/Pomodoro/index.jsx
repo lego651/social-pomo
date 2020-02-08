@@ -19,7 +19,7 @@ class Pomodoro extends Component {
     this.ref = firebase.firestore().collection('rooms').doc(roomName);
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
-    this.DEFAULT_TIME = 25 * 60;
+    this.DEFAULT_TIME = 10;
     this.state = {
       sec: this.DEFAULT_TIME,
       on: false,

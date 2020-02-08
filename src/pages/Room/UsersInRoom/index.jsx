@@ -42,7 +42,7 @@ class UsersInRoom extends Component {
       <div className="usersinroom-container">
         {
           users && users.map((user) =>
-            <div className= "single-user" key={user}>
+            <div className= "single-user" key={user.handle}>
               <OverlayTrigger
                 key="delete"
                 placement="bottom"
