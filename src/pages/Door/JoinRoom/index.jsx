@@ -21,22 +21,31 @@ class JoinRoom extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    const existingRoom = {
-      roomName: this.state.roomName
+    if (this.state.roomName.length === 0) {
+      const errors = {
+        roomName: 'It must not be empty.'
+      }
+      this.setState({
+        errors
+      })
+    } else {
+      const existingRoom = {
+        roomName: this.state.roomName
+      }
+      this.props.joinRoom(existingRoom, this.props.history);
     }
-    this.props.joinRoom(existingRoom, this.props.history);
   }
-  render(){
-    return(
+  render() {
+    return (
       <div className="joinroom-container">
         <h3> Join Room </h3>
         <img src={joinRoomImg} alt="join-room" />
         <div className="joinroom-form">
           <input type="text"
-                 placeholder="Enter room name"
-                 name="roomName"
-                 onChange={(e) => {this.handleChange(e)}} />
-          <span onClick={(e) => {this.handleSubmit(e)}}>
+            placeholder="Enter room name"
+            name="roomName"
+            onChange={(e) => { this.handleChange(e) }} />
+          <span onClick={(e) => { this.handleSubmit(e) }}>
             <FontAwesomeIcon icon={faArrowAltCircleRight} />
           </span>
         </div>
