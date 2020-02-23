@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBroom, faSignOutAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
+
+// actions 
 import { deleteMessages, deleteRoom } from '../../../actions';
 
 class Commit extends Component {

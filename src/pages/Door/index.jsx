@@ -4,7 +4,7 @@ import { Container, Row, Col, Alert, Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { joinRoom, clearErrors, deleteRoom } from '../../actions';
+
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import InRoom from './InRoom';
@@ -12,6 +12,9 @@ import JoinRoom from './JoinRoom';
 import CreateRoom from './CreateRoom';
 import LoadingModal from '../../components/LoadingModal';
 import './style.scss';
+
+// actions
+import { joinRoom, clearErrors, deleteRoom } from '../../actions';
 
 class Door extends Component {
   constructor(props) {
@@ -100,7 +103,7 @@ class Door extends Component {
                         <td>
                           <Button
                             className="delete-button"
-                            onClick={(_history, ownsRoom) => { this._removeOwnsRoom(_history, ownsRoom)} }
+                            onClick={() => this._removeOwnsRoom(_history, ownsRoom)}
                             >
                             <span><FontAwesomeIcon icon={faTrashAlt} /></span>
                           </Button>
@@ -124,7 +127,12 @@ const mapStateToProps = (state) => ({
   user: state.user,
   UI: state.UI
 });
+const mapDispatchToProps = (dispatch) => ({
+  joinRoom: (roomObj, history) => dispatch(joinRoom(roomObj, history)),
+  clearErrors: () => dispatch(clearErrors()),
+  deleteRoom: (history, roomName) => dispatch(deleteRoom(history, roomName)),
+})
 export default connect(
   mapStateToProps,
-  { joinRoom, clearErrors, deleteRoom }
+  mapDispatchToProps
 )(Door);
