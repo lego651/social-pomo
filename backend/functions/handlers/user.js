@@ -17,7 +17,6 @@ exports.signup = (req, res) => {
   };
 
   const { valid, errors } = validateSignupData(newUser);
-  console.log(errors);
 
   if(!valid) return res.status(400).json(errors);
 
@@ -74,6 +73,7 @@ exports.signup = (req, res) => {
 };
 
 // Log in
+// 当前版本没有判断是Email的问题还是Password的问题，统一回答Wrong Credentials
 exports.login = (req, res) => {
   const user = {
     email: req.body.email,
@@ -94,12 +94,10 @@ exports.login = (req, res) => {
       return res.json({ token });
     })
     .catch((err) => {
-      console.error(err);
-      // auth/wrong-password
-      // auth/user-not-user
+      console.log(err);
       return res
         .status(403)
-        .json({ password: 'Wrong credentials, please try again' });
+        .json({ password: 'Email or password is incorrect, please try again.' });
     });
 };
 

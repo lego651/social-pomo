@@ -42,7 +42,6 @@ class CreateRoom extends Component {
     }
   }
   render() {
-    const { errors } = this.state;
     return (
       <div className="createroom-container">
         <h3> Create Room </h3>
