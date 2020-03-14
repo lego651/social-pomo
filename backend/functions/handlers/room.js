@@ -105,7 +105,6 @@ exports.joinRoom = (req, res) => {
       }
     })
     .then(() => { // upadte 这个 user 的 inRoom
-      console.log("next is called...")
       const userInRoom = {
         inRoom: roomName
       }
