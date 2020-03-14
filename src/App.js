@@ -6,7 +6,7 @@ import Room from './pages/Room';
 
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://us-central1-pomopal-dev.cloudfunctions.net/api';
+axios.defaults.baseURL = 'https://us-central1-social-pomo-94112.cloudfunctions.net/api';
 
 class App extends Component {
   render() {

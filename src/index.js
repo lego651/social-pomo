@@ -29,7 +29,7 @@ import requiresAuth from "./utils/requiresAuth";
 import { history } from "./utils/history";
 
 axios.defaults.baseURL =
-  "https://us-central1-pomopal-dev.cloudfunctions.net/api";
+  "https://us-central1-social-pomo-94112.cloudfunctions.net/api";
 
 const token = localStorage.FBIdToken;
 if (token) {
