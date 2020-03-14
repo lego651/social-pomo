@@ -98,11 +98,14 @@ exports.joinRoom = (req, res) => {
     .get()
     .then((doc) => {
       if(!doc.exists) { // 如果房间名不存在，告知用户
-        return res.status(400).json({ fail: 'Room name does exist yet.' })
+        res.status(400).json({ fail: "Room name doesn't exist yet." })
+        return Promise.reject(err)
+      } else {
+        return;
       }
-      return;
     })
     .then(() => { // upadte 这个 user 的 inRoom
+      console.log("next is called...")
       const userInRoom = {
         inRoom: roomName
       }
