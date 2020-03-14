@@ -16,7 +16,6 @@ import {
 } from './types';
 
 export const loginUser = (userData, history) => (dispatch) => {
-  console.log('action data is', userData);
   dispatch({ type: LOADING_UI });
   axios
     .post('/login', userData)
@@ -28,7 +27,6 @@ export const loginUser = (userData, history) => (dispatch) => {
       })
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data

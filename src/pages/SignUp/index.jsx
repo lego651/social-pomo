@@ -20,21 +20,25 @@ class SignUp extends Component {
       errors: {}
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   // componentDidUpdate(nextProps) {
   //   if (nextProps.UI.errors) {
   //     this.setState({ errors: nextProps.UI.errors });
   //   }
   // }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const newUserData = {
@@ -45,6 +49,7 @@ class SignUp extends Component {
     };
     this.props.signupUser(newUserData, this.props.history);
   }
+
   render(){
     const { errors } = this.state;
     const { loading } = this.props.UI;
@@ -128,6 +133,7 @@ class SignUp extends Component {
                       }
                       Sign Up
                     </Button>
+                    
                     <div className="link-to-login">
                       <h5>Already have account? <b><Link to="/login"> Log In </Link></b></h5>
                     </div>
