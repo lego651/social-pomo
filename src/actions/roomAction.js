@@ -98,7 +98,6 @@ export const joinRoom = (existingRoom, history) => (dispatch) => {
   axios
     .post('/joinroom', existingRoom)
     .then((res) => {
-      console.log(res);
       if(res.data.success !== null) {
         dispatch({
           type: ADD_INROOM,
