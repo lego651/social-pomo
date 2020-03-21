@@ -251,15 +251,28 @@ exports.deleteMessages = (req, res) => {
 // Delete: delete room document
 exports.deleteRoom = (req, res) => {
   const roomName = req.body.roomName;
-  db.doc(`/rooms/${roomName}`)
-    .delete()
+  db.collection(`/rooms/${roomName}/messages`)
+    .get()
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
+        doc.ref.delete();
+      })
+      return null;
+    })
     .then(() => {
-      const userOwnsRoom = {
-        ownsRoom: null,
-        inRoom: null
-      }
-      db.doc(`/users/${req.user.handle}`).update(userOwnsRoom);
-      return res.status(200).json({ success: 'Room deleted successfully.' });
+      return db.doc(`/rooms/${roomName}`)
+      .delete()
+      .then(() => {
+        const userOwnsRoom = {
+          ownsRoom: null,
+          inRoom: null
+        }
+        db.doc(`/users/${req.user.handle}`).update(userOwnsRoom);
+        return res.status(200).json({ success: 'Room deleted successfully.' });
+      })
+      .catch((err) => {
+        return res.status(500).json({error: err});
+      })
     })
     .catch((err) => {
       return res.status(500).json({error: err});
