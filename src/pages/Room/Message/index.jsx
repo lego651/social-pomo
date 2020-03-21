@@ -1,16 +1,15 @@
 import React from 'react';
 
 import './style.scss';
-import default_img from '../../../assets/img/avatar.svg';
+import avatar_pomo from '../../../assets/img/avatar-pomo.png';
 
 const Message = ({ item, curHandle }) => {
   const isOwner = (item.userHandle === curHandle)
-  console.log(item);
   return(
     <div className={"message-container" + (isOwner ? " isOwner" : "")}>
       <img
         className={"userImg" + (isOwner ? " isOwner" : "")}
-        src={item.avatar ? item.avatar : default_img}
+        src={item.avatar ? item.avatar : avatar_pomo}
         alt="avatar"
       />
       <div className={"message-sender" + (isOwner ? " isOwner" : "")}>
