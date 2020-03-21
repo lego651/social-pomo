@@ -4,23 +4,11 @@
   .form-label {
     font-size: 16px;
     color: #6c757d;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 600;
-    margin-top: 10px;
+    margin-top: 20px;
   }
-  .hidden-btn {
-    color: $primary-color;
-    font-size: 13px;
-    border: 1px solid $primary-color;
-    border-radius: 20px;
-    padding: 4px 10px;
-    cursor: pointer;
-  }
-  .hidden-btn.cancel {
-    float: right;
-    color: rgba(22,22,22,.3);
-    border-color: rgba(22,22,22,.2);
-  }
+
   .invalid-feedback {
     display: block;
   }
@@ -29,9 +17,23 @@
   }
   .add-project-wrapper {
     margin-top: 10px;
+    .hidden-btn {
+      float: left;
+      color: $primary-color;
+      font-size: 13px;
+      border: 1px solid $primary-color;
+      border-radius: 20px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .hidden-btn.cancel {
+      float: left;
+      color: rgba(22, 22, 22, 0.3);
+      border-color: rgba(22, 22, 22, 0.2);
+    }
     input {
       margin-left: 10px;
-      background-color: rgb(241,241,244);
+      background-color: rgb(241, 241, 244);
       border: none !important;
       font-size: 14px;
       outline: none;
@@ -56,7 +58,7 @@
     margin-top: 10px;
     input {
       margin-left: 10px;
-      background-color: rgb(241,241,244);
+      background-color: rgb(241, 241, 244);
       border: none !important;
       font-size: 14px;
       outline: none;

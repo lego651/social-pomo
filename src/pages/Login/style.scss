@@ -2,14 +2,14 @@
 
 .login-container {
   width: calc(100vw - 20px);
+  height: 100vh;
   .left-col {
     padding: 0 !important;
-    .login-left{
-      position: relative;
+    .login-left {
       background-color: white;
       height: 100vh;
       padding: 40% 15% 10% 15%;
-      Form {
+      form {
         padding-top: 10%;
       }
       button {
@@ -19,28 +19,21 @@
           margin-right: 5px;
         }
       }
-      .link-to-signup{
+      .link-to-signup {
         padding: 10% 15% 10% 20%;
         a {
-          color: rgb(0,161,214);
+          color: rgb(0, 161, 214);
         }
       }
     }
   }
   .right-col {
     padding: 0 !important;
-    .login-right {
-        img {
-              width: 100%;
-              height: 100vh;
-              object-fit: cover;
-            }
-        h2 {
-          position: absolute;
-          top: 90%;
-          left: 40%;
-          color: white;
-        }
+    height: 100vh;
+    img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
     }
   }
 }
