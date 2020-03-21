@@ -1,31 +1,34 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Container } from 'react-bootstrap';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import React, { Component } from "react";
+import axios from "axios";
+import { Container } from "react-bootstrap";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
-import './style.scss';
-import { parseTime } from '../../../utils/util.js';
-import firebase from '../../../utils/firebase.js';
-import PomoModal from '../PomoModal';
-import alertAudio from '../../../assets/alert.mp3';
+import "./style.scss";
+import { parseTime } from "../../../utils/util.js";
+import firebase from "../../../utils/firebase.js";
+import PomoModal from "../PomoModal";
+import alertAudio from "../../../assets/alert.mp3";
 
 class Pomodoro extends Component {
   constructor(props) {
     super(props);
     const roomName = this.props.roomName;
-    this.ref = firebase.firestore().collection('rooms').doc(roomName);
+    this.ref = firebase
+      .firestore()
+      .collection("rooms")
+      .doc(roomName);
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
-    this.DEFAULT_TIME = 10;
+    this.DEFAULT_TIME = 5;
     this.state = {
       sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
-      modalShow: false,
-    }
+      modalShow: false
+    };
   }
   // count = () => {
   //   if(this.state.on) {
@@ -41,31 +44,44 @@ class Pomodoro extends Component {
   //     }
   //   }
   // }
-  count = (startTime) => {
-    if(this.state.on && this.state.startTime) {
-      if(this.state.sec > 0) {
-        this.setState({ sec: this.DEFAULT_TIME - Math.floor((new Date().getTime() - startTime) / 1000) })
+  count = startTime => {
+    if (this.state.on && this.state.startTime) {
+      if (this.state.sec > 0) {
+        this.setState({
+          sec:
+            this.DEFAULT_TIME -
+            Math.floor((new Date().getTime() - startTime) / 1000)
+        });
       } else {
         this.audio.play();
-        this.setState({
-          on: false,
-          modalShow: true,
-          sec: this.DEFAULT_TIME,
-        }, this.handleReset());
+        this.setState(
+          {
+            on: false,
+            modalShow: true,
+            sec: this.DEFAULT_TIME
+          },
+          this.handleReset()
+        );
       }
     }
-  }
-  start = (startTime) => {
-      this.interval = setInterval((startTime) => {this.count(startTime)}, 1000, startTime);
-  }
+  };
+  start = startTime => {
+    this.interval = setInterval(
+      startTime => {
+        this.count(startTime);
+      },
+      1000,
+      startTime
+    );
+  };
   reset = () => {
     this.setState({
       sec: this.DEFAULT_TIME,
       on: false
-    })
+    });
     clearInterval(this.interval);
-  }
-  handleStart = (e) => {
+  };
+  handleStart = e => {
     e.preventDefault();
     // const currentRoom = {
     //   roomName: this.props.roomName
@@ -79,7 +95,7 @@ class Pomodoro extends Component {
     //     console.error(err);
     //   })
     this.props.startCount(this.props.roomName);
-  }
+  };
 
   // handlePause = () => {
   //   this.setState({
@@ -90,22 +106,22 @@ class Pomodoro extends Component {
   handleReset = () => {
     // e.preventDefault();
     const currentRoom = {
-      roomName: this.props.roomName,
-    }
+      roomName: this.props.roomName
+    };
     axios
-      .post('/resetcount', currentRoom)
-      .then((res) => {
+      .post("/resetcount", currentRoom)
+      .then(res => {
         this.setState({
           on: false,
           startTime: null,
           sec: this.DEFAULT_TIME
-        })
+        });
         clearInterval(this.interval);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
-      })
-  }
+      });
+  };
   // subscribeStart = (doc) => {
   //   if(doc.data().count % 2 === 1) {
   //     this.start();
@@ -124,27 +140,27 @@ class Pomodoro extends Component {
   //     this.reset();
   //   }
   // }
-  subscribeStart = (doc) => {
-    if(doc.data()) {
+  subscribeStart = doc => {
+    if (doc.data()) {
       this.setState({
         on: doc.data().on,
         startTime: doc.data().startTime
       });
-    } 
-    if(doc.data() && doc.data().startTime) {
+    }
+    if (doc.data() && doc.data().startTime) {
       this.start(doc.data().startTime);
     }
-  }
-  setModalShow = (bool) => {
+  };
+  setModalShow = bool => {
     this.setState({
       modalShow: bool
-    })
-  }
-  handleChange = (e) => {
+    });
+  };
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
@@ -154,13 +170,13 @@ class Pomodoro extends Component {
       sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
-      modalShow: false,
-    })
+      modalShow: false
+    });
   }
   render() {
     console.log(this.state);
     const { sec } = this.state;
-    const percent = sec / (this.DEFAULT_TIME);
+    const percent = sec / this.DEFAULT_TIME;
     const value = percent * 100;
     // console.log(value);
 
@@ -197,23 +213,23 @@ class Pomodoro extends Component {
             })}
           />
           {/* { this.props.isOwner && forOwner } */}
-          {
-              this.state.on
-              ?
-              null
-              :
-              <div className="control play"
-                   onClick={(e) => { this.handleStart(e) }} >
-                <FontAwesomeIcon icon={faPlay} />
-              </div>
-          }
+          {this.state.on ? null : (
+            <div
+              className="control play"
+              onClick={e => {
+                this.handleStart(e);
+              }}
+            >
+              <FontAwesomeIcon icon={faPlay} />
+            </div>
+          )}
         </Container>
         <PomoModal
           show={this.state.modalShow}
           onHide={() => this.setModalShow(false)}
         />
       </div>
-    )
+    );
   }
 }
 
