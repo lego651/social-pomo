@@ -228,7 +228,7 @@ export const removeTag = (tagName) => (dispatch) => {
 
 export const addTodo = (todo, roomName, handle) => (dispatch) => {
   const newMessage = {
-    content: `${handle} commit to work on: ${todo}.`,
+    content: `${handle} committed to work on: ${todo}.`,
     roomName: roomName,
     userHandle: handle
   }

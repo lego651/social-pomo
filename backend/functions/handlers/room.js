@@ -12,7 +12,7 @@ exports.createRoom = (req, res) => {
   const handle = req.user.handle;
   const message = {
     userHandle: handle,
-    content: `${handle} created room...`,
+    content: `${handle} created room.`,
     createdAt: new Date().toISOString()
   }
   const newRoom = {
@@ -213,7 +213,7 @@ exports.leaveRoom = (req, res) => {
         .update(updateRoom)
         .then(() => {
           const leaveMessage = {
-            content: `${handle} left room...`,
+            content: `${handle} left room.`,
             userHandle: handle,
             createdAt: new Date().toISOString()
           }
