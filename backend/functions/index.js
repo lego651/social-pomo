@@ -26,7 +26,8 @@ const { createRoom,
 const { createPomo,
         fetchAllPomo,
         getTodayPomoCount,
-        getTodayPomoList } = require('./handlers/pomo.js');
+        getTodayPomoList,
+        getWeekPomoList } = require('./handlers/pomo.js');
 const { addToWaiting,
         joinMatchedRoom } = require('./handlers/match.js');
 const FBAuth = require('./utils/fbAuth');
@@ -69,6 +70,7 @@ app.post('/pomo', FBAuth, createPomo);
 app.get('/pomo', FBAuth, fetchAllPomo);
 app.get('/count/today', FBAuth, getTodayPomoCount);
 app.get('/pomo/today', FBAuth, getTodayPomoList);
+app.get('/pomo/week', FBAuth, getWeekPomoList);
 
 // Match Routes
 app.get('/match', FBAuth, addToWaiting);
