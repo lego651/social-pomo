@@ -22,7 +22,7 @@ class Pomodoro extends Component {
       .doc(roomName);
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
-    this.DEFAULT_TIME = 5;
+    this.DEFAULT_TIME = 5 * 60;
     this.state = {
       sec: this.DEFAULT_TIME,
       on: false,
