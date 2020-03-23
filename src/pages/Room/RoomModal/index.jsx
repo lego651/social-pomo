@@ -1,31 +1,38 @@
-import React, { Component } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
 
-import './style.scss';
+import "./style.scss";
 
 class RoomModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: '',
+      content: "",
       errors: {}
-    }
+    };
   }
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
-  handleSubmit = (e) => {
+  };
+  handleSubmit = e => {
     e.preventDefault();
-    this.props.onSend(this.state.content, this.props.roomName, this.props.handle);
+    this.props.onSend(
+      this.state.content,
+      this.props.roomName,
+      this.props.handle
+    );
     this.props.onHide();
-  }
+  };
   handleClose = () => this.props.onHide();
+
   render() {
-    const { errors } = this.state;
+    const { content, errors } = this.state;
+    const enabled = content.length > 0;
     return (
-      <Modal backdrop="static"
+      <Modal
+        backdrop="static"
         {...this.props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
@@ -44,7 +51,9 @@ class RoomModal extends Component {
                 placeholder="Enter what to focus on"
                 className="content"
                 name="content"
-                onChange={(e) => {this.handleChange(e)}}
+                onChange={e => {
+                  this.handleChange(e);
+                }}
                 isInvalid={!!errors.content}
               />
               <Form.Control.Feedback type="invalid">
@@ -54,16 +63,16 @@ class RoomModal extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-          id="close"
-          variant="secondary"
-          onClick={this.handleClose}>
+          <Button id="close" variant="secondary" onClick={this.handleClose}>
             Close
           </Button>
           <Button
-          variant="primary"
-          onClick={this.handleSubmit}
-          > Send </Button>
+            variant="primary"
+            onClick={this.handleSubmit}
+            disabled={!enabled}
+          >
+            Send
+          </Button>
         </Modal.Footer>
       </Modal>
     );
