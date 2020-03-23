@@ -63,14 +63,51 @@ exports.getTodayPomoCount = (req, res) => {
   const m = dateObj.getMonth();
   const d = dateObj.getDate();
   const s = convertDateToSeq(y, m + 1, d);
-  
+  console.log(s);
+
   db.collection('pomos')
     .where("seq", "==", s)
     .where("handle", "==", handle)
     .get()
     .then((data) => {
-      console.log(data);
       return res.json({ count: data.size })
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err });
+    })
+}
+
+// Today Pomo List 
+exports.getTodayPomoList = (req, res) => {
+  const handle = req.user.handle;
+  const dateObj = new Date();
+  const y = dateObj.getFullYear();
+  const m = dateObj.getMonth();
+  const d = dateObj.getDate();
+  const s = convertDateToSeq(y, m + 1, d);
+  console.log(s);
+  
+  db.collection('pomos')
+    .where("seq", "==", s)
+    .where("handle", "==", handle)
+    .orderBy("createdAt")
+    .get()
+    .then((snapshot) => {
+      let pomos = [];
+      snapshot.forEach((doc) => {
+        console.log(doc)
+        console.log(doc.data())
+        pomos.push({
+          content: doc.data().content,
+          createdAt: doc.data().createdAt,
+          project: doc.data().project,
+          tag: doc.data().tag,
+          date: doc.data().date,
+          seq: doc.data().seq, 
+        })
+      });
+      console.log(pomos)
+      return res.json(pomos);
     })
     .catch((err) => {
       return res.status(500).json({ error: err });
