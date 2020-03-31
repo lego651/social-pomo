@@ -8,27 +8,27 @@
       background-color: white;
       height: 100vh;
       padding: 20% 15% 10% 15%;
-      Form {
+      form {
         padding-top: 10%;
       }
       button {
-        width:100%;
+        width: 100%;
         margin-top: 15px;
         .icon {
-          padding-right:4px;
+          padding-right: 4px;
         }
       }
-      .link-to-login{
+      .link-to-login {
         padding: 10% 15% 10% 20%;
         a {
-          color: rgb(0,161,214);
+          color: rgb(0, 161, 214);
         }
       }
     }
   }
   .right-col {
     padding: 0px;
-    .login-right{
+    .login-right {
       background-color: yellow;
       width: 100%;
       height: 100%;
@@ -36,12 +36,6 @@
         width: 100%;
         height: 100vh;
         object-fit: cover;
-      }
-      h2 {
-        position: absolute;
-        top: 90%;
-        left: 40%;
-        color: white;
       }
     }
   }
