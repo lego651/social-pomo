@@ -75,11 +75,12 @@ exports.addMessage = (req, res) => {
   const newMessage = {
     content: req.body.content,
     userHandle: req.body.userHandle,
+    nickName: req.body.nickName, 
     avatar: req.user.avatar,
     createdAt: new Date().toISOString()
   }
-  const roomname = req.body.roomName
-  db.collection(`/rooms/${roomname}/messages`).add(newMessage)
+  const roomName = req.body.roomName
+  db.collection(`/rooms/${roomName}/messages`).add(newMessage)
     .then((doc) => {
       return res.json({ message: `document ${doc.id} created successfully`});
     })

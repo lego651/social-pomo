@@ -13,7 +13,7 @@ const Message = ({ item, curHandle }) => {
         alt="avatar"
       />
       <div className={"message-sender" + (isOwner ? " isOwner" : "")}>
-        <b> <i>{item.userHandle} </i></b>
+        <b> <i>{item.nickName} </i></b>
       </div>
       <div className="message-content">
         <p> {item.content} </p>

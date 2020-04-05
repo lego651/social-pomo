@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import firebase from '../../../utils/firebase.js';
+
+// Styles
 import './style.scss';
-import { addMessage } from '../../../actions';
-import Message from '../Message/index.jsx';
-import { Form, Button } from 'react-bootstrap';
+
+// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faSync } from '@fortawesome/free-solid-svg-icons';
+
+// Actions
+import { addMessage } from '../../../actions';
+
+// Components
+import Message from '../Message/index.jsx';
+import { Form, Button } from 'react-bootstrap';
 
 class Chatroom extends Component {
   constructor(props) {
@@ -38,7 +45,8 @@ class Chatroom extends Component {
         userHandle: doc.data().userHandle,
         content: doc.data().content,
         createdAt: doc.data().createdAt,
-        avatar: doc.data().avatar
+        avatar: doc.data().avatar,
+        nickName: doc.data().nickName,
       })
     });
     // messages.sort((a,b) => a.createdAt - b.createdAt);
@@ -66,7 +74,8 @@ class Chatroom extends Component {
       const newMessage = {
         userHandle: this.props.username,
         content: this.state.content,
-        roomName: this.props.roomname
+        roomName: this.props.roomname,
+        nickName: this.props.nickName,
       }
       this.props.addMessage(newMessage);
       this.setState({
@@ -74,9 +83,11 @@ class Chatroom extends Component {
       });
     }
   }
+
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
+
   grantNotificationPermission = () => {
     if (!('Notification' in window)) {
       alert('This browser does not support system notifications');
@@ -88,9 +99,8 @@ class Chatroom extends Component {
       return;
     }
 
-    if (
-      Notification.permission !== 'denied' ||
-      Notification.permission === 'default'
+    if ( Notification.permission !== 'denied' ||
+         Notification.permission === 'default' 
     ) {
       Notification.requestPermission().then(result => {
         if (result === 'granted') {
@@ -101,15 +111,15 @@ class Chatroom extends Component {
       });
     }
   };
+
   showNotification = (message) => {
-    // console.log('showNotification is called,', message)
-    // console.log('curUsername is', this.curHandle)
     if (message && message.userHandle && message.userHandle !== this.curHandle) {
       const title = message.userHandle;
       const body = message.content;
       new Notification(title, { body });
     }
   };
+  
   render(){
     const { username } = this.props;
     const { loadingMessage } = this.props.UI;
