@@ -114,12 +114,12 @@ class Chatroom extends Component {
 
   showNotification = (message) => {
     if (message && message.userHandle && message.userHandle !== this.curHandle) {
-      const title = message.userHandle;
+      const title = message.nickName || message.userHandle;
       const body = message.content;
       new Notification(title, { body });
     }
   };
-  
+
   render(){
     const { username } = this.props;
     const { loadingMessage } = this.props.UI;
