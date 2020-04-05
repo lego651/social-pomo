@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Components
 import { Form, Button } from 'react-bootstrap';
 
-import './style.scss';
+// Actions
 import { createRoom, joinRoom } from '../../actions';
+
+// Styles
+import './style.scss';
 
 class JoinRoom extends Component {
   constructor(props) {
@@ -13,23 +18,29 @@ class JoinRoom extends Component {
       errors: {}
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    const existingRoom = {
-      roomName: this.state.roomName
+    const payload = {
+      roomName: this.state.roomName,
+      nickName: this.props.user.profile.nickName,
+      avatar: this.props.user.profile.avatar
     }
-    this.props.joinRoom(existingRoom, this.props.history);
+    this.props.joinRoom(payload, this.props.history);
   }
+
   render(){
     const { errors } = this.state;
     return(

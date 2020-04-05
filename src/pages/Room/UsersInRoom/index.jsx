@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import firebase from '../../../utils/firebase.js';
+
+// Components 
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-import './style.scss';
+// Actions
 import { addMessage } from '../../../actions';
+
+// Styles
+import './style.scss';
 import default_img from '../../../assets/img/avatar.svg';
+
 // import Message from '../Message/index.jsx';
 // import TextField from '@material-ui/core/TextField';
 // import Button from '@material-ui/core/Button';
@@ -21,6 +27,7 @@ class UsersInRoom extends Component {
       users: []
     }
   }
+
   onUpdateUsers = (doc) => {
     if(doc.data()) {
       this.setState({
@@ -28,14 +35,17 @@ class UsersInRoom extends Component {
       });
     }
   }
+
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onUpdateUsers);
   }
+
   componentWillUnmount() {
     this.setState({
       usres: []
     })
   }
+
   render(){
     const { users } = this.state;
     return(
@@ -48,7 +58,7 @@ class UsersInRoom extends Component {
                 placement="bottom"
                 overlay={
                   <Tooltip id="username">
-                    { user.handle }
+                    { user.nickName }
                   </Tooltip>
                 }
               >
@@ -69,6 +79,7 @@ class UsersInRoom extends Component {
 const mapStateToProps = (state) => ({
   username: state.user.profile.handle
 })
+
 const mapDispatchToProps = (dispatch) => ({
   addMessage: (newMessage) => dispatch(addMessage(newMessage)),
 })

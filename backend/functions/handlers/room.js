@@ -7,23 +7,28 @@ const { admin, db } = require('../utils/admin');
 // 4.往这个里面放一个message
 exports.createRoom = (req, res) => {
   const person = req.user.handle;
-  const avatar = req.user.avatar;
+  const avatar = req.body.avatar;
   const roomName = req.body.roomName;
   const handle = req.user.handle;
+  const nickName = req.body.nickName;
+
   const message = {
     userHandle: handle,
-    content: `${handle} created room.`,
+    nickName: nickName,
+    content: `${nickName} created room.`,
     createdAt: new Date().toISOString()
   }
+
   const newRoom = {
     roomName: roomName,
     owner: person,
     count: 0,
-    people: [{handle, avatar}],
+    people: [{ handle, avatar, nickName }],
     createdAt: new Date().toISOString(),
     on: false,
     startTime: null,
   }
+
   db.doc(`users/${handle}`)
     .get()
     .then((doc) => {
@@ -52,8 +57,9 @@ exports.createRoom = (req, res) => {
         })
         .then(() => { // 在 /rooms/roomname/messages 这个collection里面添加第一个message
           const firstMessage = {
-            content: `${person} created room...`,
+            content: `${nickName} created room...`,
             userHandle: handle,
+            nickName: nickName,
             createdAt: new Date().toISOString()
           }
           return db.collection(`/rooms/${roomName}/messages`).add(firstMessage);
@@ -93,7 +99,8 @@ exports.addMessage = (req, res) => {
 exports.joinRoom = (req, res) => {
   const roomName = req.body.roomName;
   const handle = req.user.handle;
-  const avatar = req.user.avatar;
+  const avatar = req.body.avatar;
+  const nickName = req.body.nickName;
 
   db.doc(`/rooms/${roomName}`)
     .get()
@@ -114,15 +121,16 @@ exports.joinRoom = (req, res) => {
     })
     .then(() => {
       const newMessage = {
-        content: `${handle} joined room...`,
+        content: `${nickName} joined room...`,
         userHandle: handle,
+        nickName: nickName,
         createdAt: new Date().toISOString()
       }
       return db.collection(`/rooms/${roomName}/messages`).add(newMessage);
     })
     .then(() => { // add current user to people in room
         const updateRoom = {
-          people: admin.firestore.FieldValue.arrayUnion({ handle, avatar })
+          people: admin.firestore.FieldValue.arrayUnion({ handle, avatar, nickName })
         }
         db.doc(`/rooms/${roomName}`)
           .update(updateRoom)

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Components
 import { Form, Button } from 'react-bootstrap';
 
-import './style.scss';
+// Actions
 import { createRoom } from '../../actions';
+
+// Styles
+import './style.scss';
 
 class CreateRoom extends Component {
   constructor(props) {
@@ -13,23 +18,32 @@ class CreateRoom extends Component {
       errors: {}
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit = (e) => {
+    console.log('button clicked...')
+    console.log(this.props.user)
     e.preventDefault();
     const newRoom = {
-      roomName: this.state.roomName
+      roomName: this.state.roomName,
+      avatar: this.props.user.profile.avatar,
+      nickName: this.props.user.profile.nickName
     }
+    console.log(newRoom)
     this.props.createRoom(newRoom, this.props.history);
   }
+
   render(){
     const { errors } = this.state;
     return(

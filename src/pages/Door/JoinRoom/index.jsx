@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Actions 
+import { joinRoom } from '../../../actions';
+
+// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
+// Style
 import './style.scss';
 import joinRoomImg from '../../../assets/img/join-room.svg';
-import { joinRoom } from '../../../actions';
 
 class JoinRoom extends Component {
   constructor(props) {
@@ -14,11 +19,13 @@ class JoinRoom extends Component {
       roomName: ''
     }
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.roomName.length === 0) {
@@ -30,11 +37,14 @@ class JoinRoom extends Component {
       })
     } else {
       const existingRoom = {
-        roomName: this.state.roomName
+        roomName: this.state.roomName,
+        nickName: this.props.user.profile.nickName,
+        avatar: this.props.user.profile.avatar,
       }
       this.props.joinRoom(existingRoom, this.props.history);
     }
   }
+
   render() {
     return (
       <div className="joinroom-container">

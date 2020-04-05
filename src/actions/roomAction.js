@@ -72,6 +72,7 @@ export const deleteMessages = (roomName) => (dispatch) => {
 // }
 
 export const createRoom = (newRoom, history) => (dispatch) => {
+  console.log(newRoom)
   dispatch({ type: LOADING_UI });
   axios
     .post('/room', newRoom)
@@ -93,20 +94,20 @@ export const createRoom = (newRoom, history) => (dispatch) => {
     })
 }
 
-export const joinRoom = (existingRoom, history) => (dispatch) => {
+export const joinRoom = ( { roomName, nickName, avatar }, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/joinroom', existingRoom)
+    .post('/joinroom', { roomName, nickName, avatar })
     .then((res) => {
       if(res.data.success !== null) {
         dispatch({
           type: ADD_INROOM,
-          payload: existingRoom.roomName
+          payload: roomName
         })
         dispatch({
           type: CLEAR_ERRORS
         });
-        history.push(`/room/${existingRoom.roomName}`)
+        history.push(`/room/${roomName}`)
       }
     })
     .catch((err) => {
