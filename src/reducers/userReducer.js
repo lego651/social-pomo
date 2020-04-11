@@ -84,7 +84,7 @@ const authReducer = (state=initialState, action) => {
         ...state,
         profile: {
           ...state.profile,
-          projects: state.profile.tags.filter(val => val !== action.payload.tag)
+          tags: state.profile.tags.filter(val => val !== action.payload.tag)
         }
       }
     case ADD_INROOM:
