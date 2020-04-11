@@ -181,6 +181,13 @@ button:hover {
       color: white;
       font-family: 'Nunito', sans-serif;
     }
+    button.close {
+      color: white;
+      &:hover {
+        border: none;
+        box-shadow: none;
+      }
+    }
   }
   .modal-body {
     border: none;
@@ -229,3 +236,4 @@ button:hover {
     }
   }
 }
+
