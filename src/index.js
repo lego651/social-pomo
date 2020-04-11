@@ -11,13 +11,14 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store";
 import SignUp from "./pages/SignUp";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Room from "./pages/Room";
 import Test from "./pages/Test";
 import Project from "./pages/Project";
 import Tag from "./pages/Tag";
+import Home from "./pages/Home";
 import Door from "./pages/Door";
 import Account from "./pages/Account";
 import Password from "./pages/Password";
@@ -49,9 +50,10 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Landing} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/home" component={requiresAuth(Home)} />
         <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
         <Route exact path="/account" component={requiresAuth(Account)} />
         <Route exact path="/password" component={requiresAuth(Password)} />

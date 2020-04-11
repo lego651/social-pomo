@@ -32,6 +32,7 @@ export const SET_TODO = 'SET_TODO';
 
 // POMO reducer types
 export const GET_POMOS = 'GET_POMOS';
+export const GET_WEEKLY_POMO = 'GET_WEEKLY_POMO';
 
 // MATCH reducer types
 export const START_MATCHING = 'START_MATCHING';

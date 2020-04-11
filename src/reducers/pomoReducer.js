@@ -1,19 +1,26 @@
-import { CONSTANTS } from '../actions';
+// import { CONSTANTS } from '../actions';
 
-// import {
-//   GET_POMOS,
-// } from '../actions/types';
+import {
+  GET_POMOS,
+  GET_WEEKLY_POMO
+} from '../actions/types';
 
 const initialState = {
-  pomos: []
+  pomos: [],
+  weekly_pomo: [],
 }
 
 const pomoReducer = (state=initialState, action) => {
   switch(action.type) {
-    case CONSTANTS.GET_POMOS:
+    case GET_POMOS:
       return {
         ...state,
         pomos: action.payload
+      };
+    case GET_WEEKLY_POMO:
+      return {
+        ...state,
+        weekly_pomo: action.payload
       };
     default:
       return state;

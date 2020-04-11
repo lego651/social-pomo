@@ -66,7 +66,7 @@ class RoomModal extends Component {
           <Button id="close" variant="secondary" onClick={this.handleClose}>
             Close
           </Button>
-          <Button
+          <Button 
             variant="primary"
             onClick={this.handleSubmit}
             disabled={!enabled}

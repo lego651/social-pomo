@@ -27,6 +27,13 @@ class NavLeft extends Component {
         </div>
         <ul className="navs">
           <li>
+            <NavLink to={"/home"}
+                     activeClassName="active">
+              <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
+              Home
+            </NavLink>
+          </li>
+          <li>
             <NavLink to={"/dashboard"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
