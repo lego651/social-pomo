@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Components
 import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+import NavbarTop from '../../components/NavbarTop';
+import NavLeft from '../../components/NavLeft';
+import MyModal from '../../components/MyModal';
+
+// Actions
+import { addProject, removeProject } from '../../actions';
+
+// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import MyModal from '../../components/MyModal';
-import { addProject, removeProject } from '../../actions';
-import NavbarTop from '../../components/NavbarTop';
-import NavLeft from '../../components/NavLeft';
+// Styles
 import './style.scss';
 
 class Project extends Component {
@@ -17,82 +24,93 @@ class Project extends Component {
       modalShow: false
     }
   }
+
   setModalShow = (bool) => {
     this.setState({
       modalShow: bool
     })
   }
+
   addProject = (project) => {
     this.props.addProject(project);
   }
+
   removeProject = (project) => {
-    console.log('data is ', project);
     this.props.removeProject(project.trim());
   }
-  render(){
+
+  buildProjectTable = () => {
     const { projects } = this.props.user.profile;
+    return (
+      <>
+        <div className="project-header">
+          <h3> Projects </h3>
+        </div>
+        <div>
+          <Button
+            variant="primary"
+            className= "create-button"
+            onClick={() => this.setModalShow(true)}
+          >
+            + Create New Project
+          </Button>
+        </div>
+        <div className="project-table">
+          <Table>
+            <thead>
+              <tr>
+                <th xs="3"> Project Name </th>
+                <th xs="4"> Delete </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                projects && projects.map((project, index) => {
+                  return (
+                    <tr key={index}>
+                      <td> {project} </td>
+                      <td>
+                        {
+                          index === 0
+                          ? null
+                          : <Button
+                              className="delete-button"
+                              onClick={() => { this.removeProject(project)} }
+                              >
+                              <span><FontAwesomeIcon icon={faTrashAlt} /></span>
+                            </Button>
+                        }
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </Table>
+        </div>
+        <MyModal
+          show={this.state.modalShow}
+          onHide={() => this.setModalShow(false)}
+          onCreate={(project) => this.addProject(project)}
+        />
+      </>
+    )
+  }
+
+  render(){
     return(
       <div className="project-container">
-      <NavbarTop />
-      <Container>
-        <Row>
-          <Col xs="3">
-            <NavLeft />
-          </Col>
-          <Col xs="9">
-              <div className="project-header">
-              <h3> Projects </h3>
-              </div>
-              <div>
-              <Button
-                variant="primary"
-                className= "create-button"
-                onClick={() => this.setModalShow(true)}
-              >
-                + Create New Project
-              </Button>
-            </div>
-            <div className="project-table">
-              <Table>
-                <thead>
-                  <tr>
-                    <th xs="3"> Project Name </th>
-                    <th xs="4"> Delete </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    projects && projects.map((project, index) => {
-                      return (
-                        <tr key={index}>
-                          <td> {project} </td>
-                          <td>
-                            {
-                              index === 0
-                                ? null
-                                : <Button
-                                    className="delete-button"
-                                    onClick={() => { this.removeProject(project)} }
-                                    >
-                                    <span><FontAwesomeIcon icon={faTrashAlt} /></span>
-                                  </Button>
-                            }
-                          </td>
-                        </tr>
-                      )
-                    })
-                  }
-                </tbody>
-              </Table>
-            </div>
-            <MyModal
-              show={this.state.modalShow}
-              onHide={() => this.setModalShow(false)}
-              onCreate={(project) => this.addProject(project)}
-            />
-          </Col>
-        </Row>
-      </Container>
+        <NavbarTop />
+        <Container>
+          <Row>
+            <Col xs="3">
+              <NavLeft />
+            </Col>
+            <Col xs="9">
+              { this.buildProjectTable() }
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }
