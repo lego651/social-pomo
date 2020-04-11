@@ -68,7 +68,7 @@ class Project extends Component {
                 projects && projects.map((project, index) => {
                   return (
                     <tr key={index}>
-                      <td> {project} </td>
+                      <td><p> { project } </p></td>
                       <td>
                         {
                           index === 0

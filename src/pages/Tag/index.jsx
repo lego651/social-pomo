@@ -68,7 +68,7 @@ class Tag extends Component {
                 tags && tags.map((tag, index) => {
                   return (
                     <tr key={index}>
-                      <td> {tag} </td>
+                      <td><p> { tag } </p></td>
                       <td>
                         <Button
                           className="delete-button"

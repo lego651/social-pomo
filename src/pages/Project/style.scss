@@ -20,9 +20,14 @@
       th, td {
         text-align: left;
         padding: 8px;
+        padding-top: 14px;
+        p {
+          margin-top: 8px;
+        }
       }
-      tr:hover {background-color:#FDEBE7;}
-
+      tr:hover {
+        background-color:#f6f8fa;
+      }
       .delete-button {
         background-color: $bg-color-primary;
         color: $primary-color;
@@ -33,6 +38,9 @@
         border-radius: .25rem;
         text-align: center;
         padding: 7px;
+        &:hover, &:focus, &:active {
+          color: white;
+        }
       }
     }
   }
