@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Components
-import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+import { Table, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import MyModal from '../../components/MyModal';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Actions
-import { addTag, removeTag } from '../../actions';
+import { addTag, removeTag, clearErrors } from '../../actions';
 
 // Styles
 import './style.scss';
@@ -37,6 +37,22 @@ class Tag extends Component {
 
   removeTag = (tag) => {
     this.props.removeTag(tag.trim());
+  }
+
+  clearErrors = () => {
+    this.props.clearErrors();
+  }
+
+  buildAlert = () => {
+    const { errors } = this.props.UI;
+    return (
+      errors &&
+      <Alert variant="danger" onClose={() => this.clearErrors()} dismissible>
+        <p>
+          { errors.tag }
+        </p>
+      </Alert>
+    )
   }
 
   buildTagTable = () => {
@@ -100,6 +116,7 @@ class Tag extends Component {
       <div className="tag-container">
         <NavbarTop />
         <Container>
+          { this.buildAlert() }
           <Row>
             <Col xs="3">
               <NavLeft />
@@ -120,5 +137,6 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { addTag, removeTag }
+  { addTag, removeTag, clearErrors }
 )(Tag);
+

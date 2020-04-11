@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 class MyModal extends Component {
@@ -23,7 +24,8 @@ class MyModal extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    // const { errors } = this.state;
+    const { errors } = this.props.UI;
     const { title, placeholder } = this.props;
     return (
       <Modal
@@ -45,10 +47,10 @@ class MyModal extends Component {
                 placeholder={ placeholder }
                 name="content"
                 onChange={(e) => {this.handleChange(e)}}
-                isInvalid={!!errors.project}
+                isInvalid={errors && !!errors.project}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.project}
+                {errors && errors.project}
               </Form.Control.Feedback>
             </Form.Group>
           </Form>
@@ -62,4 +64,11 @@ class MyModal extends Component {
   }
 }
 
-export default MyModal;
+const mapStateToProps = (state) => ({
+  UI: state.UI
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(MyModal);

@@ -268,7 +268,7 @@ exports.addProject = (req, res) => {
         return res.status(404).json({project: 'User not found.'});
       }
       if(doc.data().projects && doc.data().projects.length > 0 && doc.data().projects.includes(req.body.project)) {
-        return res.status(400).json({project: 'Project name exists.'});
+        return res.status(400).json({project: 'Project name already exists.'});
       }
       return;
     })
@@ -278,7 +278,7 @@ exports.addProject = (req, res) => {
       }
       db.doc(`/users/${req.user.handle}`)
         .update(updatedProjects)
-      return res.status(200).json({project: 'new project added.'});
+      return res.status(200).json({project: 'New project added.'});
     })
     .catch((err) => {
       return res.status(500).json({error: err});
@@ -292,7 +292,7 @@ exports.removeProject = (req, res) => {
   }
   db.doc(`/users/${req.user.handle}`)
     .update(updatedProjects)
-  return res.status(200).json({success: 'selected project name removed.'});
+  return res.status(200).json({success: 'Selected project name removed.'});
 };
 
 // POST: add new tag name to user's tags
@@ -304,7 +304,7 @@ exports.addTag = (req, res) => {
         return res.status(404).json({tag: 'User not found.'});
       }
       if(doc.data().tags && doc.data().tags.length > 0 && doc.data().tags.includes(req.body.tag)) {
-        return res.status(400).json({project: 'Project name exists.'});
+        return res.status(400).json({tag: 'Tag name already exists.'});
       }
       return;
     })

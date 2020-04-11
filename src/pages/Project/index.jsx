@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Components
-import { Table, Button, Container, Row, Col } from 'react-bootstrap';
+import { Table, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import MyModal from '../../components/MyModal';
 
 // Actions
-import { addProject, removeProject } from '../../actions';
+import { addProject, removeProject, clearErrors } from '../../actions';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -37,6 +37,22 @@ class Project extends Component {
 
   removeProject = (project) => {
     this.props.removeProject(project.trim());
+  }
+
+  clearErrors = () => {
+    this.props.clearErrors();
+  }
+
+  buildAlert = () => {
+    const { errors } = this.props.UI;
+    return (
+      errors &&
+      <Alert variant="danger" onClose={() => this.clearErrors()} dismissible>
+        <p>
+          { errors.project }
+        </p>
+      </Alert>
+    )
   }
 
   buildProjectTable = () => {
@@ -104,6 +120,7 @@ class Project extends Component {
       <div className="project-container">
         <NavbarTop />
         <Container>
+          { this.buildAlert() }
           <Row>
             <Col xs="3">
               <NavLeft />
@@ -124,5 +141,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(
   mapStateToProps,
-  { addProject, removeProject }
+  { addProject, removeProject, clearErrors }
 )(Project);
