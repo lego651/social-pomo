@@ -92,6 +92,8 @@ class Project extends Component {
           show={this.state.modalShow}
           onHide={() => this.setModalShow(false)}
           onCreate={(project) => this.addProject(project)}
+          title={"Create new project"}
+          placeholder={"Enter project name"}
         />
       </>
     )

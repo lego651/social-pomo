@@ -5,22 +5,26 @@ class MyModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      project: '',
+      content: '',
       errors: {}
     }
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onCreate(this.state.project);
+    this.props.onCreate(this.state.content);
     this.props.onHide();
   }
+
   render() {
     const { errors } = this.state;
+    const { title, placeholder } = this.props;
     return (
       <Modal
         {...this.props}
@@ -30,16 +34,16 @@ class MyModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Create new project
+            { title }
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group>
               <Form.Control
                 type="text"
-                placeholder="Enter project name"
-                name="project"
+                placeholder={ placeholder }
+                name="content"
                 onChange={(e) => {this.handleChange(e)}}
                 isInvalid={!!errors.project}
               />

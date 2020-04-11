@@ -88,6 +88,8 @@ class Tag extends Component {
           show={this.state.modalShow}
           onHide={() => this.setModalShow(false)}
           onCreate={(tag) => this.addTag(tag)}
+          title={"Create new tag"}
+          placeholder={"Enter tag name"}
         />
       </>
     )
