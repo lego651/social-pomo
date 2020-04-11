@@ -18,6 +18,11 @@ import tab4Img from '../../assets/img/tab4.jpg';
 import './style.scss';
 
 class Landing extends Component {
+  componentWillMount() {
+    if(localStorage.FBIdToken) {
+      window.location.href = "http://localhost:3000/home";
+    }
+  }
   render(){
     return(
       <div className="landing-container">

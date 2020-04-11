@@ -35,7 +35,9 @@ axios.defaults.baseURL =
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now() - 1000 * 60 * 60 * 2) {
+  console.log(decodedToken.exp);
+  console.log(Date.now())
+  if (decodedToken.exp * 1000 + 4 * 60 * 60 * 1000 < Date.now()) {
     store.dispatch(logoutUser());
     window.location.href = "/login";
     localStorage.removeItem("FBIToken");
