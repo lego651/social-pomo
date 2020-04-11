@@ -5,11 +5,12 @@ import { Redirect, Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import jwtDecode from "jwt-decode";
+import { PersistGate } from 'redux-persist/integration/react'
 
 import "./index.css";
 // import App from './App';
 import * as serviceWorker from "./serviceWorker";
-import store from "./store";
+import { store, persistor } from "./store";
 import SignUp from "./pages/SignUp";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
@@ -50,25 +51,27 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/home" component={requiresAuth(Home)} />
-        <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
-        <Route exact path="/account" component={requiresAuth(Account)} />
-        <Route exact path="/password" component={requiresAuth(Password)} />
-        <Route exact path="/room" component={requiresAuth(Door)} />
-        <Route exact path="/room/:roomname" component={requiresAuth(Room)} />
-        <Route exact path="/test/:roomname" component={Test} />
-        <Route exact path="/project" component={requiresAuth(Project)} />
-        <Route exact path="/match" component={requiresAuth(Match)} />
-        <Route exact path="/tag" component={requiresAuth(Tag)} />
-        <Route path="/404" component={NotFound} />
-        <Redirect to="/404" />
-      </Switch>
-    </Router>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/home" component={requiresAuth(Home)} />
+          <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
+          <Route exact path="/account" component={requiresAuth(Account)} />
+          <Route exact path="/password" component={requiresAuth(Password)} />
+          <Route exact path="/room" component={requiresAuth(Door)} />
+          <Route exact path="/room/:roomname" component={requiresAuth(Room)} />
+          <Route exact path="/test/:roomname" component={Test} />
+          <Route exact path="/project" component={requiresAuth(Project)} />
+          <Route exact path="/match" component={requiresAuth(Match)} />
+          <Route exact path="/tag" component={requiresAuth(Tag)} />
+          <Route path="/404" component={NotFound} />
+          <Redirect to="/404" />
+        </Switch>
+      </Router>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
