@@ -206,17 +206,20 @@ exports.resetCount = (req, res) => {
 
 // POST: update user inRoom to null, and remove current user from room.people
 exports.leaveRoom = (req, res) => {
-  const roomName = req.body.roomName;
   const handle = req.user.handle;
-  const avatar = req.user.avatar;
+  const roomName = req.body.roomName;
+  const avatar = req.body.avatar;
+  const nickName = req.body.nickName;
+
   const toUpdate = {
     inRoom: null
   }
+
   db.doc(`/users/${req.user.handle}`)
     .update(toUpdate)
     .then((data) => {
       const updateRoom = {
-        people: admin.firestore.FieldValue.arrayRemove({avatar, handle})
+        people: admin.firestore.FieldValue.arrayRemove({avatar, handle, nickName})
       }
       db.doc(`/rooms/${roomName}`)
         .update(updateRoom)

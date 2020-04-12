@@ -118,10 +118,10 @@ export const joinRoom = ( { roomName, nickName, avatar }, history) => (dispatch)
     })
 }
 
-export const leaveRoom = (history, roomName) => (dispatch) => {
+export const leaveRoom = (history, { roomName, avatar, nickName }) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/leaveroom', {roomName})
+    .post('/leaveroom', {roomName, avatar, nickName})
     .then((res) => {
       if(res.data.success !== null) {
         dispatch({

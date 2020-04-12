@@ -20,25 +20,33 @@ class Room extends Component {
       isOwner: false
     }
   }
+
   setModalShow = (bool) => {
     this.setState({
       modalShow: bool
     })
   }
+
   addTodo = (content, roomName, handle) => {
     this.props.addTodo(content, roomName, handle);
   }
+
   onLeave = () => {
-    this.props.leaveRoom(this.props.history, this.props.match.params.roomname);
+    const roomName = this.props.match.params.roomname;
+    const { avatar, nickName } = this.props.user.profile;
+    this.props.leaveRoom(this.props.history, { roomName, avatar, nickName });
   }
+
   _startCount = (roomName) => {
     this.props.startCount(roomName);
   }
+
   render(){
     const { roomname } = this.props.match.params;
     const { inRoom, ownsRoom, handle, nickName } = this.props.user.profile;
     const isOwner = ownsRoom !== null && (inRoom === ownsRoom);
     const _history = this.props.history;
+    
     return(
       <div className="room-container">
         <NavbarTop />
