@@ -226,11 +226,13 @@ export const removeTag = (tagName) => (dispatch) => {
     .catch((err) => console.log(err));
 }
 
-export const addTodo = (todo, roomName, handle) => (dispatch) => {
+export const addTodo = (todo, handle, nickName, avatar, roomName) => (dispatch) => {
   const newMessage = {
-    content: `${handle} committed to work on: ${todo}.`,
-    roomName: roomName,
-    userHandle: handle
+    content: `${nickName} will focus on: ${todo}.`,
+    userHandle: handle,
+    nickName: nickName,
+    avatar: avatar,
+    roomName: roomName    
   }
   axios
     .post('/message', newMessage)

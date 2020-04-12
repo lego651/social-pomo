@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Components
 import { Button, ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
+
+// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBroom, faSignOutAlt, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
+// Styles
 import './style.scss';
 
 // actions 
@@ -13,9 +18,11 @@ class Commit extends Component {
   deleteMessages = (roomname) => {
     this.props.deleteMessages(roomname);
   }
+
   deleteRoom = (history, roomname) => {
     this.props.deleteRoom(history, roomname);
   }
+
   render() {
     const { roomName, isOwner, history } = this.props;
     return (
@@ -107,10 +114,12 @@ const mapStateToProps = (state) => ({
   username: state.user.profile.handle,
   UI: state.UI
 })
+
 const mapDispatchToProps = (dispatch) => ({
   deleteMessages: (roomname) => dispatch(deleteMessages(roomname)),
   deleteRoom: (history, roomname) => dispatch(deleteRoom(history, roomname)),
 })
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

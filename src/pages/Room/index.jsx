@@ -27,8 +27,9 @@ class Room extends Component {
     })
   }
 
-  addTodo = (content, roomName, handle) => {
-    this.props.addTodo(content, roomName, handle);
+  addTodo = (content, roomName) => {
+    const { nickName, handle, avatar } = this.props.user.profile;
+    this.props.addTodo(content, handle, nickName, avatar, roomName);
   }
 
   onLeave = () => {
@@ -46,7 +47,7 @@ class Room extends Component {
     const { inRoom, ownsRoom, handle, nickName } = this.props.user.profile;
     const isOwner = ownsRoom !== null && (inRoom === ownsRoom);
     const _history = this.props.history;
-    
+
     return(
       <div className="room-container">
         <NavbarTop />
@@ -81,7 +82,7 @@ class Room extends Component {
         </Container>
         <RoomModal
           show={this.state.modalShow}
-          onSend={(content, roomName, handle) => this.addTodo(content, roomName, handle)}
+          onSend={(content, roomName) => this.addTodo(content, roomName)}
           onHide={() => this.setModalShow(false)}
           roomName={roomname}
           handle={this.props.user.profile.handle}

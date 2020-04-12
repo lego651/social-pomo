@@ -82,7 +82,7 @@ exports.addMessage = (req, res) => {
     content: req.body.content,
     userHandle: req.body.userHandle,
     nickName: req.body.nickName, 
-    avatar: req.user.avatar,
+    avatar: req.body.avatar,
     createdAt: new Date().toISOString()
   }
   const roomName = req.body.roomName

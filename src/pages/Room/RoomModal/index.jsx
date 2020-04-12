@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
+// Styles
 import "./style.scss";
 
 class RoomModal extends Component {
@@ -11,20 +12,22 @@ class RoomModal extends Component {
       errors: {}
     };
   }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.onSend(
-      this.state.content,
-      this.props.roomName,
-      this.props.handle
+      this.state.content, 
+      this.props.roomName, 
     );
     this.props.onHide();
   };
+
   handleClose = () => this.props.onHide();
 
   render() {
