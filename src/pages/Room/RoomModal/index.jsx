@@ -21,11 +21,13 @@ class RoomModal extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSend(
-      this.state.content, 
-      this.props.roomName, 
-    );
-    this.props.onHide();
+    if(this.state.content.length > 0 && this.state.content !== this.props.curTodo) {
+      this.props.onSend(
+        this.state.content, 
+        this.props.roomName, 
+      );
+      this.props.onHide();
+    }
   };
 
   handleClose = () => this.props.onHide();

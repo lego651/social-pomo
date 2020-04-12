@@ -86,6 +86,7 @@ class Room extends Component {
           onHide={() => this.setModalShow(false)}
           roomName={roomname}
           handle={this.props.user.profile.handle}
+          curTodo={this.props.user.todo}
         />
         <LoadingModal show={this.props.UI.loading} />
       </div>
