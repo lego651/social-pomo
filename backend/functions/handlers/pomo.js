@@ -21,6 +21,8 @@ exports.createPomo = (req, res) => {
     hour: req.body.hour,
     minute: req.body.minute,
     seq: req.body.seq,
+    avatar: req.body.avatar,
+    nickName: req.body.nickName
   }
   db.collection("pomos").add(newPomo)
     .then((doc) => {

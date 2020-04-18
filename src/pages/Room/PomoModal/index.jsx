@@ -79,6 +79,7 @@ class PomoModal extends Component {
   };
   handleSubmit = e => {
     const { createPomo, removeTodo, onHide } = this.props;
+    const { avatar, nickName } = this.props.user.profile;
     e.preventDefault();
     const newContent =
       this.state.content.length > 0 ? this.state.content : this.props.user.todo;
@@ -96,7 +97,9 @@ class PomoModal extends Component {
       day: dateObj.getDay(),
       hour: dateObj.getHours(),
       minute: dateObj.getMinutes(),
-      seq: s
+      seq: s,
+      nickName,
+      avatar 
     };
     createPomo(newPomo);
     removeTodo();

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import firebase from '../../utils/firebase.js';
 
 // Components
 import { Container, Row, Col } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 
-// Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faWallet, faCalendarWeek } from '@fortawesome/free-solid-svg-icons';
+// Images
+import default_img from '../../assets/img/avatar.svg';
 
 // Actions
 import { logoutUser, getWeeklyPomo } from '../../actions';
@@ -18,7 +17,58 @@ import { logoutUser, getWeeklyPomo } from '../../actions';
 import './style.scss';
 
 class Home extends Component {
-  render(){
+  constructor(props) {
+    super(props);
+    this.ref = firebase.firestore().collection('pomos');
+    this.unsubscribe = null;
+    this.state = {
+      pomos: []
+    }
+  }
+
+  componentDidMount() {
+    this.unsubscribe = this.ref.orderBy("createdAt", "desc").onSnapshot(this.onUpdatePomos);
+  }
+
+  onUpdatePomos = (snapshot) => {
+    const pomos = [];
+    snapshot.forEach((doc) => {
+      pomos.push(doc.data());
+    })
+    this.setState({ pomos });
+  }
+
+  buildPomoList() {
+    const { pomos } = this.state;
+    return (
+      <div className="pomo-list">
+        {
+          pomos.map(pomo => this.buildPomo(pomo))
+        }
+      </div>
+    )
+  }
+
+  buildPomo(pomo) {
+    const { avatar, nickName, content, handle, createdAt } = pomo;
+    return (
+      <div className="pomo" key={handle+createdAt}> 
+        <div className="left">
+          { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}
+        </div>
+        <div className="right">
+          <div className="name">
+            { nickName }
+          </div>
+          <div className="content">
+            <span> ✅</span>{ content }
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  render() {
     return(
       <div className="home-container">
         <NavbarTop />
@@ -30,6 +80,7 @@ class Home extends Component {
             <Col xs="9">
               <div className="home-header">
                 <h3> Home </h3>
+                { this.buildPomoList() }
               </div>
             </Col>
           </Row>
