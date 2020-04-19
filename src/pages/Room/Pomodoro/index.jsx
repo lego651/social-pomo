@@ -29,9 +29,7 @@ class Pomodoro extends Component {
       .doc(roomName);
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
-    this.DEFAULT_TIME = 5 * 60;
     this.state = {
-      sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
       modalShow: false,
@@ -55,9 +53,14 @@ class Pomodoro extends Component {
   //   }
   // }
 
+  getDefaultTime = type => {
+    return type === 0 ? 1*60 : (type === 1 ? 25*60 : (type === 2 ? 30*60 : 45*60 ));
+  }
+
   count = startTime => {
     const { type } = this.state;
-    const defaultTime = type === 0 ? 1*60 : (type === 1 ? 25*60 : (type === 2 ? 30*60 : 45*60 ));
+    const defaultTime = this.getDefaultTime(type);
+
     if (this.state.on && this.state.startTime) {
       if (this.state.time > 0) {
         this.setState({
@@ -134,7 +137,9 @@ class Pomodoro extends Component {
         this.setState({
           on: false,
           startTime: null,
-          sec: this.DEFAULT_TIME
+          modalShow: true,
+          type: 1,
+          time: 25*60,
         });
         clearInterval(this.interval);
       })
@@ -201,10 +206,11 @@ class Pomodoro extends Component {
   componentWillUnmount() {
     this.unsubscribe = null;
     this.setState({
-      sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
-      modalShow: false
+      modalShow: true,
+      type: 1,
+      time: 25*60,
     });
   }
 
@@ -250,7 +256,7 @@ class Pomodoro extends Component {
 
   render() {
     const { type, time } = this.state;
-    const defaultTime = type === 0 ? 1*60 : (type === 1 ? 25*60 : (type === 2 ? 30*60 : 45*60 ));
+    const defaultTime = this.getDefaultTime(type);
     const percent = time / defaultTime;
     const value = percent * 100;
 
