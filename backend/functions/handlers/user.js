@@ -84,6 +84,7 @@ exports.login = (req, res) => {
 
   if (!valid) return res.status(400).json(errors);
 
+  // Default
   firebase
     .auth()
     .signInWithEmailAndPassword(user.email, user.password)
@@ -99,6 +100,28 @@ exports.login = (req, res) => {
         .status(403)
         .json({ password: 'Email or password is incorrect, please try again.' });
     });
+
+  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  //   .then(() => {
+  //     firebase.auth()
+  //       .signInWithEmailAndPassword(user.email, user.password)
+  //       .then((data) => {
+  //         return data.user.getIdToken();
+  //       })
+  //       .then((token) => {
+  //         return res.json({ token });
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         return res
+  //           .status(403)
+  //           .json({ password: 'Email or password is incorrect, please try again.' });
+  //       });
+  //       return;
+  //   })  
+  //   .catch(function(error) {
+  //     console.log(error.code + error.message);
+  //   });
 };
 
 // Add User Details

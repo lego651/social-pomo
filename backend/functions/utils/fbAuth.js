@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     // console.error('No token found');
     return res.status(403).json({ error: 'Unauthorized' });
   }
-
+  
   admin
     .auth()
     .verifyIdToken(idToken)
