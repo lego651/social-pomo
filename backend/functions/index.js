@@ -14,22 +14,27 @@ const { signup,
         uploadImage,
         updateNickName,
         updatePassword } = require('./handlers/user.js');
+
 const { createRoom,
         addMessage,
         joinRoom,
         countAddOne,
         startCount,
         resetCount,
+        updateTime,
         leaveRoom,
         deleteRoom,
         deleteMessages } = require('./handlers/room.js');
+
 const { createPomo,
         fetchAllPomo,
         getTodayPomoCount,
         getTodayPomoList,
         getWeekPomoList } = require('./handlers/pomo.js');
+
 const { addToWaiting,
         joinMatchedRoom } = require('./handlers/match.js');
+
 const FBAuth = require('./utils/fbAuth');
 
 // admin.initializeApp();
@@ -61,6 +66,7 @@ app.post('/joinroom', FBAuth, joinRoom);
 app.post('/countaddone', FBAuth, countAddOne);
 app.post('/startcount', FBAuth, startCount);
 app.post('/resetcount', FBAuth, resetCount);
+app.post('/updateTime', FBAuth, updateTime);
 app.post('/leaveroom', FBAuth, leaveRoom);
 app.post('/messages', FBAuth, deleteMessages);
 app.post('/room/delete', FBAuth, deleteRoom);

@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
 
-import './style.scss';
+// Components
+import { Container, Row, Col } from 'react-bootstrap';
+import NavbarTop from '../../components/NavbarTop';
+import UsersInRoom from './UsersInRoom';
+import LoadingModal from '../../components/LoadingModal';
 import Commit from './Commit';
 import Chatroom from './Chatroom';
 import Pomodoro from './Pomodoro';
 import RoomModal from './RoomModal';
-import NavbarTop from '../../components/NavbarTop';
-import UsersInRoom from './UsersInRoom';
-import LoadingModal from '../../components/LoadingModal';
-import { leaveRoom, addTodo, startCount } from '../../actions';
 
+// Styles
+import './style.scss';
+
+// Actions
+import { leaveRoom, addTodo, startCount, updateTime } from '../../actions';
 class Room extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +46,10 @@ class Room extends Component {
     this.props.startCount(roomName);
   }
 
+  _updateTime = ({roomName, type, time}) => {
+    this.props.updateTime({roomName, type, time}); 
+  }
+
   render(){
     const { roomname } = this.props.match.params;
     const { inRoom, ownsRoom, handle, nickName } = this.props.user.profile;
@@ -56,7 +64,8 @@ class Room extends Component {
             <Col md={4}>
               <Pomodoro roomName={roomname}
                         isOwner={isOwner}
-                        startCount={(roomName) => this._startCount(roomName)} />
+                        startCount={(roomName) => this._startCount(roomName)} 
+                        updateTime={(({roomName, type, time}) => this._updateTime({roomName, type, time}))}/>
             </Col>
             <Col md={8} className="roomRight">
               <div className="roomInfo">
@@ -100,5 +109,5 @@ const mapStateToProps = (state) => ({
 })
 export default connect(
   mapStateToProps,
-  { leaveRoom, addTodo, startCount }
+  { leaveRoom, addTodo, startCount, updateTime }
 )(Room);

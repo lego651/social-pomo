@@ -1,15 +1,22 @@
 import React, { Component } from "react";
 import axios from "axios";
+
+// Components
 import { Container } from "react-bootstrap";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import PomoModal from "../PomoModal";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
+// Styles
+import "react-circular-progressbar/dist/styles.css";
 import "./style.scss";
+
+// Utils
 import { parseTime } from "../../../utils/util.js";
 import firebase from "../../../utils/firebase.js";
-import PomoModal from "../PomoModal";
 import alertAudio from "../../../assets/alert.mp3";
 
 class Pomodoro extends Component {
@@ -27,9 +34,12 @@ class Pomodoro extends Component {
       sec: this.DEFAULT_TIME,
       on: false,
       startTime: null,
-      modalShow: false
+      modalShow: false,
+      type: 1,
+      time: 25*60,
     };
   }
+
   // count = () => {
   //   if(this.state.on) {
   //     if(this.state.sec > 0) {
@@ -44,12 +54,15 @@ class Pomodoro extends Component {
   //     }
   //   }
   // }
+
   count = startTime => {
+    const { type } = this.state;
+    const defaultTime = type === 0 ? 1*60 : (type === 1 ? 25*60 : (type === 2 ? 30*60 : 45*60 ));
     if (this.state.on && this.state.startTime) {
-      if (this.state.sec > 0) {
+      if (this.state.time > 0) {
         this.setState({
-          sec:
-            this.DEFAULT_TIME -
+          time:
+            defaultTime -
             Math.floor((new Date().getTime() - startTime) / 1000)
         });
       } else {
@@ -57,14 +70,17 @@ class Pomodoro extends Component {
         this.setState(
           {
             on: false,
+            startTime: null,
             modalShow: true,
-            sec: this.DEFAULT_TIME
+            type: 1,
+            time: 25*60,
           },
           this.handleReset()
         );
       }
     }
   };
+
   start = startTime => {
     this.interval = setInterval(
       startTime => {
@@ -74,13 +90,17 @@ class Pomodoro extends Component {
       startTime
     );
   };
+
   reset = () => {
     this.setState({
-      sec: this.DEFAULT_TIME,
-      on: false
+      on: false,
+      startTime: null,
+      type: 1,
+      time: 25*60,
     });
     clearInterval(this.interval);
   };
+
   handleStart = e => {
     e.preventDefault();
     // const currentRoom = {
@@ -103,8 +123,8 @@ class Pomodoro extends Component {
   //   })
   //   clearInterval(this.interval);
   // }
+
   handleReset = () => {
-    // e.preventDefault();
     const currentRoom = {
       roomName: this.props.roomName
     };
@@ -122,6 +142,7 @@ class Pomodoro extends Component {
         console.error(err);
       });
   };
+
   // subscribeStart = (doc) => {
   //   if(doc.data().count % 2 === 1) {
   //     this.start();
@@ -129,6 +150,7 @@ class Pomodoro extends Component {
   //     this.reset();
   //   }
   // }
+
   // subscribeStart = (doc) => {
   //   if(doc.data().on) { // REST请求将此此时设置为on
   //     this.setState({
@@ -140,30 +162,42 @@ class Pomodoro extends Component {
   //     this.reset();
   //   }
   // }
+
   subscribeStart = doc => {
     if (doc.data()) {
       this.setState({
         on: doc.data().on,
-        startTime: doc.data().startTime
+        startTime: doc.data().startTime,
+        type: doc.data().type,
+        time: doc.data().time,
       });
     }
     if (doc.data() && doc.data().startTime) {
       this.start(doc.data().startTime);
     }
   };
+
   setModalShow = bool => {
     this.setState({
       modalShow: bool
     });
   };
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
+
+  onUpdateTime = ({type, time}) => {
+    const { roomName, updateTime } = this.props;
+    updateTime({roomName, type, time});
+  }
+
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
+
   componentWillUnmount() {
     this.unsubscribe = null;
     this.setState({
@@ -173,12 +207,52 @@ class Pomodoro extends Component {
       modalShow: false
     });
   }
+
+  buildOptions() {
+    const { type } = this.state;
+    return (
+      <div className="options">
+        <div className="option" id="0" onClick={() => this.onUpdateTime({type: 0, time: 1*60})}>
+          <div className={"time" + (type === 0 ? ' active' : '')}>
+            1
+          </div>
+          <div className={"icon" + (type === 0 ? ' show' : '')}>
+            🍋
+          </div> 
+        </div>
+        <div className="option" id="1" onClick={() => this.onUpdateTime({type: 1, time: 25*60})}>
+          <div className={"time" + (type === 1 ? ' active' : '')}>
+            25
+          </div>
+          <div className={"icon" + (type === 1 ? ' show' : '')}>
+            🍅
+          </div>           
+        </div>
+        <div className="option" id="2" onClick={() => this.onUpdateTime({type: 2, time: 30*60})}>
+          <div className={"time" + (type === 2 ? ' active' : '')}>
+            30
+          </div>
+          <div className={"icon" + (type === 2 ? ' show' : '')}>
+            🍏
+          </div>
+        </div>
+        <div className="option" id="3" onClick={() => this.onUpdateTime({type: 3, time: 45*60})}>
+          <div className={"time" + (type === 3 ? ' active' : '')}>
+            45
+          </div>
+          <div className={"icon" + (type === 3 ? ' show' : '')}>
+            🍉
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
-    console.log(this.state);
-    const { sec } = this.state;
-    const percent = sec / this.DEFAULT_TIME;
+    const { type, time } = this.state;
+    const defaultTime = type === 0 ? 1*60 : (type === 1 ? 25*60 : (type === 2 ? 30*60 : 45*60 ));
+    const percent = time / defaultTime;
     const value = percent * 100;
-    // console.log(value);
 
     // Deprecated -> both party can start timer now
     // const forOwner = (
@@ -198,35 +272,39 @@ class Pomodoro extends Component {
     //     }
     //   </div>
     // );
+
     return (
       <div className="pomodoro-container">
         <Container>
-          {/* <div id="count"> {parseTime(this.state.sec)} </div> */}
-          <CircularProgressbar
-            value={value}
-            text={parseTime(this.state.sec)}
-            strokeWidth={5}
-            styles={buildStyles({
-              textColor: "#FB7299",
-              pathColor: "#FB7299",
-              trailColor: "transparent"
-            })}
-          />
-          {/* { this.props.isOwner && forOwner } */}
-          {this.state.on ? null : (
-            <div
-              className="control play"
-              onClick={e => {
-                this.handleStart(e);
-              }}
-            >
-              <FontAwesomeIcon icon={faPlay} />
-            </div>
-          )}
+          { this.buildOptions() }
+          <div className="circular-container">
+            <CircularProgressbar
+              value={value}
+              text={parseTime(time)}
+              strokeWidth={5}
+              styles={buildStyles({
+                textColor: "#FB7299",
+                pathColor: "#FB7299",
+                trailColor: "transparent"
+              })}
+            />
+            {this.state.on ? null : (
+              <div
+                className="control play"
+                onClick={e => {
+                  this.handleStart(e);
+                }}
+              >
+                <FontAwesomeIcon icon={faPlay} />
+              </div>
+            )}
+          </div>
         </Container>
         <PomoModal
           show={this.state.modalShow}
           onHide={() => this.setModalShow(false)}
+          type={type}
+          time={time}
         />
       </div>
     );

@@ -201,3 +201,17 @@ export const startCount = (roomName) => (dispatch) => {
       console.log(err);
     })
 }
+
+export const updateTime = ({ roomName, type, time }) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/updateTime', { roomName, type, time })
+    .then((res) => {
+      dispatch({
+        type: CLEAR_ERRORS
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}

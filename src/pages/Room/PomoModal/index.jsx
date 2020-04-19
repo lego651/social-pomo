@@ -33,36 +33,43 @@ class PomoModal extends Component {
       newTag: ""
     };
   }
+
   openAddProject = () => {
     this.setState({
       addProject: true
     });
   };
+
   closeAddProject = () => {
     this.setState({
       addProject: false
     });
   };
+
   openAddTag = () => {
     this.setState({
       addTag: true
     });
   };
+
   closeAddTag = () => {
     this.setState({
       addTag: false
     });
   };
+
   addNewProject = () => {
     if (this.state.newProject.length > 0) {
       this.props.addProject(this.state.newProject);
     }
   };
+
   addNewTag = () => {
     if (this.state.newTag.length > 0) {
       this.props.addTag(this.state.newTag);
     }
   };
+
   handleChange = e => {
     this.props.clearSuccess();
     this.props.clearErrors();
@@ -70,6 +77,7 @@ class PomoModal extends Component {
       [e.target.name]: e.target.value
     });
   };
+
   handleMultiChange = e => {
     this.props.clearSuccess();
     this.props.clearErrors();
@@ -77,8 +85,9 @@ class PomoModal extends Component {
       tag: Array.from(e.target.selectedOptions, item => item.value)
     });
   };
+
   handleSubmit = e => {
-    const { createPomo, removeTodo, onHide } = this.props;
+    const { createPomo, removeTodo, onHide, type, time } = this.props;
     const { avatar, nickName } = this.props.user.profile;
     e.preventDefault();
     const newContent =
@@ -99,7 +108,9 @@ class PomoModal extends Component {
       minute: dateObj.getMinutes(),
       seq: s,
       nickName,
-      avatar 
+      avatar,
+      type,
+      time 
     };
     createPomo(newPomo);
     removeTodo();

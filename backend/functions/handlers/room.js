@@ -27,6 +27,8 @@ exports.createRoom = (req, res) => {
     createdAt: new Date().toISOString(),
     on: false,
     startTime: null,
+    type: 1,
+    time: 25 * 60,
   }
 
   db.doc(`users/${handle}`)
@@ -175,6 +177,27 @@ exports.startCount = (req, res) => {
       const toUpdate = {
         on: true,
         startTime: new Date().getTime()
+      }
+      db.doc(`/rooms/${req.body.roomName}`).update(toUpdate);
+      return res.status(200).json(toUpdate);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err.code });
+    })
+}
+
+// POST: update time length
+exports.updateTime = (req, res) => {
+  db.doc(`/rooms/${req.body.roomName}`)
+    .get()
+    .then((doc) => {
+      if(!doc.exists) {
+        return res.status(400).json({ error: 'this room name does not exist'});
+      }
+      // update start time and set on to true
+      const toUpdate = {
+        type: req.body.type,
+        time: req.body.time
       }
       db.doc(`/rooms/${req.body.roomName}`).update(toUpdate);
       return res.status(200).json(toUpdate);

@@ -1,40 +1,76 @@
 @import "../../../index.scss";
 
 .pomodoro-container {
-  button {
-    border: none;
-    font-size: 14.4px;
-    span {
-      margin-right: 5px;
+  min-width: 250px;
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .option {
+      margin: 15px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      .time {
+        font-size: 34px;
+        font-weight: 700;
+        color: #98a6ad;
+        font-family: 'Nunito', sans-serif;
+        cursor: pointer;
+      }
+      .time.active {
+        color: #333;
+      }
+      .icon {
+        margin-top: -10px;
+        margin-left: 6px;
+        font-size: 16px;
+        visibility: hidden;
+      }
+      .icon.show {
+        visibility: visible;
+      }
     }
   }
-  #leave {
-    background-color: #FF5B5B;
-    margin-right: 10px;
-  }
-  #commit {
-    background-color: $primary-green;
-  }
-  #count {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: #6c757d;
-    font-weight: 600;
-    margin-top: 100px;
-    margin-bottom: 400px;
-  }
-  .CircularProgressbar {
-    width: 200px;
-    height: 200px;
-  }
-  .control {
-    color: $primary-color;
-    font-size: 30px;
-    position: relative;
-    top: -75px;
-    left: 90px;
-    cursor: pointer;
+  .circular-container {
+    width: 500px;
+    margin-top: 30px;
+    margin-left: 18%;
+    button {
+      border: none;
+      font-size: 14.4px;
+      span {
+        margin-right: 5px;
+      }
+    }
+    #leave {
+      background-color: #FF5B5B;
+      margin-right: 10px;
+    }
+    #commit {
+      background-color: $primary-green;
+    }
+    #count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #6c757d;
+      font-weight: 600;
+      margin-top: 100px;
+      margin-bottom: 400px;
+    }
+    .CircularProgressbar {
+      width: 200px;
+      height: 200px;
+    }
+    .control {
+      color: $primary-color;
+      font-size: 30px;
+      position: relative;
+      top: -75px;
+      left: 90px;
+      cursor: pointer;
+    }
   }
 }
