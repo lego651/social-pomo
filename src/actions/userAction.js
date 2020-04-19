@@ -57,6 +57,17 @@ export const loginUser = (userData, history) => (dispatch) => {
     });
 };
 
+export const refreshToken = () => (dispatch) => {
+  firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+    // Send token to your backend via HTTPS
+    // ...
+    console.log(idToken);
+  }).catch(function(error) {
+    // Handle error
+    console.log(error);
+  });
+}
+
 export const signupUser = (newUserData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -83,6 +94,7 @@ const setAuthorizationHeader = (token) => {
 };
 
 export const getUserData = () => (dispatch) => {
+  refreshToken();
   axios
     .get('/user')
     .then((res) => {
@@ -94,7 +106,9 @@ export const getUserData = () => (dispatch) => {
         type: CLEAR_ERRORS
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err)
+    });
 };
 
 export const getUserDataAndRedirect = (history) => (dispatch) => {
@@ -105,7 +119,7 @@ export const getUserDataAndRedirect = (history) => (dispatch) => {
         type: SET_USER,
         payload: res.data
       });
-      history.push('/dashboard');
+      history.push('/home');
     })
     .catch((err) => console.log(err));
 }
