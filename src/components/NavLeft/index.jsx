@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandsHelping, faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faHandsHelping, faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 import { addTodo } from '../../actions';
 import default_img from '../../assets/img/avatar.svg';
-// import { addMessage } from '../../actions';
-
 class NavLeft extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +27,7 @@ class NavLeft extends Component {
           <li>
             <NavLink to={"/home"}
                      activeClassName="active">
-              <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
+              <span><FontAwesomeIcon icon={faHome} /></span>
               Home
             </NavLink>
           </li>

@@ -28,6 +28,7 @@ class Chatroom extends Component {
     this.curHandle = props.username;
     this.showNotification = this.showNotification.bind(this);
   }
+
   componentDidMount() {
     this.curHandle = this.props.username;
     this.unsubscribe = this.ref.orderBy('createdAt').onSnapshot(this.onUpdateMessages);
@@ -35,9 +36,11 @@ class Chatroom extends Component {
     this.scrollToBottom();
     this.grantNotificationPermission();
   }
+
   componentDidUpdate() {
     this.scrollToBottom()
   }
+  
   onUpdateMessages = (snapshot) => {
     const messages = [];
     snapshot.forEach((doc) => {

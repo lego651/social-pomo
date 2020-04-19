@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+// Components
 import { Form, Button } from 'react-bootstrap';
 
-import './style.scss';
+// Actions 
 import { addTodo } from '../../actions';
-// import { addMessage } from '../../actions';
 
+// Styles
+import './style.scss';
 class WhatTodo extends Component {
   constructor(props) {
     super(props);
@@ -13,11 +16,13 @@ class WhatTodo extends Component {
       content: ''
     }
   }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.addTodo(this.state.content, this.props.roomName, this.props.user.profile.handle);
@@ -25,6 +30,7 @@ class WhatTodo extends Component {
       content: ''
     })
   }
+  
   render(){
     return(
       <div className="what-todo-container">

@@ -4,8 +4,6 @@ import { Form, Button } from 'react-bootstrap';
 
 import './style.scss';
 import { joinRoom } from '../../actions';
-// import { addMessage } from '../../actions';
-
 class WhatTodo extends Component {
   constructor(props) {
     super(props);
