@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Chart, data, ctx, type, label, labels, options } from "chart.js";
+
 // Components
 import { Container, Row, Col } from "react-bootstrap";
 import NavbarTop from "../../components/NavbarTop";
 import NavLeft from "../../components/NavLeft";
 import WeeklyChart from "./WeeklyChart";
+
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,13 +21,10 @@ import { logoutUser, getWeeklyPomo } from "../../actions";
 
 // Styles
 import "./style.scss";
-
+var _ = require('lodash');
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      weeklyPomos: [],
-    };
   }
 
   componentWillMount() {
@@ -94,16 +92,49 @@ class Dashboard extends Component {
     );
   }
 
+  groupByProject(pomos) {
+    return _.groupBy(pomos, 'project');
+  }
+  
+  buildDataSet(pomos) {
+    console.log(pomos);
+    const colors = ["#FAEBCC", "#D6E9C6", "#EBCCD1"];
+    let c = 0;
+    const week = [110,111,112,113,114,115,116];
+    const groupedData = this.groupByProject(pomos);
+    const datasets = [];
+    
+    for (let [project, pomos] of Object.entries(groupedData)) {
+      const data = [0,0,0,0,0,0,0];
+      const set = {};
+        
+      pomos.forEach((pomo) => {
+        for(let i = 0; i < week.length; i++) {
+          if(pomo.seq === week[i]) {
+            data[i] += pomo.time / 3600;
+          }
+        } 
+      });
+      
+      set.label = project;
+      set.backgroundColor = colors[c++];
+      set.data = data;
+      datasets.push(set);
+    }
+  
+    return datasets;
+  }
+
   buildWeeklyChart() {
     const pomos = this.props.pomo.weekly_pomo;
-    console.log(pomos);
+    const datasets = this.buildDataSet(pomos);
+    const labels = [110,111,112,113,114,115,116];
+    
     if (pomos.length > 0) {
       return (
         <div>
           <h1> Chart </h1>
-          {pomos.map((pomo) => {
-            return pomo.project;
-          })}
+          <WeeklyChart labels={labels} datasets={datasets} />
         </div>
       );
     }
@@ -121,8 +152,7 @@ class Dashboard extends Component {
             <Col xs="9">
               {this.buildTitle()}
               {this.buildSummary()}
-              {/* {this.buildWeeklyChart()} */}
-              <WeeklyChart />
+              {this.buildWeeklyChart()}
             </Col>
           </Row>
         </Container>

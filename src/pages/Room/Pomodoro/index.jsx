@@ -197,6 +197,10 @@ class Pomodoro extends Component {
   onUpdateTime = ({type, time}) => {
     const { roomName, updateTime } = this.props;
     updateTime({roomName, type, time});
+    this.setState({
+      type: type,
+      time: time
+    })
   }
 
   componentDidMount() {
@@ -214,11 +218,13 @@ class Pomodoro extends Component {
     });
   }
 
+
+
   buildOptions() {
     const { type } = this.state;
     return (
       <div className="options">
-        <div className="option" id="0" onClick={() => this.onUpdateTime({type: 0, time: 1*60})}>
+        <div className="option" id="0" onClick={() => { this.onUpdateTime({type: 0, time: 1*60})}}>
           <div className={"time" + (type === 0 ? ' active' : '')}>
             1
           </div>

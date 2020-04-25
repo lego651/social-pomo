@@ -50,6 +50,8 @@ exports.fetchAllPomo = (req, res) => {
           project: doc.data().project,
           tag: doc.data().tag,
           date: doc.date().date,
+          type: doc.data().type,
+          time: doc.data().time,  
         })
       });
       return res.json(pomos);
@@ -105,6 +107,8 @@ exports.getTodayPomoList = (req, res) => {
           tag: doc.data().tag,
           date: doc.data().date,
           seq: doc.data().seq, 
+          type: doc.data().type,
+          time: doc.data().time,  
         })
       });
       return res.json(pomos);
@@ -140,6 +144,8 @@ exports.getWeekPomoList = (req, res) => {
           tag: doc.data().tag,
           date: doc.data().date,
           seq: doc.data().seq, 
+          type: doc.data().type,
+          time: doc.data().time,  
         })
       });
       return res.json(pomos);
