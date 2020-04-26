@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
+// Components
 import { Row, Col, Form, Button } from "react-bootstrap";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faSync } from "@fortawesome/free-solid-svg-icons";
-
-import { loginUser } from "../../actions";
-import "./style.scss";
 import loginPic from "../../assets/img/signup.jpeg";
 
+// Actions
+import { loginUser } from "../../actions";
+
+// Styles
+import "./style.scss";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -18,16 +24,19 @@ class Login extends Component {
       errors: {}
     };
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  };
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     const newUserData = {
@@ -35,7 +44,8 @@ class Login extends Component {
       password: this.state.password
     };
     this.props.loginUser(newUserData, this.props.history);
-  };
+  }
+
   render() {
     const { errors } = this.state;
     const { loading } = this.props.UI;
@@ -102,24 +112,23 @@ class Login extends Component {
                     )}
                     <span> Log In </span>
                   </Button>
-                  <div className="link-to-signup">
+                  <div className={"link-to-signup"}>
                     <h5>
                       Don't have an account?{" "}
                       <b>
-                        <Link to="/signup"> Sign Up </Link>
+                        <Link className={(loading ? "disabled-link" : "")} to="/signup">Sign Up</Link>
                       </b>
                     </h5>
                   </div>
                 </Form>
               </div>
             </div>
-            {/* log in left ends */}
           </Col>
+
           <Col md={7} xs={12} className="right-col">
             <div className="login-right">
               <img src={loginPic} alt="loginPic" />
             </div>
-            {/* log in right ends */}
           </Col>
         </Row>
       </div>

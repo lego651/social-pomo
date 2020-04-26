@@ -24,6 +24,10 @@
         a {
           color: rgb(0, 161, 214);
         }
+        .disabled-link {
+          cursor: not-allowed;
+          pointer-events: none;
+        }
       }
     }
   }
