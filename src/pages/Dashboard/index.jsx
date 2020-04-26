@@ -21,7 +21,11 @@ import { logoutUser, getWeeklyPomo } from "../../actions";
 
 // Styles
 import "./style.scss";
+
+// utils
+import { convertDateToSeq } from '../../utils/util';
 var _ = require('lodash');
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -97,10 +101,14 @@ class Dashboard extends Component {
   }
   
   buildDataSet(pomos) {
-    console.log(pomos);
     const colors = ["#FAEBCC", "#D6E9C6", "#EBCCD1"];
     let c = 0;
-    const week = [110,111,112,113,114,115,116];
+    const dateObj = new Date();
+    const y = dateObj.getFullYear();
+    const m = dateObj.getMonth();
+    const d = dateObj.getDate();
+    const seq = convertDateToSeq(y, m + 1, d);
+    const week = [seq-6,seq-5,seq-4,seq-3,seq-2,seq-1,seq];
     const groupedData = this.groupByProject(pomos);
     const datasets = [];
     
@@ -128,7 +136,10 @@ class Dashboard extends Component {
   buildWeeklyChart() {
     const pomos = this.props.pomo.weekly_pomo;
     const datasets = this.buildDataSet(pomos);
-    const labels = [110,111,112,113,114,115,116];
+    // const labels = [110,111,112,113,114,115,116];
+    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];     
+    const d = new Date();     
+    const labels = [days[d.getDay() - 6],days[d.getDay() - 5],days[d.getDay() - 4],days[d.getDay() - 3],days[d.getDay() - 2],days[d.getDay() - 1],days[d.getDay()]];   
     
     if (pomos.length > 0) {
       return (
