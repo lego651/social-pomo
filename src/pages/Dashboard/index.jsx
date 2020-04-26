@@ -119,7 +119,7 @@ class Dashboard extends Component {
       pomos.forEach((pomo) => {
         for(let i = 0; i < week.length; i++) {
           if(pomo.seq === week[i]) {
-            data[i] += pomo.time / 3600;
+            data[i] += Math.round((pomo.time / 3600) * 100) / 100;
           }
         } 
       });
