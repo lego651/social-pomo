@@ -23,10 +23,7 @@ class Pomodoro extends Component {
   constructor(props) {
     super(props);
     const roomName = this.props.roomName;
-    this.ref = firebase
-      .firestore()
-      .collection("rooms")
-      .doc(roomName);
+    this.ref = firebase.firestore().collection("rooms").doc(roomName);
     this.unsubsrcibe = null;
     this.audio = new Audio(alertAudio);
     this.state = {
@@ -34,7 +31,7 @@ class Pomodoro extends Component {
       startTime: null,
       modalShow: false,
       type: 1,
-      time: 25*60,
+      time: 25 * 60,
     };
   }
 
@@ -53,11 +50,17 @@ class Pomodoro extends Component {
   //   }
   // }
 
-  getDefaultTime = type => {
-    return type === 0 ? 1*60 : (type === 1 ? 25*60 : (type === 2 ? 30*60 : 45*60 ));
-  }
+  getDefaultTime = (type) => {
+    return type === 0
+      ? 1 * 60
+      : type === 1
+      ? 25 * 60
+      : type === 2
+      ? 30 * 60
+      : 45 * 60;
+  };
 
-  count = startTime => {
+  count = (startTime) => {
     const { type } = this.state;
     const defaultTime = this.getDefaultTime(type);
 
@@ -65,8 +68,7 @@ class Pomodoro extends Component {
       if (this.state.time > 0) {
         this.setState({
           time:
-            defaultTime -
-            Math.floor((new Date().getTime() - startTime) / 1000)
+            defaultTime - Math.floor((new Date().getTime() - startTime) / 1000),
         });
       } else {
         this.audio.play();
@@ -76,7 +78,7 @@ class Pomodoro extends Component {
             startTime: null,
             modalShow: true,
             type: 1,
-            time: 25*60,
+            time: 25 * 60,
           },
           this.handleReset()
         );
@@ -84,9 +86,9 @@ class Pomodoro extends Component {
     }
   };
 
-  start = startTime => {
+  start = (startTime) => {
     this.interval = setInterval(
-      startTime => {
+      (startTime) => {
         this.count(startTime);
       },
       1000,
@@ -99,12 +101,12 @@ class Pomodoro extends Component {
       on: false,
       startTime: null,
       type: 1,
-      time: 25*60,
+      time: 25 * 60,
     });
     clearInterval(this.interval);
   };
 
-  handleStart = e => {
+  handleStart = (e) => {
     e.preventDefault();
     // const currentRoom = {
     //   roomName: this.props.roomName
@@ -129,21 +131,21 @@ class Pomodoro extends Component {
 
   handleReset = () => {
     const currentRoom = {
-      roomName: this.props.roomName
+      roomName: this.props.roomName,
     };
     axios
       .post("/resetcount", currentRoom)
-      .then(res => {
+      .then((res) => {
         this.setState({
           on: false,
           startTime: null,
           modalShow: true,
           type: 1,
-          time: 25*60,
+          time: 25 * 60,
         });
         clearInterval(this.interval);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
@@ -168,7 +170,7 @@ class Pomodoro extends Component {
   //   }
   // }
 
-  subscribeStart = doc => {
+  subscribeStart = (doc) => {
     if (doc.data()) {
       this.setState({
         on: doc.data().on,
@@ -182,26 +184,26 @@ class Pomodoro extends Component {
     }
   };
 
-  setModalShow = bool => {
+  setModalShow = (bool) => {
     this.setState({
-      modalShow: bool
+      modalShow: bool,
     });
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  onUpdateTime = ({type, time}) => {
+  onUpdateTime = ({ type, time }) => {
     const { roomName, updateTime } = this.props;
-    updateTime({roomName, type, time});
+    updateTime({ roomName, type, time });
     this.setState({
       type: type,
-      time: time
-    })
-  }
+      time: time,
+    });
+  };
 
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
@@ -214,50 +216,50 @@ class Pomodoro extends Component {
       startTime: null,
       modalShow: true,
       type: 1,
-      time: 25*60,
+      time: 25 * 60,
     });
   }
-
-
 
   buildOptions() {
     const { type } = this.state;
     return (
       <div className="options">
-        <div className="option" id="0" onClick={() => { this.onUpdateTime({type: 0, time: 1*60})}}>
-          <div className={"time" + (type === 0 ? ' active' : '')}>
-            1
-          </div>
-          <div className={"icon" + (type === 0 ? ' show' : '')}>
-            🍋
-          </div> 
+        <div
+          className="option"
+          id="0"
+          onClick={() => {
+            this.onUpdateTime({ type: 0, time: 1 * 60 });
+          }}
+        >
+          <div className={"time" + (type === 0 ? " active" : "")}>1</div>
+          <div className={"icon" + (type === 0 ? " show" : "")}>🍋</div>
         </div>
-        <div className="option" id="1" onClick={() => this.onUpdateTime({type: 1, time: 25*60})}>
-          <div className={"time" + (type === 1 ? ' active' : '')}>
-            25
-          </div>
-          <div className={"icon" + (type === 1 ? ' show' : '')}>
-            🍅
-          </div>           
+        <div
+          className="option"
+          id="1"
+          onClick={() => this.onUpdateTime({ type: 1, time: 25 * 60 })}
+        >
+          <div className={"time" + (type === 1 ? " active" : "")}>25</div>
+          <div className={"icon" + (type === 1 ? " show" : "")}>🍅</div>
         </div>
-        <div className="option" id="2" onClick={() => this.onUpdateTime({type: 2, time: 30*60})}>
-          <div className={"time" + (type === 2 ? ' active' : '')}>
-            30
-          </div>
-          <div className={"icon" + (type === 2 ? ' show' : '')}>
-            🍏
-          </div>
+        <div
+          className="option"
+          id="2"
+          onClick={() => this.onUpdateTime({ type: 2, time: 30 * 60 })}
+        >
+          <div className={"time" + (type === 2 ? " active" : "")}>30</div>
+          <div className={"icon" + (type === 2 ? " show" : "")}>🍏</div>
         </div>
-        <div className="option" id="3" onClick={() => this.onUpdateTime({type: 3, time: 45*60})}>
-          <div className={"time" + (type === 3 ? ' active' : '')}>
-            45
-          </div>
-          <div className={"icon" + (type === 3 ? ' show' : '')}>
-            🍉
-          </div>
+        <div
+          className="option"
+          id="3"
+          onClick={() => this.onUpdateTime({ type: 3, time: 45 * 60 })}
+        >
+          <div className={"time" + (type === 3 ? " active" : "")}>45</div>
+          <div className={"icon" + (type === 3 ? " show" : "")}>🍉</div>
         </div>
       </div>
-    )
+    );
   }
 
   render() {
@@ -288,7 +290,7 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro-container">
         <Container>
-          { this.buildOptions() }
+          {this.buildOptions()}
           <div className="circular-container">
             <CircularProgressbar
               value={value}
@@ -297,13 +299,13 @@ class Pomodoro extends Component {
               styles={buildStyles({
                 textColor: "#FB7299",
                 pathColor: "#FB7299",
-                trailColor: "transparent"
+                trailColor: "transparent",
               })}
             />
             {this.state.on ? null : (
               <div
                 className="control play"
-                onClick={e => {
+                onClick={(e) => {
                   this.handleStart(e);
                 }}
               >

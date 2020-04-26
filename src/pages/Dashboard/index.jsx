@@ -21,7 +21,7 @@ import { logoutUser, getWeeklyPomo } from "../../actions";
 
 // Styles
 import "./style.scss";
-var _ = require('lodash');
+var _ = require("lodash");
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -93,43 +93,70 @@ class Dashboard extends Component {
   }
 
   groupByProject(pomos) {
-    return _.groupBy(pomos, 'project');
+    return _.groupBy(pomos, "project");
   }
-  
+
   buildDataSet(pomos) {
     console.log(pomos);
-    const colors = ["#FAEBCC", "#D6E9C6", "#EBCCD1"];
+    const colors = [
+      "#ffe4e1",
+      "#a2d7f9",
+      "#D6E9C6",
+      "#d2b48c",
+      "#20b2aa",
+      "#ffe4b5",
+      "#f08080",
+      "#c4d4ff",
+    ];
     let c = 0;
-    const week = [110,111,112,113,114,115,116];
+    const week = [110, 111, 112, 113, 114, 115, 116];
     const groupedData = this.groupByProject(pomos);
     const datasets = [];
-    
+
     for (let [project, pomos] of Object.entries(groupedData)) {
-      const data = [0,0,0,0,0,0,0];
+      const data = [0, 0, 0, 0, 0, 0, 0];
       const set = {};
-        
+
       pomos.forEach((pomo) => {
-        for(let i = 0; i < week.length; i++) {
-          if(pomo.seq === week[i]) {
+        for (let i = 0; i < week.length; i++) {
+          if (pomo.seq === week[i]) {
             data[i] += pomo.time / 3600;
           }
-        } 
+        }
       });
-      
+
       set.label = project;
       set.backgroundColor = colors[c++];
       set.data = data;
       datasets.push(set);
     }
-  
+
     return datasets;
   }
 
   buildWeeklyChart() {
     const pomos = this.props.pomo.weekly_pomo;
     const datasets = this.buildDataSet(pomos);
-    const labels = [110,111,112,113,114,115,116];
-    
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    let d = new Date();
+    const labels = [
+      days[(d.getDay() + 1) % 7],
+      days[(d.getDay() + 2) % 7],
+      days[(d.getDay() + 3) % 7],
+      days[(d.getDay() + 4) % 7],
+      days[(d.getDay() + 5) % 7],
+      days[(d.getDay() + 6) % 7],
+      days[d.getDay()],
+    ];
+
     if (pomos.length > 0) {
       return (
         <div>
