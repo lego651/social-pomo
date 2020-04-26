@@ -5,7 +5,6 @@ class WeeklyChart extends Component {
   chartRef = React.createRef();
 
   componentDidMount() {
-    console.log(this.props.datasets);
     const myChartRef = this.chartRef.current.getContext("2d");
 
     new Chart(myChartRef, {

@@ -143,8 +143,8 @@ class Dashboard extends Component {
     
     if (pomos.length > 0) {
       return (
-        <div>
-          <h1> Chart </h1>
+        <div className="chart-container">
+          <h1> Last 7 days </h1>
           <WeeklyChart labels={labels} datasets={datasets} />
         </div>
       );
