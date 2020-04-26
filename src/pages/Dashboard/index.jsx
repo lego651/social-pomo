@@ -101,7 +101,17 @@ class Dashboard extends Component {
   }
 
   buildDataSet(pomos) {
-    const colors = ["#FAEBCC", "#D6E9C6", "#EBCCD1"];
+    const colors = [
+      "#ffe4e1",
+      "#a2d7f9",
+      "#ffe4b5",
+      "#D6E9C6",
+      "#fda791",
+      "#8B4513",
+      "#8FBC8F",
+      "#c4d4ff",
+      "#b5a8a8",
+    ];
     let c = 0;
     const dateObj = new Date();
     const y = dateObj.getFullYear();
@@ -147,17 +157,17 @@ class Dashboard extends Component {
       "Friday",
       "Saturday",
     ];
-    const d = new Date();
+
+    const d = new Date().getDay();
     const labels = [
-      days[(d.getDay() + 1) % 7],
-      days[(d.getDay() + 2) % 7],
-      days[(d.getDay() + 3) % 7],
-      days[(d.getDay() + 4) % 7],
-      days[(d.getDay() + 5) % 7],
-      days[(d.getDay() + 6) % 7],
-      days[d.getDay()],
+      days[(d + 1) % 7],
+      days[(d + 2) % 7],
+      days[(d + 3) % 7],
+      days[(d + 4) % 7],
+      days[(d + 5) % 7],
+      days[(d + 6) % 7],
+      days[d],
     ];
-    // const labels = [days[d.getDay() - 6],days[d.getDay() - 5],days[d.getDay() - 4],days[d.getDay() - 3],days[d.getDay() - 2],days[d.getDay() - 1],days[d.getDay()]];
 
     if (pomos.length > 0) {
       return (
