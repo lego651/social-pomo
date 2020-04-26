@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
+
+// Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faHandsHelping, faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey } from '@fortawesome/free-solid-svg-icons';
-
-import './style.scss';
-import { addTodo } from '../../actions';
 import default_img from '../../assets/img/avatar.svg';
+
+// Actions 
+import { addTodo } from '../../actions';
+
+// Styles
+import './style.scss';
 class NavLeft extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +19,7 @@ class NavLeft extends Component {
       content: ''
     }
   }
+
   render(){
     const { avatar, nickName, handle } = this.props.user.profile;
     const shownName = nickName === null ? handle : nickName;
@@ -28,53 +34,53 @@ class NavLeft extends Component {
             <NavLink to={"/home"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faHome} /></span>
-              Home
+              <span className="nav">Home</span>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/dashboard"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
-              Dashboard
+              <span className="nav">Dashboard</span>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/match"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faHandsHelping} /></span>
-              Match
+              <span className="nav">Match</span>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/room"}
                      activeClassName="active">
               <span><FontAwesomeIcon icon={faDoorOpen} /></span>
-              Room
+              <span className="nav">Rome</span>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/project"}>
               <span><FontAwesomeIcon icon={faFileAlt} /></span>
-              Projects
+              <span className="nav">Projects</span>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/tag"}>
               <span><FontAwesomeIcon icon={faTags} /></span>
-              Tags
+              <span className="nav">Tags</span>
             </NavLink>
           </li>
           <hr />
           <li>
             <NavLink to={"/account"}>
               <span><FontAwesomeIcon icon={faCog} /></span>
-              My Account
+              <span className="nav">Account</span>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/password"}>
               <span><FontAwesomeIcon icon={faKey} /></span>
-              Password
+              <span className="nav">Password</span>
             </NavLink>
           </li>
         </ul>

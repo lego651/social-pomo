@@ -74,10 +74,10 @@ class Home extends Component {
         <NavbarTop />
         <Container>
           <Row>
-            <Col xs="3">
+            <Col sm="3" xs="2">
               <NavLeft />
             </Col>
-            <Col xs="9">
+            <Col sm="9" xs="10">
               <div className="home-header">
                 <h3> Home </h3>
                 { this.buildPomoList() }
