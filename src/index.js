@@ -39,8 +39,8 @@ if (token) {
   console.log(Date.now())
   if (decodedToken.exp * 1000 + 4 * 60 * 60 * 1000 < Date.now()) {
     store.dispatch(logoutUser());
+    localStorage.removeItem("FBIdToken");
     window.location.href = "/login";
-    localStorage.removeItem("FBIToken");
   } else {
     store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common["Authorization"] = token;

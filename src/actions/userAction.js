@@ -31,6 +31,7 @@ export const loginUser = (userData, history) => (dispatch) => {
     // if a user forgets to sign out.
     // ...
     // New sign-in will be persisted with session persistence.
+    console.log("setPersistence is called...");
     return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
   })
   .catch(function(error) {
@@ -57,15 +58,28 @@ export const loginUser = (userData, history) => (dispatch) => {
     });
 };
 
-export const refreshToken = () => (dispatch) => {
-  firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-    // Send token to your backend via HTTPS
-    // ...
-    console.log(idToken);
-  }).catch(function(error) {
-    // Handle error
-    console.log(error);
+export const refreshToken = () => {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      user.getIdToken(true)
+      .then(function(data) {
+        console.log("refreshToken is called...");
+        console.log(data)
+      })
+      .catch(function(error) {
+        // Handle error
+        console.log(error);
+      });
+    }
   });
+  // firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
+  //   // Send token to your backend via HTTPS
+  //   // ...
+  //   console.log(idToken);
+  // }).catch(function(error) {
+  //   // Handle error
+  //   console.log(error);
+  // });
 }
 
 export const signupUser = (newUserData, history) => (dispatch) => {
@@ -94,6 +108,7 @@ const setAuthorizationHeader = (token) => {
 };
 
 export const getUserData = () => (dispatch) => {
+  console.log("getUserData is called...");
   refreshToken();
   axios
     .get('/user')
@@ -107,6 +122,8 @@ export const getUserData = () => (dispatch) => {
       });
     })
     .catch((err) => {
+      localStorage.removeItem("FBIdToken");
+      window.location.href = "/login";
       console.log(err)
     });
 };
