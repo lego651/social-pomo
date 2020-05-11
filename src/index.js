@@ -35,9 +35,10 @@ axios.defaults.baseURL =
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
-  console.log(decodedToken.exp);
-  console.log(Date.now())
+  // console.log(decodedToken.exp);
+  // console.log(Date.now())
   if (decodedToken.exp * 1000 + 4 * 60 * 60 * 1000 < Date.now()) {
+    // console.log("logout called...");
     store.dispatch(logoutUser());
     localStorage.removeItem("FBIdToken");
     window.location.href = "/login";
@@ -55,7 +56,7 @@ ReactDOM.render(
         <Route exact path="/" component={Landing} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/home" component={requiresAuth(Home)} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
         <Route exact path="/account" component={requiresAuth(Account)} />
         <Route exact path="/password" component={requiresAuth(Password)} />
