@@ -5,8 +5,11 @@
   background-color: white;
   box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
   padding: 30px 20px;
+  @media only screen and (max-width: 992px) { 
+    padding: 30px 2px;
+  }
   @media only screen and (max-width: 576px) { 
-    padding: 5px;
+    padding: 20px 5px;
   }
 
   .navleft-user {
@@ -25,6 +28,7 @@
       color: #323a46;
       font-weight: 700;
       font-size: .9rem;
+      overflow: hidden;
     }
   }
   ul.navs {
@@ -39,10 +43,13 @@
         display: inline-block;
         width: 50px;
         text-align: center;
+        @media only screen and (max-width: 768px) { 
+          width: 100%;
+        }
       }
       span.nav {
         text-align: left;
-        @media only screen and (max-width: 576px) { 
+        @media only screen and (max-width: 768px) { 
           display: none; 
         }
       }
