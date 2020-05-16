@@ -163,7 +163,7 @@ button:hover {
 //Modal
 .modal-content{
   border: none;
-  border-radius: 18px;
+  border-radius: 10px;
   button {
     background-color:  $primary-color;
     border: none;
@@ -173,7 +173,7 @@ button:hover {
   .modal-header {
     background-color: $primary-color;
     border: none;
-    border-radius: 18px 18px 0 0 ;
+    border-radius: 10px 10px 0 0 ;
     padding: 25px 40px;
     .modal-title {
       font-size: 19px;
