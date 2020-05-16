@@ -118,10 +118,10 @@ class Tag extends Component {
         <Container>
           { this.buildAlert() }
           <Row>
-            <Col xs="3">
+            <Col sm="3" xs="2"> 
               <NavLeft />
             </Col>
-            <Col xs="9">
+            <Col sm="9" xs="10"> 
               { this.buildTagTable() }
             </Col>
           </Row>

@@ -96,10 +96,10 @@ class Password extends Component {
             </Alert>
           }
           <Row>
-            <Col xs="3">
+            <Col sm="3" xs="2"> 
               <NavLeft />
             </Col>
-            <Col xs="9">
+            <Col sm="9" xs="10"> 
               <h3> Password </h3>
               <div className="password-body">
                 <Form onSubmit={(e) => {this.handleSubmit(e)}}>
