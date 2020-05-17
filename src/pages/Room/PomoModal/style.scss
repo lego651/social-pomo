@@ -30,6 +30,7 @@
       float: left;
       color: rgba(22, 22, 22, 0.3);
       border-color: rgba(22, 22, 22, 0.2);
+      margin-left: 10px;
     }
     input {
       margin-left: 10px;
@@ -51,11 +52,9 @@
       }
     }
   }
-  .add-project-wrapper.create {
-    margin-top: 13px;
-  }
   .add-tag-wrapper {
-    margin-top: 10px;
+    clear: both;
+    margin-top: 20px;
     input {
       margin-left: 10px;
       background-color: rgb(241, 241, 244);
