@@ -285,10 +285,10 @@ export const removeTag = (tagName) => (dispatch) => {
 
 export const addTodo = (todo, handle, nickName, avatar, roomName) => (dispatch) => {
   const newMessage = {
-    content: `${nickName} will focus on: ${todo}.`,
-    userHandle: handle,
-    nickName: nickName,
-    avatar: avatar,
+    content: `${nickName} will focus on: ${todo}`,
+    userHandle: "Pomo",
+    nickName: "Pomo",
+    avatar: null,
     roomName: roomName    
   }
   axios

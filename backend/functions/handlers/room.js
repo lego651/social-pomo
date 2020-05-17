@@ -13,8 +13,8 @@ exports.createRoom = (req, res) => {
   const nickName = req.body.nickName;
 
   const message = {
-    userHandle: handle,
-    nickName: nickName,
+    userHandle: "Pomo",
+    nickName: "Pomo",
     content: `${nickName} created room.`,
     createdAt: new Date().toISOString()
   }
@@ -123,9 +123,9 @@ exports.joinRoom = (req, res) => {
     })
     .then(() => {
       const newMessage = {
-        content: `${nickName} joined room...`,
-        userHandle: handle,
-        nickName: nickName,
+        content: `${nickName} joined room`,
+        userHandle: "Pomo",
+        nickName: "Pomo",
         createdAt: new Date().toISOString()
       }
       return db.collection(`/rooms/${roomName}/messages`).add(newMessage);
