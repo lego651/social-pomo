@@ -116,6 +116,7 @@ class PomoModal extends Component {
     removeTodo();
     onHide();
   };
+
   render() {
     const { projects, tags } = this.props.user.profile;
     const content = this.props.user.todo;
@@ -267,7 +268,7 @@ class PomoModal extends Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}> Cancel </Button>
+          <Button id="close" onClick={this.props.onHide} variant="secondary"> Cancel </Button>
           <Button onClick={this.handleSubmit}> Submit </Button>
         </Modal.Footer>
       </Modal>

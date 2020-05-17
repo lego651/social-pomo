@@ -58,7 +58,7 @@ class Dashboard extends Component {
     return (
       <>
         <Row>
-          <Col xs="4">
+          <Col xs="12" md="4">
             <div className="panel last-week">
               <div className="panel-header">
                 <h5> Today </h5>
@@ -69,7 +69,7 @@ class Dashboard extends Component {
               <h2> 35 </h2>
             </div>
           </Col>
-          <Col xs="4">
+          <Col xs="12" md="4">
             <div className="panel last-week">
               <div className="panel-header">
                 <h5> Week </h5>
@@ -80,7 +80,7 @@ class Dashboard extends Component {
               <h2> 35 </h2>
             </div>
           </Col>
-          <Col xs="4">
+          <Col xs="12" md="4">
             <div className="panel total-pomo">
               <div className="panel-header">
                 <h5> All </h5>
@@ -185,10 +185,10 @@ class Dashboard extends Component {
         <NavbarTop />
         <Container>
           <Row>
-            <Col xs="3">
+            <Col sm="3" xs="2"> 
               <NavLeft />
             </Col>
-            <Col xs="9">
+            <Col sm= "9" xs="10">
               {this.buildTitle()}
               {this.buildSummary()}
               {this.buildWeeklyChart()}

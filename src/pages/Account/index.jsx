@@ -94,10 +94,10 @@ class Account extends Component {
             </Alert>
           }
           <Row>
-            <Col xs="3">
+            <Col sm="3" xs="2"> 
               <NavLeft />
             </Col>
-            <Col xs="9">
+            <Col sm="9" xs="10"> 
               <h3> My Account </h3>
               <div className="account-body">
                 <div className="account-avatar">

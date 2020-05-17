@@ -61,13 +61,13 @@ class Room extends Component {
         <NavbarTop />
         <Container>
           <Row>
-            <Col md={4}>
+            <Col md={4} sm={12} xs={12}>
               <Pomodoro roomName={roomname}
                         isOwner={isOwner}
                         startCount={(roomName) => this._startCount(roomName)} 
                         updateTime={(({roomName, type, time}) => this._updateTime({roomName, type, time}))}/>
             </Col>
-            <Col md={8} className="roomRight">
+            <Col md={8} sm={12} xs={12} className="roomRight">
               <div className="roomInfo">
                 <div>
                   <h2> { roomname.length === 20 ? 'Pomo Room' : roomname } </h2>

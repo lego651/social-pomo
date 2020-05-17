@@ -44,7 +44,9 @@ export const loginUser = (userData, history) => (dispatch) => {
   axios
     .post('/login', userData)
     .then((res) => {
+      // console.log("line 47", res.data);
       setAuthorizationHeader(res.data.token);
+
       dispatch(getUserDataAndRedirect(history));
       dispatch({
         type: CLEAR_ERRORS
@@ -129,6 +131,8 @@ export const getUserData = () => (dispatch) => {
 };
 
 export const getUserDataAndRedirect = (history) => (dispatch) => {
+  // console.log("redirect to login.");
+  history.push('/home');
   axios
     .get('/user')
     .then((res) => {
@@ -136,7 +140,6 @@ export const getUserDataAndRedirect = (history) => (dispatch) => {
         type: SET_USER,
         payload: res.data
       });
-      history.push('/home');
     })
     .catch((err) => console.log(err));
 }
@@ -282,10 +285,10 @@ export const removeTag = (tagName) => (dispatch) => {
 
 export const addTodo = (todo, handle, nickName, avatar, roomName) => (dispatch) => {
   const newMessage = {
-    content: `${nickName} will focus on: ${todo}.`,
-    userHandle: handle,
-    nickName: nickName,
-    avatar: avatar,
+    content: `${nickName} will focus on: ${todo}`,
+    userHandle: "Pomo",
+    nickName: "Pomo",
+    avatar: null,
     roomName: roomName    
   }
   axios

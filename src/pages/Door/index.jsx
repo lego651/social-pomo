@@ -64,10 +64,10 @@ class Door extends Component {
             </Alert>
           }
           <Row>
-            <Col xs="3">
+            <Col sm="3" xs="2"> 
               <NavLeft />
             </Col>
-            <Col xs="9">
+            <Col sm="9" xs="10"> 
               <div className="door-header">
                 <h3> Room </h3>
               </div>

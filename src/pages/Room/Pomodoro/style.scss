@@ -1,13 +1,13 @@
 @import "../../../index.scss";
 
 .pomodoro-container {
-  min-width: 250px;
+  // background-color:yellow;
   .options {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     .option {
-      margin: 15px;
+      margin: 1px;
       display: flex;
       flex-direction: column;
       text-align: center;
@@ -33,9 +33,14 @@
     }
   }
   .circular-container {
-    width: 500px;
+    // width: 500px;
+    width:  100%;
+    // background-color: red;
     margin-top: 30px;
-    margin-left: 18%;
+    margin-bottom: 30px;
+    // margin-left: 18%;
+    display: flex;
+    justify-content: center;
     button {
       border: none;
       font-size: 14.4px;
@@ -61,16 +66,33 @@
       margin-bottom: 400px;
     }
     .CircularProgressbar {
-      width: 200px;
-      height: 200px;
+      width: 160px;
+      height: 160px;
     }
     .control {
       color: $primary-color;
       font-size: 30px;
       position: relative;
-      top: -75px;
-      left: 90px;
+      // background-color: red;
+      margin-top: 30%;
+      left: -28%;
       cursor: pointer;
+      @media only screen and (max-width: 1200px) { 
+        margin-top: 38%;
+        left: -35%;
+      }
+      @media only screen and (max-width: 992px) { 
+        margin-top: 52%;
+        left: -48%;
+      }
+      @media only screen and (max-width: 768px) { 
+        margin-top: 20%;
+        left: -19%;
+      }
+      @media only screen and (max-width: 576px) { 
+        margin-top: 100px;
+        left: -90px;
+      }
     }
   }
 }
