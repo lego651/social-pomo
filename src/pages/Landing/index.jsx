@@ -20,7 +20,8 @@ import './style.scss';
 class Landing extends Component {
   componentWillMount() {
     if(localStorage.FBIdToken) {
-      window.location.href = "http://localhost:3000/home";
+      // window.location.href = "http://localhost:3000/home/";
+      window.location.href = "https://pomopal-dev.firebaseapp.com/";
     }
   }
   render(){
