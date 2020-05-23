@@ -60,8 +60,8 @@ exports.createRoom = (req, res) => {
         .then(() => { // 在 /rooms/roomname/messages 这个collection里面添加第一个message
           const firstMessage = {
             content: `${nickName} created room...`,
-            userHandle: handle,
-            nickName: nickName,
+            userHandle: "Pomo",
+            nickName: "Pomo",
             createdAt: new Date().toISOString()
           }
           return db.collection(`/rooms/${roomName}/messages`).add(firstMessage);
