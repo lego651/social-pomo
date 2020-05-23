@@ -17,7 +17,8 @@ import "./style.scss";
 // Utils
 import { parseTime } from "../../../utils/util.js";
 import firebase from "../../../utils/firebase.js";
-import alertAudio from "../../../assets/alert.mp3";
+import pomoStartSound from "../../../assets/pomoStartSound.mp3";
+import pomoStopSound from "../../../assets/pomoStopSound.mp3";
 
 class Pomodoro extends Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class Pomodoro extends Component {
       .collection("rooms")
       .doc(roomName);
     this.unsubsrcibe = null;
-    this.audio = new Audio(alertAudio);
+    this.startAudio = new Audio(pomoStartSound);
+    this.stopAudio = new Audio(pomoStopSound);
     this.state = {
       on: false,
       startTime: null,
@@ -69,7 +71,7 @@ class Pomodoro extends Component {
             Math.floor((new Date().getTime() - startTime) / 1000)
         });
       } else {
-        this.audio.play();
+        this.stopAudio.play();
         this.setState(
           {
             on: false,
@@ -106,6 +108,7 @@ class Pomodoro extends Component {
 
   handleStart = e => {
     e.preventDefault();
+    this.startAudio.play();
     // const currentRoom = {
     //   roomName: this.props.roomName
     // }
@@ -218,8 +221,6 @@ class Pomodoro extends Component {
     });
   }
 
-
-
   buildOptions() {
     const { type } = this.state;
     return (
@@ -308,7 +309,7 @@ class Pomodoro extends Component {
                 }}
               >
                 <FontAwesomeIcon icon={faPlay} />
-              </div>
+              </div> 
             )}
           </div>
         </Container>
