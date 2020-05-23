@@ -59,7 +59,7 @@ exports.createRoom = (req, res) => {
         })
         .then(() => { // 在 /rooms/roomname/messages 这个collection里面添加第一个message
           const firstMessage = {
-            content: `${nickName} created room...`,
+            content: `${nickName} created room.`,
             userHandle: "Pomo",
             nickName: "Pomo",
             createdAt: new Date().toISOString()
@@ -123,7 +123,7 @@ exports.joinRoom = (req, res) => {
     })
     .then(() => {
       const newMessage = {
-        content: `${nickName} joined room`,
+        content: `${nickName} joined room.`,
         userHandle: "Pomo",
         nickName: "Pomo",
         createdAt: new Date().toISOString()
@@ -250,7 +250,8 @@ exports.leaveRoom = (req, res) => {
           const leaveMessage = {
             content: `${handle} left room.`,
             userHandle: handle,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            nickName: "Pomo",
           }
           return db.collection(`/rooms/${roomName}/messages`).add(leaveMessage);
         })

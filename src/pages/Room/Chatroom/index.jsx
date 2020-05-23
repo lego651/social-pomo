@@ -141,6 +141,7 @@ class Chatroom extends Component {
   render() {
     const { username } = this.props;
     const { loadingMessage } = this.props.UI;
+    console.log(this.state.messages);
     return (
       <div className="chatroom-container">
         <div className="message-list">
