@@ -21,7 +21,7 @@ class Landing extends Component {
   componentWillMount() {
     if(localStorage.FBIdToken) {
       // window.location.href = "http://localhost:3000/home/";
-      window.location.href = "https://pomopal-dev.firebaseapp.com/";
+      window.location.href = "https://pomopal-dev.firebaseapp.com/home/";
     }
   }
   render(){
@@ -34,11 +34,11 @@ class Landing extends Component {
                   POMOPAL
                 </Col>
                 <Col md={8} xs={4} className="navs">
-                  Features 
+                  Features
                 </Col>
                 <Col md={2} xs={4} className="login">
                   <Link to="/login">
-                    <span><FontAwesomeIcon icon={faSignInAlt} /></span> Log in 
+                    <span><FontAwesomeIcon icon={faSignInAlt} /></span> Log in
                   </Link>
                 </Col>
               </Row>
@@ -92,27 +92,27 @@ class Landing extends Component {
                 <Col xs={12} sm={4} >
                   <Nav variant="pills" className="flex-column">
                     <Nav.Item>
-                      <Nav.Link eventKey="first"> 
-                        <span><FontAwesomeIcon icon={faLink}/></span> 
-                        Match Pomo Pal 
+                      <Nav.Link eventKey="first">
+                        <span><FontAwesomeIcon icon={faLink}/></span>
+                        Match Pomo Pal
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="second"> 
+                      <Nav.Link eventKey="second">
                         <span><FontAwesomeIcon icon={faUserFriends}/></span>
-                        Invite Friends 
+                        Invite Friends
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="third"> 
+                      <Nav.Link eventKey="third">
                         <span><FontAwesomeIcon icon={faLaptopCode}/></span>
-                        Stay Focused 
+                        Stay Focused
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="forth"> 
+                      <Nav.Link eventKey="forth">
                         <span><FontAwesomeIcon icon={faHistory}/></span>
-                        History Records 
+                        History Records
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -157,7 +157,7 @@ class Landing extends Component {
 
         <div className="footer">
           <div className="logo">
-            Pomopal 
+            Pomopal
           </div>
           <div className="rights">
             @ Pomopal.2020. All rights reserved.
@@ -169,4 +169,3 @@ class Landing extends Component {
 }
 
 export default Landing;
-
