@@ -50,6 +50,21 @@ class Room extends Component {
     this.props.updateTime({roomName, type, time}); 
   }
 
+  buildRoomModal = () => {
+    const { modalShow } = this.state;
+    const { roomname } = this.props.match.params;
+    return (
+      modalShow && <RoomModal
+        onSend={this.addTodo}
+        onHide={() => this.setModalShow(false)}
+        roomName={roomname}
+        handle={this.props.user.profile.handle}
+        curTodo={this.props.user.todo}
+        show={modalShow}
+      />
+    )
+  }
+
   render(){
     const { roomname } = this.props.match.params;
     const { inRoom, ownsRoom, handle, nickName } = this.props.user.profile;
@@ -89,15 +104,7 @@ class Room extends Component {
             </Col>
           </Row>
         </Container>
-        <RoomModal
-          show={this.state.modalShow}
-          onSend={this.addTodo}
-          onHide={() => this.setModalShow(false)}
-          roomName={roomname}
-          handle={this.props.user.profile.handle}
-          curTodo={this.props.user.todo}
-          {...this.props}
-        />
+        {this.buildRoomModal()}
         <LoadingModal show={this.props.UI.loading} />
       </div>
     )

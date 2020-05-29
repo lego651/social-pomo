@@ -39,10 +39,10 @@ class RoomModal extends Component {
     return (
       <Modal
         backdrop="static"
-        {...this.props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        show={this.props.show}
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
