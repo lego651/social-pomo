@@ -1,7 +1,11 @@
 export const parseTime = (time) => {
   let min = Math.floor(time / 60);
   let sec = Math.round(time % 60);
-  return min + " : " + sec;
+  return min + " : " + formatSeconds(sec);
+}
+
+const formatSeconds = (sec) => {
+  return sec > 9 ? "" + sec : "0" + sec;
 }
 
 // convertDateToSeq: count how many days between two dates; 
