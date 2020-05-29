@@ -91,11 +91,12 @@ class Room extends Component {
         </Container>
         <RoomModal
           show={this.state.modalShow}
-          onSend={(content, roomName) => this.addTodo(content, roomName)}
+          onSend={this.addTodo}
           onHide={() => this.setModalShow(false)}
           roomName={roomname}
           handle={this.props.user.profile.handle}
           curTodo={this.props.user.todo}
+          {...this.props}
         />
         <LoadingModal show={this.props.UI.loading} />
       </div>

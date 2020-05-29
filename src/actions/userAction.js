@@ -65,8 +65,8 @@ export const refreshToken = () => {
     if (user) {
       user.getIdToken(true)
       .then(function(data) {
-        console.log("refreshToken is called...");
-        console.log(data)
+        // console.log("refreshToken is called...");
+        // console.log(data)
       })
       .catch(function(error) {
         // Handle error
@@ -110,7 +110,6 @@ const setAuthorizationHeader = (token) => {
 };
 
 export const getUserData = () => (dispatch) => {
-  console.log("getUserData is called...");
   refreshToken();
   axios
     .get('/user')

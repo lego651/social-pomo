@@ -230,7 +230,7 @@ class Pomodoro extends Component {
             1
           </div>
           <div className={"icon" + (type === 0 ? ' show' : '')}>
-            🍋
+            <span role="img" aria-label="lemon">🍋</span>
           </div> 
         </div>
         <div className="option" id="1" onClick={() => this.onUpdateTime({type: 1, time: 25*60})}>
@@ -238,7 +238,7 @@ class Pomodoro extends Component {
             25
           </div>
           <div className={"icon" + (type === 1 ? ' show' : '')}>
-            🍅
+            <span role="img" aria-label="apple">🍅</span>
           </div>           
         </div>
         <div className="option" id="2" onClick={() => this.onUpdateTime({type: 2, time: 30*60})}>
@@ -246,7 +246,7 @@ class Pomodoro extends Component {
             30
           </div>
           <div className={"icon" + (type === 2 ? ' show' : '')}>
-            🍏
+            <span role="img" aria-label="apple2">🍏</span>
           </div>
         </div>
         <div className="option" id="3" onClick={() => this.onUpdateTime({type: 3, time: 45*60})}>
@@ -254,7 +254,7 @@ class Pomodoro extends Component {
             45
           </div>
           <div className={"icon" + (type === 3 ? ' show' : '')}>
-            🍉
+            <span role="img" aria-label="melon">🍉</span>
           </div>
         </div>
       </div>

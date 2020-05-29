@@ -61,7 +61,7 @@ class Home extends Component {
             { nickName }
           </div>
           <div className="content">
-            <span> ✅</span>{ content }
+            <span role="img" aria-label="check"> ✅</span>{ content }
           </div>
         </div>
       </div>
