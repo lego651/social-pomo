@@ -93,6 +93,10 @@ class PomoModal extends Component {
     });
   };
 
+  handleCancel = () => {
+    this.props.showCancelModal();
+  }
+
   handleSubmit = e => {
     const { createPomo, removeTodo, onHide, type, time } = this.props;
     const { avatar, nickName } = this.props.user.profile;
@@ -313,7 +317,7 @@ class PomoModal extends Component {
           {this.buildForm()}
         </Modal.Body>
         <Modal.Footer>
-          <Button id="close" onClick={this.props.onHide} variant="secondary"> Cancel </Button>
+          <Button id="close" onClick={this.handleCancel} variant="secondary"> Cancel </Button>
           <Button onClick={this.handleSubmit}> Submit </Button>
         </Modal.Footer>
       </Modal>

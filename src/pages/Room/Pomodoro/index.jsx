@@ -5,6 +5,7 @@ import axios from "axios";
 import { Container } from "react-bootstrap";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import PomoModal from "../PomoModal";
+import CancelModal from "./CancelModal";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,7 +35,8 @@ class Pomodoro extends Component {
     this.state = {
       on: false,
       startTime: null,
-      modalShow: false,
+      modalShow: true,
+      showCancelModal: false,
       type: 1,
       time: 25*60,
     };
@@ -191,6 +193,17 @@ class Pomodoro extends Component {
     });
   };
 
+  setShowCancelModal = bool => {
+    this.setState({
+      showCancelModal: bool
+    });
+  }
+
+  showCancelModal = () => {
+    this.setModalShow(false);
+    this.setShowCancelModal(true);
+  }
+
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -315,9 +328,20 @@ class Pomodoro extends Component {
         </Container>
         <PomoModal
           show={this.state.modalShow}
-          onHide={() => this.setModalShow(false)}
+          showCancelModal={this.showCancelModal}
           type={type}
           time={time}
+        />
+        <CancelModal
+          show={this.state.showCancelModal}
+          onBack={() => { 
+            this.setShowCancelModal(false);
+            this.setModalShow(true);
+          }}
+          onCancel={() => {
+            this.setShowCancelModal(false);
+            this.setModalShow(false);
+          }}
         />
       </div>
     );
