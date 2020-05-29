@@ -11,6 +11,9 @@
       display: flex;
       flex-direction: column;
       text-align: center;
+      &.inProgress {
+        pointer-events: none;
+      }
       .time {
         font-size: 34px;
         font-weight: 700;

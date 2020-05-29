@@ -225,7 +225,7 @@ class Pomodoro extends Component {
     const { type } = this.state;
     return (
       <div className="options">
-        <div className="option" id="0" onClick={() => { this.onUpdateTime({type: 0, time: 1*60})}}>
+        <div className={"option" + (this.state.on ? " inProgress" : "")} id="0" onClick={() => { this.onUpdateTime({type: 0, time: 1*60})}}>
           <div className={"time" + (type === 0 ? ' active' : '')}>
             1
           </div>
@@ -233,7 +233,7 @@ class Pomodoro extends Component {
             <span role="img" aria-label="lemon">🍋</span>
           </div> 
         </div>
-        <div className="option" id="1" onClick={() => this.onUpdateTime({type: 1, time: 25*60})}>
+        <div className={"option" + (this.state.on ? " inProgress" : "")} id="1" onClick={() => this.onUpdateTime({type: 1, time: 25*60})}>
           <div className={"time" + (type === 1 ? ' active' : '')}>
             25
           </div>
@@ -241,7 +241,7 @@ class Pomodoro extends Component {
             <span role="img" aria-label="apple">🍅</span>
           </div>           
         </div>
-        <div className="option" id="2" onClick={() => this.onUpdateTime({type: 2, time: 30*60})}>
+        <div className={"option" + (this.state.on ? " inProgress" : "")} id="2" onClick={() => this.onUpdateTime({type: 2, time: 30*60})}>
           <div className={"time" + (type === 2 ? ' active' : '')}>
             30
           </div>
@@ -249,7 +249,7 @@ class Pomodoro extends Component {
             <span role="img" aria-label="apple2">🍏</span>
           </div>
         </div>
-        <div className="option" id="3" onClick={() => this.onUpdateTime({type: 3, time: 45*60})}>
+        <div className={"option" + (this.state.on ? " inProgress" : "")} id="3" onClick={() => this.onUpdateTime({type: 3, time: 45*60})}>
           <div className={"time" + (type === 3 ? ' active' : '')}>
             45
           </div>
