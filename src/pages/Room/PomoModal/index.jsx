@@ -25,6 +25,7 @@ class PomoModal extends Component {
     super(props);
     this.state = {
       content: "",
+      public: true,
       project: "Other",
       tag: [],
       addProject: false,
@@ -78,6 +79,12 @@ class PomoModal extends Component {
     });
   };
 
+  toggleChecked = () => {
+    this.setState({
+      public: !this.state.public
+    })
+  }
+
   handleMultiChange = e => {
     this.props.clearSuccess();
     this.props.clearErrors();
@@ -117,11 +124,177 @@ class PomoModal extends Component {
     onHide();
   };
 
-  render() {
-    const { projects, tags } = this.props.user.profile;
+  buildEnterTask = () => {
     const content = this.props.user.todo;
+    return (
+      <Form.Group controlId="enterTask">
+        <Form.Label> What did you accomplish? </Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter your task"
+          defaultValue={content}
+          name="content"
+          onChange={e => {
+            this.handleChange(e);
+          }}
+        />
+      </Form.Group>
+    )
+  }
+
+  buildSelectProject = () => {
+    const { projects } = this.props.user.profile;
     const { errors, success } = this.props.UI;
-    // const { errors } = this.state;
+    return (
+      <Form.Group controlId="exampleForm.ControlSelect1">
+        <Form.Label>Select project</Form.Label>
+          <Form.Control.Feedback type="invalid">
+            {errors && errors.project}
+          </Form.Control.Feedback>
+          <Form.Control.Feedback type="valid">
+            {success && success.project}
+          </Form.Control.Feedback>
+          <Form.Control
+            as="select"
+            name="project"
+            onChange={e => {
+              this.handleChange(e);
+            }}
+          >
+            {projects &&
+              projects.map((p, i) => <option key={i}> {p} </option>)}
+          </Form.Control>
+
+          {this.state.addProject ? (
+            <div className="add-project-wrapper">
+              <input
+                type="text"
+                className="text"
+                placeholder="Enter project name"
+                name="newProject"
+                onChange={e => {
+                  this.handleChange(e);
+                }}
+              />
+              <span
+                className="hidden-btn"
+                onClick={() => {
+                  this.addNewProject();
+                  this.closeAddProject();
+                }}
+              >
+                Add
+              </span>
+              <span
+                className="hidden-btn cancel"
+                onClick={() => this.closeAddProject()}
+              >
+                Cancel
+              </span>
+            </div>
+          ) : (
+            <div className="add-project-wrapper create">
+              <span
+                className="hidden-btn"
+                onClick={() => this.openAddProject()}
+              >
+                Create new project
+              </span>
+            </div>
+          )}
+        </Form.Group>
+    )
+  }
+
+  buildSelectTag = () => {
+    const { tags } = this.props.user.profile;
+    const { errors, success } = this.props.UI;
+    return (
+      <Form.Group controlId="exampleForm.ControlSelect2">
+        <Form.Control.Feedback type="invalid">
+          {errors && errors.tag}
+        </Form.Control.Feedback>
+        <Form.Control.Feedback type="valid">
+          {success && success.tag}
+        </Form.Control.Feedback>
+        <Form.Label> Select tag </Form.Label>
+        <Form.Control
+          as="select"
+          multiple
+          name="tag"
+          onChange={e => {
+            this.handleMultiChange(e);
+          }}
+        >
+          {tags && tags.map((t, i) => <option key={i}> {t} </option>)}
+        </Form.Control>
+        {this.state.addTag ? (
+          <div className="add-tag-wrapper">
+            <input
+              type="text"
+              className="text"
+              placeholder="Enter tag name"
+              name="newTag"
+              onChange={e => {
+                this.handleChange(e);
+              }}
+            />
+            <span
+              className="hidden-btn"
+              onClick={() => {
+                this.addNewTag();
+              }}
+            >
+              Add
+            </span>
+            <span
+              className="hidden-btn cancel"
+              onClick={() => this.closeAddTag()}
+            >
+              Cancel
+            </span>
+          </div>
+        ) : (
+          <div className="add-tag-wrapper create">
+            <span
+              className="hidden-btn"
+              onClick={() => this.openAddTag()}
+            >
+              Create new tag
+            </span>
+          </div>
+        )}
+      </Form.Group>
+    )
+  }
+
+  buildSetPublic = () => {
+    return (
+      <Form.Group controlId="setPubilc">
+        <Form.Label> Share to public </Form.Label>
+        <Form.Check 
+          type="checkbox" 
+          checked={this.state.public}
+          label="Visible to Public"
+          onChange={this.toggleChecked}
+          name="check" />
+      </Form.Group>
+    )
+  }
+
+  buildForm = () => {
+    return (
+      <Form onSubmit={e =>{this.handleSubmit(e)}}>
+        {this.buildEnterTask()}
+        {this.buildSelectProject()}
+        {this.buildSelectTag()}
+        {this.buildSetPublic()}
+      </Form>
+    )
+  }
+
+  render() {
+    console.log(this.state.public);
     return (
       <Modal
         size="lg"
@@ -136,138 +309,7 @@ class PomoModal extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form
-            onSubmit={e => {
-              this.handleSubmit(e);
-            }}
-          >
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label> What did you accomplish? </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your task"
-                defaultValue={content}
-                name="content"
-                onChange={e => {
-                  this.handleChange(e);
-                }}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="exampleForm.ControlSelect1">
-              <Form.Label>Select project</Form.Label>
-              <Form.Control.Feedback type="invalid">
-                {errors && errors.project}
-              </Form.Control.Feedback>
-              <Form.Control.Feedback type="valid">
-                {success && success.project}
-              </Form.Control.Feedback>
-              <Form.Control
-                as="select"
-                name="project"
-                onChange={e => {
-                  this.handleChange(e);
-                }}
-              >
-                {projects &&
-                  projects.map((p, i) => <option key={i}> {p} </option>)}
-              </Form.Control>
-
-              {this.state.addProject ? (
-                <div className="add-project-wrapper">
-                  <input
-                    type="text"
-                    className="text"
-                    placeholder="Enter project name"
-                    name="newProject"
-                    onChange={e => {
-                      this.handleChange(e);
-                    }}
-                  />
-                  <span
-                    className="hidden-btn"
-                    onClick={() => {
-                      this.addNewProject();
-                      this.closeAddProject();
-                    }}
-                  >
-                    Add
-                  </span>
-                  <span
-                    className="hidden-btn cancel"
-                    onClick={() => this.closeAddProject()}
-                  >
-                    Cancel
-                  </span>
-                </div>
-              ) : (
-                <div className="add-project-wrapper create">
-                  <span
-                    className="hidden-btn"
-                    onClick={() => this.openAddProject()}
-                  >
-                    Create new project
-                  </span>
-                </div>
-              )}
-            </Form.Group>
-
-            <Form.Group controlId="exampleForm.ControlSelect2">
-              <Form.Control.Feedback type="invalid">
-                {errors && errors.tag}
-              </Form.Control.Feedback>
-              <Form.Control.Feedback type="valid">
-                {success && success.tag}
-              </Form.Control.Feedback>
-              <Form.Label> Select tag </Form.Label>
-              <Form.Control
-                as="select"
-                multiple
-                name="tag"
-                onChange={e => {
-                  this.handleMultiChange(e);
-                }}
-              >
-                {tags && tags.map((t, i) => <option key={i}> {t} </option>)}
-              </Form.Control>
-              {this.state.addTag ? (
-                <div className="add-tag-wrapper">
-                  <input
-                    type="text"
-                    className="text"
-                    placeholder="Enter tag name"
-                    name="newTag"
-                    onChange={e => {
-                      this.handleChange(e);
-                    }}
-                  />
-                  <span
-                    className="hidden-btn"
-                    onClick={() => {
-                      this.addNewTag();
-                    }}
-                  >
-                    Add
-                  </span>
-                  <span
-                    className="hidden-btn cancel"
-                    onClick={() => this.closeAddTag()}
-                  >
-                    Cancel
-                  </span>
-                </div>
-              ) : (
-                <div className="add-tag-wrapper create">
-                  <span
-                    className="hidden-btn"
-                    onClick={() => this.openAddTag()}
-                  >
-                    Create new tag
-                  </span>
-                </div>
-              )}
-            </Form.Group>
-          </Form>
+          {this.buildForm()}
         </Modal.Body>
         <Modal.Footer>
           <Button id="close" onClick={this.props.onHide} variant="secondary"> Cancel </Button>
