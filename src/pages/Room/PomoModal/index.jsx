@@ -124,15 +124,15 @@ class PomoModal extends Component {
     // const { errors } = this.state;
     return (
       <Modal
-        {...this.props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="pomo-modal"
+        show={this.props.show}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Add to history pomo
+            Add to history
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -34,7 +34,7 @@ class Pomodoro extends Component {
     this.state = {
       on: false,
       startTime: null,
-      modalShow: false,
+      modalShow: true,
       type: 1,
       time: 25*60,
     };
