@@ -175,6 +175,15 @@ class PomoModal extends Component {
 
               {this.state.addProject ? (
                 <div className="add-project-wrapper">
+                  <input
+                    type="text"
+                    className="text"
+                    placeholder="Enter project name"
+                    name="newProject"
+                    onChange={e => {
+                      this.handleChange(e);
+                    }}
+                  />
                   <span
                     className="hidden-btn"
                     onClick={() => {
@@ -182,7 +191,7 @@ class PomoModal extends Component {
                       this.closeAddProject();
                     }}
                   >
-                    confirm
+                    Add
                   </span>
                   <span
                     className="hidden-btn cancel"
@@ -190,14 +199,6 @@ class PomoModal extends Component {
                   >
                     Cancel
                   </span>
-                  <input
-                    type="text"
-                    placeholder="Enter project name"
-                    name="newProject"
-                    onChange={e => {
-                      this.handleChange(e);
-                    }}
-                  />
                 </div>
               ) : (
                 <div className="add-project-wrapper create">
@@ -231,22 +232,23 @@ class PomoModal extends Component {
               </Form.Control>
               {this.state.addTag ? (
                 <div className="add-tag-wrapper">
-                  <span
-                    className="hidden-btn"
-                    onClick={() => {
-                      this.addNewTag();
-                    }}
-                  >
-                    + Create tag
-                  </span>
                   <input
                     type="text"
+                    className="text"
                     placeholder="Enter tag name"
                     name="newTag"
                     onChange={e => {
                       this.handleChange(e);
                     }}
                   />
+                  <span
+                    className="hidden-btn"
+                    onClick={() => {
+                      this.addNewTag();
+                    }}
+                  >
+                    Add
+                  </span>
                   <span
                     className="hidden-btn cancel"
                     onClick={() => this.closeAddTag()}
