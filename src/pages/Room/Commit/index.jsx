@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 // Components
 import { Button, ButtonToolbar, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import DeleteRoomModal from "../DeleteRoomModal.jsx";
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,17 +16,33 @@ import './style.scss';
 import { deleteMessages, deleteRoom } from '../../../actions';
 
 class Commit extends Component {
-  deleteMessages = (roomname) => {
-    this.props.deleteMessages(roomname);
+  constructor(props) {
+    super(props);
+    this.state = {
+      showDeleteRoomModal: false,
+    };
   }
 
-  deleteRoom = (history, roomname) => {
-    this.props.deleteRoom(history, roomname);
+  setModalShow = (bool) => {
+    this.setState({
+      showDeleteRoomModal: bool
+    })
+  }
+
+  deleteMessages = () => {
+    const { roomName } = this.props;
+    this.props.deleteMessages(roomName);
+  }
+
+  deleteRoom = () => {
+    const { roomName, history } = this.props;
+    this.props.deleteRoom(history, roomName);
   }
 
   render() {
-    const { roomName, isOwner, history } = this.props;
+    const { isOwner } = this.props;
     return (
+      <>
       <div className="commit-container">
         <ButtonToolbar>
           {
@@ -43,7 +60,7 @@ class Commit extends Component {
               <Button
                 id="clear"
                 variant="secondary"
-                onClick={() => this.deleteRoom(history, roomName)}>
+                onClick={() => this.setModalShow(true)}>
                 <FontAwesomeIcon className="icon" icon={faTrashAlt} />
               </Button>
             </OverlayTrigger>
@@ -65,7 +82,7 @@ class Commit extends Component {
               <Button
                 id="clear"
                 variant="secondary"
-                onClick={() => this.deleteMessages(roomName)}>
+                onClick={this.deleteMessages}>
                 <FontAwesomeIcon className="icon" icon={faBroom} />
               </Button>
             </OverlayTrigger>
@@ -106,6 +123,12 @@ class Commit extends Component {
           </OverlayTrigger>
         </ButtonToolbar>
       </div>
+      <DeleteRoomModal
+        show={this.state.showDeleteRoomModal}
+        onDelete={this.deleteRoom}
+        onClose={() => this.setModalShow(false)}
+      />
+      </>
     )
   }
 }
