@@ -33,7 +33,9 @@ class Home extends Component {
   onUpdatePomos = (snapshot) => {
     const pomos = [];
     snapshot.forEach((doc) => {
-      pomos.push(doc.data());
+      if(doc.data().public) {
+        pomos.push(doc.data());
+      }
     })
     this.setState({ pomos });
   }
