@@ -25,6 +25,7 @@ exports.createPomo = (req, res) => {
     nickName: req.body.nickName,
     type: req.body.type,
     time: req.body.time,
+    public: req.body.public,
   }
   db.collection("pomos").add(newPomo)
     .then((doc) => {

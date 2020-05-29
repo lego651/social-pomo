@@ -108,6 +108,7 @@ class PomoModal extends Component {
       content: newContent,
       project: this.state.project,
       tag: this.state.tag,
+      public: this.state.public,
       month: m + 1,
       date: d,
       day: dateObj.getDay(),
