@@ -13,5 +13,27 @@
     height: 500px;
     background-color: white;
     padding: 30px 20%;
+
+    .timer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+      padding: 50px 0;
+      font-size: 75px;
+    }
+
+    .buttons {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      span {
+        font-size: 30px;
+        cursor: pointer;
+        margin-left: 10px;
+        color: $primary-color;
+      }
+    }
   }
 }
