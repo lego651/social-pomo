@@ -44,7 +44,6 @@ export const loginUser = (userData, history) => (dispatch) => {
   axios
     .post('/login', userData)
     .then((res) => {
-      // console.log("line 47", res.data);
       setAuthorizationHeader(res.data.token);
 
       dispatch(getUserDataAndRedirect(history));
