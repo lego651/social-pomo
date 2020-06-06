@@ -59,6 +59,13 @@ class NavLeft extends Component {
             </NavLink>
           </li>
           <li>
+            <NavLink to={"/solo"}
+                     activeClassName="active">
+              <span><FontAwesomeIcon icon={faDoorOpen} /></span>
+              <span className="nav">Solo</span>
+            </NavLink>
+          </li>
+          <li>
             <NavLink to={"/project"}>
               <span><FontAwesomeIcon icon={faFileAlt} /></span>
               <span className="nav">Projects</span>

@@ -15,6 +15,7 @@ import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Room from "./pages/Room";
+import Solo from "./pages/Solo/solo.jsx";
 import Test from "./pages/Test";
 import Project from "./pages/Project";
 import Tag from "./pages/Tag";
@@ -59,6 +60,7 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/solo" component={Solo} />
           <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
           <Route exact path="/account" component={requiresAuth(Account)} />
           <Route exact path="/password" component={requiresAuth(Password)} />
