@@ -4,7 +4,7 @@ import axios from "axios";
 // Components
 import { Container } from "react-bootstrap";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import PomoModal from "../PomoModal";
+import PomoModal from "./pomoModal";
 import CancelModal from "./CancelModal";
 
 // Icons
@@ -331,6 +331,7 @@ class Pomodoro extends Component {
           showCancelModal={this.showCancelModal}
           type={type}
           time={time}
+          onHide={() => this.setModalShow(false)}
         />
         <CancelModal
           show={this.state.showCancelModal}

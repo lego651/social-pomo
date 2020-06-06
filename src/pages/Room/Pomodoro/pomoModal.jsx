@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Modal, Button, Form } from "react-bootstrap";
 
 // css
-import "./style.scss";
+import "./pomoModal.scss";
 
 // actions
 import {
@@ -299,7 +299,6 @@ class PomoModal extends Component {
   }
 
   render() {
-    console.log(this.state.public);
     return (
       <Modal
         size="lg"
@@ -308,7 +307,7 @@ class PomoModal extends Component {
         className="pomo-modal"
         show={this.props.show}
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
             Add to history
           </Modal.Title>
