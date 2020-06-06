@@ -21,7 +21,7 @@ class Solo extends Component {
     super(props);
     this.interval = null;
     this.state = {
-      value: 5,
+      value: 25*60,
       on: false,
     }
   }
@@ -52,15 +52,15 @@ class Solo extends Component {
 
   buildRangeInput = () => {
     return (
-      <>
-        <h3>Set Timer</h3>
+      <div className="input-range">
+        <h4>Set Timer</h4>
         <InputRange
           name="Set Timer"
           maxValue={60}
           minValue={0}
           value={Math.round(this.state.value / 60)}
           onChange={value => this.setState({ value: value * 60})} />
-      </>
+      </div>
     )
   }
 
