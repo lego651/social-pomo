@@ -34,7 +34,7 @@ class Solo extends Component {
       value: 25 * 60,
       on: false,
       inputRangeDisabled: false,
-      modalShow: true,
+      showPomoModal: false,
       showCancelModal: false,
     };
   }
@@ -47,7 +47,7 @@ class Solo extends Component {
         this.setState(({ value }) => ({ value: value - 1 }));
       } else {
         this.stopAudio.play();
-        this.setState({ on: false, value: 25 * 60, modalShow: true });
+        this.setState({ on: false, value: 25 * 60, showPomoModal: true });
         clearInterval(this.interval);
       }
     }, 1000);
@@ -63,14 +63,14 @@ class Solo extends Component {
       on: false,
       value: 25 * 60,
       inputRangeDisabled: false,
-      modalShow: true,
+      showPomoModal: false
     });
     clearInterval(this.interval);
   };
 
-  setModalShow = (bool) => {
+  setShowPomoModal = (bool) => {
     this.setState({
-      modalShow: bool,
+      showPomoModal: bool,
     });
   };
 
@@ -81,7 +81,7 @@ class Solo extends Component {
   };
 
   showCancelModal = () => {
-    this.setModalShow(false);
+    this.setShowPomoModal(false);
     this.setShowCancelModal(true);
   };
 
@@ -147,19 +147,19 @@ class Solo extends Component {
           </Row>
         </Container>
         <PomoModal
-          show={this.state.modalShow}
+          show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}
-          onHide={() => this.setModalShow(false)}
+          onHide={() => this.setShowPomoModal(false)}
         />
         <CancelModal
           show={this.state.showCancelModal}
           onBack={() => {
             this.setShowCancelModal(false);
-            this.setModalShow(true);
+            this.setShowPomoModal(true);
           }}
           onCancel={() => {
             this.setShowCancelModal(false);
-            this.setModalShow(false);
+            this.setShowPomoModal(false);
           }}
         />
       </div>
