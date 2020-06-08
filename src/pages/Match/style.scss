@@ -1,24 +1,32 @@
-
 .match-container {
+  .return-button {
+    cursor: pointer;
+    margin: auto 150px;
+    width: 40px;
+    height: 40px;
+    @media only screen and (max-width: 1000px) {
+      margin: auto 50px;
+    }
+  }
   .not-ready-container {
-     .waiting-container {
-       margin: 200px auto;
-       width: 600px;
-       text-align: center;
-       img {
-         width: 200px;
-       }
-       p {
-         margin-top: 20px;
-         color: #6c757d;
-         font-size: 18px;
-       }
-       button {
-         margin-top: 40px;
-         padding: 12px 60px;
-         border-radius: 40px;
-       }
-     }
+    .waiting-container {
+      margin: 200px auto;
+      width: 600px;
+      text-align: center;
+      img {
+        width: 200px;
+      }
+      p {
+        margin-top: 20px;
+        color: #6c757d;
+        font-size: 18px;
+      }
+      button {
+        margin-top: 40px;
+        padding: 12px 60px;
+        border-radius: 40px;
+      }
+    }
     .matching-container {
       margin: 200px auto;
       width: 400px;
