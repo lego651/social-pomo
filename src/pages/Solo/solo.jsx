@@ -149,6 +149,8 @@ class Solo extends Component {
         <PomoModal
           show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}
+          type={-1}
+          time={this.state.value}
           onHide={() => this.setShowPomoModal(false)}
         />
         <CancelModal
