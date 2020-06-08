@@ -1,54 +1,89 @@
-import React, { Component } from 'react';
-import InputRange from 'react-input-range';
+import React, { Component } from "react";
+import InputRange from "react-input-range";
 
 // Components
-import { Container, Row, Col } from 'react-bootstrap';
-import NavbarTop from '../../components/NavbarTop';
-import NavLeft from '../../components/NavLeft';
+import { Container, Row, Col } from "react-bootstrap";
+import NavbarTop from "../../components/NavbarTop";
+import NavLeft from "../../components/NavLeft";
+import PomoModal from "../Room/Pomodoro/pomoModal";
+import CancelModal from "../Room/Pomodoro/CancelModal";
 
 // Utils
 import { parseTime } from "../../utils/util.js";
+import pomoStartSound from "../../assets/pomoStartSound.mp3";
+import pomoStopSound from "../../assets/pomoStopSound.mp3";
 
 // Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlayCircle, faPauseCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlayCircle,
+  faPauseCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Styles
-import './solo.scss';
+import "./solo.scss";
 
 class Solo extends Component {
   constructor(props) {
     super(props);
     this.interval = null;
+    this.startAudio = new Audio(pomoStartSound);
+    this.stopAudio = new Audio(pomoStopSound);
     this.state = {
-      value: 25*60,
+      value: 25 * 60,
       on: false,
-    }
+      inputRangeDisabled: false,
+      modalShow: true,
+      showCancelModal: false,
+    };
   }
 
   onStart = () => {
-    this.setState({on: true});
-    this.interval = setInterval(
-      () => {
-        if(this.state.value > 0) {
-          this.setState(({value}) => ({value: value - 1}))
-        } else {
-          this.setState({on: false, value:25*60});
-          clearInterval(this.interval);
-        }
+    this.setState({ on: true, inputRangeDisabled: true });
+    this.startAudio.play();
+    this.interval = setInterval(() => {
+      if (this.state.value > 0) {
+        this.setState(({ value }) => ({ value: value - 1 }));
+      } else {
+        this.stopAudio.play();
+        this.setState({ on: false, value: 25 * 60, modalShow: true });
+        clearInterval(this.interval);
       }
-    , 1000);
-  }
+    }, 1000);
+  };
 
   onPause = () => {
-    this.setState({on: false});
+    this.setState({ on: false });
     clearInterval(this.interval);
-  }
+  };
 
   onReset = () => {
-    this.setState({on: false, value:25*60});
+    this.setState({
+      on: false,
+      value: 25 * 60,
+      inputRangeDisabled: false,
+      modalShow: true,
+    });
     clearInterval(this.interval);
-  }
+  };
+
+  setModalShow = (bool) => {
+    this.setState({
+      modalShow: bool,
+    });
+  };
+
+  setShowCancelModal = (bool) => {
+    this.setState({
+      showCancelModal: bool,
+    });
+  };
+
+  showCancelModal = () => {
+    this.setModalShow(false);
+    this.setShowCancelModal(true);
+  };
 
   buildRangeInput = () => {
     return (
@@ -59,31 +94,39 @@ class Solo extends Component {
           maxValue={60}
           minValue={0}
           value={Math.round(this.state.value / 60)}
-          onChange={value => this.setState({ value: value * 60})} />
+          onChange={(value) => this.setState({ value: value * 60 })}
+          disabled={this.state.inputRangeDisabled}
+        />
       </div>
-    )
-  }
+    );
+  };
 
   buildTimer = () => {
-    return (
-      <div className="timer">
-        {parseTime(this.state.value)}
-      </div>
-    )
-  }
+    return <div className="timer">{parseTime(this.state.value)}</div>;
+  };
 
   buildButtonGroup = () => {
     return (
       <div className="buttons">
-        {!this.state.on && <span onClick={this.onStart}><FontAwesomeIcon icon={faPlayCircle} /></span>}
-        {this.state.on && <span onClick={this.onPause}><FontAwesomeIcon icon={faPauseCircle} /></span>}
-        <span onClick={this.onReset}><FontAwesomeIcon icon={faTimesCircle} /></span>
+        {!this.state.on && (
+          <span onClick={this.onStart}>
+            <FontAwesomeIcon icon={faPlayCircle} />
+          </span>
+        )}
+        {this.state.on && (
+          <span onClick={this.onPause}>
+            <FontAwesomeIcon icon={faPauseCircle} />
+          </span>
+        )}
+        <span onClick={this.onReset}>
+          <FontAwesomeIcon icon={faTimesCircle} />
+        </span>
       </div>
-    )
-  }
+    );
+  };
 
   render() {
-    return(
+    return (
       <div className="solo-container">
         <NavbarTop />
         <Container>
@@ -102,12 +145,26 @@ class Solo extends Component {
               </div>
             </Col>
           </Row>
-        </Container>   
+        </Container>
+        <PomoModal
+          show={this.state.modalShow}
+          showCancelModal={this.showCancelModal}
+          onHide={() => this.setModalShow(false)}
+        />
+        <CancelModal
+          show={this.state.showCancelModal}
+          onBack={() => {
+            this.setShowCancelModal(false);
+            this.setModalShow(true);
+          }}
+          onCancel={() => {
+            this.setShowCancelModal(false);
+            this.setModalShow(false);
+          }}
+        />
       </div>
-    )
+    );
   }
 }
 
 export default Solo;
-
-
