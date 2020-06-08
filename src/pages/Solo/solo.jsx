@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import InputRange from "react-input-range";
+import cogoToast from 'cogo-toast';
 
 // Components
 import { Container, Row, Col } from "react-bootstrap";
@@ -85,6 +86,10 @@ class Solo extends Component {
     this.setShowCancelModal(true);
   };
 
+  showSuccessToast = () => {
+    cogoToast.success("Success!", { position: 'top-right' });
+  }
+
   buildRangeInput = () => {
     return (
       <div className="input-range">
@@ -152,6 +157,7 @@ class Solo extends Component {
           type={-1}
           time={this.state.value}
           onHide={() => this.setShowPomoModal(false)}
+          onSuccess={this.showSuccessToast}
         />
         <CancelModal
           show={this.state.showCancelModal}
