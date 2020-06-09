@@ -1,24 +1,33 @@
-
 .match-container {
+  .back-container {
+    .back-button {
+      margin-left: 15px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 30px;
+      color: #6c757d;
+    } 
+  }
   .not-ready-container {
-     .waiting-container {
-       margin: 200px auto;
-       width: 600px;
-       text-align: center;
-       img {
-         width: 200px;
-       }
-       p {
-         margin-top: 20px;
-         color: #6c757d;
-         font-size: 18px;
-       }
-       button {
-         margin-top: 40px;
-         padding: 12px 60px;
-         border-radius: 40px;
-       }
-     }
+    .waiting-container {
+      margin: 200px auto;
+      width: 600px;
+      text-align: center;
+      img {
+        width: 200px;
+      }
+      p {
+        margin-top: 20px;
+        color: #6c757d;
+        font-size: 18px;
+      }
+      button {
+        margin-top: 40px;
+        padding: 12px 60px;
+        border-radius: 40px;
+      }
+    }
     .matching-container {
       margin: 200px auto;
       width: 400px;
