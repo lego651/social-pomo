@@ -1,23 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import firebase from "../../utils/firebase.js";
-import { Button } from "react-bootstrap";
 
+// Components
+import { Button, Container } from "react-bootstrap";
+import NavbarTop from "../../components/NavbarTop";
+import LoadingModal from "../../components/LoadingModal";
+import MatchModal from "./MatchModal";
+
+// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import connectingImg from "../../assets/img/connecting.svg";
+import loadingImg from "../../assets/img/loading.gif";
+import joiningImg from "../../assets/img/joining.svg";
 
+// Styles
 import "./style.scss";
+
+// Actions
 import {
   startMatching,
   joinMatchedRoom,
   deleteRoomNoRedirect,
 } from "../../actions";
-import NavbarTop from "../../components/NavbarTop";
-import LoadingModal from "../../components/LoadingModal";
-import MatchModal from "./MatchModal";
-import connectingImg from "../../assets/img/connecting.svg";
-import loadingImg from "../../assets/img/loading.gif";
-import joiningImg from "../../assets/img/joining.svg";
 
 class Match extends Component {
   constructor(props) {
@@ -34,8 +40,8 @@ class Match extends Component {
     this.curHandle = props.username;
     this.onUpdatePairs = this.onUpdatePairs.bind(this);
   }
+
   onUpdatePairs = (snapshot) => {
-    // console.log(this.curHandle);
     const pairs = [];
     snapshot.forEach((doc) => {
       pairs.push({
@@ -47,32 +53,33 @@ class Match extends Component {
       pairs,
     });
   };
+
   handleClick = () => {
-    // console.log('button clicked')
-    // this.setState({
-    //   matching: true
-    // })
     this.props.startMatching();
   };
+
   handleGoBack = () => {
     this.props.history.goBack();
   };
+
   handleJoinRoom = () => {
-    // console.log(history);
-    // console.log(this.state.roomName);
     this.props.joinMatchedRoom(this.state.roomName, this.props.history);
   };
+
   setModalShow = (bool) => {
     this.setState({
       modalShow: bool,
     });
   };
+
   deleteOwnsRoom = (roomName) => {
     this.props.deleteRoomNoRedirect(roomName);
   };
+
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onUpdatePairs);
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.inPairs && this.props.username) {
       for (let i = 0, len = this.state.pairs.length; i < len; i++) {
@@ -85,13 +92,25 @@ class Match extends Component {
       }
     }
   }
+
+  buildGoBack = () => {
+    return (
+      <div className="back-container">
+        <Container>
+          <div className="back-button" onClick={this.handleGoBack}>
+            <span>
+              <FontAwesomeIcon icon={faArrowCircleLeft} />
+            </span>
+          </div>
+        </Container>
+      </div>
+    )
+  }
+  
   render() {
     const { inPairs } = this.state;
     const { matching, ownsRoom } = this.props;
     const showModal = ownsRoom && ownsRoom.length > 0;
-    // console.log(this.curHandle);
-    // console.log(this.state.pairs);
-    console.log(this.state.inPairs);
     const notReady = (
       <div className="not-ready-container">
         {matching ? (
@@ -119,18 +138,12 @@ class Match extends Component {
           </div>
         )}
       </div>
-    );
+    )
+
     return (
       <div className="match-container">
         <NavbarTop />
-        <div>
-          <span onClick={() => this.handleGoBack()}>
-            <FontAwesomeIcon
-              className="return-button"
-              icon={faArrowCircleLeft}
-            />
-          </span>
-        </div>
+        {this.buildGoBack()}
         {inPairs ? (
           <div className="joining-container">
             <img src={joiningImg} alt="joining" />

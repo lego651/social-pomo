@@ -1,12 +1,13 @@
 .match-container {
-  .return-button {
-    cursor: pointer;
-    margin: auto 150px;
-    width: 40px;
-    height: 40px;
-    @media only screen and (max-width: 1000px) {
-      margin: auto 50px;
-    }
+  .back-container {
+    .back-button {
+      margin-left: 15px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 30px;
+      color: #6c757d;
+    } 
   }
   .not-ready-container {
     .waiting-container {
