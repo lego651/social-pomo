@@ -43,6 +43,7 @@ class Solo extends Component {
   onStart = () => {
     this.setState({ on: true, inputRangeDisabled: true });
     this.startAudio.play();
+    this.showPomoStartToast();
     this.interval = setInterval(() => {
       if (this.state.value > 0) {
         this.setState(({ value }) => ({ value: value - 1 }));
@@ -87,7 +88,11 @@ class Solo extends Component {
   };
 
   showSuccessToast = () => {
-    cogoToast.success("Success!", { position: 'top-right' });
+    cogoToast.success("Logged Successully, Enjoy!", { position: 'top-center' });
+  };
+
+  showPomoStartToast = () => {
+    cogoToast.loading("Pomodoro Starts, Enjoy!", { position: 'top-center' });
   }
 
   buildRangeInput = () => {
