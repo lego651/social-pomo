@@ -99,8 +99,6 @@ exports.getTodayPomoList = (req, res) => {
     .then((snapshot) => {
       let pomos = [];
       snapshot.forEach((doc) => {
-        console.log(doc)
-        console.log(doc.data())
         pomos.push({
           content: doc.data().content,
           createdAt: doc.data().createdAt,
@@ -113,6 +111,31 @@ exports.getTodayPomoList = (req, res) => {
         })
       });
       return res.json(pomos);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err });
+    })
+}
+
+// GET: Today Minutes
+exports.getTodayMinutes = (req, res) => {
+  const handle = req.user.handle;
+  const dateObj = new Date();
+  const y = dateObj.getFullYear();
+  const m = dateObj.getMonth();
+  const d = dateObj.getDate();
+  const s = convertDateToSeq(y, m + 1, d);
+
+  db.collection('pomos')
+    .where("seq", "==", s)
+    .where("handle", "==", handle)
+    .get()
+    .then((snapshot) => {
+      let minutes = 0;
+      snapshot.forEach((doc) => {
+        minutes += doc.data().time / 60;
+      });
+      return res.json(minutes);
     })
     .catch((err) => {
       return res.status(500).json({ error: err });
