@@ -38,6 +38,11 @@ class Solo extends Component {
       showPomoModal: false,
       showCancelModal: false,
     };
+    this.showNotification = this.showNotification.bind(this);
+  }
+
+  componentDidMount() {
+    this.grantNotificationPermission();
   }
 
   onStart = () => {
@@ -49,6 +54,7 @@ class Solo extends Component {
         this.setState(({ value }) => ({ value: value - 1 }));
       } else {
         this.stopAudio.play();
+        this.showNotification();
         this.setState({ on: false, value: 25 * 60, showPomoModal: true });
         clearInterval(this.interval);
       }
@@ -94,6 +100,37 @@ class Solo extends Component {
   showPomoStartToast = () => {
     cogoToast.loading("Pomodoro Starts, Enjoy!", { position: 'top-center' });
   }
+
+  grantNotificationPermission = () => {
+    if (!("Notification" in window)) {
+      alert("This browser does not support system notifications");
+      return;
+    }
+
+    if (Notification.permission === "granted") {
+      new Notification("You are already subscribed to message notifications");
+      return;
+    }
+
+    if (
+      Notification.permission !== "denied" ||
+      Notification.permission === "default"
+    ) {
+      Notification.requestPermission().then((result) => {
+        if (result === "granted") {
+          new Notification(
+            "Awesome! You will start receiving notifications shortly"
+          );
+        }
+      });
+    }
+  };
+
+  showNotification = () => {
+    const title = "Pomopal";
+    const body = "You complete a session.";
+    new Notification(title, { body });
+  };
 
   buildRangeInput = () => {
     return (
