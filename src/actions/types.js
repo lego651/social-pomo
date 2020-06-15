@@ -33,6 +33,7 @@ export const SET_TODO = 'SET_TODO';
 // POMO reducer types
 export const GET_POMOS = 'GET_POMOS';
 export const GET_WEEKLY_POMO = 'GET_WEEKLY_POMO';
+export const GET_MINUTES_TODAY = 'GET_MINUTES_TODAY';
 
 // MATCH reducer types
 export const START_MATCHING = 'START_MATCHING';

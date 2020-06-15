@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import NavbarTop from "../../components/NavbarTop";
 import NavLeft from "../../components/NavLeft";
-import WeeklyChart from "./WeeklyChart";
+import WeeklyChart from "./weeklyChart";
+import WeeklySummary from "./weeklySummary";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,48 +48,6 @@ class Dashboard extends Component {
           <FontAwesomeIcon icon={faPlusCircle} /> Match
         </Link>
       </div>
-    );
-  }
-
-  buildSummary() {
-    return (
-      <>
-        <Row>
-          <Col xs="12" md="4">
-            <div className="panel last-week">
-              <div className="panel-header">
-                <h5> Today </h5>
-                <span className="blue">
-                  <FontAwesomeIcon icon={faCalendarWeek} />
-                </span>
-              </div>
-              <h2> 35 </h2>
-            </div>
-          </Col>
-          <Col xs="12" md="4">
-            <div className="panel last-week">
-              <div className="panel-header">
-                <h5> Week </h5>
-                <span className="blue">
-                  <FontAwesomeIcon icon={faCalendarWeek} />
-                </span>
-              </div>
-              <h2> 35 </h2>
-            </div>
-          </Col>
-          <Col xs="12" md="4">
-            <div className="panel total-pomo">
-              <div className="panel-header">
-                <h5> All </h5>
-                <span>
-                  <FontAwesomeIcon icon={faWallet} />
-                </span>
-              </div>
-              <h2> 125 </h2>
-            </div>
-          </Col>
-        </Row>
-      </>
     );
   }
 
@@ -186,7 +145,7 @@ class Dashboard extends Component {
             </Col>
             <Col sm= "9" xs="10">
               {this.buildTitle()}
-              {this.buildSummary()}
+              <WeeklySummary />
               {this.buildWeeklyChart()}
             </Col>
           </Row>

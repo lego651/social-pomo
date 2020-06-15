@@ -36,10 +36,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = createStore(
   persistedReducer,
-  // compose(
-  //   applyMiddleware(thunkMiddleware),
-  //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  // )
-  applyMiddleware(thunkMiddleware)
+  compose(
+    applyMiddleware(thunkMiddleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+  // applyMiddleware(thunkMiddleware)
 );
 export const persistor = persistStore(store);

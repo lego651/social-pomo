@@ -2,12 +2,14 @@
 
 import {
   GET_POMOS,
-  GET_WEEKLY_POMO
+  GET_WEEKLY_POMO,
+  GET_MINUTES_TODAY,
 } from '../actions/types';
 
 const initialState = {
   pomos: [],
   weekly_pomo: [],
+  minutes_today: 0,
 }
 
 const pomoReducer = (state=initialState, action) => {
@@ -21,6 +23,11 @@ const pomoReducer = (state=initialState, action) => {
       return {
         ...state,
         weekly_pomo: action.payload
+      };
+    case GET_MINUTES_TODAY:
+      return {
+        ...state,
+        minutes_today: action.payload
       };
     default:
       return state;
