@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {
   GET_WEEKLY_POMO
+  GET_MINUTES_TODAY,
 } from './types';
 
 export const createPomo = (newPomoObj) => (dispatch) => {
@@ -29,3 +30,18 @@ export const getWeeklyPomo = () => (dispatch) => {
       console.error(err);
     })
 }
+
+export const getMinutesToday = () => (dispatch) => {
+  axios
+    .get('/minutes/today')
+    .then((res) => {
+      dispatch({
+        type: GET_MINUTES_TODAY,
+        payload: res.data
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+}
+

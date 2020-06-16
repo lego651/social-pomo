@@ -62,6 +62,24 @@ exports.fetchAllPomo = (req, res) => {
     })
 }
 
+// GET: All minutes
+exports.getAllMinutes = (req, res) => {
+  const handle = req.user.handle;
+  db.collection('pomos')
+    .where("handle", "==", handle)
+    .get()
+    .then((data) => {
+      let minutes = 0;
+      data.forEach((doc) => {
+        minutes += doc.data().time / 60;
+      });
+      return res.json(minutes);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err });
+    })
+}
+
 // Today Pomos
 exports.getTodayPomoCount = (req, res) => {
   const handle = req.user.handle;
@@ -142,7 +160,33 @@ exports.getTodayMinutes = (req, res) => {
     })
 }
 
-// Week Pomo List 
+// GET: Week Minutes
+exports.getWeekMinutes = (req, res) => {
+  const handle = req.user.handle;
+  const dateObj = new Date();
+  const y = dateObj.getFullYear();
+  const m = dateObj.getMonth();
+  const d = dateObj.getDate();
+  const s = convertDateToSeq(y, m + 1, d);
+
+  db.collection('pomos')
+    .where("handle", "==", handle)
+    .where("seq", "<=", s)
+    .where("seq", ">=", s - 6)
+    .get()
+    .then((snapshot) => {
+      let minutes = 0;
+      snapshot.forEach((doc) => {
+        minutes += doc.data().time / 60;
+      });
+      return res.json(minutes);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: err });
+    })
+}
+
+// GET: Week Pomo List 
 exports.getWeekPomoList = (req, res) => {
   const handle = req.user.handle;
   const dateObj = new Date();
