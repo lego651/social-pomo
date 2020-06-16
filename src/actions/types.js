@@ -34,6 +34,8 @@ export const SET_TODO = 'SET_TODO';
 export const GET_POMOS = 'GET_POMOS';
 export const GET_WEEKLY_POMO = 'GET_WEEKLY_POMO';
 export const GET_MINUTES_TODAY = 'GET_MINUTES_TODAY';
+export const GET_MINUTES_WEEK = 'GET_MINUTES_WEEK';
+export const GET_MINUTES_ALL = 'GET_MINUTES_ALL';
 
 // MATCH reducer types
 export const START_MATCHING = 'START_MATCHING';

@@ -13,11 +13,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // Actions
-import { logoutUser, getWeeklyPomo } from "../../actions";
+import { logoutUser, getMinutesToday, getMinutesWeek, getMinutesAll} from "../../actions";
 
 class WeeklySummary extends Component {
   componentWillMount() {
-    this.props.getWeeklyPomo();
+    this.props.getMinutesToday();
+    this.props.getMinutesWeek();
+    this.props.getMinutesAll();
   }
 
   render() {
@@ -32,7 +34,7 @@ class WeeklySummary extends Component {
                   <FontAwesomeIcon icon={faCalendarWeek} />
                 </span>
               </div>
-              <h2> {Math.round(this.props.pomo.minutes_today / 60)} </h2>
+              <h2> {this.props.pomo.minutes_today} </h2>
             </div>
           </Col>
           <Col xs="12" md="4">
@@ -43,7 +45,7 @@ class WeeklySummary extends Component {
                   <FontAwesomeIcon icon={faCalendarWeek} />
                 </span>
               </div>
-              <h2> 35 </h2>
+              <h2> {this.props.pomo.minutes_week} </h2>
             </div>
           </Col>
           <Col xs="12" md="4">
@@ -54,7 +56,7 @@ class WeeklySummary extends Component {
                   <FontAwesomeIcon icon={faWallet} />
                 </span>
               </div>
-              <h2> 125 </h2>
+              <h2> {this.props.pomo.minutes_all} </h2>
             </div>
           </Col>
         </Row>
@@ -69,7 +71,7 @@ const mapStateToProps = (state) => ({
   pomo: state.pomo,
 });
 
-export default connect(mapStateToProps, { logoutUser, getWeeklyPomo })(
+export default connect(mapStateToProps, { logoutUser, getMinutesToday, getMinutesWeek, getMinutesAll })(
   WeeklySummary
 );
 
