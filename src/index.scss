@@ -132,7 +132,7 @@ button:hover {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
   }
-  &:active, &:hover {
+  &:active, &:hover, &:disabled {
     background-color: rgb(0,161,214) !important;
     border: none !important;
     outline: none !important;
