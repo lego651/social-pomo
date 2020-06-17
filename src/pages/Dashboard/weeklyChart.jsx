@@ -31,7 +31,6 @@ class WeeklyChart extends Component {
   }
 
   render() {
-    console.log(this.props.pomos);
     return (
       <div>
         <canvas id="myChart" ref={this.chartRef} />
