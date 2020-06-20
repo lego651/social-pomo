@@ -8,6 +8,12 @@ const formatSeconds = (sec) => {
   return sec > 9 ? "" + sec : "0" + sec;
 }
 
+export const formatToHourMinute = (minutes) => {
+  let hr = Math.floor(minutes / 60);
+  let min = minutes % 60;
+  return (hr > 0 ? (hr + "h") : "") + (min + "m");
+}
+
 // convertDateToSeq: count how many days between two dates; 
 // console.log(convertDateToSeq(2020, 1, 29)); // 29 + 31 = 60
 export const convertDateToSeq = (y, m, d) => {
