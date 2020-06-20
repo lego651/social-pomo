@@ -7,9 +7,9 @@ import { Container, Row, Col } from "react-bootstrap";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlusCircle,
-  faWallet,
+  faCalendarAlt,
   faCalendarWeek,
+  faCalendarDay,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Actions
@@ -34,7 +34,7 @@ class WeeklySummary extends Component {
               <div className="panel-header">
                 <h5> Today </h5>
                 <span className="blue">
-                  <FontAwesomeIcon icon={faCalendarWeek} />
+                  <FontAwesomeIcon icon={faCalendarDay} />
                 </span>
               </div>
               <h2>{formatToHourMinute(this.props.pomo.minutes_today)}</h2>
@@ -44,7 +44,7 @@ class WeeklySummary extends Component {
             <div className="panel last-week">
               <div className="panel-header">
                 <h5> Week </h5>
-                <span className="blue">
+                <span>
                   <FontAwesomeIcon icon={faCalendarWeek} />
                 </span>
               </div>
@@ -55,8 +55,8 @@ class WeeklySummary extends Component {
             <div className="panel total-pomo">
               <div className="panel-header">
                 <h5> All </h5>
-                <span>
-                  <FontAwesomeIcon icon={faWallet} />
+                <span className="yellow">
+                  <FontAwesomeIcon icon={faCalendarAlt} />
                 </span>
               </div>
               <h2>{formatToHourMinute(this.props.pomo.minutes_all)}</h2>

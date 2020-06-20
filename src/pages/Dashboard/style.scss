@@ -34,7 +34,7 @@
         width: 40px;
         height: 40px;
         box-sizing: border-box;
-        border: 1px solid #eef2f7;
+        // border: 1px solid #eef2f7;
         border-radius: .25rem;
         text-align: center;
         padding: 7px;
@@ -42,6 +42,10 @@
       span.blue {
         background-color: $bg-color-blue;
         color: $primary-blue;
+      }
+      span.yellow {
+        background-color: $bg-color-yellow;
+        color: $primary-yellow;
       }
     }
   }
