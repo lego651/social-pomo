@@ -41,7 +41,8 @@
       padding: 50px 0;
       font-size: 100px;
       font-weight: 700;
-      color: $primary-color;
+      color: rgba(251, 114, 153, .85);
+      // color: $primary-blue;
       @media only screen and (max-width: 768px) { 
         font-size: 60px;
       }
