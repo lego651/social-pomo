@@ -107,10 +107,10 @@ class Solo extends Component {
       return;
     }
 
-    if (Notification.permission === "granted") {
-      new Notification("You are already subscribed to message notifications");
-      return;
-    }
+    // if (Notification.permission === "granted") {
+    //   new Notification("You are already subscribed to message notifications");
+    //   return;
+    // }
 
     if (
       Notification.permission !== "denied" ||
@@ -128,8 +128,11 @@ class Solo extends Component {
 
   showNotification = () => {
     const title = "Pomopal";
-    const body = "You complete a session.";
-    new Notification(title, { body });
+    const options = {
+      body: "You completed a session.",
+      icon: '/myFavico.png'
+    };
+    new Notification(title, options);
   };
 
   buildRangeInput = () => {

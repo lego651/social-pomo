@@ -107,10 +107,10 @@ class Chatroom extends Component {
       return;
     }
 
-    if (Notification.permission === "granted") {
-      new Notification("You are already subscribed to message notifications");
-      return;
-    }
+    // if (Notification.permission === "granted") {
+    //   new Notification("You are already subscribed to message notifications");
+    //   return;
+    // }
 
     if (
       Notification.permission !== "denied" ||
@@ -133,8 +133,11 @@ class Chatroom extends Component {
       message.userHandle !== this.curHandle
     ) {
       const title = message.nickName || message.userHandle;
-      const body = message.content;
-      new Notification(title, { body });
+      const options = {
+        body: message.content,
+        icon: '/myFavicon.png'
+      }
+      new Notification(title, options);
     }
   };
 
