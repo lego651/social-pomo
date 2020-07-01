@@ -8,6 +8,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://us-central1-pomopal-dev.cloudfunctions.net/api';
 
+
 class App extends Component {
   render() {
     const { username } = this.props
