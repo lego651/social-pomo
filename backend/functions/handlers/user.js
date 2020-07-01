@@ -92,7 +92,7 @@ exports.login = (req, res) => {
       return data.user.getIdToken();   
     })
     .then((token) => {
-      const expiresIn = 60 * 60 * 2 * 1000;
+      const expiresIn = 60 * 60 * 24 * 1000;
       return admin.auth().createSessionCookie(token, {expiresIn})
       .then((sessionCookie) => {
         

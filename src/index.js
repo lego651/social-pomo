@@ -39,7 +39,7 @@ if (token) {
   const decodedToken = jwtDecode(token);
   // console.log(decodedToken.exp);
   // console.log(Date.now())
-  if (decodedToken.exp * 1000 + 2 * 60 * 60 * 1000 < Date.now()) {
+  if (decodedToken.exp * 1000 + 24 * 60 * 60 * 1000 < Date.now()) {
     // console.log("logout called...");
     store.dispatch(logoutUser());
     localStorage.removeItem("FBIdToken");
