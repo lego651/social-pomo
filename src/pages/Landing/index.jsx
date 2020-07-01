@@ -71,7 +71,7 @@ class Landing extends Component {
                     Stay in the zone with an accountable pal or your friend.
                   </div>
                   <Button variant="success">
-                    <Link to="/login">
+                    <Link to="/signup">
                       Get Started{" "}
                       <span>
                         <FontAwesomeIcon icon={faArrowRight} />
@@ -164,7 +164,7 @@ class Landing extends Component {
         <div className="call-to-action-section">
           <Container>
             Try Pomopal Today?
-            <Link>Get Started</Link>
+            <Link to="/signup">Get Started</Link>
           </Container>
         </div>
 
