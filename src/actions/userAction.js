@@ -24,27 +24,27 @@ require('firebase/auth')
 export const loginUser = (userData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
 
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-  .then(function() {
-    // Existing and future Auth states are now persisted in the current
-    // session only. Closing the window would clear any existing state even
-    // if a user forgets to sign out.
-    // ...
-    // New sign-in will be persisted with session persistence.
-    console.log("setPersistence is called...");
-    return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
-  })
-  .catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode + errorMessage)
-  });
+  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  // .then(function() {
+  //   // Existing and future Auth states are now persisted in the current
+  //   // session only. Closing the window would clear any existing state even
+  //   // if a user forgets to sign out.
+  //   // ...
+  //   // New sign-in will be persisted with session persistence.
+  //   console.log("setPersistence is called...");
+  //   return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
+  // })
+  // .catch(function(error) {
+  //   // Handle Errors here.
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   console.log(errorCode + errorMessage)
+  // });
 
   axios
     .post('/login', userData)
     .then((res) => {
-      setAuthorizationHeader(res.data.token);
+      setAuthorizationHeader(res.data);
 
       dispatch(getUserDataAndRedirect(history));
       dispatch({
@@ -88,7 +88,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
   axios
     .post('/signup', newUserData)
     .then((res) => {
-      setAuthorizationHeader(res.data.token);
+      setAuthorizationHeader(res.data);
       dispatch(getUserDataAndRedirect(history));
       dispatch({
         type: CLEAR_ERRORS
@@ -102,8 +102,9 @@ export const signupUser = (newUserData, history) => (dispatch) => {
     });
 };
 
-const setAuthorizationHeader = (token) => {
-  const FBIdToken = `Bearer ${token}`;
+const setAuthorizationHeader = (authObject) => {
+  const { token, cookie } = authObject;
+  const FBIdToken = `${cookie} Bearer ${token}`;
   localStorage.setItem('FBIdToken', FBIdToken);
   axios.defaults.headers.common['Authorization'] = FBIdToken;
 };

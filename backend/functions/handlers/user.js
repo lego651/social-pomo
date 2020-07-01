@@ -84,15 +84,36 @@ exports.login = (req, res) => {
 
   if (!valid) return res.status(400).json(errors);
 
-  // Default
+  //
   firebase
     .auth()
     .signInWithEmailAndPassword(user.email, user.password)
     .then((data) => {
-      return data.user.getIdToken();
+      return data.user.getIdToken();   
     })
     .then((token) => {
-      return res.json({ token });
+      const expiresIn = 60 * 60 * 24 * 1000;
+      return admin.auth().createSessionCookie(token, {expiresIn})
+      .then((sessionCookie) => {
+        
+        // Set cookie policy for session cookie and set in response.
+        const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+        res.cookie('__session', sessionCookie, options);
+        
+        admin.auth().verifyIdToken(token)
+          .then(function(decodedClaims) {
+            // return res.redirect('/home');
+            return res.json({ token: token, cookie: sessionCookie });
+          })
+          .catch(err => {
+            console.log(err.code + err.message);
+          })     
+        return;     
+      })
+      .catch(err => {
+        console.log(err.code + err.message);
+        res.status(401).send('UNAUTHORIZED REQUEST!');
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -100,6 +121,23 @@ exports.login = (req, res) => {
         .status(403)
         .json({ password: 'Email or password is incorrect, please try again.' });
     });
+
+  // Default
+  // firebase
+  //   .auth()
+  //   .signInWithEmailAndPassword(user.email, user.password)
+  //   .then((data) => {
+  //     return data.user.getIdToken();
+  //   })
+  //   .then((token) => {
+  //     return res.json({ token });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     return res
+  //       .status(403)
+  //       .json({ password: 'Email or password is incorrect, please try again.' });
+  //   });
 
   // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
   //   .then(() => {
@@ -123,6 +161,31 @@ exports.login = (req, res) => {
   //     console.log(error.code + error.message);
   //   });
 };
+
+// function setCookie(idToken, res) {
+// 	// Set session expiration to 5 days.
+// 	// Create the session cookie. This will also verify the ID token in the process.
+// 	// The session cookie will have the same claims as the ID token.
+	
+// 	const expiresIn = 60 * 60 * 24 * 5 * 1000;
+//   admin.auth().createSessionCookie(idToken, {expiresIn})
+//   .then((sessionCookie) => {
+		
+// 		// Set cookie policy for session cookie and set in response.
+// 		const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+// 		res.cookie('__session', sessionCookie, options);
+		
+// 		return admin.auth().verifyIdToken(idToken).then(function(decodedClaims) {
+//       // return res.redirect('/home');
+//       return res.json({ token });
+// 		});
+			
+//   })
+//   .catch(err => {
+//     console.log(err.code + err.message);
+//     res.status(401).send('UNAUTHORIZED REQUEST!');
+//   })
+// }
 
 // Add User Details
 exports.addUserDetails = (req, res) => {

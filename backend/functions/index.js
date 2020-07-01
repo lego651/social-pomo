@@ -40,12 +40,30 @@ const { addToWaiting,
 
 const FBAuth = require('./utils/fbAuth');
 
+// const FBAuth = function checkCookieMiddleware(req, res, next) {
+// 	const sessionCookie = req.cookies.__session || '';
+
+//   admin.auth().verifySessionCookie(sessionCookie, true)
+//     .then((decodedClaims) => {
+// 			req.decodedClaims = decodedClaims;
+//       next();
+//       return;
+// 		})
+// 		.catch(error => {
+// 			// Session cookie is unavailable or invalid. Force user to login.
+// 			res.redirect('/login');
+// 		});
+// }
+
 // admin.initializeApp();
 const express = require('express');
 const app = express();
+const cookieParser  = require('cookie-parser');
 
 var cors = require('cors')
 app.use(cors());
+
+app.use(cookieParser());
 
 // User Auth Routes
 app.post('/signup', signup);
