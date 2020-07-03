@@ -35,6 +35,7 @@
       a {
         background-color: #eef2f7;
         width: 100%;
+        min-height: 36px;
         color: #474d56;
         border: 1px solid transparent;
         border-radius: 20px;
@@ -44,6 +45,7 @@
         }
         &:hover {
           cursor: pointer;
+          color: white;
         }
       }
     }
