@@ -293,7 +293,7 @@ class PomoModal extends Component {
       <Form onSubmit={e =>{this.handleSubmit(e)}}>
         {this.buildEnterTask()}
         {this.buildSelectProject()}
-        {this.buildSelectTag()}
+        {/* {this.buildSelectTag()} */}
         {this.buildSetPublic()}
       </Form>
     )
