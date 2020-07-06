@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 // Components
 import { Modal, Button, Form } from "react-bootstrap";
+import Toggle from 'react-bootstrap-toggle';
 
 // css
 import "./pomoModal.scss";
@@ -275,15 +276,16 @@ class PomoModal extends Component {
   }
 
   buildSetPublic = () => {
+    let checked = this.state.public;
     return (
       <Form.Group controlId="setPubilc">
         <Form.Label> Share to public </Form.Label>
-        <Form.Check 
-          type="checkbox" 
-          checked={this.state.public}
-          label="Visible to Public"
-          onChange={this.toggleChecked}
-          name="check" />
+        <div className="switch-container">
+          <label className="switch">
+            <input type="checkbox" checked={checked} onChange={this.toggleChecked} />
+            <span className="slider round"></span>
+          </label>
+        </div>
       </Form.Group>
     )
   }
