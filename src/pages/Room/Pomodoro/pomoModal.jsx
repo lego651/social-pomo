@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 // Components
 import { Modal, Button, Form } from "react-bootstrap";
-import Toggle from 'react-bootstrap-toggle';
 
 // css
 import "./pomoModal.scss";
