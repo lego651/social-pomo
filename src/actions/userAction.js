@@ -17,6 +17,7 @@ import {
   REMOVE_TAG,
   SET_TODO,
   REMOVE_TODO,
+  POSTING,
 } from './types';
 
 require('firebase/auth')
@@ -201,6 +202,9 @@ export const addProject = (projectName) => (dispatch) => {
   dispatch({
     type: CLEAR_ERRORS
   });
+  dispatch({
+    type: POSTING
+  });
   const newProject = {
     project: projectName
   }
@@ -208,12 +212,12 @@ export const addProject = (projectName) => (dispatch) => {
     .post('/project', newProject)
     .then((res) => {
       dispatch({
-        type: ADD_PROJECT,
-        payload: newProject
-      })
-      dispatch({
         type: SET_SUCCESS,
         payload: {'project': 'New project created.'}
+      })
+      dispatch({
+        type: ADD_PROJECT,
+        payload: newProject
       })
     })
     .catch((err) => {

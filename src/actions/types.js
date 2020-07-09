@@ -26,6 +26,10 @@ export const LOADING_DATA = 'LOADING_DATA';
 export const STOP_LOADING_UI = 'STOP_LOADING_UI';
 export const LOADING_MESSAGE = 'LOADING_MESSAGE';
 export const STOP_LOADING_MESSAGE = 'STOP_LOADING_MESSAGE';
+export const GETTING = 'GETTING';
+export const STOP_GETTING = 'STOP_GETTING';
+export const POSTING = 'POSTING';
+export const STOP_POSTING = 'STOP_POSTING';
 
 // ROOM reducer types
 export const SET_TODO = 'SET_TODO';

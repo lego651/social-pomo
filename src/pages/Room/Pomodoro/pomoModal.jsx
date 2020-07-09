@@ -7,6 +7,10 @@ import { Modal, Button, Form } from "react-bootstrap";
 // css
 import "./pomoModal.scss";
 
+// Icons 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
+
 // actions
 import {
   createPomo,
@@ -31,7 +35,8 @@ class PomoModal extends Component {
       addProject: false,
       addTag: false,
       newProject: "",
-      newTag: ""
+      newTag: "",
+      addingTag: false,
     };
   }
 
@@ -148,9 +153,50 @@ class PomoModal extends Component {
     )
   }
 
+  buildAddProjectButtons = () => {
+    const { addProject } = this.state;
+    return addProject ? (
+        <div className="add-project-wrapper">
+          <input
+            type="text"
+            className="text"
+            placeholder="Enter project name"
+            name="newProject"
+            onChange={e => {
+              this.handleChange(e);
+            }}
+          />
+          <span
+            className="hidden-btn"
+            onClick={() => {
+              this.addNewProject();
+              this.closeAddProject();
+            }}
+          >
+            Add
+          </span>
+          <span
+            className="hidden-btn cancel"
+            onClick={() => this.closeAddProject()}
+          >
+            Cancel
+          </span>
+        </div>
+      ) : (
+        <div className="add-project-wrapper create">
+          <span
+            className="hidden-btn"
+            onClick={() => this.openAddProject()}
+          >
+            Create new project
+          </span>
+        </div>
+      );
+  }
+
   buildSelectProject = () => {
     const { projects } = this.props.user.profile;
-    const { errors, success } = this.props.UI;
+    const { errors, success, posting } = this.props.UI;
     return (
       <Form.Group controlId="exampleForm.ControlSelect1">
         <Form.Label>Select project</Form.Label>
@@ -170,44 +216,7 @@ class PomoModal extends Component {
             {projects &&
               projects.map((p, i) => <option key={i}> {p} </option>)}
           </Form.Control>
-
-          {this.state.addProject ? (
-            <div className="add-project-wrapper">
-              <input
-                type="text"
-                className="text"
-                placeholder="Enter project name"
-                name="newProject"
-                onChange={e => {
-                  this.handleChange(e);
-                }}
-              />
-              <span
-                className="hidden-btn"
-                onClick={() => {
-                  this.addNewProject();
-                  this.closeAddProject();
-                }}
-              >
-                Add
-              </span>
-              <span
-                className="hidden-btn cancel"
-                onClick={() => this.closeAddProject()}
-              >
-                Cancel
-              </span>
-            </div>
-          ) : (
-            <div className="add-project-wrapper create">
-              <span
-                className="hidden-btn"
-                onClick={() => this.openAddProject()}
-              >
-                Create new project
-              </span>
-            </div>
-          )}
+          { posting ? <FontAwesomeIcon className="icon" icon={faSync} spin /> : this.buildAddProjectButtons()}
         </Form.Group>
     )
   }
