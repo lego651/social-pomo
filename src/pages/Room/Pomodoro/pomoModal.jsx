@@ -3,13 +3,10 @@ import { connect } from "react-redux";
 
 // Components
 import { Modal, Button, Form } from "react-bootstrap";
+import MoonLoader from "react-spinners/MoonLoader";
 
 // css
 import "./pomoModal.scss";
-
-// Icons 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSync } from "@fortawesome/free-solid-svg-icons";
 
 // actions
 import {
@@ -38,6 +35,15 @@ class PomoModal extends Component {
       newTag: "",
       addingTag: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.user.profile.projects.length !== this.props.user.profile.projects.length) {
+      const projects = this.props.user.profile.projects;
+      this.setState({
+        project: projects[projects.length - 1]
+      });
+    }
   }
 
   openAddProject = () => {
@@ -209,6 +215,7 @@ class PomoModal extends Component {
           <Form.Control
             as="select"
             name="project"
+            value={this.state.project}
             onChange={e => {
               this.handleChange(e);
             }}
@@ -216,7 +223,14 @@ class PomoModal extends Component {
             {projects &&
               projects.map((p, i) => <option key={i}> {p} </option>)}
           </Form.Control>
-          { posting ? <FontAwesomeIcon className="icon" icon={faSync} spin /> : this.buildAddProjectButtons()}
+          { posting ? 
+            <div className="add-project-wrapper">
+              <MoonLoader
+                size={25}
+                color={"#474d56"}
+                loading={posting}/> 
+            </div> : 
+            this.buildAddProjectButtons()}
         </Form.Group>
     )
   }
