@@ -12,7 +12,7 @@ export const createPomo = (newPomoObj) => (dispatch) => {
   axios
     .post('/pomo', newPomoObj)
     .then((res) => {
-      console.log(res);
+
     })
     .catch((err) => {
       console.error(err);
