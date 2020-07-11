@@ -345,7 +345,7 @@ class PomoModal extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button id="close" onClick={this.handleCancel} variant="secondary"> Cancel </Button>
-          <Button onClick={this.handleSubmit} disabled={this.state.content.trim().length == 0}> Submit </Button>
+          <Button onClick={this.handleSubmit} disabled={this.state.content.trim().length === 0}> Submit </Button>
         </Modal.Footer>
       </Modal>
     );

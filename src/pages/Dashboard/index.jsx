@@ -14,8 +14,6 @@ import WeeklySummary from "./weeklySummary";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,
-  faWallet,
-  faCalendarWeek,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Actions
