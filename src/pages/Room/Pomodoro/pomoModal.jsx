@@ -111,34 +111,37 @@ class PomoModal extends Component {
   handleSubmit = e => {
     const { createPomo, removeTodo, onHide, type, time, onSuccess } = this.props;
     const { avatar, nickName } = this.props.user.profile;
-    e.preventDefault();
-    const newContent =
-      this.state.content.length > 0 ? this.state.content : this.props.user.todo;
-    const dateObj = new Date();
-    const y = dateObj.getFullYear();
-    const m = dateObj.getMonth();
-    const d = dateObj.getDate();
-    const s = convertDateToSeq(y, m + 1, d);
-    const newPomo = {
-      content: newContent,
-      project: this.state.project,
-      tag: this.state.tag,
-      public: this.state.public,
-      month: m + 1,
-      date: d,
-      day: dateObj.getDay(),
-      hour: dateObj.getHours(),
-      minute: dateObj.getMinutes(),
-      seq: s,
-      nickName,
-      avatar,
-      type,
-      time 
-    };
-    createPomo(newPomo);
-    removeTodo();
-    onHide();
-    onSuccess();
+
+    if(this.state.content.trim().length > 0) {
+      e.preventDefault();
+      const newContent =
+        this.state.content.length > 0 ? this.state.content : this.props.user.todo;
+      const dateObj = new Date();
+      const y = dateObj.getFullYear();
+      const m = dateObj.getMonth();
+      const d = dateObj.getDate();
+      const s = convertDateToSeq(y, m + 1, d);
+      const newPomo = {
+        content: newContent,
+        project: this.state.project,
+        tag: this.state.tag,
+        public: this.state.public,
+        month: m + 1,
+        date: d,
+        day: dateObj.getDay(),
+        hour: dateObj.getHours(),
+        minute: dateObj.getMinutes(),
+        seq: s,
+        nickName,
+        avatar,
+        type,
+        time 
+      };
+      createPomo(newPomo);
+      removeTodo();
+      onHide();
+      onSuccess();
+    }
   };
 
   buildEnterTask = () => {
@@ -342,7 +345,7 @@ class PomoModal extends Component {
         </Modal.Body>
         <Modal.Footer>
           <Button id="close" onClick={this.handleCancel} variant="secondary"> Cancel </Button>
-          <Button onClick={this.handleSubmit}> Submit </Button>
+          <Button onClick={this.handleSubmit} disabled={this.state.content.trim().length == 0}> Submit </Button>
         </Modal.Footer>
       </Modal>
     );
