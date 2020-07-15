@@ -51,8 +51,8 @@ class NavbarTop extends Component {
     const { avatar } = this.props.user.profile;
     return (
       <div className="dropdown-wrapper" onClick={this.showMenu}>
-        <img src={avatar ? avatar : default_img} alt="avatar" />
-        <span><FontAwesomeIcon icon={faCaretDown} /></span>
+        <img src={avatar ? avatar : default_img} alt="avatar" /> 
+        <span> <FontAwesomeIcon icon={faCaretDown} /> </span>
       </div>
     )
   }
@@ -88,12 +88,10 @@ class NavbarTop extends Component {
   render(){
     return(
       <div className="navbar-container">
-        <Container>
-          <Navbar>
-            <Navbar.Brand href="/dashboard"> Pomopal </Navbar.Brand>
-            {this.buildAvatarAndDropdown()}
-          </Navbar>
-        </Container>
+        <Navbar>
+          <Navbar.Brand href="/dashboard"> Pomopal </Navbar.Brand>
+          {this.buildAvatarAndDropdown()}
+        </Navbar>
       </div>
     )
   }
