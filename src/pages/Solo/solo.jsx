@@ -35,7 +35,7 @@ class Solo extends Component {
       value: 25 * 60,
       on: false,
       inputRangeDisabled: false,
-      showPomoModal: true,
+      showPomoModal: false,
       showCancelModal: false,
     };
     this.showNotification = this.showNotification.bind(this);
