@@ -6,13 +6,13 @@ import { Container, Navbar } from 'react-bootstrap';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faBars } from '@fortawesome/free-solid-svg-icons';
 
 // Styles
 import './style.scss';
 
 // Actions
-import { addTodo,logoutUser } from '../../actions';
+import { addTodo,logoutUser, toggleSidebar } from '../../actions';
 
 // Images
 import default_img from '../../assets/img/avatar.svg';
@@ -52,7 +52,7 @@ class NavbarTop extends Component {
     return (
       <div className="dropdown-wrapper" onClick={this.showMenu}>
         <img src={avatar ? avatar : default_img} alt="avatar" /> 
-        <span> <FontAwesomeIcon icon={faCaretDown} /> </span>
+        <span> <FontAwesomeIcon icon={faCaretDown} /></span>
       </div>
     )
   }
@@ -89,6 +89,7 @@ class NavbarTop extends Component {
     return(
       <div className="navbar-container">
         <Navbar>
+          <span onClick={this.props.toggleSidebar}><FontAwesomeIcon icon={faBars} /></span>
           <Navbar.Brand href="/dashboard"> Pomopal </Navbar.Brand>
           {this.buildAvatarAndDropdown()}
         </Navbar>
@@ -104,5 +105,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { addTodo, logoutUser }
+  { addTodo, logoutUser, toggleSidebar }
 )(NavbarTop);

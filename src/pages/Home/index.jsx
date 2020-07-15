@@ -70,23 +70,23 @@ class Home extends Component {
     )
   }
 
+  buildContent = () => {
+    return (
+      <div className="home-header">
+        <h3> Home </h3>
+        { this.buildPomoList() }
+      </div>
+    )
+  }
+
   render() {
     return(
       <div className="home-container">
         <NavbarTop />
-        <Container>
-          <Row>
-            <Col sm="3" xs="2">
-              <NavLeft />
-            </Col>
-            <Col sm="9" xs="10">
-              <div className="home-header">
-                <h3> Home </h3>
-                { this.buildPomoList() }
-              </div>
-            </Col>
-          </Row>
-        </Container>   
+        <div className="body-container">
+          <NavLeft />
+          {this.buildContent()}
+        </div>
       </div>
     )
   }

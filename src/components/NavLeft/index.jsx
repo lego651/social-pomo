@@ -12,6 +12,7 @@ import { addTodo } from '../../actions';
 
 // Styles
 import './style.scss';
+
 class NavLeft extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +23,10 @@ class NavLeft extends Component {
 
   render(){
     const { avatar, nickName, handle } = this.props.user.profile;
+    const { showSidebar } = this.props.UI;
     const shownName = nickName === null ? handle : nickName;
     return(
+      showSidebar &&
       <div className="navleft-container">
         <div className="navleft-user">
           { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}

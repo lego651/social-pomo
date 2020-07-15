@@ -10,7 +10,8 @@ import {
   GETTING,
   STOP_GETTING,
   POSTING,
-  STOP_POSTING
+  STOP_POSTING,
+  TOGGLE_SIDEBAR,
 } from '../actions/types';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   loadingMessage: false,
   getting: false,
   posting: false, 
+  showSidebar: true,
 };
 
 export default function(state = initialState, action) {
@@ -95,6 +97,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posting: false
+      };
+    case TOGGLE_SIDEBAR:
+      return {
+        ...state,
+        showSidebar: !state.showSidebar
       };
     default:
       return state;

@@ -4,21 +4,24 @@
   background-color: white;
   padding: 0 20px;
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
-  margin-bottom: 50px;
+
   .navbar-brand {
     color: black;
     font-size: 22px;
     font-weight: 800;
   }
+
   .username {
     color: #6c757d;
     font-weight: 600;
     margin-right: 10px;
   }
+
   .dropdown {
     .dropdown-wrapper {
       cursor: pointer;
     }
+
     .dropdown-content {
       right:0;
       display: none;
@@ -29,6 +32,7 @@
       z-index: 1;
       border-radius: 5px;
     }
+
     .dropdown-content a {
       color: $primary-font-color;
       padding: 12px 16px;
@@ -40,6 +44,7 @@
     }
     .dropdown-content a:hover {background-color: #f8f9fa;}
     .dropdown-content {display: block;}
+    
     img {
       width: 40px;
       height: 40px;

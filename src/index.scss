@@ -74,6 +74,11 @@ body {
   font-family: 'Nunito', sans-serif;
 }
 
+.body-container {
+  display: flex;
+  flex-direction: row;
+}
+
 button:hover {
   -webkit-box-shadow: 0px 0px 7px 1px #bbb;
   -moz-box-shadow: 0px 0px 7px 1px #bbb;
