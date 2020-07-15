@@ -119,7 +119,7 @@ class Chatroom extends Component {
       Notification.requestPermission().then((result) => {
         if (result === "granted") {
           new Notification(
-            "Awesome! You will start receiving notifications shortly"
+            "Awesome! You will start receiving notifications shortly", {"icon": "/myFavicon.png"}
           );
         }
       });
