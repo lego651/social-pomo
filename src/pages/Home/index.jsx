@@ -6,6 +6,7 @@ import firebase from '../../utils/firebase.js';
 import { Container, Row, Col } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 
 // Images
 import default_img from '../../assets/img/avatar.svg';
@@ -85,6 +86,7 @@ class Home extends Component {
         <NavbarTop />
         <div className="body-container">
           <NavLeft />
+          <NavLeftMobile />
           {this.buildContent()}
         </div>
       </div>

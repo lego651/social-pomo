@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ import { addTodo } from '../../actions';
 // Styles
 import './style.scss';
 
-class NavLeft extends Component {
+class NavLeftMobile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,10 +23,12 @@ class NavLeft extends Component {
 
   render(){
     const { avatar, nickName, handle } = this.props.user.profile;
+    const { showSidebar } = this.props.UI;
     const shownName = nickName === null ? handle : nickName;
     return(
-      <div className="navleft-container">
-        <div className="navleft-user">
+      showSidebar &&
+      <div className="navleftmobile-container">
+        <div className="navleftmobile-user">
           { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}
           { shownName ? <p> { shownName } </p> : <p> &nbsp; </p> }
         </div>
@@ -105,4 +107,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { addTodo }
-)(NavLeft);
+)(NavLeftMobile);

@@ -9,6 +9,14 @@
   padding: 0 20px;
   // box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
 
+  .expand-icon {
+    margin-right: 25px;
+    font-size: 18px;
+    @media only screen and (min-width: 768px) { 
+      display: none;
+    }
+  }
+
   .navbar-brand {
     color: black;
     font-size: 22px;

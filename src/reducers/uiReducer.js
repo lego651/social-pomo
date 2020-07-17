@@ -21,7 +21,7 @@ const initialState = {
   loadingMessage: false,
   getting: false,
   posting: false, 
-  showSidebar: true,
+  showSidebar: false,
 };
 
 export default function(state = initialState, action) {

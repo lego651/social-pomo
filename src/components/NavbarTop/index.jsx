@@ -89,7 +89,7 @@ class NavbarTop extends Component {
     return(
       <div className="navbar-container">
         <Navbar>
-          <span onClick={this.props.toggleSidebar}><FontAwesomeIcon icon={faBars} /></span>
+          <span className="expand-icon" onClick={this.props.toggleSidebar}><FontAwesomeIcon icon={faBars} /></span>
           <Navbar.Brand href="/dashboard"> Pomopal </Navbar.Brand>
           {this.buildAvatarAndDropdown()}
         </Navbar>
