@@ -27,8 +27,8 @@ class NavLeftMobile extends Component {
     const shownName = nickName === null ? handle : nickName;
     return(
       showSidebar &&
-      <div className="navleftmobile-container">
-        <div className="navleftmobile-user">
+      <div className="navleft-mobile-container">
+        <div className="user">
           { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}
           { shownName ? <p> { shownName } </p> : <p> &nbsp; </p> }
         </div>

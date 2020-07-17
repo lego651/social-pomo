@@ -26,7 +26,7 @@ class NavLeft extends Component {
     const shownName = nickName === null ? handle : nickName;
     return(
       <div className="navleft-container">
-        <div className="navleft-user">
+        <div className="user">
           { avatar ? <img src={avatar} alt="avatar" /> : <img src={default_img} alt="avatar" />}
           { shownName ? <p> { shownName } </p> : <p> &nbsp; </p> }
         </div>
