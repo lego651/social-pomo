@@ -72,7 +72,7 @@ class Home extends Component {
 
   buildContent = () => {
     return (
-      <div className="home-header">
+      <div className="home-body">
         <h3> Home </h3>
         { this.buildPomoList() }
       </div>

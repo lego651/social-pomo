@@ -3,15 +3,16 @@
 
 .navleft-container {
   background-color: white;
-  box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+  box-shadow: 10 0 0 0 rgba(154,161,171,.5);
   padding: 30px 20px;
-  width: 240px;
-
-  @media only screen and (max-width: 992px) { 
-    padding: 30px 2px;
-  }
-  @media only screen and (max-width: 576px) { 
-    padding: 20px 5px;
+  width: 250px;
+  height: calc(100vh - 72px);
+  position: fixed;
+  left: 0;
+  top: 72px;
+  border-right: 1px solid rgba(154,161,171,.2);
+  @media only screen and (max-width: 768px) { 
+    display: none; 
   }
 
   .navleft-user {
@@ -20,10 +21,6 @@
       width: 80px;
       height: 80px;
       border-radius: 40px;
-      @media only screen and (max-width: 576px) { 
-        width: 40px;
-        height: 40px; 
-      }
     }
     p {
       margin-top: 10px;
@@ -39,21 +36,14 @@
     color: #6c757d;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
-    // font-size: .9rem;
     li {
       span {
         display: inline-block;
         width: 50px;
         text-align: center;
-        @media only screen and (max-width: 768px) { 
-          width: 100%;
-        }
       }
       span.nav {
         text-align: left;
-        @media only screen and (max-width: 768px) { 
-          display: none; 
-        }
       }
       margin: 18px 0px;
       a {

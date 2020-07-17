@@ -2,8 +2,12 @@
 
 .navbar-container {
   background-color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
   padding: 0 20px;
-  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  // box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
 
   .navbar-brand {
     color: black;
