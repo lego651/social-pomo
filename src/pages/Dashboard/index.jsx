@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 // Components
-import { Container, Row, Col } from "react-bootstrap";
 import NavbarTop from "../../components/NavbarTop";
 import NavLeft from "../../components/NavLeft";
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import WeeklyChart from "./weeklyChart";
 import PieChart from "./pieChart";
 import WeeklySummary from "./weeklySummary";
@@ -170,22 +170,25 @@ class Dashboard extends Component {
     }
   }
 
+  buildContent = () => {
+    return (
+      <div className="content">
+        {this.buildTitle()}
+        <WeeklySummary />
+        {this.buildWeeklyChart()}
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="overview-container">
         <NavbarTop />
-        <Container>
-          <Row>
-            <Col sm="3" xs="2"> 
-              <NavLeft />
-            </Col>
-            <Col sm= "9" xs="10">
-              {this.buildTitle()}
-              <WeeklySummary />
-              {this.buildWeeklyChart()}
-            </Col>
-          </Row>
-        </Container>
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
       </div>
     );
   }

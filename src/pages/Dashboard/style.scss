@@ -3,59 +3,64 @@
 
 .overview-container {
   background-color: $bg-color-light;
+  .content {
+    margin: 0 auto;
+    width: 100%;
+    padding: 50px 30px;
 
-  .overview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    a {
-      background-color: $primary-color;
-      color: white;
-      font-family: 'Nunito', sans-serif;
-      font-size: 18px;
-      border-radius: 20px;
-      padding: 10px 20px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-  }
-  .panel {
-    background-color: white;
-    box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
-    padding: 20px;
-    margin-top: 20px;
-    .panel-header {
+    .overview-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      span {
-        background-color: $bg-color-green;
-        color: $primary-green;
-        width: 40px;
-        height: 40px;
-        box-sizing: border-box;
-        // border: 1px solid #eef2f7;
-        border-radius: .25rem;
-        text-align: center;
-        padding: 7px;
-      }
-      span.blue {
-        background-color: $bg-color-blue;
-        color: $primary-blue;
-      }
-      span.yellow {
-        background-color: $bg-color-yellow;
-        color: $primary-yellow;
+      align-items: baseline;
+      a {
+        background-color: $primary-color;
+        color: white;
+        font-family: 'Nunito', sans-serif;
+        font-size: 18px;
+        border-radius: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+        text-decoration: none;
       }
     }
-  }
-  .chart-container {
-    margin-top: 50px;
-    h1 {
-      font-size: 19px;
-      font-weight: 700;
-      color: #6c757d;
-      font-family: 'Nunito', sans-serif;
+    .panel {
+      background-color: white;
+      box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+      padding: 20px;
+      margin-top: 20px;
+      .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        span {
+          background-color: $bg-color-green;
+          color: $primary-green;
+          width: 40px;
+          height: 40px;
+          box-sizing: border-box;
+          // border: 1px solid #eef2f7;
+          border-radius: .25rem;
+          text-align: center;
+          padding: 7px;
+        }
+        span.blue {
+          background-color: $bg-color-blue;
+          color: $primary-blue;
+        }
+        span.yellow {
+          background-color: $bg-color-yellow;
+          color: $primary-yellow;
+        }
+      }
+    }
+    .chart-container {
+      margin-top: 50px;
+      h1 {
+        font-size: 19px;
+        font-weight: 700;
+        color: #6c757d;
+        font-family: 'Nunito', sans-serif;
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ import { Table, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import MyModal from '../../components/MyModal';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -59,7 +60,7 @@ class Tag extends Component {
     const { tags } = this.props.user.profile;
     return (
       <>
-        <div className="project-header">
+        <div className="tag-header">
           <h3> Tags </h3>
         </div>
         <div>
@@ -71,7 +72,7 @@ class Tag extends Component {
             + Add New Tag
           </Button>
         </div>
-        <div className="project-table">
+        <div className="tag-table">
           <Table>
             <thead>
               <tr>
@@ -111,23 +112,26 @@ class Tag extends Component {
     )
   }
 
-  render(){
-    return(
-      <div className="tag-container">
-        <NavbarTop />
-        <Container>
-          { this.buildAlert() }
-          <Row>
-            <Col sm="3" xs="2"> 
-              <NavLeft />
-            </Col>
-            <Col sm="9" xs="10"> 
-              { this.buildTagTable() }
-            </Col>
-          </Row>
-        </Container>
+  buildContent = () => {
+    return (
+      <div className="content">
+        { this.buildAlert() }
+        { this.buildTagTable() }
       </div>
     )
+  }
+  
+  render(){
+    return (
+      <div className="tag-container">
+        <NavbarTop />
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
+      </div>
+    );
   }
 }
 

@@ -5,6 +5,8 @@ import firebase from "../../utils/firebase.js";
 // Components
 import { Button, Container } from "react-bootstrap";
 import NavbarTop from "../../components/NavbarTop";
+import NavLeft from '../../components/NavLeft';
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import LoadingModal from "../../components/LoadingModal";
 import MatchModal from "./MatchModal";
 
@@ -106,8 +108,8 @@ class Match extends Component {
       </div>
     )
   }
-  
-  render() {
+
+  buildContent = () => {
     const { inPairs } = this.state;
     const { matching, ownsRoom } = this.props;
     const showModal = ownsRoom && ownsRoom.length > 0;
@@ -139,10 +141,9 @@ class Match extends Component {
         )}
       </div>
     )
-
+    
     return (
-      <div className="match-container">
-        <NavbarTop />
+      <div className="content">
         {this.buildGoBack()}
         {inPairs ? (
           <div className="joining-container">
@@ -163,6 +164,19 @@ class Match extends Component {
           onSure={(roomName) => this.deleteOwnsRoom(roomName)}
         />
         <LoadingModal show={this.props.UI.loading} />
+      </div>
+    )
+  }
+  
+  render() {
+    return (
+      <div className="match-container">
+        <NavbarTop />
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
       </div>
     );
   }

@@ -1,47 +1,54 @@
 @import "../../index.scss";
 
 .project-container {
-  .project-header {
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-  .create-button {
-    background-color: $primary-color;
-    border: none;
-  }
-  .project-table {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: white;
-    padding: 20px 20px 2px 20px;
-    Table {
-      border: hidden;
-      color:#6c757d;
-      th, td {
-        text-align: left;
-        padding: 8px;
-        padding-top: 14px;
-        p {
-          margin-top: 8px;
+  .content {
+    margin: 0 auto;
+    width: 100%;
+    padding: 50px 30px;
+
+    .project-header {
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+    .create-button {
+      background-color: $primary-color;
+      border: none;
+    }
+    .project-table {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      background-color: white;
+      padding: 20px 20px 2px 20px;
+      Table {
+        border: hidden;
+        color:#6c757d;
+        th, td {
+          text-align: left;
+          padding: 8px;
+          padding-top: 14px;
+          p {
+            margin-top: 8px;
+          }
         }
-      }
-      tr:hover {
-        background-color:#f6f8fa;
-      }
-      .delete-button {
-        background-color: $bg-color-primary;
-        color: $primary-color;
-        width: 40px;
-        height: 40px;
-        box-sizing: border-box;
-        border: 1px solid #eef2f7;
-        border-radius: .25rem;
-        text-align: center;
-        padding: 7px;
-        &:hover, &:focus, &:active {
-          color: white;
+        tr:hover {
+          background-color:#f6f8fa;
+        }
+        .delete-button {
+          background-color: $bg-color-primary;
+          color: $primary-color;
+          width: 40px;
+          height: 40px;
+          box-sizing: border-box;
+          border: 1px solid #eef2f7;
+          border-radius: .25rem;
+          text-align: center;
+          padding: 7px;
+          &:hover, &:focus, &:active {
+            color: white;
+          }
         }
       }
     }
   }
 }
+

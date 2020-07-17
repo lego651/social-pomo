@@ -6,6 +6,7 @@ import cogoToast from 'cogo-toast';
 import { Container, Row, Col } from "react-bootstrap";
 import NavbarTop from "../../components/NavbarTop";
 import NavLeft from "../../components/NavLeft";
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import PomoModal from "../Room/Pomodoro/pomoModal";
 import CancelModal from "../Room/Pomodoro/CancelModal";
 
@@ -175,27 +176,30 @@ class Solo extends Component {
     );
   };
 
+  buildContent = () => {
+    return (
+      <div className="content">
+        <div className="solo-header">
+          <h3> Solo </h3>
+        </div>
+        <div className="timer-container">
+          {this.buildRangeInput()}
+          {this.buildTimer()}
+          {this.buildButtonGroup()}
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div className="solo-container">
         <NavbarTop />
-        <Container>
-          <Row>
-            <Col sm="3" xs="2">
-              <NavLeft />
-            </Col>
-            <Col sm="9" xs="10">
-              <div className="solo-header">
-                <h3> Solo </h3>
-              </div>
-              <div className="timer-container">
-                {this.buildRangeInput()}
-                {this.buildTimer()}
-                {this.buildButtonGroup()}
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
         <PomoModal
           show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}

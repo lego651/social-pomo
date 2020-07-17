@@ -9,6 +9,7 @@ import './style.scss';
 import { updatePassword, clearSuccess } from '../../actions';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 
 class Password extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Password extends Component {
       show: false,
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
@@ -31,6 +33,7 @@ class Password extends Component {
       });
     }
   }
+
   closeSuccess = () => {
     this.setState({
       show: false,
@@ -38,17 +41,20 @@ class Password extends Component {
     })
     this.props.clearSuccess();
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
   resetState = () => {
     this.setState({
       password: '',
       newPassword: '',
     })
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     if(this.state.password.length === 0) {
@@ -80,87 +86,92 @@ class Password extends Component {
       this.props.updatePassword(data, this.resetState);
     }
   }
-  render(){
+
+  buildContent = () => {
     const { errors } = this.state;
     const { loading, success } = this.props.UI;
-    return(
-      <div className="password-container">
-        <NavbarTop />
-        <Container>
-          {
-            this.state.show &&
-            <Alert variant="success" onClose={() => this.closeSuccess()} dismissible>
-              <p>
-                { success }
-              </p>
-            </Alert>
-          }
-          <Row>
-            <Col sm="3" xs="2"> 
-              <NavLeft />
-            </Col>
-            <Col sm="9" xs="10"> 
-              <h3> Password </h3>
-              <div className="password-body">
-                <Form onSubmit={(e) => {this.handleSubmit(e)}}>
-                  <Form.Group as={Row} controlId="formHorizontalEmail">
-                    <Form.Label column sm={3}>
-                      Old Password
-                    </Form.Label>
-                    <Col sm={9}>
-                      <Form.Control
-                        type="password"
-                        placeholder="Your Old Password"
-                        name="password"
-                        onChange={this.handleChange}
-                        isInvalid={!!errors.password}
-                        value={this.state.password}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {errors.password}
-                      </Form.Control.Feedback>
-                    </Col>
-                  </Form.Group>
 
-                  <Form.Group as={Row} controlId="formHorizontalPassword">
-                    <Form.Label column sm={3}>
-                      New Password
-                    </Form.Label>
-                    <Col sm={9}>
-                      <Form.Control
-                        type="password"
-                        placeholder="Your New Password"
-                        name="newPassword"
-                        onChange={this.handleChange}
-                        isInvalid={!!errors.newPassword}
-                        value={this.state.newPassword}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {errors.newPassword}
-                      </Form.Control.Feedback>
-                    </Col>
-                  </Form.Group>
+    return (
+      <div className="content">
+        {
+          this.state.show &&
+          <Alert variant="success" onClose={() => this.closeSuccess()} dismissible>
+            <p>
+              { success }
+            </p>
+          </Alert>
+        }
+        <h3> Password </h3>
+        <div className="password-body">
+          <Form onSubmit={(e) => {this.handleSubmit(e)}}>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={3}>
+                Old Password
+              </Form.Label>
+              <Col sm={9}>
+                <Form.Control
+                  type="password"
+                  placeholder="Your Old Password"
+                  name="password"
+                  onChange={this.handleChange}
+                  isInvalid={!!errors.password}
+                  value={this.state.password}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
+              </Col>
+            </Form.Group>
 
-                  <Form.Group as={Row}>
-                    <Col sm={{ span: 10, offset: 2 }}>
-                      <Button
-                        variant="success"
-                        type="submit">
-                        { loading
-                            ? <FontAwesomeIcon className="icon" icon={faSync} spin />
-                            : <FontAwesomeIcon className="icon" icon={faEdit} />
-                        }
-                        <span> Save </span>
-                      </Button>
-                    </Col>
-                  </Form.Group>
-                </Form>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+            <Form.Group as={Row} controlId="formHorizontalPassword">
+              <Form.Label column sm={3}>
+                New Password
+              </Form.Label>
+              <Col sm={9}>
+                <Form.Control
+                  type="password"
+                  placeholder="Your New Password"
+                  name="newPassword"
+                  onChange={this.handleChange}
+                  isInvalid={!!errors.newPassword}
+                  value={this.state.newPassword}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.newPassword}
+                </Form.Control.Feedback>
+              </Col>
+            </Form.Group>
+
+            <Form.Group as={Row}>
+              <Col sm={{ span: 10, offset: 2 }}>
+                <Button
+                  variant="success"
+                  type="submit">
+                  { loading
+                      ? <FontAwesomeIcon className="icon" icon={faSync} spin />
+                      : <FontAwesomeIcon className="icon" icon={faEdit} />
+                  }
+                  <span> Save </span>
+                </Button>
+              </Col>
+            </Form.Group>
+          </Form>
+        </div>
       </div>
     )
+  }
+
+  render() {
+    return (
+      <div className="password-container">
+        <NavbarTop />
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
+      </div>
+    );
   }
 }
 
@@ -168,6 +179,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
   UI: state.UI
 });
+
 export default connect(
   mapStateToProps,
   { updatePassword, clearSuccess }

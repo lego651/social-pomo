@@ -7,6 +7,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import InRoom from './InRoom';
 import JoinRoom from './JoinRoom';
 import CreateRoom from './CreateRoom';
@@ -24,6 +25,7 @@ class Door extends Component {
       errors : {},
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({
@@ -32,6 +34,7 @@ class Door extends Component {
       });
     }
   }
+
   closeErrors = () => {
     this.setState({
       show: false,
@@ -39,21 +42,24 @@ class Door extends Component {
     })
     this.props.clearErrors();
   }
+
   _onJoinRoom = (roomObj, history) => {
     if(roomObj !== null) {
       this.props.joinRoom(roomObj, history);
     }
   }
+
   _removeOwnsRoom = (history, roomName) => {
     this.props.deleteRoom(history, roomName);
   }
-  render(){
+
+  buildContent = () => {
     const _history = this.props.history;
     const { inRoom, ownsRoom } = this.props.user.profile;
     const { errors } = this.state;
-    return(
-      <div className="door-container">
-        <NavbarTop />
+
+    return (
+      <div className="content">
         <Container>
           {
             this.state.show &&
@@ -63,63 +69,69 @@ class Door extends Component {
               </p>
             </Alert>
           }
+          
+          <div className="door-header">
+            <h3> Room </h3>
+          </div>
           <Row>
-            <Col sm="3" xs="2"> 
-              <NavLeft />
-            </Col>
-            <Col sm="9" xs="10"> 
-              <div className="door-header">
-                <h3> Room </h3>
-              </div>
-              <Row>
-                {
-                  inRoom !== null
-                  ?
-                  <Col>
-                    <InRoom roomName={inRoom} />
-                  </Col>
-                  :
-                  <Col>
-                    <JoinRoom history={_history}
-                    />
-                  </Col>
-                }
-                <Col>
-                  <CreateRoom history={_history} />
-                </Col>
-              </Row>
-              {
-                ownsRoom &&
-                <div className="owns-room-table">
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th xs="3"> Your Room </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td> {ownsRoom} </td>
-                        <td>
-                          <Button
-                            className="delete-button"
-                            onClick={() => this._removeOwnsRoom(_history, ownsRoom)}
-                            >
-                            <span><FontAwesomeIcon icon={faTrashAlt} /></span>
-                          </Button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </div>
-              }
-
+            {
+              inRoom !== null
+              ?
+              <Col>
+                <InRoom roomName={inRoom} />
+              </Col>
+              :
+              <Col>
+                <JoinRoom history={_history}
+                />
+              </Col>
+            }
+            <Col>
+              <CreateRoom history={_history} />
             </Col>
           </Row>
+          {
+            ownsRoom &&
+            <div className="owns-room-table">
+              <Table>
+                <thead>
+                  <tr>
+                    <th xs="3"> Your Room </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td> {ownsRoom} </td>
+                    <td>
+                      <Button
+                        className="delete-button"
+                        onClick={() => this._removeOwnsRoom(_history, ownsRoom)}
+                        >
+                        <span><FontAwesomeIcon icon={faTrashAlt} /></span>
+                      </Button>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
+          }
         </Container>
-        <LoadingModal show={this.props.UI.loading} />
       </div>
     )
+  }
+
+  render(){
+    return (
+      <div className="door-container">
+        <NavbarTop />
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+          <LoadingModal show={this.props.UI.loading} />
+        </div>
+      </div>
+    );
   }
 }
 
@@ -127,11 +139,13 @@ const mapStateToProps = (state) => ({
   user: state.user,
   UI: state.UI
 });
+
 const mapDispatchToProps = (dispatch) => ({
   joinRoom: (roomObj, history) => dispatch(joinRoom(roomObj, history)),
   clearErrors: () => dispatch(clearErrors()),
   deleteRoom: (history, roomName) => dispatch(deleteRoom(history, roomName)),
 })
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Table, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import MyModal from '../../components/MyModal';
 
 // Actions
@@ -115,23 +116,26 @@ class Project extends Component {
     )
   }
 
-  render(){
-    return(
-      <div className="project-container">
-        <NavbarTop />
-        <Container>
-          { this.buildAlert() }
-          <Row>
-            <Col sm="3" xs="2"> 
-              <NavLeft />
-            </Col>
-            <Col sm="9" xs="10"> 
-              { this.buildProjectTable() }
-            </Col>
-          </Row>
-        </Container>
+  buildContent = () => {
+    return (
+      <div className="content">
+        { this.buildAlert() }
+        { this.buildProjectTable() }
       </div>
     )
+  }
+
+  render(){
+    return (
+      <div className="project-container">
+        <NavbarTop />
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
+      </div>
+    );
   }
 }
 

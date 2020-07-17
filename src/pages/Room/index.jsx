@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 // Components
 import { Container, Row, Col } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
+import NavLeft from "../../components/NavLeft";
+import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import UsersInRoom from './UsersInRoom';
 import LoadingModal from '../../components/LoadingModal';
 import Commit from './Commit';
@@ -16,6 +18,7 @@ import './style.scss';
 
 // Actions
 import { leaveRoom, addTodo, startCount, updateTime } from '../../actions';
+
 class Room extends Component {
   constructor(props) {
     super(props);
@@ -64,16 +67,15 @@ class Room extends Component {
       />
     )
   }
-
-  render(){
+  
+  buildContent = () => {
     const { roomname } = this.props.match.params;
     const { inRoom, ownsRoom, handle, nickName } = this.props.user.profile;
     const isOwner = ownsRoom !== null && (inRoom === ownsRoom);
     const _history = this.props.history;
 
-    return(
-      <div className="room-container">
-        <NavbarTop />
+    return (
+      <div className="content">
         <Container>
           <Row>
             <Col md={4} sm={12} xs={12}>
@@ -106,6 +108,19 @@ class Room extends Component {
         </Container>
         {this.buildRoomModal()}
         <LoadingModal show={this.props.UI.loading} />
+      </div>
+    )
+  }
+
+  render(){
+    return(
+      <div className="room-container">
+        <NavbarTop />
+        <div className="body-container">
+          <NavLeft />
+          <NavLeftMobile />
+          {this.buildContent()}
+        </div>
       </div>
     )
   }
