@@ -10,6 +10,7 @@ import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 
 // Images
 import default_img from '../../assets/img/avatar.svg';
+import check_img from '../../assets/img/check.png';
 
 // Actions
 import { logoutUser, getWeeklyPomo } from '../../actions';
@@ -63,8 +64,8 @@ class Home extends Component {
           <div className="name">
             { nickName }
           </div>
-          <div className="content">
-            <span role="img" aria-label="check"> ✅</span>{ content }
+          <div className="message">
+            <span role="img" aria-label="check"><img src={check_img} alt="avatar" /></span>{ content }
           </div>
         </div>
       </div>
