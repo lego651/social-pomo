@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -77,6 +77,7 @@ class Account extends Component {
     const fileInput = document.getElementById('imageInput');
     fileInput.click();
   };
+
   // componentDidUpdate(nextProps) {
   //   if(nextProps.user.profile.nickName !== this.state.nickName) {
   //     this.setState({

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import firebase from '../../utils/firebase.js';
 
 // Components
-import { Container, Row, Col } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';

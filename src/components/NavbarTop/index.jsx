@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Components 
-import { Container, Navbar } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 // Components
-import { Table, Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Table, Button, Alert } from 'react-bootstrap';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';

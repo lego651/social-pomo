@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import { Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync, faEdit } from '@fortawesome/free-solid-svg-icons';
 

@@ -3,7 +3,6 @@ import InputRange from "react-input-range";
 import cogoToast from 'cogo-toast';
 
 // Components
-import { Container, Row, Col } from "react-bootstrap";
 import NavbarTop from "../../components/NavbarTop";
 import NavLeft from "../../components/NavLeft";
 import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
