@@ -19,6 +19,31 @@ class NavLeftMobile extends Component {
     this.state = {
       content: ''
     }
+    this.navLinks = [
+      {link: "/home", icon: <FontAwesomeIcon icon={faHome} />, name: "Home"},
+      {link: "/dashboard", icon: <FontAwesomeIcon icon={faTachometerAlt} />, name: "Dashboard"},
+      {link: "/match", icon: <FontAwesomeIcon icon={faHandsHelping} />, name: "Match"},
+      {link: "/room", icon: <FontAwesomeIcon icon={faDoorOpen} />, name: "Room"},
+      {link: "/solo", icon: <FontAwesomeIcon icon={faClock} />, name: "Solo"},
+      {link: "/project", icon: <FontAwesomeIcon icon={faFileAlt} />, name: "Projects"},
+    ]
+    this.userLinks = [
+      {link: "/account", icon: <FontAwesomeIcon icon={faCog} />, name: "Account"},
+      {link: "/password", icon: <FontAwesomeIcon icon={faKey} />, name: "Password"},
+    ]
+  }
+
+  buildNavLinks = (links) => {
+    return (
+      links.map(({link, icon, name}, i) => 
+        <li>
+          <NavLink to={link} activeClassName="active">
+            <span>{icon}</span>
+            <span className="nav">{name}</span>
+          </NavLink>
+        </li>
+      ) 
+    )
   }
 
   render(){
@@ -33,66 +58,9 @@ class NavLeftMobile extends Component {
           { shownName ? <p> { shownName } </p> : <p> &nbsp; </p> }
         </div>
         <ul className="navs">
-          <li>
-            <NavLink to={"/home"}
-                     activeClassName="active">
-              <span><FontAwesomeIcon icon={faHome} /></span>
-              <span className="nav">Home</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/dashboard"}
-                     activeClassName="active">
-              <span><FontAwesomeIcon icon={faTachometerAlt} /></span>
-              <span className="nav">Dashboard</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/match"}
-                     activeClassName="active">
-              <span><FontAwesomeIcon icon={faHandsHelping} /></span>
-              <span className="nav">Match</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/room"}
-                     activeClassName="active">
-              <span><FontAwesomeIcon icon={faDoorOpen} /></span>
-              <span className="nav">Rome</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/solo"}
-                     activeClassName="active">
-              <span><FontAwesomeIcon icon={faClock} /></span>
-              <span className="nav">Solo</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/project"}>
-              <span><FontAwesomeIcon icon={faFileAlt} /></span>
-              <span className="nav">Projects</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/tag"}>
-              <span><FontAwesomeIcon icon={faTags} /></span>
-              <span className="nav">Tags</span>
-            </NavLink>
-          </li>
+          {this.buildNavLinks(this.navLinks)}
           <hr />
-          <li>
-            <NavLink to={"/account"}>
-              <span><FontAwesomeIcon icon={faCog} /></span>
-              <span className="nav">Account</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/password"}>
-              <span><FontAwesomeIcon icon={faKey} /></span>
-              <span className="nav">Password</span>
-            </NavLink>
-          </li>
+          {this.buildNavLinks(this.userLinks)}
         </ul>
       </div>
     )
