@@ -37,7 +37,7 @@ class NavLeft extends Component {
   buildNavLinks = (links) => {
     return (
       links.map(({link, icon, name}, i) => 
-        <li>
+        <li key={name}>
           <NavLink to={link} activeClassName="active">
             <span>{icon}</span>
             <span className="nav">{name}</span>

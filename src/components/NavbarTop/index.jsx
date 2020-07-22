@@ -26,6 +26,12 @@ class NavbarTop extends Component {
     }
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.menuLinks = [
+      {name: "Dashboard", link: "/dashboard"},
+      {name: "Room", link: "/room"},
+      {name: "Match", link: "/match"},
+      {name: "Account", link: "/account"},
+    ]
   }
 
   showMenu(event) {
@@ -57,14 +63,19 @@ class NavbarTop extends Component {
     )
   }
 
+  buildNavLinks = () => {
+    return (
+      this.menuLinks.map(({name, link}) => 
+        <a href={link} key={name}> {name} </a>
+      )
+    )
+  }
+
   buildDropdown = () => {
     return this.state.showMenu && (
       <div ref={(e) => { this.dropdownMenu = e; }}>
         <div className="dropdown-content">
-          <a href="/dashboard"> Dashboard </a>
-          <a href="/room"> Room </a>
-          <a href="/match"> Match </a>
-          <a href="/account"> Account </a>
+          {this.buildNavLinks()}
           <a href="/" onClick={this.handleLogout}> Sign out </a>
         </div>
       </div>
