@@ -1,12 +1,13 @@
 @import "../../index.scss";
 
 .password-container {
+  position: relative;
   .content {
     margin: 0 auto;
     width: 100%;
     padding: 50px 30px;
 
-    .password-body {
+    .password-body {   
       background-color: white;
       box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
       padding: 45px 45px;
@@ -32,8 +33,12 @@
       }
       form {
         margin-top: 30px;
+        z-index: -1;
         .form-group {
           margin-top: 20px;
+          .col-sm-9 {
+            position: static;
+          }
           .form-label {
             font-size: 16px;
             font-weight: 700;

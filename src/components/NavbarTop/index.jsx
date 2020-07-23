@@ -42,7 +42,7 @@ class NavbarTop extends Component {
   }
 
   closeMenu(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
+    if (this.dropdownMenu && !this.dropdownMenu.contains(event.target)) {
       this.setState({ showMenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });
@@ -56,7 +56,7 @@ class NavbarTop extends Component {
   buildAvatar = () => {
     const { avatar } = this.props.user.profile;
     return (
-      <div className="dropdown-wrapper" onClick={this.showMenu}>
+      <div className="avatar-wrapper" onClick={this.showMenu}>
         <img src={avatar ? avatar : default_img} alt="avatar" /> 
         <span> <FontAwesomeIcon icon={faCaretDown} /></span>
       </div>
@@ -73,9 +73,9 @@ class NavbarTop extends Component {
 
   buildDropdown = () => {
     return this.state.showMenu && (
-      <div ref={(e) => { this.dropdownMenu = e; }}>
+      <div ref={(e) => { this.dropdownMenu = e; }} className="dropdown-wrapper">
         <div className="dropdown-content">
-          {this.buildNavLinks()}
+          {/* {this.buildNavLinks()} */}
           <a href="/" onClick={this.handleLogout}> Sign out </a>
         </div>
       </div>
