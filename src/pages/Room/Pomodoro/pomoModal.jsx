@@ -238,67 +238,67 @@ class PomoModal extends Component {
     )
   }
 
-  buildSelectTag = () => {
-    const { tags } = this.props.user.profile;
-    const { errors, success } = this.props.UI;
-    return (
-      <Form.Group controlId="exampleForm.ControlSelect2">
-        <Form.Control.Feedback type="invalid">
-          {errors && errors.tag}
-        </Form.Control.Feedback>
-        <Form.Control.Feedback type="valid">
-          {success && success.tag}
-        </Form.Control.Feedback>
-        <Form.Label> Select tag </Form.Label>
-        <Form.Control
-          as="select"
-          multiple
-          name="tag"
-          onChange={e => {
-            this.handleMultiChange(e);
-          }}
-        >
-          {tags && tags.map((t, i) => <option key={i}> {t} </option>)}
-        </Form.Control>
-        {this.state.addTag ? (
-          <div className="add-tag-wrapper">
-            <input
-              type="text"
-              className="text"
-              placeholder="Enter tag name"
-              name="newTag"
-              onChange={e => {
-                this.handleChange(e);
-              }}
-            />
-            <span
-              className="hidden-btn"
-              onClick={() => {
-                this.addNewTag();
-              }}
-            >
-              Add
-            </span>
-            <span
-              className="hidden-btn cancel"
-              onClick={() => this.closeAddTag()}
-            >
-              Cancel
-            </span>
-          </div>
-        ) : (
-          <div className="add-tag-wrapper create">
-            <span
-              className="hidden-btn"
-              onClick={() => this.openAddTag()}
-            >
-              Create new tag
-            </span>
-          </div>
-        )}
-      </Form.Group>
-    )
-  }
+  // buildSelectTag = () => {
+  //   const { tags } = this.props.user.profile;
+  //   const { errors, success } = this.props.UI;
+  //   return (
+  //     <Form.Group controlId="exampleForm.ControlSelect2">
+  //       <Form.Control.Feedback type="invalid">
+  //         {errors && errors.tag}
+  //       </Form.Control.Feedback>
+  //       <Form.Control.Feedback type="valid">
+  //         {success && success.tag}
+  //       </Form.Control.Feedback>
+  //       <Form.Label> Select tag </Form.Label>
+  //       <Form.Control
+  //         as="select"
+  //         multiple
+  //         name="tag"
+  //         onChange={e => {
+  //           this.handleMultiChange(e);
+  //         }}
+  //       >
+  //         {tags && tags.map((t, i) => <option key={i}> {t} </option>)}
+  //       </Form.Control>
+  //       {this.state.addTag ? (
+  //         <div className="add-tag-wrapper">
+  //           <input
+  //             type="text"
+  //             className="text"
+  //             placeholder="Enter tag name"
+  //             name="newTag"
+  //             onChange={e => {
+  //               this.handleChange(e);
+  //             }}
+  //           />
+  //           <span
+  //             className="hidden-btn"
+  //             onClick={() => {
+  //               this.addNewTag();
+  //             }}
+  //           >
+  //             Add
+  //           </span>
+  //           <span
+  //             className="hidden-btn cancel"
+  //             onClick={() => this.closeAddTag()}
+  //           >
+  //             Cancel
+  //           </span>
+  //         </div>
+  //       ) : (
+  //         <div className="add-tag-wrapper create">
+  //           <span
+  //             className="hidden-btn"
+  //             onClick={() => this.openAddTag()}
+  //           >
+  //             Create new tag
+  //           </span>
+  //         </div>
+  //       )}
+  //     </Form.Group>
+  //   )
+  // }
 
   buildSetPublic = () => {
     let checked = this.state.public;
@@ -317,7 +317,8 @@ class PomoModal extends Component {
 
   buildForm = () => {
     return (
-      <Form onSubmit={e =>{this.handleSubmit(e)}}>
+      // <Form onSubmit={e =>{this.handleSubmit(e)}}>
+      <Form>
         {this.buildEnterTask()}
         {this.buildSelectProject()}
         {/* {this.buildSelectTag()} */}

@@ -33,6 +33,7 @@ class Solo extends Component {
     this.stopAudio = new Audio(pomoStopSound);
     this.state = {
       value: 25 * 60,
+      logValue: 25 * 60,
       on: false,
       inputRangeDisabled: false,
       showPomoModal: false,
@@ -144,7 +145,7 @@ class Solo extends Component {
           maxValue={60}
           minValue={0}
           value={Math.round(this.state.value / 60)}
-          onChange={(value) => this.setState({ value: value * 60 })}
+          onChange={(value) => this.setState({ value: value * 60, logValue: value * 60 })}
           disabled={this.state.inputRangeDisabled}
         />
       </div>
@@ -203,7 +204,7 @@ class Solo extends Component {
           show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}
           type={-1}
-          time={this.state.value}
+          time={this.state.logValue}
           onHide={() => this.setShowPomoModal(false)}
           onSuccess={this.showSuccessToast}
         />

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faHandsHelping, faFileAlt, faTags, faTachometerAlt, faDoorOpen, faCog, faKey, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faHandsHelping, faFileAlt, faTachometerAlt, faDoorOpen, faCog, faKey, faClock } from '@fortawesome/free-solid-svg-icons';
 import default_img from '../../assets/img/avatar.svg';
 
 // Actions 
