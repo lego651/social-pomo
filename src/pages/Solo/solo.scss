@@ -1,6 +1,18 @@
 @import "../../index.scss";
 @import "../../../node_modules/react-input-range/lib/css/index.css";
 
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Sketch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kumar+One+Outline&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plaster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monofett&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Limelight&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&display=swap');
+
 .solo-container {
   .content {
     margin: 0 auto;
@@ -46,9 +58,23 @@
         justify-content: center;
         margin-top: 70px;
         padding: 50px 0;
-        font-size: 100px;
-        font-weight: 700;
+        font-size: 80px;
+        // font-weight: 600;
         color: $primary-color;
+        // color: black;
+        // font-family: 'Press Start 2P', cursive, sans-serif;
+        // font-family: 'Londrina Sketch', cursive, sans-serif; no
+        // font-family: 'Bungee Outline', cursive, sans-serif; no
+        // font-family: 'Kumar One Outline', cursive, sans-serif; no 
+        // font-family: 'Plaster', cursive, sans-serif; no 
+        // font-family: 'Monofett', cursive, sans-serif; no 
+        // font-family: 'Limelight', cursive, sans-serif; no 
+        // font-family: 'Wallpoet', cursive, sans-serif;
+        // font-family: 'Pacifico', cursive, sans-serif;
+        // font-family: 'Orbitron', cursive, sans-serif;
+        font-family: 'Archivo Black', cursive, sans-serif;
+        
+        
         @media only screen and (max-width: 768px) { 
           font-size: 60px;
         }
@@ -59,7 +85,7 @@
         display: flex;
         justify-content: flex-end;
         span {
-          font-size: 44px;
+          font-size: 36px;
           cursor: pointer;
           margin-left: 10px;
           color: $primary-color;
