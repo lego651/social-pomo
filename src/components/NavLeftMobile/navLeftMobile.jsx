@@ -4,7 +4,15 @@ import { NavLink } from 'react-router-dom';
 
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faHandsHelping, faFileAlt, faTachometerAlt, faDoorOpen, faCog, faKey, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faHome, 
+         faHandsHelping, 
+         faFileAlt, 
+         faTachometerAlt, 
+         faDoorOpen, 
+         faCog, 
+         faKey, 
+         faClock, 
+         faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import default_img from '../../assets/img/avatar.svg';
 
 // Actions 
@@ -25,6 +33,7 @@ class NavLeftMobile extends Component {
       {link: "/match", icon: <FontAwesomeIcon icon={faHandsHelping} />, name: "Match"},
       {link: "/room", icon: <FontAwesomeIcon icon={faDoorOpen} />, name: "Room"},
       {link: "/solo", icon: <FontAwesomeIcon icon={faClock} />, name: "Solo"},
+      {link: "/timer", icon: <FontAwesomeIcon icon={faStopwatch} />, name: "Timer"},
       {link: "/project", icon: <FontAwesomeIcon icon={faFileAlt} />, name: "Projects"},
     ]
     this.userLinks = [

@@ -23,23 +23,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // Styles
-import "./solo.scss";
+import "./timer.scss";
 
-class Solo extends Component {
+class Timer extends Component {
   constructor(props) {
     super(props);
     this.interval = null;
     this.startAudio = new Audio(pomoStartSound);
     this.stopAudio = new Audio(pomoStopSound);
     this.state = {
-      value: 25 * 60,
-      logValue: 25 * 60,
+      value: 0,
       on: false,
-      inputRangeDisabled: false,
       showPomoModal: false,
       showCancelModal: false,
     };
-    this.showNotification = this.showNotification.bind(this);
   }
 
   componentDidMount() {
@@ -47,18 +44,11 @@ class Solo extends Component {
   }
 
   onStart = () => {
-    this.setState({ on: true, inputRangeDisabled: true });
+    this.setState({ on: true });
     this.startAudio.play();
     this.showPomoStartToast();
     this.interval = setInterval(() => {
-      if (this.state.value > 0) {
-        this.setState(({ value }) => ({ value: value - 1 }));
-      } else {
-        this.stopAudio.play();
-        this.showNotification();
-        this.setState({ on: false, value: 25 * 60, showPomoModal: true });
-        clearInterval(this.interval);
-      }
+        this.setState(({ value }) => ({ value: value + 1 }));
     }, 1000);
   };
 
@@ -70,8 +60,7 @@ class Solo extends Component {
   onReset = () => {
     this.setState({
       on: false,
-      value: 25 * 60,
-      inputRangeDisabled: false,
+      value: 0,
       showPomoModal: false
     });
     clearInterval(this.interval);
@@ -127,33 +116,8 @@ class Solo extends Component {
     }
   };
 
-  showNotification = () => {
-    const title = "Pomopal";
-    const options = {
-      body: "You completed a session.",
-      icon: '/myFavico.png'
-    };
-    new Notification(title, options);
-  };
-
-  buildRangeInput = () => {
-    return (
-      <div className="input-range">
-        <h4>Set Timer</h4>
-        <InputRange
-          name="Set Timer"
-          maxValue={60}
-          minValue={0}
-          value={Math.round(this.state.value / 60)}
-          onChange={(value) => this.setState({ value: value * 60, logValue: value * 60 })}
-          disabled={this.state.inputRangeDisabled}
-        />
-      </div>
-    );
-  };
-
-  buildSolo = () => {
-    return <div className="solo">{parseTime(this.state.value)}</div>;
+  buildTimer = () => {
+    return <div className="timer">{parseTime(this.state.value)}</div>;
   };
 
   buildButtonGroup = () => {
@@ -179,12 +143,11 @@ class Solo extends Component {
   buildContent = () => {
     return (
       <div className="content">
-        <div className="solo-header">
-          <h3> Solo </h3>
+        <div className="timer-header">
+          <h3> Timer </h3>
         </div>
-        <div className="solo-body">
-          {this.buildRangeInput()}
-          {this.buildSolo()}
+        <div className="timer-body">
+          {this.buildTimer()}
           {this.buildButtonGroup()}
         </div>
       </div>
@@ -193,7 +156,7 @@ class Solo extends Component {
 
   render() {
     return (
-      <div className="solo-container">
+      <div className="timer-container">
         <NavbarTop />
         <div className="body-container">
           <NavLeft />
@@ -224,4 +187,4 @@ class Solo extends Component {
   }
 }
 
-export default Solo;
+export default Timer;

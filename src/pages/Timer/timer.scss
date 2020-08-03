@@ -13,16 +13,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&display=swap');
 
-.solo-container {
+.timer-container {
   .content {
     margin: 0 auto;
     width: 100%;
     padding: 50px 30px;
 
-    .solo-header {
+    .timer-header {
       margin-bottom: 30px;
     }
-    .solo-body {
+    .timer-body {
       border-radius: 40px;
       box-shadow: 2px 2px 10px 0 rgba(32,33,36, 0.1);
       width: 100%;
@@ -52,7 +52,7 @@
         }
       }
 
-      .solo {
+      .timer {
         display: flex;
         align-items: center;
         justify-content: center;
