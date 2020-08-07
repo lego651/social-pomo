@@ -26,7 +26,7 @@ class NavLeft extends Component {
       {link: "/match", icon: <FontAwesomeIcon icon={faHandsHelping} />, name: "Match"},
       {link: "/room", icon: <FontAwesomeIcon icon={faDoorOpen} />, name: "Room"},
       {link: "/solo", icon: <FontAwesomeIcon icon={faClock} />, name: "Solo"},
-      {link: "/timer", icon: <FontAwesomeIcon icon={faStopwatch} />, name: "Timer"},
+      {link: "/stopwatch", icon: <FontAwesomeIcon icon={faStopwatch} />, name: "Stopwatch"},
       {link: "/project", icon: <FontAwesomeIcon icon={faFileAlt} />, name: "Projects"},
     ]
     this.userLinks = [

@@ -21,11 +21,12 @@ import {
   faPauseCircle,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import stopwatch_img from '../../assets/img/stopwatch.png';
 
 // Styles
-import "./timer.scss";
+import "./stopwatch.scss";
 
-class Timer extends Component {
+class Stopwatch extends Component {
   constructor(props) {
     super(props);
     this.interval = null;
@@ -116,8 +117,12 @@ class Timer extends Component {
     }
   };
 
-  buildTimer = () => {
-    return <div className="timer">{parseTime(this.state.value)}</div>;
+  buildBg = () => {
+    return <div className="background"><img src={stopwatch_img} alt="Stopwatch"/></div>;
+  };
+
+  buildStopwatch = () => {
+    return <div className="stopwatch">{parseTime(this.state.value)}</div>;
   };
 
   buildButtonGroup = () => {
@@ -143,11 +148,12 @@ class Timer extends Component {
   buildContent = () => {
     return (
       <div className="content">
-        <div className="timer-header">
-          <h3> Timer </h3>
+        <div className="stopwatch-header">
+          <h3> Stopwatch </h3>
         </div>
-        <div className="timer-body">
-          {this.buildTimer()}
+        <div className="stopwatch-body">
+          {this.buildBg()}
+          {this.buildStopwatch()}
           {this.buildButtonGroup()}
         </div>
       </div>
@@ -156,7 +162,7 @@ class Timer extends Component {
 
   render() {
     return (
-      <div className="timer-container">
+      <div className="stopwatch-container">
         <NavbarTop />
         <div className="body-container">
           <NavLeft />
@@ -187,4 +193,4 @@ class Timer extends Component {
   }
 }
 
-export default Timer;
+export default Stopwatch;
