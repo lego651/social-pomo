@@ -22,6 +22,9 @@ import {
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
+// Images
+import working_img from '../../assets/img/working.webp';
+
 // Styles
 import "./timer.scss";
 
@@ -136,10 +139,13 @@ class Timer extends Component {
     new Notification(title, options);
   };
 
+  buildBg = () => {
+    return <div className="background"><img src={working_img} alt="Working"/></div>;
+  };
+
   buildRangeInput = () => {
     return (
       <div className="input-range">
-        <h4>Set Timer</h4>
         <InputRange
           name="Set Timer"
           maxValue={60}
@@ -183,6 +189,7 @@ class Timer extends Component {
           <h3> Timer </h3>
         </div>
         <div className="timer-body">
+          {this.buildBg()}
           {this.buildRangeInput()}
           {this.buildTimer()}
           {this.buildButtonGroup()}

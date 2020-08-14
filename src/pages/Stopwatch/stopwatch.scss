@@ -1,16 +1,5 @@
 @import "../../index.scss";
 @import "../../../node_modules/react-input-range/lib/css/index.css";
-
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Sketch&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kumar+One+Outline&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plaster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Monofett&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Limelight&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Limelight&family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Limelight&display=swap');
 
 .stopwatch-container {
@@ -52,6 +41,9 @@
         font-size: 80px;
         color: $primary-color;
         font-family: 'Archivo Black', cursive, sans-serif;
+        @media only screen and (max-width: 576px) { 
+          font-size: 60px;
+        }
       }
 
       .buttons {

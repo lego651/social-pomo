@@ -21,6 +21,8 @@ import {
   faPauseCircle,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
+
+// Images
 import stopwatch_img from '../../assets/img/stopwatch.png';
 
 // Styles
