@@ -23,9 +23,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // Styles
-import "./solo.scss";
+import "./timer.scss";
 
-class Solo extends Component {
+class Timer extends Component {
   constructor(props) {
     super(props);
     this.interval = null;
@@ -152,8 +152,8 @@ class Solo extends Component {
     );
   };
 
-  buildSolo = () => {
-    return <div className="solo">{parseTime(this.state.value)}</div>;
+  buildTimer = () => {
+    return <div className="timer">{parseTime(this.state.value)}</div>;
   };
 
   buildButtonGroup = () => {
@@ -179,12 +179,12 @@ class Solo extends Component {
   buildContent = () => {
     return (
       <div className="content">
-        <div className="solo-header">
-          <h3> Solo </h3>
+        <div className="timer-header">
+          <h3> Timer </h3>
         </div>
-        <div className="solo-body">
+        <div className="timer-body">
           {this.buildRangeInput()}
-          {this.buildSolo()}
+          {this.buildTimer()}
           {this.buildButtonGroup()}
         </div>
       </div>
@@ -193,7 +193,7 @@ class Solo extends Component {
 
   render() {
     return (
-      <div className="solo-container">
+      <div className="timer-container">
         <NavbarTop />
         <div className="body-container">
           <NavLeft />
@@ -224,4 +224,4 @@ class Solo extends Component {
   }
 }
 
-export default Solo;
+export default Timer;

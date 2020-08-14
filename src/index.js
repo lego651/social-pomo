@@ -15,7 +15,7 @@ import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Room from "./pages/Room";
-import Solo from "./pages/Solo/solo.jsx";
+import Timer from "./pages/Timer/timer.jsx";
 import Stopwatch from "./pages/Stopwatch/stopwatch.jsx";
 import Test from "./pages/Test";
 import Project from "./pages/Project";
@@ -61,7 +61,7 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/solo" component={Solo} />
+          <Route exact path="/timer" component={Timer} />
           <Route exact path="/stopwatch" component={Stopwatch} />
           <Route exact path="/dashboard" component={requiresAuth(Dashboard)} />
           <Route exact path="/account" component={requiresAuth(Account)} />
