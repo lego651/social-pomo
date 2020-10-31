@@ -18,6 +18,8 @@ import {
   SET_TODO,
   REMOVE_TODO,
   POSTING,
+  SET_STOPWATCH_TIMER,
+  REMOVE_STOPWATCH_TIMER
 } from './types';
 
 require('firebase/auth')
@@ -308,5 +310,18 @@ export const addTodo = (todo, handle, nickName, avatar, roomName) => (dispatch) 
 export const removeTodo = () => (dispatch) => {
   return dispatch({
     type: REMOVE_TODO
+  })
+}
+
+export const setStopwatchTimer = ({ on, time }) => (dispatch) => {
+  return dispatch({
+    type: SET_STOPWATCH_TIMER,
+    payload: { on, time }
+  })
+}
+
+export const removeStopwatchTimer = () => (dispatch) => {
+  return dispatch({
+    type: REMOVE_STOPWATCH_TIMER,
   })
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import cogoToast from 'cogo-toast';
 
 // Components
@@ -7,6 +8,9 @@ import NavLeft from "../../components/NavLeft";
 import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 import PomoModal from "../Room/Pomodoro/pomoModal";
 import CancelModal from "../Room/Pomodoro/CancelModal";
+
+// Actions
+import { setStopwatchTimer, removeStopwatchTimer } from '../../actions';
 
 // Utils
 import { parseTime } from "../../utils/util.js";
@@ -34,8 +38,6 @@ class Stopwatch extends Component {
     this.startAudio = new Audio(pomoStartSound);
     this.stopAudio = new Audio(pomoStopSound);
     this.state = {
-      value: 0,
-      on: false,
       showPomoModal: false,
       showCancelModal: false,
     };
@@ -45,27 +47,31 @@ class Stopwatch extends Component {
     this.grantNotificationPermission();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   onStart = () => {
-    this.setState({ on: true });
+    const stopwatchTimer = this.props.user.profile.stopwatchTimer;
     this.startAudio.play();
     this.showPomoStartToast();
     this.interval = setInterval(() => {
-        this.setState(({ value }) => ({ value: value + 1 }));
+      this.props.setStopwatchTimer(true, stopwatchTimer + 1);
     }, 1000);
   };
 
   onPause = () => {
-    this.setState({ on: false });
+    this.props.setStopwatchTimer(false);
     clearInterval(this.interval);
   };
 
   onReset = () => {
-    this.setState({
-      on: false,
-      value: 0,
-      showPomoModal: false
-    });
-    clearInterval(this.interval);
+    if(this.props.user.profile.stopwatchTimer > 0) {
+      this.setState({ showPomoModal: true}, () => {
+        clearInterval(this.interval);
+        this.props.removeStopwatchTimer();
+      });
+    }
   };
 
   setShowPomoModal = (bool) => {
@@ -118,14 +124,16 @@ class Stopwatch extends Component {
   };
 
   buildStopwatch = () => {
-    return <div className="stopwatch">{parseTime(this.state.value)}</div>;
+    const stopwatchTimer = this.props.user.profile.stopwatchTimer;
+    return <div className="stopwatch">{parseTime(stopwatchTimer)}</div>;
   };
 
   buildButtonGroup = () => {
+    const stopwatchTimerOn = this.props.user.profile.stopwatchTimerOn
     return (
       <div className="buttons">
-        <span onClick={this.state.on ? this.onPause : this.onStart}>
-          <FontAwesomeIcon icon={this.state.on ? faPauseCircle : faPlayCircle} />
+        <span onClick={stopwatchTimerOn ? this.onPause : this.onStart}>
+          <FontAwesomeIcon icon={stopwatchTimerOn ? faPauseCircle : faPlayCircle} />
         </span>
         <span onClick={this.onReset}>
           <FontAwesomeIcon icon={faTimesCircle} />
@@ -182,4 +190,12 @@ class Stopwatch extends Component {
   }
 }
 
-export default Stopwatch;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(
+  mapStateToProps,
+  { setStopwatchTimer, removeStopwatchTimer }
+)(Stopwatch);
+

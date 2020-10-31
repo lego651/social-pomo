@@ -16,7 +16,9 @@ import {
   ADD_INROOM_OWNSROOM,
   SET_NICKNAME,
   START_MATCHING,
-  MATCH_THEN_JOIN_ROOM
+  MATCH_THEN_JOIN_ROOM,
+  SET_STOPWATCH_TIMER,
+  REMOVE_STOPWATCH_TIMER
 } from '../actions/types';
 
 const initialState = {
@@ -147,6 +149,24 @@ const authReducer = (state=initialState, action) => {
           matching: false,
           ownsRoom: action.payload.ownsRoom,
           inRoom: action.payload.inRoom
+        }
+      }
+    case SET_STOPWATCH_TIMER:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          stopwatchOn: action.payload.on,
+          stopwatchTimer: !action.payload.time && action.payload.time,
+        }
+      }
+    case REMOVE_STOPWATCH_TIMER:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          stopwatchOn: false,
+          stopwatchTimer: 0,
         }
       }
     default:
