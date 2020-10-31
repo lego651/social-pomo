@@ -99,11 +99,6 @@ class Stopwatch extends Component {
       return;
     }
 
-    // if (Notification.permission === "granted") {
-    //   new Notification("You are already subscribed to message notifications");
-    //   return;
-    // }
-
     if (
       Notification.permission !== "denied" ||
       Notification.permission === "default"
@@ -129,16 +124,9 @@ class Stopwatch extends Component {
   buildButtonGroup = () => {
     return (
       <div className="buttons">
-        {!this.state.on && (
-          <span onClick={this.onStart}>
-            <FontAwesomeIcon icon={faPlayCircle} />
-          </span>
-        )}
-        {this.state.on && (
-          <span onClick={this.onPause}>
-            <FontAwesomeIcon icon={faPauseCircle} />
-          </span>
-        )}
+        <span onClick={this.state.on ? this.onPause : this.onStart}>
+          <FontAwesomeIcon icon={this.state.on ? faPauseCircle : faPlayCircle} />
+        </span>
         <span onClick={this.onReset}>
           <FontAwesomeIcon icon={faTimesCircle} />
         </span>
