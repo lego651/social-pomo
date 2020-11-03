@@ -313,10 +313,10 @@ export const removeTodo = () => (dispatch) => {
   })
 }
 
-export const setStopwatchTimer = ({ on, time }) => (dispatch) => {
+export const setStopwatchTimer = ({ on, startingTime, pauseTimer }) => (dispatch) => {
   return dispatch({
     type: SET_STOPWATCH_TIMER,
-    payload: { on, time }
+    payload: { on, startingTime, pauseTimer }
   })
 }
 

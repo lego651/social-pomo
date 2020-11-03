@@ -46,12 +46,17 @@ class Stopwatch extends Component {
   }
 
   componentDidMount() {
-    const { stopwatchTimerOn, stopwatchStartingTime } = this.props.user.profile;
+    const { on, startingTime, pauseTimer } = this.props.user.profile.stopwatch;
     this.grantNotificationPermission();
-    if (stopwatchTimerOn) {
+    if (!on && pauseTimer) {
+      this.setState({
+        on: false,
+        value: pauseTimer 
+      });
+    } else if (on && startingTime) {
       this.setState({
         on: true,
-        value: Math.floor((Date.now() - stopwatchStartingTime) / 1000)
+        value: Math.floor((Date.now() - startingTime) / 1000)
       });
       this.interval = setInterval(() => {
         this.setState(prevState => { return {value: prevState.value + 1} })
@@ -59,11 +64,15 @@ class Stopwatch extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   onStart = () => {
     this.startAudio.play();
     this.showPomoStartToast();
     this.setState({ on: true });
-    this.props.setStopwatchTimer({ on: true, time: Date.now() });
+    this.props.setStopwatchTimer({ on: true, startingTime: Date.now() });
 
     this.interval = setInterval(() => {
       this.setState(prevState => { return {value: prevState.value + 1} })
@@ -72,7 +81,7 @@ class Stopwatch extends Component {
 
   onPause = () => {
     this.setState({ on: false }, () => {
-      this.props.setStopwatchTimer({ time: Date.now(), pauseTimer: this.state.value });
+      this.props.setStopwatchTimer({ time: Date.now() - this.state.value * 1000, pauseTimer: this.state.value });
     });
     clearInterval(this.interval);
   };
@@ -109,7 +118,7 @@ class Stopwatch extends Component {
 
   showPomoStartToast = () => {
     cogoToast.loading("Pomodoro Starts, Enjoy!", { position: 'top-center' });
-  }
+  };
 
   grantNotificationPermission = () => {
     if (!("Notification" in window)) {
@@ -165,7 +174,7 @@ class Stopwatch extends Component {
         </div>
       </div>
     )
-  }
+  };
 
   render() {
     return (
@@ -197,7 +206,7 @@ class Stopwatch extends Component {
         />
       </div>
     );
-  }
+  };
 }
 
 const mapStateToProps = (state) => ({
