@@ -48,14 +48,17 @@ exports.signup = (req, res) => {
         matching: false,
         inRoom: null,
         ownsRoom: null,
-        stopwatchStartingTime: 0,
-        stopwatchTimerOn: false,
         nickName: newUser.handle,
         projects: ['Other'],
         tags: [],
         avatar: `https://firebasestorage.googleapis.com/v0/b/${
           config.storageBucket
-        }/o/defaultAvatar.jpg?alt=media`
+        }/o/defaultAvatar.jpg?alt=media`,
+        stopwatch: {
+          on: false,
+          startingTime: null,
+          pauseTimer: null
+        }
       };
       return db.doc(`/users/${newUser.handle}`).set(userCredentials);
     })

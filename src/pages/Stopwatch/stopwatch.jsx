@@ -50,6 +50,7 @@ class Stopwatch extends Component {
     this.grantNotificationPermission();
     if (stopwatchTimerOn) {
       this.setState({
+        on: true,
         value: Math.floor((Date.now() - stopwatchStartingTime) / 1000)
       });
       this.interval = setInterval(() => {
@@ -70,7 +71,9 @@ class Stopwatch extends Component {
   };
 
   onPause = () => {
-    this.setState({ on: false });
+    this.setState({ on: false }, () => {
+      this.props.setStopwatchTimer({ time: Date.now(), pauseTimer: this.state.value });
+    });
     clearInterval(this.interval);
   };
 
