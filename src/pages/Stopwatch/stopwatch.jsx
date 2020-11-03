@@ -40,28 +40,37 @@ class Stopwatch extends Component {
     this.state = {
       showPomoModal: false,
       showCancelModal: false,
+      value: 0,
+      on: false
     };
   }
 
   componentDidMount() {
+    const { stopwatchTimerOn, stopwatchStartingTime } = this.props.user.profile;
     this.grantNotificationPermission();
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
+    if (stopwatchTimerOn) {
+      this.setState({
+        value: Math.floor((Date.now() - stopwatchStartingTime) / 1000)
+      });
+      this.interval = setInterval(() => {
+        this.setState(prevState => { return {value: prevState.value + 1} })
+      }, 1000);
+    }
   }
 
   onStart = () => {
-    const stopwatchTimer = this.props.user.profile.stopwatchTimer;
     this.startAudio.play();
     this.showPomoStartToast();
+    this.setState({ on: true });
+    this.props.setStopwatchTimer({ on: true, time: Date.now() });
+
     this.interval = setInterval(() => {
-      this.props.setStopwatchTimer(true, stopwatchTimer + 1);
+      this.setState(prevState => { return {value: prevState.value + 1} })
     }, 1000);
   };
 
   onPause = () => {
-    this.props.setStopwatchTimer(false);
+    this.setState({ on: false });
     clearInterval(this.interval);
   };
 
@@ -124,16 +133,14 @@ class Stopwatch extends Component {
   };
 
   buildStopwatch = () => {
-    const stopwatchTimer = this.props.user.profile.stopwatchTimer;
-    return <div className="stopwatch">{parseTime(stopwatchTimer)}</div>;
+    return <div className="stopwatch">{parseTime(this.state.value)}</div>;
   };
 
   buildButtonGroup = () => {
-    const stopwatchTimerOn = this.props.user.profile.stopwatchTimerOn
     return (
       <div className="buttons">
-        <span onClick={stopwatchTimerOn ? this.onPause : this.onStart}>
-          <FontAwesomeIcon icon={stopwatchTimerOn ? faPauseCircle : faPlayCircle} />
+        <span onClick={this.state.on ? this.onPause : this.onStart}>
+          <FontAwesomeIcon icon={this.state.on ? faPauseCircle : faPlayCircle} />
         </span>
         <span onClick={this.onReset}>
           <FontAwesomeIcon icon={faTimesCircle} />

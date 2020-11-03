@@ -156,8 +156,8 @@ const authReducer = (state=initialState, action) => {
         ...state,
         profile: {
           ...state.profile,
-          stopwatchOn: action.payload.on,
-          stopwatchTimer: !action.payload.time && action.payload.time,
+          stopwatchTimerOn: action.payload.on,
+          stopwatchStartingTime: action.payload.time,
         }
       }
     case REMOVE_STOPWATCH_TIMER:
@@ -165,8 +165,8 @@ const authReducer = (state=initialState, action) => {
         ...state,
         profile: {
           ...state.profile,
-          stopwatchOn: false,
-          stopwatchTimer: 0,
+          stopwatchTimerOn: false,
+          stopwatchStartingTime: 0,
         }
       }
     default:

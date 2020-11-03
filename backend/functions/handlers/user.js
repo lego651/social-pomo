@@ -48,7 +48,7 @@ exports.signup = (req, res) => {
         matching: false,
         inRoom: null,
         ownsRoom: null,
-        stopwatchTimer: 0,
+        stopwatchStartingTime: 0,
         stopwatchTimerOn: false,
         nickName: newUser.handle,
         projects: ['Other'],
