@@ -190,7 +190,7 @@ class Stopwatch extends Component {
           show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}
           type={-1}
-          time={this.state.time}
+          time={this.state.value}
           onHide={() => this.setShowPomoModal(false)}
           onSuccess={this.showSuccessToast}
         />
