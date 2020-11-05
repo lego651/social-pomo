@@ -27,7 +27,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
-      this.setState({ errors: nextProps.UI.errors });
+      this.setState({ errors: nextProps.UI.errors, email: "", password: "" });
     }
   }
 
@@ -47,7 +47,7 @@ class Login extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, email, password } = this.state;
     const { loading } = this.props.UI;
     return (
       <div className="login-container">
@@ -75,11 +75,11 @@ class Login extends Component {
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      value={this.state.email}
-                      isInvalid={!!errors.email}
+                      value={email}
+                      isInvalid={email.length == 0 && !!errors.email}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.email}
+                      {email.length == 0 && errors.email}
                     </Form.Control.Feedback>
                   </Form.Group>
 
@@ -96,11 +96,11 @@ class Login extends Component {
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      value={this.state.password}
-                      isInvalid={!!errors.password}
+                      value={password}
+                      isInvalid={password.length == 0 && !!errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.password}
+                      {password.length == 0 && errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 
