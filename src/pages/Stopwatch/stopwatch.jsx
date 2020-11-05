@@ -87,10 +87,11 @@ class Stopwatch extends Component {
   };
 
   onReset = () => {
-    if(this.props.user.profile.stopwatchTimer > 0) {
-      this.setState({ showPomoModal: true}, () => {
+    if(this.state.value > 0) {
+      this.setState({ on: false, showPomoModal: true }, () => {
         clearInterval(this.interval);
         this.props.removeStopwatchTimer();
+        this.setShowPomoModal(true);
       });
     }
   };
@@ -189,7 +190,7 @@ class Stopwatch extends Component {
           show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}
           type={-1}
-          time={this.state.logValue}
+          time={this.state.time}
           onHide={() => this.setShowPomoModal(false)}
           onSuccess={this.showSuccessToast}
         />
