@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+// Icons
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faSync } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col, Form, Button } from "react-bootstrap";
 
-import { signupUser } from "../../actions";
-import "./style.scss";
+// Images
 import loginPic from "../../assets/img/signup.jpeg";
+
+// Actions
+import { signupUser } from "../../actions";
+
+// Scss
+import "./style.scss";
 
 class SignUp extends Component {
   constructor(props) {
@@ -26,12 +33,6 @@ class SignUp extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-
-  // componentDidUpdate(nextProps) {
-  //   if (nextProps.UI.errors) {
-  //     this.setState({ errors: nextProps.UI.errors });
-  //   }
-  // }
 
   handleChange = e => {
     this.setState({
