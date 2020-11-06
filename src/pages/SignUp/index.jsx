@@ -30,7 +30,7 @@ class SignUp extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
-      this.setState({ errors: nextProps.UI.errors });
+      this.setState({ errors: nextProps.UI.errors, email: "", password: "", confirmPassword: "", handle: "" });
     }
   }
 
@@ -52,7 +52,7 @@ class SignUp extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors, email, password, confirmPassword, handle } = this.state;
     const { loading } = this.props.UI;
     return (
       <div className="signup-container">
@@ -80,14 +80,16 @@ class SignUp extends Component {
                       type="email"
                       placeholder="Enter email"
                       name="email"
+                      value={email}
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={!!errors.email}
-                    />
+                      isInvalid={email.length == 0 && !!errors.email}
+                    /> 
                     <Form.Control.Feedback type="invalid">
-                      {errors.email}
-                    </Form.Control.Feedback>
+                      {email.length == 0 && errors.email}
+                    </Form.Control.Feedback> 
+                    
                   </Form.Group>
 
                   <Form.Group>
@@ -100,13 +102,14 @@ class SignUp extends Component {
                       type="password"
                       placeholder="Password"
                       name="password"
+                      value={password}
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={!!errors.password}
+                      isInvalid={password.length == 0 && !!errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.password}
+                      {password.length == 0 && errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 
@@ -120,13 +123,14 @@ class SignUp extends Component {
                       type="password"
                       placeholder="Confirm Password"
                       name="confirmPassword"
+                      value={confirmPassword}
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={!!errors.confirmPassword}
+                      isInvalid={confirmPassword.length == 0 && !!errors.confirmPassword}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.confirmPassword}
+                      {confirmPassword.length == 0 && errors.confirmPassword}
                     </Form.Control.Feedback>
                   </Form.Group>
 
@@ -140,13 +144,14 @@ class SignUp extends Component {
                       type="text"
                       placeholder="Username"
                       name="handle"
+                      value={handle}
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={!!errors.handle}
+                      isInvalid={handle.length == 0 && !!errors.handle}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {errors.handle}
+                      {handle.length == 0 && errors.handle}
                     </Form.Control.Feedback>
                   </Form.Group>
 
