@@ -6,6 +6,7 @@ import firebase from '../../utils/firebase.js';
 import NavbarTop from '../../components/NavbarTop';
 import NavLeft from '../../components/NavLeft';
 import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
+import ClipLoader from "react-spinners/ClipLoader";
 
 // Images
 import default_img from '../../assets/img/avatar.svg';
@@ -23,6 +24,7 @@ class Home extends Component {
     this.ref = firebase.firestore().collection('pomos');
     this.unsubscribe = null;
     this.state = {
+      fetchingPomos: true,
       pomos: []
     }
   }
@@ -32,17 +34,30 @@ class Home extends Component {
   }
 
   onUpdatePomos = (snapshot) => {
-    const pomos = [];
-    snapshot.forEach((doc) => {
-      if(doc.data().public) {
-        pomos.push(doc.data());
-      }
+    this.setState({ fetchingPomos: true }, () => {
+      const pomos = [];
+      snapshot.forEach((doc) => {
+        if(doc.data().public) {
+          pomos.push(doc.data());
+        }
+      })
+      this.setState({ pomos, fetchingPomos: false });
     })
-    this.setState({ pomos });
   }
 
   buildPomoList() {
-    const { pomos } = this.state;
+    const { pomos, fetchingPomos } = this.state;
+    if (fetchingPomos) {
+      return (
+        <div className="pomo-loader"> 
+          <ClipLoader
+            color={"#ccc"}
+            height={15}
+            width={5}
+            loading={true} />  
+        </div>
+      )
+    } 
     return (
       <div className="pomo-list">
         {

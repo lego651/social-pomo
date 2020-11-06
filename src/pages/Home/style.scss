@@ -6,6 +6,12 @@
     width: 100%;
     padding: 50px 30px;
 
+    .pomo-loader {
+      display: flex;
+      justify-content: center;
+      margin-top: 200px;
+    }
+
     .pomo-list {
       background-color: white;
       border-radius: 20px;
