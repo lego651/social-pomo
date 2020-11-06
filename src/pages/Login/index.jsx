@@ -76,10 +76,10 @@ class Login extends Component {
                         this.handleChange(e);
                       }}
                       value={email}
-                      isInvalid={email.length == 0 && !!errors.email}
+                      isInvalid={email.length === 0 && !!errors.email}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {email.length == 0 && errors.email}
+                      {email.length === 0 && errors.email}
                     </Form.Control.Feedback>
                   </Form.Group>
 
@@ -97,10 +97,10 @@ class Login extends Component {
                         this.handleChange(e);
                       }}
                       value={password}
-                      isInvalid={password.length == 0 && !!errors.password}
+                      isInvalid={password.length === 0 && !!errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {password.length == 0 && errors.password}
+                      {password.length === 0 && errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 

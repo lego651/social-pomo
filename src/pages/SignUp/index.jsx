@@ -84,10 +84,10 @@ class SignUp extends Component {
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={email.length == 0 && !!errors.email}
+                      isInvalid={email.length === 0 && !!errors.email}
                     /> 
                     <Form.Control.Feedback type="invalid">
-                      {email.length == 0 && errors.email}
+                      {email.length === 0 && errors.email}
                     </Form.Control.Feedback> 
                     
                   </Form.Group>
@@ -106,10 +106,10 @@ class SignUp extends Component {
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={password.length == 0 && !!errors.password}
+                      isInvalid={password.length === 0 && !!errors.password}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {password.length == 0 && errors.password}
+                      {password.length === 0 && errors.password}
                     </Form.Control.Feedback>
                   </Form.Group>
 
@@ -127,10 +127,10 @@ class SignUp extends Component {
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={confirmPassword.length == 0 && !!errors.confirmPassword}
+                      isInvalid={confirmPassword.length === 0 && !!errors.confirmPassword}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {confirmPassword.length == 0 && errors.confirmPassword}
+                      {confirmPassword.length === 0 && errors.confirmPassword}
                     </Form.Control.Feedback>
                   </Form.Group>
 
@@ -148,10 +148,10 @@ class SignUp extends Component {
                       onChange={e => {
                         this.handleChange(e);
                       }}
-                      isInvalid={handle.length == 0 && !!errors.handle}
+                      isInvalid={handle.length === 0 && !!errors.handle}
                     />
                     <Form.Control.Feedback type="invalid">
-                      {handle.length == 0 && errors.handle}
+                      {handle.length === 0 && errors.handle}
                     </Form.Control.Feedback>
                   </Form.Group>
 
