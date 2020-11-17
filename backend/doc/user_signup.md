@@ -2,7 +2,7 @@
 
 ### Params:
 
-* `email`: Example `deva1@gmail.com`
-* `password`: At least 6 figures 
-* `confirmPassword`: At least 6 figures, Must match with `password`
-* `handle`: User unique DB handle, CANT be duplicated 
+* `email`: example `deva1@gmail.com`
+* `password`: at least 6 figures 
+* `confirmPassword`: at least 6 figures, Must match with `password`
+* `handle`: user unique DB handle, CANT be duplicated 
