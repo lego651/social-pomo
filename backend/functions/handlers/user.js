@@ -1,11 +1,11 @@
 const firebase = require('firebase');
 
-const config = require('../utils/config.js');
+const firebaseConfig = require('../../../config/firebase.config.js');
 const { validateSignupData, validateLoginData } = require('../utils/validators.js');
 const { admin, db } = require('../utils/admin');
 
 // Init Firebase to client side
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
 // Sign Up
 exports.signup = (req, res) => {
