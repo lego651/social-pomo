@@ -8,7 +8,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faSync } from "@fortawesome/free-solid-svg-icons";
-import loginPic from "../../assets/img/signup.jpeg";
+import loginPic from "assets/img/signup.jpeg";
 
 // Actions
 import { loginUser } from "../../actions";
