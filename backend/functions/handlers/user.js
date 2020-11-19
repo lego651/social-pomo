@@ -21,15 +21,28 @@ exports.signup = (req, res) => {
 
   const { valid, errors } = validateSignupData(newUser);
 
-  if(!valid) return res.status(400).json(errors);
+  if(!valid) return res.status(400).json({
+    success: false,
+    message: "invalid form",
+    error_code: 400,
+    data: errors
+  });
 
-  let token, userId;
+  let token, userId, cookie;
+  const expiresIn = 60 * 60 * 24 * 1000;
 
   db.doc(`/users/${newUser.handle}`)
     .get()
     .then(doc => {
       if(doc.exists) {
-        return res.status(400).json({ handle: 'username is already in use.'});
+        return res.status(400).json({
+          success: false,
+          message: "username is already in use",
+          error_code: 400,
+          data: {
+            handle: "username is already in use"
+          }
+        })
       } else {
         return firebase
           .auth()
@@ -55,7 +68,7 @@ exports.signup = (req, res) => {
         projects: ['Other'],
         tags: [],
         avatar: `https://firebasestorage.googleapis.com/v0/b/${
-          config.storageBucket
+          firebaseConfig.storageBucket
         }/o/defaultAvatar.jpg?alt=media`,
         stopwatch: {
           on: false,
@@ -66,18 +79,50 @@ exports.signup = (req, res) => {
       return db.doc(`/users/${newUser.handle}`).set(userDetails);
     })
     .then(() => {
-      return res.status(201).json({ token });
+      return admin.auth().createSessionCookie(token, {expiresIn})
+    })
+    .then(sessionCookie => {
+      // Set cookie policy for session cookie and set in response.
+      cookie = sessionCookie;
+      const options = {maxAge: expiresIn, httpOnly: true, secure: true};
+      res.cookie('__session', sessionCookie, options);
+      return admin.auth().verifyIdToken(token)
+    })
+    .then(decodedClaims => {
+      return res.status(201).json({ 
+        success: true,
+        message: "user registed successfully",
+        error_code: 201,
+        data: {
+          token,
+          cookie
+        }
+      });   
     })
     .catch((err) => {
+      console.log(err)
       if (err.code === 'auth/email-already-in-use') {
-        return res.status(400).json({ email: 'Email is already is use.' });
+        return res.status(400).json({ 
+          success: false,
+          message: "invalid email",
+          error_code: 400,
+          data: {
+            email: 'Email is already is use'
+          }
+        });
       } else {
-        return res
-          .status(500)
-          .json({ general: 'Something went wrong, please try again.' });
+        return res.status(500).json({ 
+          success: false,
+          message: "invalid request",
+          error_code: 400,
+          data: {
+            general: 'Something went wrong, please try again'
+          }
+        });
       }
     });
-};
+  return null;
+}
 
 // Log in
 // 当前版本没有判断是Email的问题还是Password的问题，统一回答Wrong Credentials
@@ -307,7 +352,7 @@ exports.uploadImage = (req, res) => {
       })
       .then(() => {
         const avatar = `https://firebasestorage.googleapis.com/v0/b/${
-          config.storageBucket
+          firebaseConfig.storageBucket
         }/o/${imageFileName}?alt=media`;
         return db.doc(`/users/${req.user.handle}`).update({ avatar });
       })

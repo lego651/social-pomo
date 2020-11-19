@@ -90,8 +90,8 @@ export const signupUser = (newUserData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('/signup', newUserData)
-    .then((res) => {
-      setAuthorizationHeader(res.data);
+    .then(res => {
+      setAuthorizationHeader(res.data.data);
       dispatch(getUserDataAndRedirect(history));
       dispatch({
         type: CLEAR_ERRORS
@@ -100,7 +100,7 @@ export const signupUser = (newUserData, history) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: SET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data.data
       });
     });
 };
@@ -133,7 +133,6 @@ export const getUserData = () => (dispatch) => {
 };
 
 export const getUserDataAndRedirect = (history) => (dispatch) => {
-  // console.log("redirect to login.");
   history.push('/home');
   axios
     .get('/user')
