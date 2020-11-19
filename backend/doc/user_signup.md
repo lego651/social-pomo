@@ -37,7 +37,7 @@
 {
     "success": false,
     "message": "invalid request",
-    "error_code": 400,
+    "status_code": 400,
     "data": {
         "general": "Something went wrong, please try again"
     }
