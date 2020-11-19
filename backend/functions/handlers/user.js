@@ -24,7 +24,7 @@ exports.signup = (req, res) => {
   if(!valid) return res.status(400).json({
     success: false,
     message: "invalid form",
-    error_code: 400,
+    status_code: 400,
     data: errors
   });
 
@@ -38,7 +38,7 @@ exports.signup = (req, res) => {
         return res.status(400).json({
           success: false,
           message: "username is already in use",
-          error_code: 400,
+          status_code: 400,
           data: {
             handle: "username is already in use"
           }
@@ -65,7 +65,7 @@ exports.signup = (req, res) => {
         inRoom: null,
         ownsRoom: null,
         nickName: newUser.handle,
-        projects: ['Other'],
+        projects: ["Other"],
         tags: [],
         avatar: `https://firebasestorage.googleapis.com/v0/b/${
           firebaseConfig.storageBucket
@@ -85,14 +85,14 @@ exports.signup = (req, res) => {
       // Set cookie policy for session cookie and set in response.
       cookie = sessionCookie;
       const options = {maxAge: expiresIn, httpOnly: true, secure: true};
-      res.cookie('__session', sessionCookie, options);
+      res.cookie("__session", sessionCookie, options);
       return admin.auth().verifyIdToken(token)
     })
     .then(decodedClaims => {
       return res.status(201).json({ 
         success: true,
         message: "user registed successfully",
-        error_code: 201,
+        status_code: 201,
         data: {
           token,
           cookie
@@ -105,18 +105,18 @@ exports.signup = (req, res) => {
         return res.status(400).json({ 
           success: false,
           message: "invalid email",
-          error_code: 400,
+          status_code: 400,
           data: {
-            email: 'Email is already is use'
+            email: "Email is already is use"
           }
         });
       } else {
         return res.status(500).json({ 
           success: false,
           message: "invalid request",
-          error_code: 400,
+          status_code: 400,
           data: {
-            general: 'Something went wrong, please try again'
+            general: "Something went wrong, please try again"
           }
         });
       }
