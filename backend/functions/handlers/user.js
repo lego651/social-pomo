@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 
-const firebaseConfig = require('../../../config/firebase.config.js');
+const firebaseConfig = require('../config/firebase.js');
 const { validateSignupData, validateLoginData } = require('../utils/validators.js');
 const { admin, db } = require('../utils/admin');
 
