@@ -1,13 +1,16 @@
 const firebase = require('firebase');
 
+// config
 const firebaseConfig = require('../config/firebase.js');
+
+// utils
 const { validateSignupData, validateLoginData } = require('../utils/validators.js');
 const { admin, db } = require('../utils/admin');
 
 // Init Firebase to client side
 firebase.initializeApp(firebaseConfig);
 
-// Sign Up
+// POST: Sign Up
 exports.signup = (req, res) => {
   const newUser = {
     email: req.body.email,
@@ -24,7 +27,7 @@ exports.signup = (req, res) => {
 
   db.doc(`/users/${newUser.handle}`)
     .get()
-    .then((doc) => {
+    .then(doc => {
       if(doc.exists) {
         return res.status(400).json({ handle: 'username is already in use.'});
       } else {
@@ -33,13 +36,13 @@ exports.signup = (req, res) => {
           .createUserWithEmailAndPassword(newUser.email, newUser.password);
       }
     })
-    .then((data) => {
-      userId = data.user.uid;
-      return data.user.getIdToken();
+    .then(createdUser => {
+      userId = createdUser.user.uid;
+      return createdUser.user.getIdToken();
     })
-    .then((idToken) => {
+    .then(idToken => {
       token = idToken;
-      const userCredentials = {
+      const userDetails = {
         handle: newUser.handle,
         email: newUser.email,
         createdAt: new Date().toISOString(),
@@ -60,13 +63,12 @@ exports.signup = (req, res) => {
           pauseTimer: null
         }
       };
-      return db.doc(`/users/${newUser.handle}`).set(userCredentials);
+      return db.doc(`/users/${newUser.handle}`).set(userDetails);
     })
     .then(() => {
       return res.status(201).json({ token });
     })
     .catch((err) => {
-      // console.error(err);
       if (err.code === 'auth/email-already-in-use') {
         return res.status(400).json({ email: 'Email is already is use.' });
       } else {
