@@ -22,7 +22,7 @@ class NavLeft extends Component {
     }
     this.navLinks = [
       {link: "/home", icon: <FontAwesomeIcon icon={faHome} />, name: "Home"},
-      {link: "/dashboard", icon: <FontAwesomeIcon icon={faTachometerAlt} />, name: "Dashboard"},
+      {link: "/dashboard/today", icon: <FontAwesomeIcon icon={faTachometerAlt} />, name: "Dashboard"},
       {link: "/match", icon: <FontAwesomeIcon icon={faHandsHelping} />, name: "Match"},
       {link: "/room", icon: <FontAwesomeIcon icon={faDoorOpen} />, name: "Room"},
       {link: "/timer", icon: <FontAwesomeIcon icon={faClock} />, name: "Timer"},
