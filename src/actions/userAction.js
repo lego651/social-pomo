@@ -47,8 +47,7 @@ export const loginUser = (userData, history) => (dispatch) => {
   axios
     .post('/login', userData)
     .then((res) => {
-      setAuthorizationHeader(res.data);
-
+      setAuthorizationHeader(res.data.data);
       dispatch(getUserDataAndRedirect(history));
       dispatch({
         type: CLEAR_ERRORS

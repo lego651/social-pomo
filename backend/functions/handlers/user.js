@@ -100,7 +100,6 @@ exports.signup = (req, res) => {
       });   
     })
     .catch((err) => {
-      console.log(err)
       if (err.code === 'auth/email-already-in-use') {
         return res.status(400).json({ 
           success: false,
@@ -124,8 +123,7 @@ exports.signup = (req, res) => {
   return null;
 }
 
-// Log in
-// 当前版本没有判断是Email的问题还是Password的问题，统一回答Wrong Credentials
+// POST: Log in
 exports.login = (req, res) => {
   const user = {
     email: req.body.email,
@@ -134,110 +132,54 @@ exports.login = (req, res) => {
 
   const { valid, errors } = validateLoginData(user);
 
-  if (!valid) return res.status(400).json(errors);
-
-  //
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then((data) => {
-      return data.user.getIdToken();   
+  if (!valid) {
+    return res.status(400).json({
+      success: false,
+      message: "wrong credentials",
+      status_code: 400,
+      data: errors
     })
-    .then((token) => {
-      const expiresIn = 60 * 60 * 24 * 1000;
+  }
+
+  let token, cookie;
+  const expiresIn = 60 * 60 * 24 * 1000;
+
+  firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+    .then(data => data.user.getIdToken())
+    .then(idToken => { 
+      token = idToken;
       return admin.auth().createSessionCookie(token, {expiresIn})
-      .then((sessionCookie) => {
-        
+    }) 
+    .then(sessionCookie => {
         // Set cookie policy for session cookie and set in response.
+        cookie = sessionCookie;
         const options = {maxAge: expiresIn, httpOnly: true, secure: true};
         res.cookie('__session', sessionCookie, options);
-        
-        admin.auth().verifyIdToken(token)
-          .then(function(decodedClaims) {
-            // return res.redirect('/home');
-            return res.json({ token: token, cookie: sessionCookie });
-          })
-          .catch(err => {
-            console.log(err.code + err.message);
-          })     
-        return;     
-      })
-      .catch(err => {
-        console.log(err.code + err.message);
-        res.status(401).send('UNAUTHORIZED REQUEST!');
-      })
+        return admin.auth().verifyIdToken(token)
+    })
+    .then(decodedClaims => {
+      return res.status(201).json({ 
+        success: true,
+        message: "user logged in successfully",
+        status_code: 201,
+        data: {
+          token,
+          cookie
+        }
+      });  
     })
     .catch((err) => {
-      console.log(err);
-      return res
-        .status(403)
-        .json({ password: 'Email or password is incorrect, please try again.' });
+      return res.status(403).json({ 
+        success: false,
+        message: err.message,
+        status_code: 403,
+        data: {
+          password: "Email or password is incorrect, please try again"
+        }
+      });
     });
-
-  // Default
-  // firebase
-  //   .auth()
-  //   .signInWithEmailAndPassword(user.email, user.password)
-  //   .then((data) => {
-  //     return data.user.getIdToken();
-  //   })
-  //   .then((token) => {
-  //     return res.json({ token });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     return res
-  //       .status(403)
-  //       .json({ password: 'Email or password is incorrect, please try again.' });
-  //   });
-
-  // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-  //   .then(() => {
-  //     firebase.auth()
-  //       .signInWithEmailAndPassword(user.email, user.password)
-  //       .then((data) => {
-  //         return data.user.getIdToken();
-  //       })
-  //       .then((token) => {
-  //         return res.json({ token });
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         return res
-  //           .status(403)
-  //           .json({ password: 'Email or password is incorrect, please try again.' });
-  //       });
-  //       return;
-  //   })  
-  //   .catch(function(error) {
-  //     console.log(error.code + error.message);
-  //   });
-};
-
-// function setCookie(idToken, res) {
-// 	// Set session expiration to 5 days.
-// 	// Create the session cookie. This will also verify the ID token in the process.
-// 	// The session cookie will have the same claims as the ID token.
-	
-// 	const expiresIn = 60 * 60 * 24 * 5 * 1000;
-//   admin.auth().createSessionCookie(idToken, {expiresIn})
-//   .then((sessionCookie) => {
-		
-// 		// Set cookie policy for session cookie and set in response.
-// 		const options = {maxAge: expiresIn, httpOnly: true, secure: true};
-// 		res.cookie('__session', sessionCookie, options);
-		
-// 		return admin.auth().verifyIdToken(idToken).then(function(decodedClaims) {
-//       // return res.redirect('/home');
-//       return res.json({ token });
-// 		});
-			
-//   })
-//   .catch(err => {
-//     console.log(err.code + err.message);
-//     res.status(401).send('UNAUTHORIZED REQUEST!');
-//   })
-// }
+  return null;
+}
 
 // Add User Details
 exports.addUserDetails = (req, res) => {

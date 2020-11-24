@@ -7,16 +7,8 @@ import {
   GET_MINUTES_ALL,
 } from './types';
 
-export const createPomo = (newPomoObj) => (dispatch) => {
-  // console.log('data in action is:', newPomoObj)
-  axios
-    .post('/pomo', newPomoObj)
-    .then((res) => {
-
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+export const createPomo = (newPomoObj) => {
+  axios.post('/pomo', newPomoObj);
 }
 
 export const getWeeklyPomo = () => (dispatch) => {
