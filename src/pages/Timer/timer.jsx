@@ -3,16 +3,16 @@ import InputRange from "react-input-range";
 import cogoToast from 'cogo-toast';
 
 // Components
-import NavbarTop from "../../components/NavbarTop";
-import NavLeft from "../../components/NavLeft";
-import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
-import PomoModal from "../Room/Pomodoro/pomoModal";
+import NavbarTop from "src/components/NavbarTop";
+import NavLeft from "src/components/NavLeft";
+import NavLeftMobile from 'src/components/NavLeftMobile/navLeftMobile.jsx';
+import PomoModal from "src/components/PomoModal/pomoModal.jsx";
 import CancelModal from "../Room/Pomodoro/CancelModal";
 
 // Utils
-import { parseTime } from "../../utils/util.js";
-import pomoStartSound from "../../assets/pomoStartSound.mp3";
-import pomoStopSound from "../../assets/pomoStopSound.mp3";
+import { parseTime } from "src/utils/util.js";
+import pomoStartSound from "src/assets/pomoStartSound.mp3";
+import pomoStopSound from "src/assets/pomoStopSound.mp3";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,7 +23,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // Images
-import working_img from '../../assets/img/working.webp';
+import working_img from 'src/assets/img/working.webp';
 
 // Styles
 import "./timer.scss";
