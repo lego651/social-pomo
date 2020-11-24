@@ -52,7 +52,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(this.props.match.params)
     return (
       <div className="overview-container">
         <NavbarTop />
