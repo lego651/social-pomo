@@ -32,7 +32,7 @@ class Dashboard extends Component {
   buildTab = (name, index) => {
     const value = tabsMap[name]
     const active = this.props.match.params.past === value;
-    return <Link to={`/dashboard/${value}`} className={`tab-container ${active ? "active" : ""}`}> <h5>{name}</h5> </Link>
+    return <Link key={name} to={`/dashboard/${value}`} className={`tab-container ${active ? "active" : ""}`}> <h5>{name}</h5> </Link>
   }
 
   buildTabs = () => {
