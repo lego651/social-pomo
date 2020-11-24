@@ -101,6 +101,12 @@ class Timer extends Component {
     cogoToast.success("Logged Successully, Enjoy!", { position: 'top-center' });
   };
 
+  onSubmitSuccess = () => {
+    this.setState({
+      inputRangeDisabled: false
+    }, this.showSuccessToast);
+  }
+
   showPomoStartToast = () => {
     cogoToast.loading("Pomodoro Starts, Enjoy!", { position: 'top-center' });
   }
@@ -213,7 +219,7 @@ class Timer extends Component {
           type={-1}
           time={this.state.logValue}
           onHide={() => this.setShowPomoModal(false)}
-          onSuccess={this.showSuccessToast}
+          onSubmitSuccess={this.onSubmitSuccess}
         />
         <CancelModal
           show={this.state.showCancelModal}

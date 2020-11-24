@@ -219,6 +219,10 @@ class Pomodoro extends Component {
     })
   }
 
+  onSubmitSuccess = () => {
+    
+  }
+
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.subscribeStart);
   }
@@ -332,6 +336,7 @@ class Pomodoro extends Component {
           type={type}
           time={time}
           onHide={() => this.setModalShow(false)}
+          onSubmitSuccess={this.onSubmitSuccess}
         />
         <CancelModal
           show={this.state.showCancelModal}
