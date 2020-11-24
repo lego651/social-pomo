@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// Pages
+
+
 import Login from './pages/Login';
 import Room from './pages/Room';
 
 import axios from 'axios';
 
+// need to add this in config 
 axios.defaults.baseURL = 'https://us-central1-pomopal-dev.cloudfunctions.net/api';
 
 

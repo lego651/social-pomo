@@ -9,16 +9,19 @@ class TagModal extends Component {
       errors: {}
     }
   }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.onCreate(this.state.tag);
     this.props.onHide();
   }
+  
   render() {
     const { errors } = this.state;
     return (
