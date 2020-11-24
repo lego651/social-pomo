@@ -16,10 +16,10 @@ import {
   clearErrors,
   clearSuccess,
   addTag
-} from "src/actions";
+} from "actions";
 
 // utils
-import { convertDateToSeq } from "src/utils/util.js";
+import { convertDateToSeq } from "utils/util.js";
 
 class PomoModal extends Component {
   constructor(props) {
