@@ -3,7 +3,6 @@
 
 # Use with postman 
 - Log in to get user token and cookie: POST: ROOT/login/
-
 - 得到 token 和 cookie 
 - 在future call里面添加 Headers.
 `Authorization: {cookie} Bearer {token}`
