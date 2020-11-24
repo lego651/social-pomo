@@ -121,6 +121,12 @@ class Stopwatch extends Component {
     cogoToast.loading("Pomodoro Starts, Enjoy!", { position: 'top-center' });
   };
 
+  onSubmitSuccess = () => {
+    this.setState({
+      value: 0
+    }, this.showSuccessToast);
+  }
+
   grantNotificationPermission = () => {
     if (!("Notification" in window)) {
       alert("This browser does not support system notifications");
@@ -192,7 +198,7 @@ class Stopwatch extends Component {
           type={-1}
           time={this.state.value}
           onHide={() => this.setShowPomoModal(false)}
-          onSuccess={this.showSuccessToast}
+          onSubmitSuccess={this.onSubmitSuccess}
         />
         <CancelModal
           show={this.state.showCancelModal}

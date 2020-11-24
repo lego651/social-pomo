@@ -109,7 +109,7 @@ class PomoModal extends Component {
   }
 
   handleSubmit = e => {
-    const { createPomo, removeTodo, onHide, type, time, onSuccess } = this.props;
+    const { createPomo, removeTodo, onHide, type, time, onSubmitSuccess } = this.props;
     const { avatar, nickName } = this.props.user.profile;
 
     if(this.state.content.trim().length > 0) {
@@ -140,7 +140,7 @@ class PomoModal extends Component {
       createPomo(newPomo);
       removeTodo();
       onHide();
-      onSuccess();
+      onSubmitSuccess();
     }
   };
 
