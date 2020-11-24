@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import cogoToast from 'cogo-toast';
 
 // Components
-import NavbarTop from "../../components/NavbarTop";
-import NavLeft from "../../components/NavLeft";
-import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
-import PomoModal from "../Room/Pomodoro/pomoModal";
+import NavbarTop from "components/NavbarTop";
+import NavLeft from "components/NavLeft";
+import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
+import PomoModal from "components/PomoModal/pomoModal.jsx";
 import CancelModal from "../Room/Pomodoro/CancelModal";
 
 // Actions
 import { setStopwatchTimer, removeStopwatchTimer } from '../../actions';
 
 // Utils
-import { parseTime } from "../../utils/util.js";
-import pomoStartSound from "../../assets/pomoStartSound.mp3";
-import pomoStopSound from "../../assets/pomoStopSound.mp3";
+import { parseTime } from "utils/util.js";
+import pomoStartSound from "assets/pomoStartSound.mp3";
+import pomoStopSound from "assets/pomoStopSound.mp3";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // Images
-import stopwatch_img from '../../assets/img/stopwatch.png';
+import stopwatch_img from 'assets/img/stopwatch.png';
 
 // Styles
 import "./stopwatch.scss";
@@ -121,6 +121,12 @@ class Stopwatch extends Component {
     cogoToast.loading("Pomodoro Starts, Enjoy!", { position: 'top-center' });
   };
 
+  onSubmitSuccess = () => {
+    this.setState({
+      value: 0
+    }, this.showSuccessToast);
+  }
+
   grantNotificationPermission = () => {
     if (!("Notification" in window)) {
       alert("This browser does not support system notifications");
@@ -192,7 +198,7 @@ class Stopwatch extends Component {
           type={-1}
           time={this.state.value}
           onHide={() => this.setShowPomoModal(false)}
-          onSuccess={this.showSuccessToast}
+          onSubmitSuccess={this.onSubmitSuccess}
         />
         <CancelModal
           show={this.state.showCancelModal}

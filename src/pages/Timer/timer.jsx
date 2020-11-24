@@ -3,16 +3,16 @@ import InputRange from "react-input-range";
 import cogoToast from 'cogo-toast';
 
 // Components
-import NavbarTop from "../../components/NavbarTop";
-import NavLeft from "../../components/NavLeft";
-import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
-import PomoModal from "../Room/Pomodoro/pomoModal";
+import NavbarTop from "components/NavbarTop";
+import NavLeft from "components/NavLeft";
+import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
+import PomoModal from "components/PomoModal/pomoModal.jsx";
 import CancelModal from "../Room/Pomodoro/CancelModal";
 
 // Utils
-import { parseTime } from "../../utils/util.js";
-import pomoStartSound from "../../assets/pomoStartSound.mp3";
-import pomoStopSound from "../../assets/pomoStopSound.mp3";
+import { parseTime } from "utils/util.js";
+import pomoStartSound from "assets/pomoStartSound.mp3";
+import pomoStopSound from "assets/pomoStopSound.mp3";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,7 +23,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 // Images
-import working_img from '../../assets/img/working.webp';
+import working_img from 'assets/img/working.webp';
 
 // Styles
 import "./timer.scss";

@@ -4,7 +4,7 @@ import axios from "axios";
 // Components
 import { Container } from "react-bootstrap";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import PomoModal from "./pomoModal";
+import PomoModal from "components/PomoModal/pomoModal.jsx";
 import CancelModal from "./CancelModal";
 
 // Icons
@@ -16,10 +16,10 @@ import "react-circular-progressbar/dist/styles.css";
 import "./style.scss";
 
 // Utils
-import { parseTime } from "../../../utils/util.js";
-import firebase from "../../../utils/firebase.js";
-import pomoStartSound from "../../../assets/pomoStartSound.mp3";
-import pomoStopSound from "../../../assets/pomoStopSound.mp3";
+import { parseTime } from "utils/util.js";
+import firebase from "utils/firebase.js";
+import pomoStartSound from "assets/pomoStartSound.mp3";
+import pomoStopSound from "assets/pomoStopSound.mp3";
 
 class Pomodoro extends Component {
   constructor(props) {
