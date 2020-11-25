@@ -81,7 +81,6 @@ exports.signup = (req, res) => {
       return success(res, {token, cookie}, "user registered successfully", 201);
     })
     .catch((err) => {
-      console.log(err);
       if (err.code === 'auth/email-already-in-use') {
         return fail(res, {email: "Email is already is use"}, "invalid email");
       } else {
