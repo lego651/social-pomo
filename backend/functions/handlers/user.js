@@ -6,6 +6,7 @@ const firebaseConfig = require('../config/firebase.js');
 // utils
 const { validateSignupData, validateLoginData } = require('../utils/validators.js');
 const { admin, db } = require('../utils/admin');
+const { success, fail } = require('../utils/http');
 
 // Init Firebase to client side
 firebase.initializeApp(firebaseConfig);
@@ -21,12 +22,7 @@ exports.signup = (req, res) => {
 
   const { valid, errors } = validateSignupData(newUser);
 
-  if(!valid) return res.status(400).json({
-    success: false,
-    message: "invalid form",
-    status_code: 400,
-    data: errors
-  });
+  if(!valid) return fail(res, errors, "invalid form");
 
   let token, userId, cookie;
   const expiresIn = 60 * 60 * 24 * 1000;
@@ -35,14 +31,7 @@ exports.signup = (req, res) => {
     .get()
     .then(doc => {
       if(doc.exists) {
-        return res.status(400).json({
-          success: false,
-          message: "username is already in use",
-          status_code: 400,
-          data: {
-            handle: "username is already in use"
-          }
-        })
+        return fail(res, {handle: "username is already in use"});
       } else {
         return firebase
           .auth()
@@ -89,35 +78,14 @@ exports.signup = (req, res) => {
       return admin.auth().verifyIdToken(token)
     })
     .then(decodedClaims => {
-      return res.status(201).json({ 
-        success: true,
-        message: "user registed successfully",
-        status_code: 201,
-        data: {
-          token,
-          cookie
-        }
-      });   
+      return success(res, {token, cookie}, "user registered successfully", 201);
     })
     .catch((err) => {
+      console.log(err);
       if (err.code === 'auth/email-already-in-use') {
-        return res.status(400).json({ 
-          success: false,
-          message: "invalid email",
-          status_code: 400,
-          data: {
-            email: "Email is already is use"
-          }
-        });
+        return fail(res, {email: "Email is already is use"}, "invalid email");
       } else {
-        return res.status(500).json({ 
-          success: false,
-          message: "invalid request",
-          status_code: 400,
-          data: {
-            general: "Something went wrong, please try again"
-          }
-        });
+        return fail(res, {general: "Something went wrong, please try again"}, _, 500);
       }
     });
   return null;
