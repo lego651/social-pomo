@@ -100,12 +100,7 @@ exports.login = (req, res) => {
   const { valid, errors } = validateLoginData(user);
 
   if (!valid) {
-    return res.status(400).json({
-      success: false,
-      message: "wrong credentials",
-      status_code: 400,
-      data: errors
-    })
+    return fail(res, errors, "wrong credentials");
   }
 
   let token, cookie;
@@ -125,25 +120,10 @@ exports.login = (req, res) => {
         return admin.auth().verifyIdToken(token)
     })
     .then(decodedClaims => {
-      return res.status(201).json({ 
-        success: true,
-        message: "user logged in successfully",
-        status_code: 201,
-        data: {
-          token,
-          cookie
-        }
-      });  
+      return success(res, {token, cookie}, "user logged in successfully", 201); 
     })
     .catch((err) => {
-      return res.status(403).json({ 
-        success: false,
-        message: err.message,
-        status_code: 403,
-        data: {
-          password: "Email or password is incorrect, please try again"
-        }
-      });
+      return fail(res, {password: "Email or password is incorrect, please try again"}, err.message, 403);
     });
   return null;
 }
