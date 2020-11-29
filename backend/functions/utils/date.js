@@ -29,3 +29,7 @@ exports.convertDateToSeq2 = (y, m, d) => {
     res = (days - days2020) / (24 * 60 * 60 * 1000);
     return res;
 }
+
+exports.serializeDate = (date) => {
+  return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
+}

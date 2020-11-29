@@ -1,40 +1,69 @@
-const { convertDateToSeq } = require('../utils/date');
+const { convertDateToSeq, serializeDate } = require('../utils/date');
 const { admin, db } = require('../utils/admin');
+const { success, fail } = require('../utils/http');
 
+// POST: Create New Pomo
 exports.createPomo = (req, res) => {
-  const DateObj = req.body.dateObj;
+  const newDate = new Date();
   const newPomo = {
     handle: req.user.handle,
     content: req.body.content,
     project: req.body.project,
     tag: req.body.tag,
-    // createdAt: new Date().toISOString(),
-    // month: new Date().getMonth(),
-    // date: new Date().getDate(),
-    // day: new Date().getDay(),
-    // hour: new Date().getHours(),
-    // minute: new Date().getMinutes()
-    createdAt: new Date().toISOString(),
-    month: req.body.month,
-    date: req.body.date,
-    day: req.body.day,
-    hour: req.body.hour,
-    minute: req.body.minute,
-    seq: req.body.seq,
+    createdAt: newDate.toISOString(),
+    dateSeq: serializeDate(newDate),
     avatar: req.body.avatar,
     nickName: req.body.nickName,
     type: req.body.type,
     time: req.body.time,
     public: req.body.public,
-  }
+  };
+
   db.collection("pomos").add(newPomo)
-    .then((doc) => {
-      return res.json({ message: `pomo ${doc.id} created successfully`});
+    .then(doc => {
+      return success(res, {message: `pomo ${doc.id} created successfully`});
     })
-    .catch((err) => {
-      return res.status(500).json({ error: err.code });
+    .catch(err => {
+      return fail(res, {error: err.code});
     })
 }
+
+// GET: Today PomoList 
+exports.getTodayPomoList = (req, res) => {
+  const handle = req.user.handle;
+  const dateSeq = serializeDate(new Date());
+
+  db.collection('pomos')
+    .where("dateSeq", "==", dateSeq)
+    .where("handle", "==", handle)
+    .get()
+    .then((snapshot) => {
+      let pomos = [];
+      snapshot.forEach((doc) => {
+        pomos.push({
+          handle: handle,
+          content: req.body.content,
+          project: doc.data().project,
+          tag: doc.data().tag,
+          createdAt: doc.data().createdAt,
+          dateSeq: doc.data().dateSeq,
+          avatar: doc.data().avatar,
+          nickName: doc.data().nickName,
+          type: doc.data().type,
+          time: doc.data().time,
+          public: doc.data().public,
+        })
+      });
+      // return success(res, pomos);
+      return res.json(pomos);
+    })
+    .catch((err) => {
+      console.log(err)
+      return fail(res, err);
+      // return res.status(500).json({ error: err });
+    })
+}
+
 
 exports.fetchAllPomo = (req, res) => {
   const handle = req.user.handle;
@@ -101,39 +130,7 @@ exports.getTodayPomoCount = (req, res) => {
     })
 }
 
-// Today Pomo List 
-exports.getTodayPomoList = (req, res) => {
-  const handle = req.user.handle;
-  const dateObj = new Date();
-  const y = dateObj.getFullYear();
-  const m = dateObj.getMonth();
-  const d = dateObj.getDate();
-  const s = convertDateToSeq(y, m + 1, d);
-  
-  db.collection('pomos')
-    .where("seq", "==", s)
-    .where("handle", "==", handle)
-    .get()
-    .then((snapshot) => {
-      let pomos = [];
-      snapshot.forEach((doc) => {
-        pomos.push({
-          content: doc.data().content,
-          createdAt: doc.data().createdAt,
-          project: doc.data().project,
-          tag: doc.data().tag,
-          date: doc.data().date,
-          seq: doc.data().seq, 
-          type: doc.data().type,
-          time: doc.data().time,  
-        })
-      });
-      return res.json(pomos);
-    })
-    .catch((err) => {
-      return res.status(500).json({ error: err });
-    })
-}
+
 
 // GET: Today Minutes
 exports.getTodayMinutes = (req, res) => {
@@ -222,3 +219,73 @@ exports.getWeekPomoList = (req, res) => {
       return res.status(500).json({ error: err });
     })
 }
+
+// DEPRECATED
+// exports.createPomo = (req, res) => {
+//   const DateObj = req.body.dateObj;
+//   const newPomo = {
+//     handle: req.user.handle,
+//     content: req.body.content,
+//     project: req.body.project,
+//     tag: req.body.tag,
+//     // createdAt: new Date().toISOString(),
+//     // month: new Date().getMonth(),
+//     // date: new Date().getDate(),
+//     // day: new Date().getDay(),
+//     // hour: new Date().getHours(),
+//     // minute: new Date().getMinutes()
+//     createdAt: new Date().toISOString(),
+//     month: req.body.month,
+//     date: req.body.date,
+//     day: req.body.day,
+//     hour: req.body.hour,
+//     minute: req.body.minute,
+//     seq: req.body.seq,
+//     avatar: req.body.avatar,
+//     nickName: req.body.nickName,
+//     type: req.body.type,
+//     time: req.body.time,
+//     public: req.body.public,
+//   }
+//   db.collection("pomos").add(newPomo)
+//     .then((doc) => {
+//       return res.json({ message: `pomo ${doc.id} created successfully`});
+//     })
+//     .catch((err) => {
+//       return res.status(500).json({ error: err.code });
+//     })
+// }
+
+// GET: Today Pomo List 
+// exports.getTodayPomoList = (req, res) => {
+//   const handle = req.user.handle;
+//   const dateObj = new Date();
+//   const y = dateObj.getFullYear();
+//   const m = dateObj.getMonth();
+//   const d = dateObj.getDate();
+//   const s = convertDateToSeq(y, m + 1, d);
+  
+//   db.collection('pomos')
+//     .where("seq", "==", s)
+//     .where("handle", "==", handle)
+//     .get()
+//     .then((snapshot) => {
+//       let pomos = [];
+//       snapshot.forEach((doc) => {
+//         pomos.push({
+//           content: doc.data().content,
+//           createdAt: doc.data().createdAt,
+//           project: doc.data().project,
+//           tag: doc.data().tag,
+//           date: doc.data().date,
+//           seq: doc.data().seq, 
+//           type: doc.data().type,
+//           time: doc.data().time,  
+//         })
+//       });
+//       return res.json(pomos);
+//     })
+//     .catch((err) => {
+//       return res.status(500).json({ error: err });
+//     })
+// }
