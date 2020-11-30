@@ -54,13 +54,11 @@ exports.getTodayPomoList = (req, res) => {
           public: doc.data().public,
         })
       });
-      // return success(res, pomos);
-      return res.json(pomos);
+      return success(res, pomos);
     })
     .catch((err) => {
       console.log(err)
       return fail(res, err);
-      // return res.status(500).json({ error: err });
     })
 }
 
