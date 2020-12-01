@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { Tabs } from 'antd';
 
 // Components
-import NavbarTop from "../../components/NavbarTop";
-import NavLeft from "../../components/NavLeft";
-import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
+import NavbarTop from "components/NavbarTop";
+import NavLeft from "components/NavLeft";
+import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
+import LineChart from "./lineChart.jsx";
 
 // Actions
 import { logoutUser, getPomosToday } from "actions/index.js";
@@ -51,6 +52,7 @@ class Dashboard extends Component {
     return (
       <div className="content">
         {this.buildTabs()}
+        <LineChart />
       </div>
     )
   }

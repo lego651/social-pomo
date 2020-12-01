@@ -14,14 +14,13 @@ export const createPomo = (newPomoObj) => (dispatch) => {
 
 export const getPomosToday = () => (dispatch) => {
   axios.get('/pomo/today')
-    .then((res) => {
-      console.log(res.data.data);
+    .then(res => {
       dispatch({
         type: GET_POMOS_TODAY,
-        payload: res.data
+        payload: res.data.data
       });
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
     })
 }
