@@ -39,6 +39,7 @@ exports.getTodayPomoList = (req, res) => {
     .get()
     .then((snapshot) => {
       let pomos = [];
+      let time = 0;
       snapshot.forEach((doc) => {
         pomos.push({
           handle: handle,
@@ -53,8 +54,9 @@ exports.getTodayPomoList = (req, res) => {
           time: doc.data().time,
           public: doc.data().public,
         })
+        time += doc.data().time;
       });
-      return success(res, pomos);
+      return success(res, { pomos, time });
     })
     .catch((err) => {
       console.log(err)

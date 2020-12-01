@@ -25,44 +25,47 @@
     "success": true,
     "message": "successful",
     "status_code": 200,
-    "data": [
-        {
-            "handle": "A7",
-            "project": "Youtuber",
-            "tag": [],
-            "createdAt": "2020-11-30T06:03:24.752Z",
-            "dateSeq": 20201130,
-            "avatar": "https://firebasestorage.googleapis.com/v0/b/pomopal-dev.appspot.com/o/defaultAvatar.jpg?alt=media",
-            "nickName": "A7",
-            "type": -1,
-            "time": 3785,
-            "public": true
-        },
-        {
-            "handle": "A7",
-            "project": "Youtuber",
-            "tag": [],
-            "createdAt": "2020-11-30T02:24:48.139Z",
-            "dateSeq": 20201130,
-            "avatar": "https://firebasestorage.googleapis.com/v0/b/pomopal-dev.appspot.com/o/defaultAvatar.jpg?alt=media",
-            "nickName": "A7",
-            "type": -1,
-            "time": 1775,
-            "public": true
-        },
-        {
-            "handle": "A7",
-            "project": "Youtuber",
-            "tag": [],
-            "createdAt": "2020-11-30T01:54:59.465Z",
-            "dateSeq": 20201130,
-            "avatar": "https://firebasestorage.googleapis.com/v0/b/pomopal-dev.appspot.com/o/defaultAvatar.jpg?alt=media",
-            "nickName": "A7",
-            "type": -1,
-            "time": 1500,
-            "public": true
-        }
-    ]
+    "data": {
+        "pomos": [
+            {
+                "handle": "A7",
+                "project": "L4",
+                "tag": [],
+                "createdAt": "2020-12-01T04:11:14.131Z",
+                "dateSeq": 20201201,
+                "avatar": "https://firebasestorage.googleapis.com/v0/b/pomopal-dev.appspot.com/o/defaultAvatar.jpg?alt=media",
+                "nickName": "A7",
+                "type": -1,
+                "time": 10,
+                "public": true
+            },
+            {
+                "handle": "A7",
+                "project": "L5",
+                "tag": [],
+                "createdAt": "2020-12-01T04:11:36.955Z",
+                "dateSeq": 20201201,
+                "avatar": "https://firebasestorage.googleapis.com/v0/b/pomopal-dev.appspot.com/o/defaultAvatar.jpg?alt=media",
+                "nickName": "A7",
+                "type": -1,
+                "time": 13,
+                "public": true
+            },
+            {
+                "handle": "A7",
+                "project": "Youtuber",
+                "tag": [],
+                "createdAt": "2020-12-01T04:10:48.866Z",
+                "dateSeq": 20201201,
+                "avatar": "https://firebasestorage.googleapis.com/v0/b/pomopal-dev.appspot.com/o/defaultAvatar.jpg?alt=media",
+                "nickName": "A7",
+                "type": -1,
+                "time": 3,
+                "public": true
+            }
+        ],
+        "time": 26
+    }
 }
 ```
 
