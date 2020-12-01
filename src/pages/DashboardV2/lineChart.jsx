@@ -11,7 +11,7 @@ import { Line } from '@ant-design/charts';
 import { logoutUser, getPomosToday } from "actions/index.js";
 
 // Styles
-import "./dashboard.scss";
+import "./lineChart.scss";
 import 'antd/dist/antd.css';
 
 class LineChart extends Component {
