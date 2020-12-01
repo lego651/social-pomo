@@ -29,7 +29,7 @@ class TimeLine extends Component {
         <Timeline mode="left">
           { 
             pomos.map(pomo => {
-              return <Timeline.Item label={this.parseTime(pomo.createdAt)}>{pomo.content}</Timeline.Item>
+              return <Timeline.Item key={pomo.createdAt} label={this.parseTime(pomo.createdAt)}>{pomo.content}</Timeline.Item>
             })
           }
         </Timeline>
