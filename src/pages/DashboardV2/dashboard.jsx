@@ -9,7 +9,7 @@ import { Tabs } from 'antd';
 import NavbarTop from "components/NavbarTop";
 import NavLeft from "components/NavLeft";
 import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
-import LineChart from "./lineChart.jsx";
+import BarChart from "./barChart.jsx";
 import TimeLine from "./timeLine.jsx";
 
 // Actions
@@ -52,7 +52,7 @@ class Dashboard extends Component {
     return (
       <div className="content">
         {this.buildTabs()}
-        <LineChart />
+        <BarChart />
         <TimeLine />
       </div>
     )
