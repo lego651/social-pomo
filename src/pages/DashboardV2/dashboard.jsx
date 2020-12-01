@@ -11,7 +11,7 @@ import NavLeft from "../../components/NavLeft";
 import NavLeftMobile from '../../components/NavLeftMobile/navLeftMobile.jsx';
 
 // Actions
-import { logoutUser, getWeeklyPomo } from "../../actions";
+import { logoutUser, getPomosToday } from "actions/index.js";
 
 // Styles
 import "./dashboard.scss";
@@ -28,6 +28,10 @@ const tabsMap = {
 }; 
 
 class Dashboard extends Component {
+  componentWillMount() {
+    console.log("willMount called...")
+    this.props.getPomosToday();
+  }
 
   buildTab = (name, index) => {
     const value = tabsMap[name]
@@ -71,6 +75,6 @@ const mapStateToProps = (state) => ({
   pomo: state.pomo,
 });
 
-export default connect(mapStateToProps, { logoutUser, getWeeklyPomo })(
+export default connect(mapStateToProps, { logoutUser, getPomosToday })(
   Dashboard
 );
