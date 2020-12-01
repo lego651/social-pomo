@@ -10,6 +10,7 @@ import NavbarTop from "components/NavbarTop";
 import NavLeft from "components/NavLeft";
 import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
 import LineChart from "./lineChart.jsx";
+import TimeLine from "./timeLine.jsx";
 
 // Actions
 import { logoutUser, getPomosToday } from "actions/index.js";
@@ -30,7 +31,6 @@ const tabsMap = {
 
 class Dashboard extends Component {
   componentWillMount() {
-    console.log("willMount called...")
     this.props.getPomosToday();
   }
 
@@ -53,6 +53,7 @@ class Dashboard extends Component {
       <div className="content">
         {this.buildTabs()}
         <LineChart />
+        <TimeLine />
       </div>
     )
   }
