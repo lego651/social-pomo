@@ -11,7 +11,7 @@ exports.createPomo = (req, res) => {
     project: req.body.project,
     tag: req.body.tag,
     createdAt: newDate.toISOString(),
-    dateSeq: serializeDate(newDate),
+    dateSeq: serializeDate(req.body.date),
     avatar: req.body.avatar,
     nickName: req.body.nickName,
     type: req.body.type,

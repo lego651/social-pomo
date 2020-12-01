@@ -117,21 +117,12 @@ class PomoModal extends Component {
       const newContent =
         this.state.content.length > 0 ? this.state.content : this.props.user.todo;
       const dateObj = new Date();
-      const y = dateObj.getFullYear();
-      const m = dateObj.getMonth();
-      const d = dateObj.getDate();
-      const s = convertDateToSeq(y, m + 1, d);
       const newPomo = {
         content: newContent,
         project: this.state.project,
         tag: this.state.tag,
         public: this.state.public,
-        month: m + 1,
-        date: d,
-        day: dateObj.getDay(),
-        hour: dateObj.getHours(),
-        minute: dateObj.getMinutes(),
-        seq: s,
+        date: dateObj,
         nickName,
         avatar,
         type,
