@@ -10,6 +10,12 @@ import {
 
 export const createPomo = (newPomoObj) => (dispatch) => {
   axios.post('/pomo', newPomoObj)
+    .then(res => {
+
+    })
+    .catch(err => {
+      console.log(err);
+    })
 }
 
 export const getPomosToday = () => (dispatch) => {

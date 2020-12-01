@@ -31,5 +31,6 @@ exports.convertDateToSeq2 = (y, m, d) => {
 }
 
 exports.serializeDate = (date) => {
-  return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
+  const dateObj = new Date(date);
+  return dateObj.getFullYear() * 10000 + (dateObj.getMonth() + 1) * 100 + dateObj.getDate();
 }
