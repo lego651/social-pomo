@@ -48,6 +48,7 @@ class TimeLine extends Component {
 
     return (
       <div className="timeline-container">
+        <h3>Timeline</h3>
         {this.buildTimeline(pomos)}
       </div>
     );
