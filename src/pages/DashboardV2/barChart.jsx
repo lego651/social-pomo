@@ -22,7 +22,23 @@ class BarChart extends Component {
     const hour = moment.utc(utcTime).utcOffset(offset).format("HH");
     return parseInt(hour);
   }
+
+  parseToMins = (time) => {
+    return Math.floor(time / 60);
+  }
   
+  parseToHrMins = (time) => {
+    let mins = this.parseToMins(time);
+    if(mins < 60) {
+      return `${mins} mins`;
+    } else {
+      const h = Math.floor(mins / 60);
+      mins = mins % 60;
+      return `${h}h ${mins}mins`;
+    }
+
+  }
+
   render() {
     const { pomo } = this.props;
     const data = [
@@ -60,7 +76,7 @@ class BarChart extends Component {
     const pomos = this.props.pomo && this.props.pomo.today.pomos;
     pomos.forEach(pomo => {
       const hr = this.getHour(pomo.createdAt);
-      data[hr].mins += Math.floor(pomo.time / 60);
+      data[hr].mins += this.parseToMins(pomo.time);
     })
 
     const config = {
@@ -79,7 +95,9 @@ class BarChart extends Component {
     };
 
     return (
-      <div className="line-chart-container">
+      <div className="bar-chart-container">
+        <h3>Time Distribution</h3>
+        <h5>Total focused time: <span>{this.parseToHrMins(pomo.today.time)}</span></h5>
         <Column {...config} chartRef={this.chartRef} />
       </div>
     );

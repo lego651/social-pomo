@@ -1,0 +1,20 @@
+@import "src/index.scss";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap');
+
+.bar-chart-container {
+  margin: 50px auto;
+  padding: 40px;
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 2px 2px 10px 0 rgba(32,33,36, 0.1);
+  h5 {
+    margin-bottom: 40px;
+    span {
+      color: rgb(109,149,242);
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+}
