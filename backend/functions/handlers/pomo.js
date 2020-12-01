@@ -43,7 +43,7 @@ exports.getTodayPomoList = (req, res) => {
       snapshot.forEach((doc) => {
         pomos.push({
           handle: handle,
-          content: req.body.content,
+          content: doc.data().content,
           project: doc.data().project,
           tag: doc.data().tag,
           createdAt: doc.data().createdAt,
