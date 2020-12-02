@@ -11,6 +11,7 @@ import NavbarTop from "components/NavbarTop";
 import NavLeft from "components/NavLeft";
 import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
 import BarChart from "./barChart.jsx";
+import PieChart from "./pieChart.jsx";
 import TimeLine from "./timeLine.jsx";
 
 // Actions
@@ -66,6 +67,7 @@ class Dashboard extends Component {
     return (
       <>
         <BarChart />
+        <PieChart />
         <TimeLine />
       </>
     )
