@@ -1,6 +1,6 @@
 export const parseTime = (time) => {
   if( time > 60 * 60) { // has hour
-    let hr = time / 3600;
+    let hr = Math.floor(time / 3600);
     let rest = time % 3600;
     let min = Math.floor(rest / 60);
     let sec = Math.round(rest % 60);
