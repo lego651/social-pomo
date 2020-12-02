@@ -19,7 +19,7 @@ import {
 } from "actions";
 
 // utils
-import { convertDateToSeq } from "utils/util.js";
+import { serializeDate } from "utils/util.js";
 
 class PomoModal extends Component {
   constructor(props) {
@@ -116,13 +116,12 @@ class PomoModal extends Component {
       e.preventDefault();
       const newContent =
         this.state.content.length > 0 ? this.state.content : this.props.user.todo;
-      const dateObj = new Date();
       const newPomo = {
         content: newContent,
         project: this.state.project,
         tag: this.state.tag,
         public: this.state.public,
-        date: dateObj,
+        dateSeq: serializeDate(new Date()),
         nickName,
         avatar,
         type,

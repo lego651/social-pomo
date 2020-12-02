@@ -96,7 +96,7 @@ app.post('/room/delete', FBAuth, deleteRoom);
 app.post('/pomo', FBAuth, createPomo);
 app.get('/pomo', FBAuth, fetchAllPomo);
 app.get('/count/today', FBAuth, getTodayPomoCount);
-app.get('/pomo/today', FBAuth, getTodayPomoList);
+app.post('/pomo/today', FBAuth, getTodayPomoList);
 app.get('/pomo/week', FBAuth, getWeekPomoList);
 app.get('/minutes/today', FBAuth, getTodayMinutes);
 app.get('/minutes/week', FBAuth, getWeekMinutes);

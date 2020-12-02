@@ -11,7 +11,7 @@ exports.createPomo = (req, res) => {
     project: req.body.project,
     tag: req.body.tag,
     createdAt: newDate.toISOString(),
-    dateSeq: serializeDate(req.body.date),
+    dateSeq: req.body.dateSeq,
     avatar: req.body.avatar,
     nickName: req.body.nickName,
     type: req.body.type,
@@ -28,10 +28,10 @@ exports.createPomo = (req, res) => {
     })
 }
 
-// GET: Today PomoList 
+// POST: Today PomoList 
 exports.getTodayPomoList = (req, res) => {
   const handle = req.user.handle;
-  const dateSeq = serializeDate(new Date());
+  const dateSeq = req.body.dateSeq;
 
   db.collection('pomos')
     .where("dateSeq", "==", dateSeq)

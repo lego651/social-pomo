@@ -8,6 +8,9 @@ import {
   GET_POMOS_TODAY,
 } from './types';
 
+// utils
+import { serializeDate } from "utils/util.js";
+
 export const createPomo = (newPomoObj) => (dispatch) => {
   axios.post('/pomo', newPomoObj)
     .then(res => {
@@ -19,7 +22,8 @@ export const createPomo = (newPomoObj) => (dispatch) => {
 }
 
 export const getPomosToday = () => (dispatch) => {
-  axios.get('/pomo/today')
+  const dateSeq = serializeDate(new Date());
+  axios.post('/pomo/today', { dateSeq })
     .then(res => {
       dispatch({
         type: GET_POMOS_TODAY,
