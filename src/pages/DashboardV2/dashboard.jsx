@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-// AntD
+// External
 import { Tabs } from 'antd';
+import ClipLoader from "react-spinners/ClipLoader";
 
 // Components
 import NavbarTop from "components/NavbarTop";
@@ -48,12 +49,33 @@ class Dashboard extends Component {
     )
   }  
 
+  buildCharts = () => {
+    const { pomo } = this.props;
+    if (!pomo || !pomo.today || !pomo.today.pomos ) {
+      return (
+        <div className="loading-container"> 
+          <ClipLoader
+            color={"#ccc"}
+            height={15}
+            width={5}
+            loading={true} /> 
+        </div>
+      );
+    }
+
+    return (
+      <>
+        <BarChart />
+        <TimeLine />
+      </>
+    )
+  }
+
   buildContent = () => {
     return (
       <div className="content">
         {this.buildTabs()}
-        <BarChart />
-        <TimeLine />
+        {this.buildCharts()}
       </div>
     )
   }
