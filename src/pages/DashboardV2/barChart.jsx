@@ -36,7 +36,6 @@ class BarChart extends Component {
       mins = mins % 60;
       return `${h}h ${mins}mins`;
     }
-
   }
 
   render() {

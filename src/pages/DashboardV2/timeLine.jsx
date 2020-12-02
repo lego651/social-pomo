@@ -24,6 +24,9 @@ class TimeLine extends Component {
   }
 
   buildTimeline(pomos) {
+    if(pomos.length === 0) {
+      return <h5> No data </h5>
+    }
     return (
       <>
         <Timeline mode="left">
