@@ -57,6 +57,7 @@ class PieChart extends Component {
 
     const pomos = this.props.pomo && this.props.pomo.today.pomos;
     const data = this.getPieData(pomos);
+    const total = this.parseToHrMins(pomo.today.time);
 
     const config = {
       appendPadding: 10,
@@ -72,6 +73,22 @@ class PieChart extends Component {
               return "Total";
             }
             return `${item.project}`;
+          },
+        },
+        content: {
+          formatter: function formatter(item) {
+            if(!item) {
+              return total;
+            }
+            console.log(item)
+            let mins = item.mins;
+            if(mins < 60) {
+              return `${mins} mins`;
+            } else {
+              const h = Math.floor(mins / 60);
+              mins = mins % 60;
+              return `${h}h ${mins}mins`;
+            }
           },
         }
       },
@@ -97,9 +114,8 @@ class PieChart extends Component {
     };
 
     return (
-      <div className="bar-chart-container">
-        <h3>Time Distribution</h3>
-        <h5>Total focused time: <span>{this.parseToHrMins(pomo.today.time)}</span></h5>
+      <div className="pie-chart-container">
+        <h3>Project Distribution</h3>
         <Pie {...config} />
       </div>
     );
