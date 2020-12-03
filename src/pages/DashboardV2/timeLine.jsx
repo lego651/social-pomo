@@ -19,7 +19,8 @@ class TimeLine extends Component {
 
   parseTime(utcTime) {
     const offset = moment().utcOffset(); 
-    const localTime = moment.utc(utcTime).utcOffset(offset).format("YYYY-MM-DD, HH:mm");
+    // const localTime = moment.utc(utcTime).utcOffset(offset).format("YYYY-MM-DD, HH:mm");
+    const localTime = moment.utc(utcTime).utcOffset(offset).format("HH:mm");
     return localTime;
   }
 
