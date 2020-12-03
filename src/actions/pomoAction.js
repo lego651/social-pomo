@@ -6,6 +6,7 @@ import {
   GET_MINUTES_WEEK,
   GET_MINUTES_ALL,
   GET_POMOS_TODAY,
+  CLEAR_SUCCESS
 } from './types';
 
 // utils
@@ -14,7 +15,9 @@ import { serializeDate } from "utils/util.js";
 export const createPomo = (newPomoObj) => (dispatch) => {
   axios.post('/pomo', newPomoObj)
     .then(res => {
-
+      dispatch({
+        type: CLEAR_SUCCESS,
+      });
     })
     .catch(err => {
       console.log(err);
