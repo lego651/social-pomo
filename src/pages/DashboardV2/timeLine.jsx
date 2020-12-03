@@ -49,6 +49,11 @@ class TimeLine extends Component {
     }
 
     const pomos = this.props.pomo && this.props.pomo.today.pomos;
+    pomos.sort(function(a, b) {
+      var c = new Date(a.createdAt);
+      var d = new Date(b.createdAt);
+      return c-d;
+    });
 
     return (
       <div className="timeline-container">
