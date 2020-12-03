@@ -16,7 +16,27 @@
   ul {
     li {
       .ant-timeline-item-label {
+        svg {
+          color: #6c757d;
+        }
         width: auto;
+        span {
+          margin-left: 3px;
+        }
+      }
+      .ant-timeline-item-content {
+        svg {
+          color: #6c757d;
+        }
+        span {
+          margin-left: 3px;
+          &.label {
+            border: 1px #6c757d solid;
+            border-radius: 10px;
+            padding: 0 8px;
+            margin-right: 5px;
+          }
+        }
       }
     }
   }

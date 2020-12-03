@@ -11,6 +11,10 @@ import { Line } from '@ant-design/charts';
 // Actions
 import { logoutUser, getPomosToday } from "actions/index.js";
 
+// Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTags, faClock } from '@fortawesome/free-solid-svg-icons';
+
 // Styles
 import "./timeLine.scss";
 import 'antd/dist/antd.css';
@@ -24,6 +28,41 @@ class TimeLine extends Component {
     return localTime;
   }
 
+  parseToMins = (time) => {
+    return Math.floor(time / 60);
+  }
+
+  parseToHrMins = (time) => {
+    let mins = this.parseToMins(time);
+    if(mins < 60) {
+      return `${mins} mins`;
+    } else {
+      const h = Math.floor(mins / 60);
+      mins = mins % 60;
+      return `${h}h ${mins}mins`;
+    }
+  }
+
+  buildLabel = (pomo) => {
+    return (
+      <>
+        <FontAwesomeIcon icon={faClock} />
+        <span>{this.parseToHrMins(pomo.time)} @ </span>
+        <span>{this.parseTime(pomo.createdAt)}</span>
+      </>
+    )
+  }
+
+  buildContent = (pomo) => {
+    return (
+      <>
+        <FontAwesomeIcon icon={faTags} />
+        <span class="label">{pomo.project}</span>
+        <span>{pomo.content}</span>
+      </>
+    )
+  }
+
   buildTimeline(pomos) {
     if(pomos.length === 0) {
       return <h5> No data </h5>
@@ -33,7 +72,7 @@ class TimeLine extends Component {
         <Timeline mode="left">
           { 
             pomos.map(pomo => {
-              return <Timeline.Item key={pomo.createdAt} label={this.parseTime(pomo.createdAt)}>{pomo.content}</Timeline.Item>
+              return <Timeline.Item key={pomo.createdAt} label={this.buildLabel(pomo)}>{this.buildContent(pomo)}</Timeline.Item>
             })
           }
         </Timeline>
