@@ -23,6 +23,7 @@ import {
   faPlayCircle,
   faPauseCircle,
   faTimesCircle,
+  faPencilAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 // Images
@@ -88,13 +89,22 @@ class Stopwatch extends Component {
 
   onReset = () => {
     if(this.state.value > 0) {
+      this.setState({ on: false, value: 0 }, () => {
+        clearInterval(this.interval);
+        this.props.removeStopwatchTimer();
+      });
+    }
+  };
+
+  onLog = () => {
+    if(this.state.value > 0) {
       this.setState({ on: false, showPomoModal: true }, () => {
         clearInterval(this.interval);
         this.props.removeStopwatchTimer();
         this.setShowPomoModal(true);
       });
     }
-  };
+  }
 
   setShowPomoModal = (bool) => {
     this.setState({
@@ -163,6 +173,9 @@ class Stopwatch extends Component {
         </span>
         <span onClick={this.onReset}>
           <FontAwesomeIcon icon={faTimesCircle} />
+        </span>
+        <span onClick={this.onLog}>
+          <FontAwesomeIcon icon={faPencilAlt} />
         </span>
       </div>
     );
