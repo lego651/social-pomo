@@ -15,9 +15,7 @@ import { serializeDate } from "utils/util.js";
 export const createPomo = (newPomoObj) => (dispatch) => {
   axios.post('/pomo', newPomoObj)
     .then(res => {
-      dispatch({
-        type: CLEAR_SUCCESS,
-      });
+
     })
     .catch(err => {
       console.log(err);

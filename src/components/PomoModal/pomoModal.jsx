@@ -105,11 +105,12 @@ class PomoModal extends Component {
   };
 
   handleCancel = () => {
+    this.props.clearSuccess();
     this.props.showCancelModal();
   }
 
   handleSubmit = e => {
-    const { createPomo, removeTodo, onHide, type, time, onSubmitSuccess } = this.props;
+    const { createPomo, removeTodo, onHide, type, time, onSubmitSuccess, clearSuccess } = this.props;
     const { avatar, nickName } = this.props.user.profile;
 
     if(this.state.content.trim().length > 0) {
@@ -127,6 +128,7 @@ class PomoModal extends Component {
         type,
         time 
       };
+      clearSuccess();
       createPomo(newPomo);
       removeTodo();
       onHide();
