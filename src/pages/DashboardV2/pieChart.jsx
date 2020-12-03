@@ -113,6 +113,10 @@ class PieChart extends Component {
       ],
     };
 
+    if(pomos.length === 0) {
+      return <h5> No data </h5>
+    }
+
     return (
       <div className="pie-chart-container">
         <h3>Project Distribution</h3>
