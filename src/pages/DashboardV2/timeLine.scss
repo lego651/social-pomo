@@ -21,7 +21,10 @@
         }
         width: auto;
         span {
-          margin-left: 3px;
+          margin-left: 5px;
+          &.time {
+            color: #1890ff;
+          }
         }
       }
       .ant-timeline-item-content {
@@ -31,7 +34,8 @@
         span {
           margin-left: 3px;
           &.label {
-            border: 1px #6c757d solid;
+            color: #1890ff;
+            border: 1px #1890ff solid;
             border-radius: 10px;
             padding: 0 8px;
             margin-right: 5px;

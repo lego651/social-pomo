@@ -32,23 +32,12 @@ class TimeLine extends Component {
     return Math.floor(time / 60);
   }
 
-  parseToHrMins = (time) => {
-    let mins = this.parseToMins(time);
-    if(mins < 60) {
-      return `${mins} mins`;
-    } else {
-      const h = Math.floor(mins / 60);
-      mins = mins % 60;
-      return `${h}h ${mins}mins`;
-    }
-  }
-
   buildLabel = (pomo) => {
     return (
       <>
-        <FontAwesomeIcon icon={faClock} />
-        <span>{this.parseToHrMins(pomo.time)} @ </span>
+        {/* <FontAwesomeIcon icon={faClock} /> */}
         <span>{this.parseTime(pomo.createdAt)}</span>
+        <span>({this.parseToMins(pomo.time)})</span>
       </>
     )
   }
@@ -56,7 +45,7 @@ class TimeLine extends Component {
   buildContent = (pomo) => {
     return (
       <>
-        <FontAwesomeIcon icon={faTags} />
+        {/* <FontAwesomeIcon icon={faTags} /> */}
         <span class="label">{pomo.project}</span>
         <span>{pomo.content}</span>
       </>
