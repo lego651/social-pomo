@@ -49,13 +49,9 @@ class PieChart extends Component {
     }
   }
 
-  render() {
+  buildPieChart = () => {
     const { pomo } = this.props;
-    if (!pomo || !pomo.today || !pomo.today.pomos ) {
-      return <> Loading... </>
-    }
-
-    const pomos = this.props.pomo && this.props.pomo.today.pomos;
+    const pomos = pomo && pomo.today.pomos;
     const data = this.getPieData(pomos);
     const total = this.parseToHrMins(pomo.today.time);
 
@@ -117,10 +113,19 @@ class PieChart extends Component {
       return <h5> No data </h5>
     }
 
+    return <Pie {...config} />;
+  }
+
+  render() {
+    const { pomo } = this.props;
+    if (!pomo || !pomo.today || !pomo.today.pomos ) {
+      return <> Loading... </>
+    }
+
     return (
       <div className="pie-chart-container">
         <h3>Project Distribution</h3>
-        <Pie {...config} />
+        {this.buildPieChart()}
       </div>
     );
   }
