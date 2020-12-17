@@ -19,7 +19,9 @@ import {
   REMOVE_TODO,
   POSTING,
   SET_STOPWATCH_TIMER,
-  REMOVE_STOPWATCH_TIMER
+  REMOVE_STOPWATCH_TIMER,
+  SET_POMO_TIMER,
+  REMOVE_POMO_TIMER,
 } from './types';
 
 require('firebase/auth')
@@ -321,5 +323,18 @@ export const setStopwatchTimer = ({ on, startingTime, pauseTimer }) => (dispatch
 export const removeStopwatchTimer = () => (dispatch) => {
   return dispatch({
     type: REMOVE_STOPWATCH_TIMER,
+  })
+}
+
+export const setPomoTimer = ({ on, startingTime, logTime, pauseTimer }) => (dispatch) => {
+  return dispatch({
+    type: SET_POMO_TIMER,
+    payload: { on, startingTime, logTime, pauseTimer }
+  })
+}
+
+export const removePomoTimer = () => (dispatch) => {
+  return dispatch({
+    type: REMOVE_POMO_TIMER,
   })
 }

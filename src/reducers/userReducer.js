@@ -18,7 +18,9 @@ import {
   START_MATCHING,
   MATCH_THEN_JOIN_ROOM,
   SET_STOPWATCH_TIMER,
-  REMOVE_STOPWATCH_TIMER
+  REMOVE_STOPWATCH_TIMER,
+  SET_POMO_TIMER,
+  REMOVE_POMO_TIMER
 } from '../actions/types';
 
 const initialState = {
@@ -173,6 +175,34 @@ const authReducer = (state=initialState, action) => {
             ...state.profile.stopwatch,
             on: false,
             startingTime: null,
+            pauseTimer: null,
+          }
+        }
+      }
+    case SET_POMO_TIMER:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          timer: {
+            ...state.profile.timer,
+            on: action.payload.on,
+            startingTime: action.payload.startingTime,
+            logTime: action.payload.logTime,
+            pauseTimer: action.payload.pauseTimer,
+          }
+        }
+      }
+    case REMOVE_POMO_TIMER:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          timer: {
+            ...state.profile.timer,
+            on: false,
+            startingTime: null,
+            logTime: null,
             pauseTimer: null,
           }
         }

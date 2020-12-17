@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import InputRange from "react-input-range";
 import cogoToast from 'cogo-toast';
 
@@ -13,6 +14,9 @@ import CancelModal from "../Room/Pomodoro/CancelModal";
 import { parseTime } from "utils/util.js";
 import pomoStartSound from "assets/pomoStartSound.mp3";
 import pomoStopSound from "assets/pomoStopSound.mp3";
+
+// Actions
+import { setPomoTimer, removePomoTimer } from '../../actions';
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,8 +39,8 @@ class Timer extends Component {
     this.startAudio = new Audio(pomoStartSound);
     this.stopAudio = new Audio(pomoStopSound);
     this.state = {
-      value: 25 * 60,
-      logValue: 25 * 60,
+      value: 0,
+      logTime: 0,
       on: false,
       inputRangeDisabled: false,
       showPomoModal: false,
@@ -46,27 +50,43 @@ class Timer extends Component {
   }
 
   componentDidMount() {
+    const { on, startingTime, logTime, pauseTimer } = this.props.user.profile.timer;
     this.grantNotificationPermission();
+    
+    if (!on && pauseTimer) {
+      // 默认进去的时候 on是 null, pausetime也是null
+      this.setState({
+        on: false,
+        value: pauseTimer, 
+        logTime,
+      });
+    } else if (on && startingTime) {
+      this.setState({
+        on: true,
+        value: Math.floor((Date.now() - startingTime) / 1000),
+        logTime,
+      });
+      this.interval = setInterval(() => {
+        this.setState(prevState => { return {value: prevState.value + 1} })
+      }, 1000);
+    }
   }
 
   onStart = () => {
-    this.setState({ on: true, inputRangeDisabled: true });
     this.startAudio.play();
     this.showPomoStartToast();
+    this.setState({ on: true, inputRangeDisabled: true });
+    this.props.setPomoTimer({ on: true, startingTime: Date.now() });
+
     this.interval = setInterval(() => {
-      if (this.state.value > 0) {
-        this.setState(({ value }) => ({ value: value - 1 }));
-      } else {
-        this.stopAudio.play();
-        this.showNotification();
-        this.setState({ on: false, value: 25 * 60, showPomoModal: true });
-        clearInterval(this.interval);
-      }
+      this.setState(prevState => { return {value: prevState.value + 1} })
     }, 1000);
   };
 
   onPause = () => {
-    this.setState({ on: false });
+    this.setState({ on: false }, () => {
+      this.props.setStopwatchTimer({ time: Date.now() - this.state.value * 1000, pauseTimer: this.state.value });
+    });
     clearInterval(this.interval);
   };
 
@@ -165,7 +185,9 @@ class Timer extends Component {
   };
 
   buildTimer = () => {
-    return <div className="timer">{parseTime(this.state.value)}</div>;
+    const { logTime, value } = this.state;
+    const displayTime = logTime - value;
+    return <div className="timer">{parseTime(displayTime)}</div>;
   };
 
   buildButtonGroup = () => {
@@ -237,4 +259,11 @@ class Timer extends Component {
   }
 }
 
-export default Timer;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(
+  mapStateToProps,
+  { setPomoTimer, removePomoTimer }
+)(Timer);
