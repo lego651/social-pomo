@@ -40,7 +40,7 @@ class Timer extends Component {
     this.stopAudio = new Audio(pomoStopSound);
     this.state = {
       value: 0,
-      logTime: 0,
+      logTime: 25 * 60,
       on: false,
       inputRangeDisabled: false,
       showPomoModal: false,
@@ -58,13 +58,13 @@ class Timer extends Component {
       this.setState({
         on: false,
         value: pauseTimer, 
-        logTime,
+        logTime: logTime,
       });
     } else if (on && startingTime) {
       this.setState({
         on: true,
         value: Math.floor((Date.now() - startingTime) / 1000),
-        logTime,
+        logTime: logTime,
       });
       this.interval = setInterval(() => {
         this.setState(prevState => { return {value: prevState.value + 1} })
@@ -76,7 +76,7 @@ class Timer extends Component {
     this.startAudio.play();
     this.showPomoStartToast();
     this.setState({ on: true, inputRangeDisabled: true });
-    this.props.setPomoTimer({ on: true, startingTime: Date.now() });
+    this.props.setPomoTimer({ on: true, startingTime: Date.now(), logTime: this.state.logTime });
 
     this.interval = setInterval(() => {
       this.setState(prevState => { return {value: prevState.value + 1} })
@@ -85,7 +85,7 @@ class Timer extends Component {
 
   onPause = () => {
     this.setState({ on: false }, () => {
-      this.props.setStopwatchTimer({ time: Date.now() - this.state.value * 1000, pauseTimer: this.state.value });
+      this.props.setPomoTimer({ pauseTimer: this.state.value, logTime: this.state.logTime });
     });
     clearInterval(this.interval);
   };
@@ -170,13 +170,17 @@ class Timer extends Component {
   };
 
   buildRangeInput = () => {
+    console.log(this.props.user.profile.timer)
+    console.log(this.state)
+    const { logTime, value } = this.state;
+    const displayTime = logTime - value;
     return (
       <div className="input-range">
         <InputRange
           name="Set Timer"
           maxValue={60}
           minValue={0}
-          value={Math.round(this.state.value / 60)}
+          value={Math.round(displayTime / 60)}
           onChange={(value) => this.setState({ value: value * 60, logValue: value * 60 })}
           disabled={this.state.inputRangeDisabled}
         />
