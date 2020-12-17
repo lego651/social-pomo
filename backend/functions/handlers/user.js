@@ -63,6 +63,12 @@ exports.signup = (req, res) => {
           on: false,
           startingTime: null,
           pauseTimer: null
+        },
+        timer: {
+          on: false,
+          startingTime: null,
+          logTime: null,
+          pauseTimer: null
         }
       };
       return db.doc(`/users/${newUser.handle}`).set(userDetails);
