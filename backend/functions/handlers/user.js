@@ -67,7 +67,7 @@ exports.signup = (req, res) => {
         timer: {
           on: false,
           startingTime: null,
-          logTime: null,
+          logTime: 25 * 60,
           pauseTimer: null
         }
       };
