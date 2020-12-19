@@ -67,7 +67,15 @@ class Timer extends Component {
         logTime: logTime,
       });
       this.interval = setInterval(() => {
-        this.setState(prevState => { return {value: prevState.value + 1} })
+        if (this.state.value < this.state.logTime) {	      
+          this.setState(prevState => { return {value: prevState.value + 1} })
+        } else {	
+          this.stopAudio.play();	
+          this.showNotification();	
+          this.setState({ on: false, value: 0, showPomoModal: true, logTime: 25 * 60 });	
+          this.props.setPomoTimer({ on: false, logTime: 25 * 60 });
+          clearInterval(this.interval);	
+        }
       }, 1000);
     }
   }
@@ -76,10 +84,18 @@ class Timer extends Component {
     this.startAudio.play();
     this.showPomoStartToast();
     this.setState({ on: true, inputRangeDisabled: true });
-    this.props.setPomoTimer({ on: true, startingTime: Date.now(), logTime: this.state.logTime });
+    this.props.setPomoTimer({ on: true, startingTime: Date.now() });
 
     this.interval = setInterval(() => {
-      this.setState(prevState => { return {value: prevState.value + 1} })
+      if (this.state.value < this.state.logTime) {	      
+        this.setState(prevState => { return {value: prevState.value + 1} })
+      } else {	
+        this.stopAudio.play();	
+        this.showNotification();	
+        this.setState({ on: false, value: 0, showPomoModal: true });	
+        this.props.setPomoTimer({ on: false });
+        clearInterval(this.interval);	
+      }
     }, 1000);
   };
 
@@ -93,12 +109,18 @@ class Timer extends Component {
   onReset = () => {
     this.setState({
       on: false,
-      value: 25 * 60,
+      value: 0,
       inputRangeDisabled: false,
       showPomoModal: false
     });
+    this.props.setPomoTimer({ logTime: 25 * 60 })
     clearInterval(this.interval);
   };
+
+  onInputRangeChange = (value) => {
+    this.setState({ value: 0, logTime: value * 60 });
+    this.props.setPomoTimer({ logTime: value * 60 });
+  }
 
   setShowPomoModal = (bool) => {
     this.setState({
@@ -123,8 +145,10 @@ class Timer extends Component {
 
   onSubmitSuccess = () => {
     this.setState({
-      inputRangeDisabled: false
+      inputRangeDisabled: false,
+      logTime: 25 * 60
     }, this.showSuccessToast);
+    this.props.setPomoTimer({ value: 0, logTime: 25 * 60 });
   }
 
   showPomoStartToast = () => {
@@ -170,8 +194,6 @@ class Timer extends Component {
   };
 
   buildRangeInput = () => {
-    console.log(this.props.user.profile.timer)
-    console.log(this.state)
     const { logTime, value } = this.state;
     const displayTime = logTime - value;
     return (
@@ -181,7 +203,7 @@ class Timer extends Component {
           maxValue={60}
           minValue={0}
           value={Math.round(displayTime / 60)}
-          onChange={(value) => this.setState({ value: value * 60, logValue: value * 60 })}
+          onChange={this.onInputRangeChange}
           disabled={this.state.inputRangeDisabled}
         />
       </div>
@@ -243,7 +265,7 @@ class Timer extends Component {
           show={this.state.showPomoModal}
           showCancelModal={this.showCancelModal}
           type={-1}
-          time={this.state.logValue}
+          time={this.state.logTime}
           onHide={() => this.setShowPomoModal(false)}
           onSubmitSuccess={this.onSubmitSuccess}
         />
