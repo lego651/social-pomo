@@ -1,7 +1,9 @@
 import {
   CLEAR_SUCCESS,
   CLEAR_ERRORS,
-  TOGGLE_SIDEBAR
+  TOGGLE_SIDEBAR,
+  OPEN_SLIDEDRAWER,
+  CLOSE_SLIDEDRAWER
 } from './types';
 
 export const clearSuccess = () => (dispatch) => {
@@ -14,6 +16,14 @@ export const clearErrors = () => (dispatch) => {
 
 export const toggleSidebar = () => (dispatch) => {
   dispatch({ type: TOGGLE_SIDEBAR });
+};
+
+export const openSlideDrawer = () => (dispatch) => {
+  dispatch({ type: OPEN_SLIDEDRAWER });
+};
+
+export const closeSlideDrawer = () => (dispatch) => {
+  dispatch({ type: CLOSE_SLIDEDRAWER });
 };
 
 

@@ -31,6 +31,8 @@ export const STOP_GETTING = 'STOP_GETTING';
 export const POSTING = 'POSTING';
 export const STOP_POSTING = 'STOP_POSTING';
 export const TOGGLE_SIDEBAR= 'TOGGLE_SIDEBAR';
+export const OPEN_SLIDEDRAWER= 'OPEN_SLIDEDRAWER';
+export const CLOSE_SLIDEDRAWER= 'CLOSE_SLIDEDRAWER';
 
 // ROOM reducer types
 export const SET_TODO = 'SET_TODO';

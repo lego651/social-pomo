@@ -12,6 +12,8 @@ import {
   POSTING,
   STOP_POSTING,
   TOGGLE_SIDEBAR,
+  OPEN_SLIDEDRAWER,
+  CLOSE_SLIDEDRAWER
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
   getting: false,
   posting: false, 
   showSidebar: false,
+  showSlideDrawer: false,
 };
 
 export default function(state = initialState, action) {
@@ -102,6 +105,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         showSidebar: !state.showSidebar
+      };
+    case OPEN_SLIDEDRAWER:
+      return {
+        ...state,
+        showSlideDrawer: true
+      };
+    case CLOSE_SLIDEDRAWER:
+      return {
+        ...state,
+        showSlideDrawer: false
       };
     default:
       return state;
