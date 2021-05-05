@@ -40,6 +40,12 @@ $primary-button-blue:rgb(64, 133, 230);
 $primary-button-red:rgb(240, 122, 126);
 $primary-button-green:rgb(54, 125, 93);
 
+
+
+// V2
+$bg-light: rgba(239, 240, 242, 1);
+$bg-dark: rgba(32, 32, 32, 1);
+
 body,
 html,
 div#root,
@@ -70,7 +76,7 @@ h5 {
 }
 
 body {
-  background-color: $bg-color-light;
+  background-color: $bg-light;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -254,5 +260,17 @@ button:hover {
   }
 }
 
+
 // V2
-$bg-dark: rgba(32, 32, 32, 1);
+h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #31344b;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6c757d;
+  font-family: 'Nunito', sans-serif;
+}

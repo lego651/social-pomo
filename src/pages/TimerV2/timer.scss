@@ -1,0 +1,22 @@
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .time-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    box-shadow:  10px 10px 43px #7d7d7d,
+                 -10px -10px 43px #ffffff;
+    h1 {
+      font-size: 50px;
+      color: #31344bad;
+      text-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+    }
+  }
+}

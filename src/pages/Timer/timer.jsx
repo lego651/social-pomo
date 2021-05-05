@@ -32,7 +32,7 @@ import working_img from 'assets/img/working.webp';
 // Styles
 import "./timer.scss";
 
-class Timer extends Component {
+class TimerOld extends Component {
   constructor(props) {
     super(props);
     this.interval = null;
@@ -292,4 +292,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { setPomoTimer, removePomoTimer }
-)(Timer);
+)(TimerOld);
