@@ -12,6 +12,7 @@ import NavLeft from "components/NavLeft";
 import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
 import SlideDrawer from "components/SlideDrawer/slideDrawer.jsx";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import Button from "common/Button/button.jsx";
 
 // Actions
 import { logoutUser, getPomosToday, openSlideDrawer } from "actions/index.js";
@@ -28,8 +29,8 @@ class Timer extends Component {
           <h1> 12:00 </h1>   
         </div>
         <div className="button-group">
-123
-          </div>
+          <Button shape="pill"> 124 </Button>
+        </div>
       </div>
       // <SlideDrawer />
     );
