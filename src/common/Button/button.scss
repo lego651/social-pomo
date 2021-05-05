@@ -1,12 +1,26 @@
 .btn {
   border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #e6e7ee;
   box-shadow:  3px 3px 5px #b3b4ba,
              -3px -3px 5px #ffffff;
-
+  &:hover {
+    box-shadow: inset 2px 2px 4px #9a9b9f,
+              inset -2px -2px 4px #ffffff;
+  }
+  &.btn-sm {
+    width: 30px;
+    height: 30px;
+  }
+  &.btn-lg {
+    width: 50px;
+    height: 50px;
+  }
   &.btn-pill {
     border-radius: 50%;
-    height: 100%;
-    padding: 10px;
+    // height: 100%;
+    // padding: 10px;
   }
 }

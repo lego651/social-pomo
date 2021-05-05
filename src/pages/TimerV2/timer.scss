@@ -23,11 +23,26 @@
       background: #e6e7ee;
       box-shadow:  5px 5px 10px #b3b4ba,
                 -5px -5px 10px #ffffff;
+      &:hover {
+        cursor: pointer;
+        box-shadow: inset 5px 5px 10px #9a9b9f,
+                   inset -5px -5px 10px #ffffff;
+      }
       h1 {
         font-size: 50px;
         color: #31344bad;
         text-shadow: 5px 5px 5px rgba(0,0,0,0.3);
       }
+    }
+  }
+  .button-group {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .middle {
+      margin:0 35px;
     }
   }
 }

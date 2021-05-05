@@ -10,8 +10,9 @@ class Button extends Component {
   }
 
   buildClassName = () => {
-    return classNames("btn", {
+    return classNames("btn", this.props.className, {
         "btn-pill": this.props.shape === "pill",
+        "btn-sm": this.props.size === "sm",
         "btn-lg": this.props.size === "lg",
         "btn-success": this.props.variant === "success",
     });

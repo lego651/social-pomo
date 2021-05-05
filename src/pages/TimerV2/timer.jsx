@@ -31,7 +31,9 @@ class Timer extends Component {
           </div> 
         </div>
         <div className="button-group">
-          <Button shape="pill"> 124 </Button>
+          <Button className="left" shape="pill" size="sm"> - </Button>
+          <Button className="middle" shape="pill" size="lg"> * </Button>
+          <Button className="right" shape="pill" size="sm"> + </Button>
         </div>
       </div>
       // <SlideDrawer />
