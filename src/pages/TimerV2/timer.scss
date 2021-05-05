@@ -7,16 +7,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background: #e0e0e0;
-    box-shadow:  10px 10px 43px #7d7d7d,
-                 -10px -10px 43px #ffffff;
-    h1 {
-      font-size: 50px;
-      color: #31344bad;
-      text-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+    background: #e6e7ee;
+    box-shadow: inset 5px 5px 10px #9a9b9f,
+                  inset -5px -5px 10px #ffffff;
+    .time {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: #e6e7ee;
+      box-shadow:  5px 5px 10px #b3b4ba,
+                -5px -5px 10px #ffffff;
+      h1 {
+        font-size: 50px;
+        color: #31344bad;
+        text-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+      }
     }
   }
 }

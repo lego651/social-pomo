@@ -26,7 +26,9 @@ class Timer extends Component {
     return (
       <div className="timer-container" onClick={this.props.openSlideDrawer}>
         <div className="time-container">
-          <h1> 12:00 </h1>   
+          <div className="time">
+            <h1> 12:00 </h1>  
+          </div> 
         </div>
         <div className="button-group">
           <Button shape="pill"> 124 </Button>
