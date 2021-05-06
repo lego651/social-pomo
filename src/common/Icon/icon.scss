@@ -1,0 +1,9 @@
+@import "src/index.scss";
+
+.icon-wrapper {
+  color: $font-color-primary;
+  svg {
+    max-width: 18px;
+    max-height: 18px;
+  }
+}

@@ -43,6 +43,7 @@ $primary-button-green:rgb(54, 125, 93);
 
 
 // V2
+$font-color-primary: rgb(49, 52, 75); // #31344b
 $bg-light: rgba(239, 240, 242, 1);
 $bg-dark: rgba(32, 32, 32, 1);
 
@@ -266,7 +267,7 @@ h1 {
   font-family: 'Nunito', sans-serif;
   font-size: 30px;
   font-weight: 400;
-  color: #31344b;
+  color: $font-color-primary;
 }
 h2 {
   font-size: 24px;
