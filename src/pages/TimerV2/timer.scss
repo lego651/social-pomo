@@ -5,6 +5,9 @@
   align-items: center;
   .project-container {
     margin: 50px;
+    span {
+      margin-left: 10px;
+    } 
   }
   .time-container {
     display: flex;
