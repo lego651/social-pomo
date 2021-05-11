@@ -15,6 +15,7 @@ class Button extends Component {
         "btn-sm": this.props.size === "sm",
         "btn-lg": this.props.size === "lg",
         "btn-success": this.props.variant === "success",
+        "btn-with-border": this.props.withBorder === true,
     });
   }
 
