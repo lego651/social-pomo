@@ -1,10 +1,18 @@
 .timer-container {
+  margin: 50px auto;
+  width: 400px;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
+  background: #e6e7ee;
+  box-shadow: inset 5px 5px 10px #9a9b9f,
+                inset -5px -5px 10px #ffffff;
   .project-container {
-    margin: 50px;
+    margin-top: 30px;
+    margin-bottom: 130px;
     span {
       margin-left: 10px;
     } 
@@ -42,7 +50,7 @@
     }
   }
   .button-group {
-    margin-top: 50px;
+    margin-top: 180px;
     display: flex;
     flex-direction: row;
     justify-content: center;
