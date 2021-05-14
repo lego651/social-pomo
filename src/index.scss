@@ -44,6 +44,7 @@ $primary-button-green:rgb(54, 125, 93);
 
 // V2
 $font-color-primary: rgb(49, 52, 75); // #31344b
+$font-color-text: #44476A;
 $bg-light: rgba(230, 231, 238, 1);
 $bg-dark: rgba(32, 32, 32, 1);
 
@@ -79,6 +80,7 @@ h5 {
 body {
   background-color: $bg-light;
   font-family: 'Nunito', sans-serif;
+  color: $font-color-primary;
 }
 
 .body-container {

@@ -1,0 +1,26 @@
+@import "src/index.scss";
+
+.dropdown-container {
+  .dropdown-items {
+    background: #e6e7ee;
+    color: $font-color-primary;
+    box-shadow:  3px 3px 8px #b3b4ba,
+             -3px -3px 8px #ffffff;
+    border: .0625rem solid #5555551c;
+    position: absolute;
+    transform: translateX(15px) translateY(5px);
+    padding: 5px 0;
+    border-radius: 5px;
+    .dropdown-item {
+      color: $font-color-text;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 8px 16px;
+      &:hover {
+        background: #e6e7ee;
+        box-shadow: inset 2px 2px 4px #9a9b9f,
+              inset -2px -2px 4px #ffffff;
+      }
+    }
+  }
+}

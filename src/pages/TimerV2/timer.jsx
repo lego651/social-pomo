@@ -14,6 +14,8 @@ import SlideDrawer from "components/SlideDrawer/slideDrawer.jsx";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Button from "common/Button/button.jsx";
 import Icon from "common/Icon/icon.jsx";
+import Dropdown from "common/Dropdown/dropdown.jsx";
+import Layout from "common/Layout/layout.jsx";
 
 // Actions
 import { logoutUser, getPomosToday, openSlideDrawer } from "actions/index.js";
@@ -26,21 +28,23 @@ class Timer extends Component {
   render() {
     const { projects } = this.props.user.profile;
     return (
-      <div className="timer-container" onClick={this.props.openSlideDrawer}>
-        <div className="project-container">
-          <Button className="project" size="lg" withBorder={true}>{projects[1]}<span><Icon icon="angleDown" /></span></Button>
+      <Layout>
+        <div className="timer-container" onClick={this.props.openSlideDrawer}>
+          <div className="project-container">
+            <Dropdown displayItem={projects[1]} items={projects} />
+          </div>
+          <div className="time-container">
+            <div className="time">
+              <h1> 12:00 </h1>  
+            </div> 
+          </div>
+          <div className="button-group">
+            <Button className="left" shape="pill" size="sm"><span> - </span></Button>
+            <Button className="middle" shape="pill" size="lg"><Icon icon="play" /></Button>
+            <Button className="right" shape="pill" size="sm"><span> + </span></Button>
+          </div>
         </div>
-        <div className="time-container">
-          <div className="time">
-            <h1> 12:00 </h1>  
-          </div> 
-        </div>
-        <div className="button-group">
-          <Button className="left" shape="pill" size="sm"><span> - </span></Button>
-          <Button className="middle" shape="pill" size="lg"><Icon icon="play" /></Button>
-          <Button className="right" shape="pill" size="sm"><span> + </span></Button>
-        </div>
-      </div>
+      </Layout>
       // <SlideDrawer />
     );
   }

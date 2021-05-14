@@ -10,7 +10,7 @@
   color: $font-color-primary;
   box-shadow:  3px 3px 5px #b3b4ba,
              -3px -3px 5px #ffffff;
-  &:hover {
+  &:hover, &:focus {
     box-shadow: inset 2px 2px 4px #9a9b9f,
               inset -2px -2px 4px #ffffff;
   }

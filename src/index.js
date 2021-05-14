@@ -63,7 +63,7 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/timer" component={Timer} />
+          <Route exact path="/timer" component={Timer}/>
           <Route exact path="/timerold" component={TimerOld} />
           <Route exact path="/stopwatch" component={Stopwatch} />
           <Route exact path="/dashboard/:past" component={requiresAuth(Dashboard)} />

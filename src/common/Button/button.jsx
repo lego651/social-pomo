@@ -21,7 +21,7 @@ class Button extends Component {
 
   render() {
     return (
-      <button className={this.buildClassName()}>
+      <button className={this.buildClassName()} onClick={this.props.onClick}>
         {this.props.children}
       </button>
     );
