@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
 
 // Styles
 import "./icon.scss";
@@ -23,6 +23,7 @@ class Icon extends Component {
     const iconMap = {
       play: faPlay,
       angleDown: faAngleDown, 
+      bars: faBars,
     };
     return (
       <div className={this.buildClassName()}>

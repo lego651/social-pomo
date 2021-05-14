@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SlideDrawer from "common/SlideDrawer/slideDrawer.jsx";
+import Icon from "common/Icon/icon.jsx";
 
 // Actions
 import { openSlideDrawer } from "actions/index.js";
@@ -14,9 +15,10 @@ class Layout extends Component {
     return (
       <div className="layout-container">
         <div className="navbar"> 
-          <div> Pomopal </div> 
-          <SlideDrawer />
+          <div className="logo"> Pomopal </div> 
+          <div className="icon" onClick={this.props.openSlideDrawer}><Icon icon="bars"/></div>
         </div>
+        <SlideDrawer />
         {this.props.children}
       </div>
     )

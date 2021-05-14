@@ -2,6 +2,19 @@
 
 .layout-container {
   .navbar {
-    // background-color: red;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 10%;
+    .logo {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .icon {
+      font-size: 20px;
+      cursor: pointer;
+      svg {
+        font-size: 24px;
+      }
+    }
   }
 }

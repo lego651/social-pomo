@@ -24,7 +24,7 @@ class Timer extends Component {
     const { projects } = this.props.user.profile;
     return (
       <Layout>
-        <div className="timer-container" onClick={this.props.openSlideDrawer}>
+        <div className="timer-container">
           <div className="project-container">
             <Dropdown displayItem={projects[1]} items={projects} />
           </div>
