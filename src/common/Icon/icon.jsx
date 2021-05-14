@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faAngleDown, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faAngleDown, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 // Styles
 import "./icon.scss";
@@ -24,9 +24,10 @@ class Icon extends Component {
       play: faPlay,
       angleDown: faAngleDown, 
       bars: faBars,
+      times: faTimes,
     };
     return (
-      <div className={this.buildClassName()}>
+      <div className={this.buildClassName()} onClick={this.props.onClick}>
         <FontAwesomeIcon icon={iconMap[this.props.icon]} />
         {this.props.children}
       </div>
