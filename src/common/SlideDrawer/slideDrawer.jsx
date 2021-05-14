@@ -41,8 +41,7 @@ class SlideDrawer extends Component {
     }
     return (
       <div className={drawerClasses} ref={this.wrapperRef}>
-        <button onClick={this.clickButton}> x </button>
-        drawer
+        <button onClick={this.clickButton}> @ </button>
       </div>
     );
   }

@@ -7,11 +7,6 @@ import { Tabs } from 'antd';
 import ClipLoader from "react-spinners/ClipLoader";
 
 // Components
-import NavbarTop from "components/NavbarTop";
-import NavLeft from "components/NavLeft";
-import NavLeftMobile from 'components/NavLeftMobile/navLeftMobile.jsx';
-import SlideDrawer from "components/SlideDrawer/slideDrawer.jsx";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import Button from "common/Button/button.jsx";
 import Icon from "common/Icon/icon.jsx";
 import Dropdown from "common/Dropdown/dropdown.jsx";
@@ -45,7 +40,6 @@ class Timer extends Component {
           </div>
         </div>
       </Layout>
-      // <SlideDrawer />
     );
   }
 }
