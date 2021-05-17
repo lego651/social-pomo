@@ -15,11 +15,53 @@ import Layout from "common/Layout/layout.jsx";
 // Actions
 import { logoutUser, getPomosToday, openSlideDrawer } from "actions/index.js";
 
+// Utils
+import { parseTime } from "utils/util.js";
+import pomoStartSound from "assets/pomoStartSound.mp3";
+import pomoStopSound from "assets/pomoStopSound.mp3";
+
 // Styles
 import "react-circular-progressbar/dist/styles.css";
 import "./timer.scss";
 
 class Timer extends Component {
+  constructor(props) {
+    super(props);
+    this.interval = null;
+    this.startAudio = new Audio(pomoStartSound);
+    this.stopAudio = new Audio(pomoStopSound);
+    this.state = {
+      value: 0,
+      logTime: 25 * 60,
+      on: false,
+      inputRangeDisabled: false,
+      showPomoModal: false,
+      showCancelModal: false,
+    };
+    this.showNotification = this.showNotification.bind(this);
+  }
+
+  showNotification = () => {
+    const title = "Pomopal";
+    const options = {
+      body: "You completed a session.",
+      icon: '/myFavico.png'
+    };
+    new Notification(title, options);
+  };
+  
+  buildDisplayTime = () => {
+    const { logTime, value } = this.state;
+    const displayTime = logTime - value;
+    return (
+      <div className="time-container">
+        <div className="time">
+          <h1> {parseTime(displayTime)} </h1>  
+        </div> 
+      </div>
+    )
+  }
+
   render() {
     const { projects } = this.props.user.profile;
     return (
@@ -28,11 +70,7 @@ class Timer extends Component {
           <div className="project-container">
             <Dropdown displayItem={projects[1]} items={projects} />
           </div>
-          <div className="time-container">
-            <div className="time">
-              <h1> 12:00 </h1>  
-            </div> 
-          </div>
+          {this.buildDisplayTime()}
           <div className="button-group">
             <Button className="left" shape="pill" size="sm"><span> - </span></Button>
             <Button className="middle" shape="pill" size="lg"><Icon icon="play" /></Button>

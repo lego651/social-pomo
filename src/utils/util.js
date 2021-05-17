@@ -4,11 +4,11 @@ export const parseTime = (time) => {
     let rest = time % 3600;
     let min = Math.floor(rest / 60);
     let sec = Math.round(rest % 60);
-    return hr + " : " + formatSeconds(min) + " : " + formatSeconds(sec);
+    return hr + ":" + formatSeconds(min) + ":" + formatSeconds(sec);
   } else { // no hour, just min and sec
     let min = Math.floor(time / 60);
     let sec = Math.round(time % 60);
-    return formatSeconds(min) + " : " + formatSeconds(sec);
+    return formatSeconds(min) + ":" + formatSeconds(sec);
   }
 }
 
