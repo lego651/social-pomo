@@ -24,15 +24,17 @@ import pomoStopSound from "assets/pomoStopSound.mp3";
 import "react-circular-progressbar/dist/styles.css";
 import "./timer.scss";
 
+const defaultLogTime = 25 * 60;
+
 class Timer extends Component {
   constructor(props) {
-    super(props);
+    super(props);  
     this.interval = null;
     this.startAudio = new Audio(pomoStartSound);
     this.stopAudio = new Audio(pomoStopSound);
     this.state = {
       value: 0,
-      logTime: 25 * 60,
+      logTime: defaultLogTime,
       on: false,
       showPomoModal: false,
       showCancelModal: false,
@@ -63,8 +65,8 @@ class Timer extends Component {
         } else {	
           this.stopAudio.play();	
           this.showNotification();	
-          this.setState({ on: false, value: 0, showPomoModal: true, logTime: 25 * 60 });	
-          this.props.setPomoTimer({ on: false, logTime: 25 * 60 });
+          this.setState({ on: false, value: 0, showPomoModal: true, logTime: defaultLogTime });	
+          this.props.setPomoTimer({ on: false, logTime: defaultLogTime });
           clearInterval(this.interval);	
         }
       }, 1000);
@@ -140,9 +142,28 @@ class Timer extends Component {
       inputRangeDisabled: false,
       showPomoModal: false
     });
-    this.props.setPomoTimer({ logTime: 25 * 60 })
+    this.props.setPomoTimer({ logTime: defaultLogTime })
     clearInterval(this.interval);
   };
+
+  addTime = () => {
+    const { logTime } = this.state;
+    if(logTime + 5 * 60 <= 60 * 60) {
+      this.setState({logTime: logTime + 5 * 60}, () => {
+        this.props.setPomoTimer({ logTime: this.state.logTime });
+      })
+    }
+  }
+
+  minusTime = () => {
+    const { logTime } = this.state;
+    if(logTime - 5 * 60 >= 0) {
+      this.setState({logTime: logTime - 5 * 60}, () => {
+        this.props.setPomoTimer({ logTime: this.state.logTime });
+      })
+    }
+  }
+  
 
   setShowPomoModal = (bool) => {
     this.setState({
@@ -188,9 +209,9 @@ class Timer extends Component {
       } else {
         return (
           <div className="button-group">
-            <Button className="left" shape="pill" size="sm"><span> - </span></Button>
+            <Button className="left" shape="pill" size="sm" onClick={this.minusTime}><span> - </span></Button>
             <Button className="middle" shape="pill" size="lg" onClick={this.onStart}><Icon icon="play" /></Button>
-            <Button className="right" shape="pill" size="sm"><span> + </span></Button>
+            <Button className="right" shape="pill" size="sm" onClick={this.addTime}><span> + </span></Button>
           </div>
         )
       }
