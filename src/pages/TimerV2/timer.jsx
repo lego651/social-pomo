@@ -105,7 +105,8 @@ class Timer extends Component {
     new Notification(title, options);
   };
 
-  onStart = () => {
+  onStart = e => {
+    e.preventDefault();
     this.startAudio.play();
     // this.showPomoStartToast();
     this.setState({ on: true, inputRangeDisabled: true });
@@ -124,7 +125,8 @@ class Timer extends Component {
     }, 1000);
   };
 
-  onPause = () => {
+  onPause = e => {
+    e.preventDefault();
     this.setState({ on: false }, () => {
       this.props.setPomoTimer({ pauseTimer: this.state.value, logTime: this.state.logTime });
     });
@@ -172,15 +174,15 @@ class Timer extends Component {
     if (on) {
       return (
         <div className="button-group">
-          <Button className="middle" shape="pill" size="lg" onClick={this.onPause}><Icon icon="pause" /></Button>
+          <Button className="pause" shape="pill" size="lg" onClick={this.onPause}><Icon icon="pause" /></Button>
         </div>
       )
     } else {
       if (pauseTimer) {
         return (
           <div className="button-group">
-            <Button className="middle" shape="pill" size="lg" onClick={this.onStart}><Icon icon="play" /></Button>
-            <Button className="middle" shape="pill" size="lg" onClick={this.onReset}><Icon icon="times" /></Button>
+            <Button className="start" shape="pill" size="lg" onClick={this.onStart}><Icon icon="play" /></Button>
+            <Button className="reset" shape="pill" size="lg" onClick={this.onReset}><Icon icon="times" /></Button>
           </div>
         )
       } else {
