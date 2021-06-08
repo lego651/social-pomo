@@ -11,6 +11,7 @@ import Button from "common/Button/button.jsx";
 import Icon from "common/Icon/icon.jsx";
 import Dropdown from "common/Dropdown/dropdown.jsx";
 import Layout from "common/Layout/layout.jsx";
+import PomoModal from "./pomoModal.jsx";
 
 // Actions
 import { logoutUser, getPomosToday, setPomoTimer, removePomoTimer, openSlideDrawer } from "actions/index.js";
@@ -229,6 +230,7 @@ class Timer extends Component {
           {this.buildDisplayTime()}
           {this.buildButtonGroup()}
         </div>
+        <PomoModal isOpen={true} />
       </Layout>
     );
   }
