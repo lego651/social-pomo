@@ -230,7 +230,7 @@ class Timer extends Component {
           {this.buildDisplayTime()}
           {this.buildButtonGroup()}
         </div>
-        <PomoModal isOpen={true} />
+        <PomoModal isOpen={false} />
       </Layout>
     );
   }

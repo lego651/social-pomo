@@ -1,11 +1,21 @@
+@import "src/index.scss";
 
 .modal-container {
   z-index: 1001;
   position: fixed;
+  top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: royalblue;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(230, 231, 238, 0.9);
+
+  .modal-content {
+    max-width: 500px;
+    min-height: 400px;
+    margin: 20% auto;
+    background: #e6e7ee;
+    color: $font-color-primary;
+    box-shadow:  3px 3px 5px #b3b4ba,
+             -3px -3px 5px #ffffff;
+  }
 }
