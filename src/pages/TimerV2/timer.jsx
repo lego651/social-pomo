@@ -14,10 +14,17 @@ import Layout from "common/Layout/layout.jsx";
 import PomoModal from "./pomoModal.jsx";
 
 // Actions
-import { logoutUser, getPomosToday, setPomoTimer, removePomoTimer, openSlideDrawer } from "actions/index.js";
+import { 
+  logoutUser, 
+  getPomosToday, 
+  setPomoTimer, 
+  removePomoTimer, 
+  openSlideDrawer, 
+  createPomo 
+} from "actions/index.js";
 
 // Utils
-import { parseTime } from "utils/util.js";
+import { parseTime, serializeDate } from "utils/util.js";
 import pomoStartSound from "assets/pomoStartSound.mp3";
 import pomoStopSound from "assets/pomoStopSound.mp3";
 
@@ -68,10 +75,28 @@ class Timer extends Component {
           this.showNotification();	
           this.setState({ on: false, value: 0, showPomoModal: true, logTime: defaultLogTime });	
           this.props.setPomoTimer({ on: false, logTime: defaultLogTime });
+          this.savePomo();
           clearInterval(this.interval);	
         }
       }, 1000);
     }
+  }
+
+  savePomo = () => {
+    const { projects, nickName, avatar } = this.props.user.profile;
+    const project = projects[0];
+    const newPomo = {
+      content: '',
+      project: project,
+      tag: '',
+      public: true,
+      dateSeq: serializeDate(new Date()),
+      nickName,
+      avatar,
+      type: -1,
+      time: this.state.logTime,
+    };
+    this.props.createPomo(newPomo);
   }
 
   grantNotificationPermission = () => {
@@ -121,6 +146,7 @@ class Timer extends Component {
       } else {	
         this.stopAudio.play();	
         this.showNotification();	
+        this.savePomo();
         this.setState({ on: false, value: 0, showPomoModal: true });	
         this.props.setPomoTimer({ on: false });
         clearInterval(this.interval);	
@@ -158,7 +184,7 @@ class Timer extends Component {
 
   minusTime = () => {
     const { logTime } = this.state;
-    if(logTime - 5 * 60 >= 0) {
+    if(logTime - 5 * 60 >= 5 * 60) {
       this.setState({logTime: logTime - 5 * 60}, () => {
         this.props.setPomoTimer({ logTime: this.state.logTime });
       })
@@ -242,6 +268,11 @@ const mapStateToProps = (state) => ({
   pomo: state.pomo,
 });
 
-export default connect(mapStateToProps, { logoutUser, getPomosToday, setPomoTimer, removePomoTimer, openSlideDrawer })(
-  Timer
-);
+export default connect(mapStateToProps, { 
+  logoutUser, 
+  getPomosToday, 
+  setPomoTimer, 
+  removePomoTimer, 
+  openSlideDrawer,
+  createPomo 
+})(Timer);
