@@ -97,7 +97,7 @@ class Timer extends Component {
       time: this.state.logTime,
     };
     this.props.createPomo(newPomo);
-  }
+  };
 
   grantNotificationPermission = () => {
     if (!("Notification" in window)) {
@@ -180,7 +180,7 @@ class Timer extends Component {
         this.props.setPomoTimer({ logTime: this.state.logTime });
       })
     }
-  }
+  };
 
   minusTime = () => {
     const { logTime } = this.state;
@@ -189,9 +189,8 @@ class Timer extends Component {
         this.props.setPomoTimer({ logTime: this.state.logTime });
       })
     }
-  }
+  };
   
-
   setShowPomoModal = (bool) => {
     this.setState({
       showPomoModal: bool,
@@ -214,7 +213,7 @@ class Timer extends Component {
         </div> 
       </div>
     )
-  }
+  };
 
   buildButtonGroup = () => {
     const { on, startingTime, logTime, pauseTimer } = this.props.user.profile.timer;
@@ -243,7 +242,7 @@ class Timer extends Component {
         )
       }
     }
-  }
+  };
 
   render() {
     const { projects } = this.props.user.profile;
@@ -259,7 +258,7 @@ class Timer extends Component {
         <PomoModal isOpen={false} />
       </Layout>
     );
-  }
+  };
 }
 
 const mapStateToProps = (state) => ({
