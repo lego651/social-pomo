@@ -27,7 +27,7 @@
     "firebase-functions": "^3.3.0",
     "history": "^4.10.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
